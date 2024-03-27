@@ -104,6 +104,11 @@ body {
     margin-bottom: 1rem;
 }
 
+.iconsServices {
+    height: 55px;
+    margin-bottom: 10px;
+}
+
 footer {
     background-color: #343a40;
     color: #fff;
@@ -153,7 +158,7 @@ footer {
 /* Laptops */
 @media (min-width: 992px) and (max-width: 1199px) {
     .welcome-section span {
-        font-size: 7rem;
+        font-size: 6rem;
     }
 
     .welcome-section button {
