@@ -26,6 +26,8 @@ body {
 
 #navbarNav {
     margin-right: 15px; /* Reduced margin for smaller screens */
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .welcome-section {
@@ -112,11 +114,17 @@ footer {
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 991px) {
+    .navbar ul{
+        margin-right: 30;
+
+    }
     .welcome-section span {
+        margin-top: 200px;
         font-size: 4rem;
     }
 
     .welcome-section button {
+        margin-top: 200px;
         font-size: 1.1rem;
     }
 }
