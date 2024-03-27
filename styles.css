@@ -131,7 +131,7 @@ footer {
     }
 
     .welcome-section button {
-        margin-top: 100px;
+        margin-top: 400px;
         font-size: 1rem;
     }
 }
@@ -140,7 +140,7 @@ footer {
 @media (min-width: 768px) and (max-width: 991px) {
     .welcome-section span {
         font-size: 3rem;
-        padding-top: 100px; /* Adjust the vertical position here */
+        padding-top: 400px; /* Adjust the vertical position here */
     }
 
     .welcome-section button {
