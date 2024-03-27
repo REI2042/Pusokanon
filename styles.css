@@ -28,43 +28,41 @@ body {
 
 
 .welcome-section {
-    background-image: url("PicturesNeeded//bannerBg.jpg");
-    background-size: cover;                     
-    background-repeat: no-repeat;
-    background-position: center center; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 70vh; /* Adjust this value as needed */
+  background-image: url("PicturesNeeded/bannerBg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 70vh; 
+  padding: 20px; 
 }
 
-.welcomeBanner {
-    text-align: center;
-    font-family: 'Titan One', cursive;
-    color: white;
-    -webkit-text-stroke: 2px green; /* For WebKit-based browsers */
-    text-stroke: 2px green; /* For other browsers */
-    font-size: 5rem; /* Adjust the font size as needed */
+.welcome-section span {
+  font-family: 'Titan One', cursive;
+  color: white;
+  -webkit-text-stroke: 2px green; /* For WebKit-based browsers */
+  text-stroke: 2px green; /* For other browsers */
+  font-size: 7rem; /* Adjust the font size as needed */
 }
 
-.welcome-section button{
-    display: inline-block;
-    background-color: #48BF91;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px; 
-    margin-left: 500px;
+.welcome-section button {
+  display: inline-block;
+  background-color: #48BF91;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 50px;
+  transition: background-color 0.3s ease;
 }
 
-.padayunBtn:hover {
-    background-color: darkgreen;
+.welcome-section button:hover {
+  background-color: #257768;
 }
 
 .services {
