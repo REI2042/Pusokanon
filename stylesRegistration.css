@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #48BF91 !important;
+}
+
+.navbar-brand img {
+    height: 45px;
+    margin-left: 30px; /* Increased margin for desktop and laptop */
+}
+
+.navbar-brand span {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Titan One', cursive;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    text-stroke: 1px black;
+}
+
+.nav-link {
+    color: #fff !important;
+    margin-right: 20px; /* Added margin for desktop and laptop */
+}
+
+#navbarNav {
+    margin-right: 30px; /* Increased margin for desktop and laptop */
+}
+
+.dropdown-menu {
+    background-color: whitesmoke;
+}
+
+.dropdown-item {
+    color: #48BF91;
+}
+
+.dropdown-item:hover {
+    background-color: #257768;
+    color: #fff;
+}
+
+.welcome-section {
+    background-image: url("PicturesNeeded/bannerBg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; /* Center the content horizontally */
+    height: 90vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin: 10px auto;
+}
+hr {
+  border-top: 2px solid #ffffff;
+}
+
+.card{
+    background-color: #48BF91;
+}
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Phones */
+@media (max-width: 767px) {
+    .navbar-brand img {
+        margin-left: 0;
+    }
+
+    #navbarNav {
+        margin-right: 0;
+    }
+
+    .nav-link {
+        margin-right: 0; 
+    }
+
+    .welcome-section {
+        height: 90vh;
+    }
+
+    
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+    .welcome-section span {
+        font-size: 3rem;
+        padding-top: 100px; /* Adjust the vertical position here */
+    }
+
+    .welcome-section button {
+        margin-top: 400px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Laptops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .welcome-section span {
+        font-size: 6rem;
+    }
+
+    .welcome-section button {
+        font-size: 1.2rem;
+    }
+}
+
+/* Desktops */
+@media (min-width: 1200px) {
+    .welcome-section span {
+        font-size: 8rem;
+    }
+
+    .welcome-section button {
+        font-size: 1.4rem;
+    }
+}
