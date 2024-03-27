@@ -8,7 +8,7 @@ body {
 
 .navbar-brand img {
     height: 45px;
-    margin-left: 15px; /* Reduced margin for smaller screens */
+    margin-left: 30px; /* Increased margin for desktop and laptop */
 }
 
 .navbar-brand span {
@@ -22,12 +22,24 @@ body {
 
 .nav-link {
     color: #fff !important;
+    margin-right: 20px; /* Added margin for desktop and laptop */
 }
 
 #navbarNav {
-    margin-right: 15px; /* Reduced margin for smaller screens */
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-right: 30px; /* Increased margin for desktop and laptop */
+}
+
+.dropdown-menu {
+    background-color: whitesmoke;
+}
+
+.dropdown-item {
+    color: #48BF91;
+}
+
+.dropdown-item:hover {
+    background-color: #257768;
+    color: #fff;
 }
 
 .welcome-section {
@@ -103,6 +115,10 @@ footer {
         margin-right: 0;
     }
 
+    .nav-link {
+        margin-right: 0; 
+    }
+
     .welcome-section span {
         font-size: 3rem;
     }
@@ -114,10 +130,6 @@ footer {
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 991px) {
-    .navbar ul{
-        margin-right: 30;
-
-    }
     .welcome-section span {
         margin-top: 200px;
         font-size: 4rem;
