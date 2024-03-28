@@ -67,9 +67,16 @@ hr {
 .card{
     background-color: #48BF91;
 }
+
 .form-label{
     color: white;
 }
+
+.small{
+    font-size: 13px;
+    color: lightgray;
+}
+
 
 /*#quantity {
     padding: 10px;
@@ -86,6 +93,9 @@ footer {
     padding: 10px 0;
     text-align: center;
 }
+
+
+
 @media (max-width: 767px) {
     .welcome-section {
         height: auto;
@@ -104,8 +114,10 @@ footer {
     .form-select {
         font-size: 0.8rem;
     }
-}
+    
 
+}
+/*phone*/
 @media (min-width: 768px) {
     .welcome-section {
         height: 120vh;
