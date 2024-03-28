@@ -72,34 +72,34 @@
 			                    <div class="row mb-2 g-2">
 						            <div class="col">
 						                <label for="firstname" class="form-label">First Name</label>
-						                <input type="text" class="form-control" id="firstname" placeholder="Enter your Firstname" required>
+						                <input type="text" class="form-control" id="firstname" placeholder="Firstname" required>
 						            </div>
 						            <div class="col">
 						                <label for="lastname" class="form-label">Last Name</label>
-						                <input type="text" class="form-control" id="lastname" placeholder="Enter your Lastname" required>
+						                <input type="text" class="form-control" id="lastname" placeholder="Lastname" required>
 						            </div>
 						            <div class="col">
 						                <label for="midname" class="form-label">Middle Name</label>
-						                <input type="text" class="form-control" id="midname" placeholder="Enter your Middlename" required>
+						                <input type="text" class="form-control" id="midname" placeholder="Middlename" required>
 						            </div>
 						        </div>
 						        <div class="row mb-2 g-1">
-						            <div class="col-8">
+						            <div class="col-9">
 						                <div class="row">
 						                    <div class="col g-1 mt-2 me-5 ms-2">
 						                        <label class="form-label">Birthdate</label>
 						                    </div>
-						                    <div class="col g-1 mt-1 me-5 ms-2">
+						                    <div class="col g-1 mt-1 ">
 						                        &nbsp;
 						                    </div>
-						                    <div class="col g-3 mt-1 ms-4">
+						                    <div class="col g-1 mt-1 ms-4">
 						                        <label for="Suffix" class="form-label">Suffix</label>
 						                    </div>
 						                </div>
 						            </div>
-						            <div class="col g-3 mt-1 mb-2">
+						            <div class="col ">
 						                <select class="form-select" id="Suffix" required>
-						                    <option value="">Suffix</option>
+						                    <option value="">N/A</option>
 						                    <option value="Jr">Jr.</option>
 						                    <option value="Sr.">Sr.</option>
 						                    <option value="I">I</option>
@@ -108,12 +108,14 @@
 						                </select>
 						            </div>
 						            
-						            <div class="col pt-0 mt-1 ms-0">
-						                <input type="number" id="quantity" name="quantity" min="1" max="31" placeholder="Day">
-						            </div>
+						            <div class="col-auto ">
+								        <div class="form-group">
+								            <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="31" placeholder="Day">
+								        </div>
+								    </div>
 						            
-						            <div class="col g-1 mt-1 pe-1">
-						                <select class="form-select me-2" id="birthMonth" required>
+						            <div class="col g-2 mt-1 ">
+						                <select class="form-select" id="birthMonth" required>
 						                    <option value="">Month</option>
 						                    <option value="01">January</option>
 						                    <option value="02">February</option>
@@ -129,14 +131,14 @@
 						                    <option value="12">December</option>
 						                </select>
 						            </div>
-						            <div class="col g-3 mt-1">
+						            <div class="col g-1">
 						                <select class="form-select w-100" id="birthYear" required>
 						                    <option value="">Year</option>
 						                </select>
 						                <script>
 						                    var select = document.getElementById("birthYear");
 						                    var currentYear = new Date().getFullYear();
-						                    var startYear = currentYear - 100; // Adjust as needed, e.g., 100 years into the past
+						                    var startYear = currentYear - 100;
 
 						                    for (var year = currentYear; year >= startYear; year--) {
 						                        var option = document.createElement("option");
