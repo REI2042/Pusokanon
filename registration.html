@@ -60,117 +60,103 @@
 
     <main>
     	<section class="welcome-section">
-                 <div class="container">
-			        <div class="card">
-			            <div class="card-header bg-#48BF91 text-white">
-			                <h4 align="center">Register</h4>
-			                <hr>
-			            </div>
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-#48BF91 text-white">
+                        <h4 align="center">Register</h4>
+                        <hr>
+                    </div>
 
-			            <div class="card-body">
-			                <form>
-			                    <div class="row mb-2 g-2">
-						            <div class="col">
-						                <label for="firstname" class="form-label w-100">First Name</label>
-						                <input type="text" class="form-control" id="firstname" placeholder="Firstname" required>
-						            </div class="w-100">
-						            <div>
-						            	
-						            </div>
-						            <div class="col">
-						                <label for="lastname" class="form-label">Last Name</label>
-						                <input type="text" class="form-control" id="lastname" placeholder="Lastname" required>
-						            </div>
-						            <div class="col">
-						                <label for="midname" class="form-label">Middle Name</label>
-						                <input type="text" class="form-control" id="midname" placeholder="Middlename" required>
-						            </div>
-						        </div>
-						        <div class="row mb-2 g-1">
-						            <div class="col-">
-						                <div class="row">
-						                	<div class="col-1 g-1 me-5 ms-2">
-						                        <label for="Suffix" class="form-label">Suffix</label>
-						                    </div>
-						                    <div class="col g-1  ms-4">
-						                        <label class="form-label"> &nbsp;&nbsp;Birthdate</label>
-						                    </div>
-						                </div>
-						            </div>
-						            <div class="col ">
-						                <select class="form-select" id="Suffix" required>
-						                    <option value="">N/A</option>
-						                    <option value="Jr">Jr.</option>
-						                    <option value="Sr.">Sr.</option>
-						                    <option value="I">I</option>
-						                    <option value="II.">II</option>
-						                    <option value="III">III</option>
-						                </select>
-						            </div>
-						            
-						            <div class="col-auto ">
-								        <div class="form-group">
-								            <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="31" placeholder="Day">
-								        </div>
-								    </div>
-						            
-						            <div class="col g-2 mt-1 ">
-						                <select class="form-select" id="birthMonth" required>
-						                    <option value="">Month</option>
-						                    <option value="01">January</option>
-						                    <option value="02">February</option>
-						                    <option value="03">March</option>
-						                    <option value="04">April</option>
-						                    <option value="05">May</option>
-						                    <option value="06">June</option>
-						                    <option value="07">July</option>
-						                    <option value="08">August</option>
-						                    <option value="09">September</option>
-						                    <option value="10">October</option>
-						                    <option value="11">November</option>
-						                    <option value="12">December</option>
-						                </select>
-						            </div>
-						            <div class="col g-1">
-						                <select class="form-select w-100" id="birthYear" required>
-						                    <option value="">Year</option>
-						                </select>
-						                <script>
-						                    var select = document.getElementById("birthYear");
-						                    var currentYear = new Date().getFullYear();
-						                    var startYear = currentYear - 100;
+                    <div class="card-body">
+                        <form>
+                            <div class="row mb-2">
+                                <div class="col-md-4 col-sm-6">
+                                    <label for="firstname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstname" placeholder="Firstname" required>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <label for="lastname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastname" placeholder="Lastname" required>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <label for="midname" class="form-label">Middle Name</label>
+                                    <input type="text" class="form-control" id="midname" placeholder="Middlename" required>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-3 col-sm-6">
+                                    <label for="Suffix" class="form-label">Suffix</label>
+                                    <select class="form-select" id="Suffix" required>
+                                        <option value="">N/A</option>
+                                        <option value="Jr">Jr.</option>
+                                        <option value="Sr.">Sr.</option>
+                                        <option value="I">I</option>
+                                        <option value="II.">II</option>
+                                        <option value="III">III</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-9 col-sm-6">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-4">
+                                            <label for="quantity" class="form-label">Birthdate</label>
+                                            <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="31" placeholder="Day">
+                                        </div>
+                                        <div class="col-md-5 col-sm-4">
+                                            <label for="birthMonth" class="form-label d-none d-sm-block">&nbsp;</label>
+                                            <select class="form-select" id="birthMonth" required>
+                                                <option value="">Month</option>
+                                                <option value="01">January</option>
+							                    <option value="02">February</option>
+							                    <option value="03">March</option>
+							                    <option value="04">April</option>
+							                    <option value="05">May</option>
+							                    <option value="06">June</option>
+							                    <option value="07">July</option>
+							                    <option value="08">August</option>
+							                    <option value="09">September</option>
+							                    <option value="10">October</option>
+							                    <option value="11">November</option>
+							                    <option value="12">December</option>
+						                	</select>
+						            	</div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <label for="birthYear" class="form-label d-none d-sm-block">&nbsp;</label>
+                                            <select class="form-select" id="birthYear" required>
+                                                <option value="">Year</option>
+                                            </select>
+							                <script>
+							                    var select = document.getElementById("birthYear");
+							                    var currentYear = new Date().getFullYear();
+							                    var startYear = currentYear - 100;
 
-						                    for (var year = currentYear; year >= startYear; year--) {
-						                        var option = document.createElement("option");
-						                        option.text = year;
-						                        option.value = year;
-						                        select.add(option);
-						                    }
-						                </script>
-						            </div>
-						        </div>
-								<div class="mb-3">
-			                        <label for="email" class="form-label">Email</label>
-			                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-			                    </div>
-			                    <div class="mb-3">
-			                        <label for="password" class="form-label">Password</label>
-			                        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
-			                    </div>
-			                 
-			                    <div class="text-center"> 
-			                    	<button type="submit" class="btn btn-outline-success w-50">Register</button>
-			                    </div>
-			                    
-			                </form>
-			            </div>
-			        </div>
-			    </div>
-            	
+							                    for (var year = currentYear; year >= startYear; year--) {
+							                        var option = document.createElement("option");
+							                        option.text = year;
+							                        option.value = year;
+							                        select.add(option);
+							                    }
+							                </script>
+						          		</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-success">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
-
     </main>
-
  	<footer>
         <div class="container">
             <p>&copy; 2024 Barangay Pusok, Lapu-Lapu City. All rights reserved.</p>

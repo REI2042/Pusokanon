@@ -86,9 +86,33 @@ footer {
     padding: 10px 0;
     text-align: center;
 }
-
-/* Phones */
 @media (max-width: 767px) {
+    .welcome-section {
+        height: auto;
+        padding: 20px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .welcome-section {
+        height: 120vh;
+    }
+}
+/* Phones */
+/*@media (max-width: 767px) {
     .navbar-brand img {
         margin-left: 0;
     }
@@ -103,7 +127,7 @@ footer {
 
     .welcome-section {
         height: 90vh;
-    }
+    }*/
     /*#quantity {
         padding: 10px;
         border: 0px;
@@ -112,19 +136,19 @@ footer {
         width: 95px;
     }
     */
-}
+/*}*/
 
 /* Tablets */
-@media (min-width: 768px) and (max-width: 991px) {
+/*@media (min-width: 768px) and (max-width: 991px) {
     .welcome-section span {
         font-size: 3rem;
-        padding-top: 100px; /* Adjust the vertical position here */
-    }
+        padding-top: 100px; *//* Adjust the vertical position here */
+    /*}
 
     .welcome-section button {
         margin-top: 400px;
         font-size: 1.1rem;
-    }
+    }*/
     /*#quantity {
         padding: 10px;
         border: 0px;
@@ -132,35 +156,35 @@ footer {
         height: 36px;
         width: 95px;
     }*/
-}
+/*}*/
 
 /* Laptops */
-@media (min-width: 992px) and (max-width: 1199px) {
+/*@media (min-width: 992px) and (max-width: 1199px) {
     .welcome-section span {
         font-size: 6rem;
     }
 
     .welcome-section button {
         font-size: 1.2rem;
-    }
-    #/*quantity {
+    }*/
+    /*quantity {
         padding: 10px;
         border: 0px;
         border-radius: 4px;
         height: 36px;
         width: 130px;
     }*/
-}
+/*}*/
 
 /* Desktops */
-@media (min-width: 1200px) {
+/*@media (min-width: 1200px) {
     .welcome-section span {
         font-size: 8rem;
     }
 
     .welcome-section button {
         font-size: 1.4rem;
-    }
+    }*/
     /*#quantity {
         padding: 10px;
         border: 0px;
@@ -168,4 +192,4 @@ footer {
         height: 36px;
         width: 130px;
     }*/
-}
+/*}*/
