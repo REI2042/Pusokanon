@@ -67,6 +67,15 @@ hr {
     background-color: #48BF91;
 }
 
+#quantity {
+    padding: 10px;
+    border: 0px;
+    border-radius: 4px;
+    height: 36px;
+    width: 135px;
+}
+
+
 footer {
     background-color: #343a40;
     color: #fff;
