@@ -40,7 +40,7 @@
 	<title>Login To Pusokanon</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesLogin.css">
+    <link rel="stylesheet" href="css/stylesLogin.css">
     <link href="https://fonts.googleapis.com/css?family=Titan+One" rel="stylesheet">
 </head>
 <body>
@@ -70,7 +70,7 @@
                                     <button type="submit" class="btn btn-success">Login</button>
                                 </div>
                                 <div class="text-center mt-3">
-                                    <small class="smallText">Don't have an account?</small><a href="#" class="link-warning"> Sign Up</a></p>
+                                    <small class="smallText">Don't have an account?</small><a href="registerPage.php" class="link-warning"> Sign Up</a></p>
                                 </div>
                             </form>
                         </div>
@@ -79,10 +79,6 @@
             </section>
         </main>    
     </div>
-	<footer footer class="fixed-bottom mt-5">
-        <div class="footerContainer">
-            <p>&copy; 2024 Barangay Pusok, Lapu-Lapu City. All rights reserved. </p>  
-        </div>
-    </footer>
+
 </body>
 </html>

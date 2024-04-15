@@ -14,12 +14,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/navbarstyles.css">
 
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg ">
-            <a class="navbar-brand" href="index.html"> 
+            <a class="navbar-brand" href="index.php"> 
                 <img src="PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo"><span> PUSOKANON</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link mt-2" href="index.html">Home</a>
+                        <a class="nav-link mt-2" href="index.php">Home</a>
                     </li>
 
                     <li class="nav-item dropdown mt-2">
@@ -57,7 +58,7 @@
                         <a class="nav-link" href="#">Contact Us</a>
                     </li>
                     <li class="nav-item mt-1">
-                        <a class="nav-link" href="pusokanonLogin.php">
+                        <a class="nav-link" href="loginPage.php">
                             Login <img src="PicturesNeeded/accountCircle.svg" class="iconAccount" alt="iconaccount">
                         </a>
                     </li>

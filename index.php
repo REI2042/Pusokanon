@@ -21,7 +21,7 @@
             </div>
             <script>
                 function toRegistration() {
-                    window.location.href = "registrationPage.php";
+                    window.location.href = "loginPage.php";
                 }
             </script>
         </section>
