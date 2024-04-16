@@ -1,0 +1,40 @@
+.this {
+    background-color: #2260A7 ;
+}
+
+.nav-pills {
+    list-style-type: none;
+}
+
+.og {
+    background-color: #347FD8;
+    border: 1px solid white;
+}
+
+.nav-pills li :hover {
+    background-color: #1D4E89 ;
+}
+
+.current {
+    background-color: #1D4E89 ;
+    border: 1px solid white;
+}
+
+.dashboard {
+    font-family: 'Titan One', cursive;
+}
+
+.one {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 5px 10px;
+    border-radius: 15px;
+    gap: 5px;
+  }
+
+.e {
+    font-size: 10px;
+}
