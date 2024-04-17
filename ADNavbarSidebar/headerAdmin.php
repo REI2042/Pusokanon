@@ -35,7 +35,6 @@
                         <span> PUSOKANON</span>
                     </div>
                 </div>
-                
             </a>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mt-1">
@@ -66,7 +65,7 @@
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-users"></i>
-                            <span>Resident User</span>
+                            <span id="span-word">Resident User</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -121,12 +120,6 @@
                         </a>
                     </li>
                 </ul>
-                <div class="sidebar-footer mb-1">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-exit"></i>
-                        <span>Logout</span>
-                    </a>
-                </div>
             </aside>
             <div class="main p-3">
     
