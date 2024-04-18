@@ -1,0 +1,297 @@
+body {
+    display: flex;
+}
+
+main {
+    padding-top: 150px; /* Adjust padding as needed to create space for h1 */
+    padding-left: 500px;
+}
+
+.offcanvas-body .navbar-nav .nav-link .btn {
+    margin-right: 5px; /* Adjust the margin as needed */
+}
+
+.offcanvas-body .navbar-nav .nav-link .btn i {
+    margin-right: 5px; /* Adjust the margin between the icon and text */
+}
+
+.custom-align {
+    text-indent: 10px !important;
+}
+
+.custom-button {
+    text-align: left;
+    padding-left: 50px; /* Adjust padding as needed */
+    width: 350px; /* Set a custom width for the buttons */
+    margin-left: 0px;
+    height: 55px;
+}
+
+.navbar-brand span {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Titan One', cursive;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    text-stroke: 1px black;
+}
+
+.navbar-brand img {
+    height: 45px;
+    margin-left: 30px; /* Increased margin for desktop and laptop */
+}
+
+.navbar {
+  background-color: #1D4E89 !important;
+  color: #FFFFFF;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+
+
+.nav-link {
+    color: #fff !important;
+    margin-right: 20px; /* Added margin for desktop and laptop */
+    display: flex;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+}
+
+#navbarNav {
+    margin-right: 30px; /* Increased margin for desktop and laptop */
+}
+
+:root {
+    --offcanvas-width: 400px;
+    --topNavbarHeight: 86px;
+}
+
+.sidebar-nav {
+  width: var(--offcanvas-width);
+  background-color: #1D4E89 !important;
+  color: #FFFFFF;
+  position: fixed;
+  top: var(--topNavbarHeight);
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  overflow-y: auto;
+}
+.margin {
+    margin-right: 50px;
+}
+hr {
+    background-color: #FFFFFF;
+    border: none;
+    height: 3px !important;
+    width: 350px;
+    margin: auto;
+}
+h5 {
+    margin-right: 100px;
+}
+h4 {
+    color:  #115A83;
+}
+
+.button-panel {
+    background-color: #347FD8 !important;
+    width: 340px;
+    margin-right: 2px !important;
+    margin-left: 2px !important;
+    color: #FFFFFF;
+    border: none;
+}
+
+.panel-button:hover {
+    background-color: #146592 !important;
+}
+
+
+
+
+.card1 {
+    margin-left: 5px ;
+    margin-top: 70px;
+    background-color: #D9D9D9 !important;
+    width: 100% !important;
+}
+.card2 {
+    margin-right: 30px ;
+    margin-top: 70px ;
+    background-color: #D9D9D9 !important;
+    width: 100% !important;
+}
+
+.card3 {
+    margin-right: 30px ;
+    margin-top: 20px ;
+    background-color: #D9D9D9 !important;
+    width: 100% !important;
+}
+.card4 {
+    margin-right: 30px ;
+    margin-top: 20px ;
+    background-color: #D9D9D9 !important;
+    width: 100% !important;
+    height: auto;
+}
+
+.submit {
+    margin-top: 50px !important; /* Adjust as needed */
+    margin-right: 2px ; /* Center the button horizontally */
+    margin-left: auto ; /* Center the button horizontally */
+    margin-bottom: 50px !important; /* Adjust as needed */
+}
+
+.container {
+    width: 67rem;
+    height: 510px;
+    margin-right: 20px !important;
+    margin-top: 55px !important;
+    margin-left: -580px;
+    padding-top: 5px;
+    padding-right: 100px;
+    padding-bottom: 10px;
+    background-color: #D9D9D9 !important;
+}
+.table-container{
+    width: 65rem;
+    height: 70px;
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+    margin-left: 5px !important;
+    background-color: #B1C4CE !important;
+}
+
+.data-container{
+    width: 65rem;
+    height: 315px;
+    margin-right: 20px !important;
+    margin-top: 10px !important;
+    margin-left: 5px !important;
+    background-color: #B1C4CE !important;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+
+.custom-color {
+    background-color: #D9D9D9;
+}
+
+table {
+    align-content: center;
+}
+.head-color {
+    color:  #115A83;
+}
+
+.tool-button {
+    height: 30px;
+    width: 30px;
+    padding-top: 0px;
+    padding-left: 6.5px;
+
+}
+
+.card-content {
+    max-height: 410px; /* Set max height for the card */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.th1 {
+    text-indent: 20px;
+}
+.th2 {
+    text-indent: -410px;
+}
+.th3 {
+    text-indent: -373px;
+}
+.th4 {
+    text-indent: -285px;
+}
+.th5 {
+    text-indent: -170px;
+}
+
+.button-status {
+    height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 14px; /* Optional: Adjust font size to fit the button */
+    
+}
+
+.title1-indent {
+    text-indent: 15px;
+}
+
+.title2-indent {
+    text-indent: -455px;
+}
+
+.title3-indent {
+    text-indent: -260px;
+}
+
+.title4-indent {
+    text-indent: -50px;
+}
+
+.main-container {
+    width: 68rem;
+    height: auto;
+    margin-right: 20px !important;
+    margin-top: -25px !important;
+    margin-left: -590px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 50px;
+    background-color: none !important;
+} 
+
+.button-all {
+    margin-top: 30px !important;
+    width: 150px;
+}
+
+
+
+@media (min-width: 992px) {
+    .bodyTitle h1 {
+      font-family: 'Titan One', cursive !important;
+      z-index: 1001; /* Increase the z-index to appear above navbar */
+      color: #434349 !important;
+      font-size: .5rem;
+    }
+
+    .display-1 {
+        font-size: .5rem !important;
+        font-weight: 300 !important;
+        line-height: 1.2 !important;
+    }
+
+    body {
+        overflow: auto !important;
+        overflow-x: hidden !important;
+        display: flex;
+    }
+
+    .offcanvas-backdrop::before {
+        display: none;
+        transition: none !important;
+    }
+    .sidebar-nav {
+        transform: none;
+        visibility: visible !important;
+        left: 0; /* Adjusted left position for larger screens */
+        height: calc(100% - var(--topNavbarHeight));
+    }
+}
