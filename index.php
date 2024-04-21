@@ -1,27 +1,19 @@
 <?php
-	include 'navbar.php';
+	require_once 'include/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Pusokanon</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Titan+One" rel="stylesheet">
- 
-</head>
-<body>
- 	<main>
+<link rel="stylesheet" href="css/indexstyles.css">
+
+	<main>
         <section class="welcome-section">
             <div class="text-center">
-                <span class="text-center">WELCOME <br>PUSOKANON</span><br>
-               <button class="text-center" type="button" onclick="toRegistration()" id="padayonBtn">Padayon</button>
+            	<div class="banner">
+	                <span class="text-center">WELCOME <br>PUSOKANON</span><br>
+	               	<button class="text-center" type="button" onclick="toRegistration()" id="padayonBtn">Padayon</button>
+               	</div>
             </div>
             <script>
                 function toRegistration() {
-                    window.location.href = "loginPage.php";
+                    window.location.href = "login.php";
                 }
             </script>
         </section>
@@ -77,10 +69,5 @@
             </div>
         </section>
     </main>
-	<footer>
-	    <div class="container">
-	        <p>&copy; 2024 Barangay Pusok, Lapu-Lapu City. All rights reserved.</p>
-	    </div>
-	</footer>
-</body>
-</html>
+
+<?php require_once 'include/footer.php' ?>

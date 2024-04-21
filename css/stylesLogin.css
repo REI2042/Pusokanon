@@ -7,6 +7,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
 }
@@ -19,6 +20,13 @@ body {
     max-width: 400px;
     margin: 0px auto;
 }
+
+h4{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 2rem;
+}
+
 
 hr {
   border-top: 2px solid #ffffff;
