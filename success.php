@@ -10,7 +10,7 @@
 					</div>
 					<div class="w-100"></div>
 					<div class="col">
-						<p class="p1">Your account will be verified by the Admin.</p>
+						<p class="p1">Your account will be verified by the Admin yey.</p>
 					</div>
 					<div class="w-100"></div>
 					<div class="col">
