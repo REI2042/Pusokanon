@@ -72,6 +72,12 @@ h1{
   z-index: 1; 
 }
 
+.reg-voter i{
+	font-size: 20px;
+	-webkit-text-stroke: 2px;
+}
+
+
 .data-card {
 	max-width: 85rem;
 	height: 15rem;

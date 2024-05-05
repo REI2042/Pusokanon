@@ -46,7 +46,7 @@
 	                    <div class="col-6 px-1 mt-2">
                                     <label for="Suffix" class="form-label">Suffix</label>
                                     <select class="form-select" name="sufname" id="Suffix" required>
-                                        <option value="N/A">N/A</option>
+                                        <option value=" ">N/A</option>
                                         <option value="Jr">Jr.</option>
                                         <option value="Sr.">Sr.</option>
                                         <option value="I">I</option>
@@ -114,8 +114,8 @@
 						<div class="col-6 mt-2 px-1 ">
 						    <label for="voter" class="form-label">Registered Voter</label>
 						    <select class="form-select" name="voter" id="voter" required>
-						                <option value="No">No</option>
-						                <option value="Yes">Yes</option>
+						                <option value="Not-registered">Non-registered</option>
+						                <option value="Registered">Registered</option>
 						    </select>
 						</div>
 						<div class="col-6 mt-2 px-1 ">

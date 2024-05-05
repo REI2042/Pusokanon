@@ -60,7 +60,7 @@
                     <hr class=" bg-white m-2">    
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="Manage-Users.php" class="sidebar-link">
                             <i class="fa-solid fa-users"></i>
                             <span id="span-word">Resident User</span>
                         </a>

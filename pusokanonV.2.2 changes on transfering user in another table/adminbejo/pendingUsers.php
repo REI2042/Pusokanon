@@ -88,7 +88,7 @@
                                                 $age = $currentDate->diff($birthdate)->y;
 
                                                  // Construct the image file path for the current user
-                                                $imagePath = "C:/xampp/htdocs/pusokanonV.2.1/db/uploadedFiles/{$user['verification_image']}";
+                                                $imagePath = "../db/uploadedFiles/{$user['verification_image']}";
 
                                                 // Check if the image file exists
                                                 if (file_exists($imagePath)) {
@@ -106,8 +106,12 @@
                                             <td>
                                                <?= htmlspecialchars($user['addr_sitio'])?>
                                             </td>
-                                            <td><?= htmlspecialchars($user['registered_voter'])?></td>
-                                            <td>
+                                            <td class="reg-voter">
+                                                <?= htmlspecialchars($user['registered_voter']) ?> 
+                                                <i class="bi bi-x text-danger btn" onclick="handleXClick(<?= htmlspecialchars($user['res_ID']) ?>)"></i>
+                                                <i class="bi bi-check2 text-success btn" onclick="handleCheckClick(<?= htmlspecialchars($user['res_ID']) ?>)"></i>
+                                            </td>
+                                                                                        <td>
                                                 <a href="#" onclick="showDetails('<?= $imageSrc ?>',
                                                                                     '<?= ucfirst($user['res_fname']).' '.ucfirst(substr($user['res_midname'], 0, 1)).'. '.ucfirst($user['res_lname']) ?>',
                                                                                     '<?= htmlspecialchars($user['addr_sitio'])?>',
@@ -120,11 +124,17 @@
                                             <td><?= htmlspecialchars($user['register_at'])?>  </td>
                                             <td class="tools">
                                                 <div class="btn btn-danger btn-sm" res_email="<?= htmlspecialchars($user['res_email']) ?>" 
-                                                                                    res_ID="<?= htmlspecialchars($user['res_ID']) ?>"id="cancelButton" onclick="handleCancelClick(this.getAttribute('res_email'), this.getAttribute('res_ID'))">
+                                                                                    res_ID="<?= htmlspecialchars($user['res_ID']) ?>"id="cancelButton" 
+                                                                                    onclick="handleCancelClick(this.getAttribute('res_email'), 
+                                                                                                                    this.getAttribute('res_ID'))">
                                                     <span class="btn-text">Cancel</span><i class="bi bi-person-x-fill"></i>
                                                 </div>
 
-                                                <div class="btn btn-primary btn-sm"><span class="btn-text">Approve</span><i class="bi bi-person-fill-check"></i></div>
+                                                <div class="btn btn-primary btn-sm" 
+                                                    res_ID="<?= htmlspecialchars($user['res_ID']) ?>"id="approveButton" 
+                                                    onclick="handleApproveClick(this.getAttribute('res_ID'))">
+
+                                                <span class="btn-text">Approve</span><i class="bi bi-person-fill-check"></i></div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

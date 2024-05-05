@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="ctn row m-2 d-flex justify-content-center">
-                <div class="docs col-3">
+                <div class="docs col-3 ">
                     <a href="Barangay-Residency.php" class="document-bx">
                         <i class="fa-solid fa-file fa-2x"></i>
                         <div class="document-data">
