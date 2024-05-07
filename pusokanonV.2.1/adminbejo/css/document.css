@@ -1,0 +1,262 @@
+.scan-button {
+  background-color: #2260A7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin: 10px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.scan-button:hover {
+  color: rgb(198, 208, 235);
+  text-decoration: none;
+}
+
+main{
+  margin-left: 60px;
+}
+
+.title {
+  font-family: 'Titan One', cursive;
+  font-size: 50px;
+  color: #434349;
+}
+
+
+.ctn {
+  margin: 0px 50px !important;
+}
+
+.docs {
+  background-color: #347FD8;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+.document-bx {
+  background-color: #347FD8;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  gap: 15px;
+}
+
+.document-bx:hover {
+  color: rgb(198, 208, 235);
+  text-decoration: none;
+}
+
+.document-data {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.ftr {
+  margin-top: 40px;
+  height: 50px;
+  gap: 10px;
+}
+
+.d-dash {
+  background-color: #347FD8;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #2260A7;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  margin: 10px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.back-button:hover {
+  color: rgb(198, 208, 235);
+  text-decoration: none;
+}
+
+.table tr th{
+  font-size: 10px;
+  width: 20px;
+  background-color: #2260A7;
+  color: white;
+}
+
+.table tr td{
+  font-size: 10px;
+  background-color: #CEBDB1;
+}
+
+.table th{
+  border-bottom: 1px solid blue;
+    position: sticky;
+    top: 0;
+    background-color: #2260A7;
+    padding-bottom: 20px;
+    color: white;
+}
+.asd-button {
+  background-color: #2260A7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin: 10px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid black;
+  position: fixed;
+  top: 90vh;
+}
+
+.asd-button:hover {
+  color: rgb(198, 208, 235);
+  text-decoration: none;
+}
+
+.card {
+  margin-left: 50px;
+  width: 90vw;
+  background-color: #E9E9E9; 
+}
+
+.dropdown .btn {
+  background-color: #2260A7 !important;
+  color: white;
+} 
+
+.table-responsive {
+  border-radius: 10px;
+  overflow-x: auto;
+  max-height: 300px;
+  overflow-y:scroll;
+}
+
+/*QR CODE*/
+#scanner-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+ .card-scanner {
+  width: 75vw;
+  height: 60vh;
+  background-color: #E9E9E9;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+/*QR CODE*/
+
+@media (max-width: 991px) {
+  .tools .btn{
+    font-size: 12px;
+  }
+  .title {
+      font-size: 18px !important;
+      text-align: center;
+    }
+
+  .scan-button {
+      font-size: 10px;
+  }
+
+  .ctn {
+      margin: 0px !important;
+      gap: 5px;
+  }
+
+  .docs {
+      font-size: 10px;
+      color: white;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 10px !important;
+    }
+  
+  .document-bx {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+  }
+
+  .data1 {
+      font-size: 5px;
+      text-align: center;
+  }
+
+  .data2 {
+    text-align: center;
+}
+
+  .d-dash {
+      padding-left: 0px;
+      padding-right: 0px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .ftr {
+      margin-top: 10px;
+      margin-right: 0px
+  }
+
+  .asd-button {
+    font-size: 10px;
+  }
+
+  .card {
+      margin: 0px;
+      width: 70vw;
+  }
+
+  .dropdown .btn {
+      font-size: 10px;
+  }
+
+  .tools {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+  }
+
+  .dropdown-menu a {
+      font-size: 10px;
+    }
+
+  .card-body {
+      padding: 0px;
+  }
+
+  .fa-2x {
+      font-size: 1rem;
+  }
+  main{
+    padding-left: 0;
+  }
+}

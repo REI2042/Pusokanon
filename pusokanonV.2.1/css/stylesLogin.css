@@ -1,0 +1,97 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("../PicturesNeeded/bannerBg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.content-wrapper {
+  flex: 1 0 auto;
+}
+
+
+.container {
+    max-width: 400px;
+    margin: 0px auto;
+}
+
+h4{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 2rem;
+}
+
+
+hr {
+  border-top: 2px solid #ffffff;
+}
+
+.card{
+    background-color: #48BF91;
+}
+
+.form-label{
+    color: white;
+    font-family: 'Poppins',sans-serif;
+}
+.smallText{
+    color: white;
+    font-family: 'Poppins',sans-serif;
+}
+
+.loginText{
+    color: white;
+    font-family: 'Poppins',sans-serif;
+}
+.link{
+    text-decoration: none;
+    color: gray;
+    font-family: 'Poppins',sans-serif;
+}
+.holder-section {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 20px;
+}
+
+@media (max-width: 767px) {
+
+    .navbar-brand img {
+        margin-left: 0;
+    }
+
+    #navbarNav {
+        margin-right: 0;
+    }
+
+    .nav-link {
+        margin-right: 0; 
+    }
+    .welcome-section {
+        height: auto;
+        padding: 20px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .form-control,.form-select {
+        font-size: 0.8rem;
+    }
+}

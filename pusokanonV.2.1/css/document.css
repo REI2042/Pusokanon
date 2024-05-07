@@ -1,0 +1,59 @@
+.container-fluid{
+    margin-top: 100px;
+    width: 100%;
+}
+
+h1 {
+    font-family: 'Titan One', cursive;
+    font-size: 2.5rem;
+    margin-left: 5vw;
+    color: #5C5D63;
+}
+
+.docs {
+    margin: 0px 100px 0px;
+    background-color: #E2F6EE;
+    border-radius: 5px;
+}
+
+.fa-solid {
+    margin: 15px 0px;
+}
+
+.userdocbox {
+    margin-bottom: 15px;
+}
+
+.userdoc {
+    width: inherit;
+}
+
+.image_holder {
+    width: inherit;
+    height: inherit;
+}
+
+.description {
+    margin: 10px 0px;
+}
+
+@media (max-width: 992px) {
+
+    .container-fluid{
+        margin-top: 80px;
+        width: 100%;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-left: 0vw;
+    }
+
+    .docs {
+        margin: 0px;
+    }
+
+    .userdoc {
+        width: inherit;
+    }
+}
