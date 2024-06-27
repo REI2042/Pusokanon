@@ -56,7 +56,7 @@
         <div class="userdocbox col-12 col-md-6 d-flex justify-content-center">
             <img src="PicturesNeeded/SampleDocument.jpg" class="userdoc" alt="User_Document">
         </div>
-        <div class="col-12 col-md-6 d-flex flex-column pl-3">
+        <div class="col-12 col-md-6 d-flex flex-column pl-1 pe-5 pb-3">
             <div class="row justify-content-center">
                 <?php
                 if ($qrcodePath) {
