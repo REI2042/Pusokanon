@@ -12,7 +12,7 @@ if (!isset($_SESSION['loggedin'])) {
 // Check if user is a resident
 if ($_SESSION['userRole'] == 2) {
 
-    header("Location: resident_landingPage.php");
+    header("Location: ../resident_landingPage.php");
     exit();
 }
 
