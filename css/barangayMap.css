@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+hr {
+  width: 100%;
+}
+
+.content-holder {
+  padding: 0 80px;
+}
+
+h1 {
+  font-family: "Titan One", cursive;
+  font-size: 2rem;
+  color: #4f4f4f;
+}
+
+.title-container {
+  width: 100%;
+  height: 5rem;
+  margin-top: 100px;
+}
+
+.iframe-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.iframe-container iframe {
+  width: 80vw;
+  height: 70vh;
+}
+
+@media (max-width: 767px) {
+  .iframe-container iframe {
+    width: 85vw;
+    height: 75vh;
+  }
+  .content-holder {
+    padding: 0;
+  }
+}

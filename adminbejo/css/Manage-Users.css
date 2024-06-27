@@ -1,0 +1,140 @@
+.container-fluid {
+    margin-top: 23px;
+  }
+
+.mu-ds {
+    margin: 1rem;
+}
+
+.mu-title {
+  font-family: 'Titan One', cursive;
+  font-size: 50px;
+  color: #434349;
+}
+
+.mudash {
+    font-family: 'Titan One', cursive;
+    background-color: #346BA9;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.mu-data1 {
+    font-size: 12px;
+}
+
+.mu-data2 {
+    font-size: 24px;
+}
+
+.col-12 {
+    gap: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-12 .btn {
+    background-color: #2260A7 !important;
+    color: white;
+    border-radius: 50px;
+}
+
+.col-12 .form-control {
+    border-radius: 50px;
+}
+
+/**/
+
+.table tr th{
+    font-size: 14px;
+    width: 20px;
+    background-color: #2260A7;
+    color: white;
+}
+  
+.table tr td{
+    font-size: 13px;
+    background-color: #E9E9E9;
+}
+  
+.card {
+    margin-left: 50px;
+    width: 90vw;
+    background-color: #D7D9DC;
+}
+  
+.table-responsive {
+    border-radius: 10px;
+    overflow-x: auto;
+    max-height: 300px;
+    overflow-y:scroll;
+}
+.table-responsive th,
+.table-responsive td {
+  font-size: 16px; 
+  text-align: left;
+  vertical-align: middle; 
+}
+
+
+.table-responsive th {
+    border-bottom: 1px solid blue;
+    position: sticky;
+    top: 0;
+    background-color: #2260A7;
+    padding-bottom: 20px;
+    color: white;
+}
+
+@media (max-width: 991px) {
+    
+    .mu-ds {
+        margin: 0px;
+    }
+
+    .mu-title {
+        font-size: 20px !important;
+    }
+
+    .mu-data1 {
+        font-size: 8px;
+    }
+    
+    .mu-data2 {
+        font-size: 16px;
+    }
+
+    .col-12 .btn {
+        font-size: 5.5px;
+    }
+    
+    .col-12 .form-control {
+        font-size: 5.5px;
+    }
+
+    .dropdown-menu a {
+        font-size: 8px;
+    }
+
+    .card {
+        margin: 0px;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .tools {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        height: 100%;
+    }
+    .container-fluid {
+    margin-top: 23px;
+    margin-left: 45px;
+  }
+
+}

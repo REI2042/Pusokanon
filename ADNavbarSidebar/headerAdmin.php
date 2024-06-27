@@ -76,11 +76,11 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                            data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                            data-bs-target="#document" aria-expanded="false" aria-controls="document">
                             <i class="fa-solid fa-file-lines ms-1"></i>
                             <span> &nbsp;Document&nbsp;</span>
                         </a>
-                        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <ul id="document" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">Requested Document</a>
                             </li>
@@ -90,10 +90,19 @@
                         </ul>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                             <i class="fa-solid fa-bullhorn"></i>
                             <span>&nbsp;Post Announcement</span>
                         </a>
+                        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">Requested Document</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">Document Request History </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">

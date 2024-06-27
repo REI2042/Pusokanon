@@ -1,0 +1,66 @@
+.container-fluid {
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
+}
+
+hr {
+  width: 100%;
+}
+
+.content-holder {
+  padding: 0 90px;
+}
+
+h1 {
+  font-family: "Titan One", cursive;
+  font-size: 2rem;
+  color: #4f4f4f;
+}
+
+.title-container {
+  width: 100%;
+  height: 5rem;
+}
+
+.text-color {
+  color: #0080ff;
+}
+
+.header-color {
+  background-color: #0080ff;
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.card-border {
+  border-style: solid;
+  border-width: 3px;
+  border-color: #0080ff;
+  border-radius: 7px;
+}
+.card {
+  height: 16rem;
+}
+
+@media (max-width: 576px) {
+  .card-body p {
+    font-size: 1.2rem; /* Smaller font size for smaller screens */
+  }
+  .content-holder {
+    padding: 0;
+  }
+}
+@media (min-width: 577px) and (max-width: 768px) {
+  .card-body p {
+    font-size: 1.5rem; /* Medium font size for medium screens */
+  }
+}
+@media (min-width: 769px) {
+  .card-body p {
+    font-size: 2rem; /* Larger font size for larger screens */
+  }
+}

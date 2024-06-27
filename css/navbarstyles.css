@@ -1,14 +1,20 @@
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,100,0,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+body {
+    background-color: #E6E9F0; 
 }
 
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+
 .navbar {
-    background-color: #48BF91 ;
+    background: linear-gradient(45deg, #2C7BD5, #4A90E2, #6AAFE6);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+    
 }   
 
 .navbar-brand img {
@@ -22,7 +28,7 @@
     font-weight: bold;
     font-family: 'Titan One', cursive;
     color: white;
-    -webkit-text-stroke: 1px darkgreen;
+    -webkit-text-stroke: 1px #2260A7;
  }
 
 .bi-person-circle {
@@ -34,7 +40,7 @@
 }
 
 .nav-link:hover{
-    color: darkgreen;
+    color: #336FB4 !important;
 }
 
 #navbarNav {
@@ -46,11 +52,11 @@
 }
 
 .dropdown-item {
-    color: #48BF91;
+    color: #2260A7;
 }
 
 .dropdown-item:hover {
-    background-color: #257768;
+    background-color: #5095E3;
     color: #fff;
 }
 
@@ -70,16 +76,13 @@ p{
 }
 
 footer {
-    background-color: #343a40;
+      background-color: #2C7BD5;
+    font-size: 16px;
     color: #fff;
-    padding: 0px 0;
+    padding: 20px 0;
     text-align: center;
-    bottom: 0;
     width: 100%;
-    height: 50px;
-    right: 0; 
 }
-
 @media (max-width: 992px) {
     .navbar-brand img {
         height: 45px;
@@ -90,6 +93,6 @@ footer {
     font-weight: bold;
     font-family: 'Titan One', cursive;
     color: white;
-    -webkit-text-stroke: 1px darkgreen;
+    -webkit-text-stroke: 1px #2260A7;
  }
 }

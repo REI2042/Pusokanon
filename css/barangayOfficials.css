@@ -1,0 +1,50 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.container-fluid {
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
+}
+
+hr {
+  width: 100%;
+}
+
+.content-holder {
+  padding: 0 100px;
+}
+
+h1 {
+  font-family: "Titan One", cursive;
+  font-size: 2rem;
+  color: #4f4f4f;
+}
+
+.title-container {
+  width: 100%;
+  height: 5rem;
+}
+
+.header-color {
+  background-color: #0080ff;
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 20px;
+}
+.text-format {
+  font-weight: bold;
+  color: black;
+}
+
+.no-border {
+  border: none !important;
+}
+@media (max-width: 576px) {
+  .content-holder {
+    padding: 0;
+  }
+}

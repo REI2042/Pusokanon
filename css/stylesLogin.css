@@ -10,7 +10,9 @@ body {
     padding-top: 40px;
     display: flex;
     flex-direction: column;
+   
 }
+
 .content-wrapper {
   flex: 1 0 auto;
 }
@@ -33,7 +35,11 @@ hr {
 }
 
 .card{
-    background-color: #48BF91;
+
+    background: hsla(215, 85%, 61%, 0.729);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .form-label{

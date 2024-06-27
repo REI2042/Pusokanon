@@ -10,13 +10,21 @@ body {
   display: flex;
   flex-direction: column;
   padding-top: 60px;
+
 }
+
+
+
 h3{
   font-family: "Poppins", sans-serif !important;
   font-weight: 500 !important;
   font-size: 2rem !important;
 }
 
+.container-fluid{
+  display: flex;
+  justify-content: center;
+}
 
 .holder-section {
   background-size: cover;
@@ -32,10 +40,11 @@ h3{
   padding-bottom: 60px;
   margin-top: 40px;
   margin-bottom: 40px;
+  max-width: 500px;
 }
 
 .container{
-  background-color: #48bf91;
+  background: linear-gradient(45deg, #2C7BD5, #4A90E2, #6AAFE6);
   max-width: 500px;
   border-radius: 5px;
   display: flex;
@@ -56,9 +65,7 @@ h3{
   min-height: 100vh;
   width: 100%;
 
-#content-wrap {
-  padding-bottom: 2.5rem;    /* Footer height */
-}
+
 
 #footer {
   background-color: #343a40;

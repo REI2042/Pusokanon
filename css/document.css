@@ -1,0 +1,74 @@
+.container-fluid{
+    margin-top: 100px;
+    width: 100%;
+}
+
+h1 {
+    font-family: 'Titan One', cursive;
+    font-size: 2.5rem;
+    margin-left: 5vw;
+    color: #5C5D63;
+}
+
+.docs {
+    margin: 0px 100px 0px;
+    background-color: #bbcefd;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.fa-solid {
+    margin: 15px 0px;
+}
+
+.userdocbox {
+    margin-bottom: 15px;
+    height: 70%;
+}
+
+.userdoc {
+    width: 320px;
+    height: inherit;
+}
+
+.image_holder {
+    width: inherit;
+    height: inherit;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.description {
+    margin: 10px 0px;
+}
+
+.qrcode-image{
+    width: 150px;
+    height: 150px;
+}
+
+@media (max-width: 992px) {
+
+    .container-fluid{
+        margin-top: 80px;
+        width: 100%;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-left: 0vw;
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .docs {
+        margin: 0px;
+    }
+
+    .userdoc {
+        display: none !important;
+    }
+}
