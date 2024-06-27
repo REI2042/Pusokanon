@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['userRole'] = $staff['userRole_id'];
 
         if ($_SESSION['userRole'] == 1) { // Admin
-            header("Location: adminbejo/Admin-Dashboard.php");
+            header("Location: adminbejo/Dashboard.php");
             exit();
         } else {
             header("Location: ../include/staff_restrict_pages.php");
