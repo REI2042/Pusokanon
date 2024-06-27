@@ -128,7 +128,6 @@ footer {
   /* Adjust the vertical position here */
 
   .welcome-section button {
-    margin-top: 200px;
     font-size: 1rem;
   }
 }
@@ -141,7 +140,6 @@ footer {
   }
 
   .welcome-section button {
-    margin-top: 400px;
     font-size: 1.1rem;
   }
 }
