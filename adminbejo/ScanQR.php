@@ -49,13 +49,53 @@ function domReady(fn) {
 domReady(function () {
     function onScanSuccess(decodeText, decodeResult) {
         if (!qrCodeScanned) {
+            const [doc_ID, request_ID] = decodeText.split(',');
+
             Swal.fire({
                 icon: 'success',
                 title: 'QR Code Scanned!',
-                text: `Your QR Code: ${decodeText}`,
+                text: `Doc ID: ${doc_ID}, Request ID: ${request_ID}`,
                 showConfirmButton: true,
                 confirmButtonText: 'OK'
             }).then(() => {
+                // AJAX call to update the remarks
+                $.ajax({
+                    url: 'phpConn/updateRemarks.php',
+                    type: 'POST',
+                    data: { doc_ID: doc_ID, request_ID: request_ID },
+                    success: function(response) {
+                        const result = JSON.parse(response);
+                        if (result.stat === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Remarks Updated!',
+                                text: 'The document status has been updated to released.',
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                // Redirect to Barangay-Residency.php after successful update
+                                window.location.href = 'Barangay-Residency.php';
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update Failed',
+                                text: 'There was an error updating the document status.',
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Update Failed',
+                            text: 'There was an error updating the document status.',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
                 qrCodeScanned = false;
                 htmlscanner.render(onScanSuccess);
             });
@@ -73,5 +113,6 @@ domReady(function () {
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <?php include 'footerAdmin.php'; ?>
