@@ -54,7 +54,8 @@ body{
     height: 35px;
     margin-bottom: 0px;
 }
-.iconAccount: hover{
+
+.iconAccount :hover{
     color: #8BB1E0;
 }
 .dropdown-menu {
