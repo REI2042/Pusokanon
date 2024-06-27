@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $request_ID = $_POST['request_ID'];
     $remarks = 'released';
 
-    $sql = "UPDATE request_doc SET remarks = :remarks WHERE doc_ID = :doc_ID AND request_ID = :request_ID";
+    $sql = "UPDATE request_doc SET remarks = :remarks WHERE doc_ID = :doc_ID AND request_id = :request_ID";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
     $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
