@@ -1,0 +1,107 @@
+.main {
+    /* width: 100%; */
+    margin-left: 72px;
+    justify-content: center;
+}
+
+.page_header {
+    font-family: 'Titan One', cursive;
+    color: #434349;
+    font-size: 2rem;
+    text-align: center;
+    margin: 5px 0px 16px 0px;
+}
+
+.record-box {
+    background-color: #2260A7;
+    border-radius: 10px;
+    padding: 15px 0px;
+    color: #F9F8FD;
+}
+
+.record-title,
+.record-count {
+    margin-bottom: 0px;
+}
+
+.document-box {
+    background-color: #2260A7;
+    border-radius: 10px;
+    padding: 10px 0px;
+    height: 100%;
+    color: #F9F8FD;
+}
+
+.document-name,
+.document-price {
+    margin-bottom: 0px;
+}
+
+.sitio {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.sitio-name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #434349;
+    background-color: #3d7cc4;
+    border-radius: 5px;
+}
+
+.sitio-numbers {
+    font-size: 12px;
+    font-weight: bold;
+    color: #F9F8FD;
+}
+
+.box {
+    background-color: #2260A7;
+    border-radius: 10px;
+}
+
+.document-title {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+.sub-title {
+    color: #F9F8FD;
+    margin-top: 8px;
+}
+
+.icon {
+    color: #F9F8FD;
+}
+
+
+@media (max-width: 768px) {
+
+    .document-title {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    
+    .page_header {
+        font-size: 1rem;
+    }
+
+    .sub-title {
+        font-weight: bold;
+        font-size: .8rem;
+    }
+
+    .record-container,
+    .document-container {
+        margin: 5px 0px;
+    }
+
+    .document-name {
+    font-size: .5rem;
+    font-weight: bold;
+    }
+
+}
