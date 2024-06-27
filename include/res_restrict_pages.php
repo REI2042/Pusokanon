@@ -12,7 +12,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 if ($_SESSION['userRole'] != 2) {
   
-    header("Location: logout.php");
+    header("Location: include/logout.php");
     exit();
 }
 
