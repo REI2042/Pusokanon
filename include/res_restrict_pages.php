@@ -10,6 +10,15 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 
+if ($_SESSION['userRole'] == 1) {
+  
+    header("Location: ../adminbejo/Dashboard.php");
+    exit();
+}
+
+
+
+
 if ($_SESSION['userRole'] != 2) {
   
     header("Location: include/logout.php");
