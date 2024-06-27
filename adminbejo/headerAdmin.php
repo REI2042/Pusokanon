@@ -57,7 +57,7 @@
                         <i class="bi bi-columns-gap"></i>
                     </button>
                     <div class="sidebar-logo">
-                        <a href="Admin-Dashboard.php">DASHBOARD</a>
+                        <a href="Dashboard.php">DASHBOARD</a>
                     </div>
                 </div>
                     <hr class=" bg-white m-2">    

@@ -74,7 +74,7 @@
                     online Barangay portal for the purpose of <b><?php echo $purpose; ?></b>.
                 </p>
 
-                <p class="description text-justify"><i>Note: Please save this QR code, as this will be needed in order to claim the requested document.</i
+                <p class="description text-justify"><i>Note: Please save this QR code, as this will be needed in order to claim the requested document.</i>
                 </p>
             </div>
         </div>

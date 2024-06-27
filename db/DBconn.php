@@ -117,4 +117,55 @@
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+
+	function fetchTotalMales($pdo) {
+		$sql = "SELECT COUNT(*) FROM resident_users WHERE gender = 'Male'";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();  
+	}
+
+	function fetchTotalFemales($pdo) {
+		$sql = "SELECT COUNT(*) FROM resident_users WHERE gender = 'Female'";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();  
+	}
+
+	function fetchPendingAccounts($pdo) {
+		$sql = "SELECT COUNT(*) FROM registration_tbl";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
+
+	function fetchRegisteredVoters($pdo) {
+		$sql = "SELECT COUNT(*) FROM resident_users WHERE registered_voter = 'Registered'";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
+
+	function fetchNonRegisteredVoters($pdo) {
+		$sql = "SELECT COUNT(*) FROM resident_users WHERE registered_voter != 'Registered'";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
+
+	function fetchUsersBySitio($pdo, $sitio) {
+		$sql = "SELECT COUNT(*) FROM resident_users WHERE addr_sitio = :sitio";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':sitio', $sitio, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
+
+	function fetchNumberOfRequestedDocuments($pdo, $document) {
+		$sql = "SELECT COUNT(*) FROM request_doc WHERE docType_id = :document";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':document', $document, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
 ?>

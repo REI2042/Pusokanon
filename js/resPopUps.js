@@ -60,7 +60,7 @@ async function initDocumentSelection() {
                                                 method: 'POST',
                                                 body: formData
                                             }).then(response => response.text()).then(data => {
-                                                window.location.href = "document.php";
+                                                window.location.href = "db/generateQR.php";
                                             });
                                         }
                                     });
@@ -92,7 +92,7 @@ async function initDocumentSelection() {
                             method: 'POST',
                             body: formData
                         }).then(response => response.text()).then(data => {
-                            window.location.href = "document.php";
+                            window.location.href = "db/generateQR.php";
                         });
                     }
                 });
