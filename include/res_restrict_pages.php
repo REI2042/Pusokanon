@@ -12,7 +12,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 if ($_SESSION['userRole'] == 1) {
   
-    header("Location: ../adminbejo/Dashboard.php");
+    header("Location: adminbejo/Dashboard.php");
     exit();
 }
 
