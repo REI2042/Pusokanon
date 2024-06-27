@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="DocumentRate.php" class="sidebar-link">
                             <i class="fa-solid fa-chart-column"></i>
                             <span>Set Document Rate</span>
                         </a>

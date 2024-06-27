@@ -168,4 +168,12 @@
 		$stmt->execute();
 		return $stmt->fetchColumn();
 	}
+
+	function fetchDocumentRates($pdo, $id) {
+		$sql = "SELECT doc_amount FROM doc_type WHERE docType_id = :id";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
 ?>

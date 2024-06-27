@@ -1,0 +1,33 @@
+body {
+    background-color: #F9F8FD;
+}
+
+.main {
+    margin-left: 72px;
+    justify-content: center;
+}
+
+.page_header {
+    font-family: 'Titan One', cursive;
+    color: #434349;
+    font-size: 2rem;
+    text-align: center;
+    margin: 5px 0px 16px 0px;
+}
+
+.document-box {
+    background-color: #2260A7;
+}
+
+.document-name,
+.document-price {
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    
+    .page_header {
+        font-size: 1rem;
+    }
+
+}
