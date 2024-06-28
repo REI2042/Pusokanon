@@ -56,14 +56,16 @@ domReady(function () {
             try {
                 let data = JSON.parse(decodeText);
                 console.log("Parsed Data: ", data); // Debug: Log parsed data
-                let { document_id, request_id, resident_id } = data;
+                let { doc_ID, request_id, resident_id } = data;
+
+                let formData = new FormData();
+                formData.append('doc_ID', doc_ID);
+                formData.append('request_id', request_id);
+                formData.append('resident_id', resident_id);
 
                 fetch('phpConn/updateRemarks.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ document_id, request_id, resident_id })
+                    body: formData
                 })
                 .then(response => response.json())
                 .then(result => {
@@ -75,7 +77,6 @@ domReady(function () {
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Redirect to Barangay-Residency.php after clicking "OK" button
                             window.location.href = 'Barangay-Residency.php';
                         }
                     });
