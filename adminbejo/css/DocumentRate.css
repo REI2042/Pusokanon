@@ -22,6 +22,19 @@ body {
 .document-name,
 .document-price {
     margin-top: 15px;
+    font-weight: bold;
+}
+
+.pen-icon {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.pen-icon:hover i {
+    color: #28A745;
 }
 
 @media (max-width: 768px) {
