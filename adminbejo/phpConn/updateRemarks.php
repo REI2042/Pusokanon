@@ -3,7 +3,7 @@ include '../../db/DBconn.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
-    $doc_ID = $data['doc_ID'];
+    $doc_ID = $data['document_id'];
     $resident_id = $data['resident_id'];
     $request_id = $data['request_id'];
     
@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result) {
         echo json_encode(['stat' => 'success']);
+
     } else {
         echo json_encode(['stat' => 'error', 'message' => 'Failed to update remarks']);
     }

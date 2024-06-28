@@ -13,7 +13,7 @@ $userData = fetchLatestRequest($pdo, $res_id);
 if ($userData) {
     // Generate QR code data in JSON format
     $qrData = json_encode([
-        'doc_ID' => $userData['document_id'],
+        'document_id' => $userData['document_id'],
         'request_id' => $userData['request_id'],
         'resident_id' => $userData['resident_id'],
         'resident_name' => $userData['resident_name'],

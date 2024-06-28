@@ -56,14 +56,14 @@ domReady(function () {
             try {
                 let data = JSON.parse(decodeText);
                 console.log("Parsed Data: ", data); // Debug: Log parsed data
-                let { doc_ID, request_id, resident_id } = data;
+                let { document_id, request_id, resident_id } = data;
 
                 fetch('phpConn/updateRemarks.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ doc_ID, request_id, resident_id })
+                    body: JSON.stringify({ document_id, request_id, resident_id })
                 })
                 .then(response => response.json())
                 .then(result => {
