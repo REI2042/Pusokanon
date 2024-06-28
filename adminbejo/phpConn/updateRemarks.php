@@ -15,8 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result) {
         echo json_encode(['stat' => 'success']);
-        header('Location: ../Barangay-Residency.php');
-        exit();
     } else {
         echo json_encode(['stat' => 'error', 'message' => 'Failed to update remarks']);
     }

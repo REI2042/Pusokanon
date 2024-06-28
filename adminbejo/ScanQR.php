@@ -65,24 +65,20 @@ domReady(function () {
                     },
                     body: JSON.stringify({ doc_ID, request_id, resident_id })
                 })
-                .then(response => {
-                    if (response.redirected) {
-                        // Redirect to the new URL
-                        window.location.href = response.url;
-                    } else {
-                        return response.json();
-                    }
-                })
+                .then(response => response.json())
                 .then(result => {
-                    if (result) {
-                        Swal.fire({
-                            icon: result.stat === 'success' ? 'success' : 'error',
-                            title: result.stat === 'success' ? 'Update Successful' : 'Update Failed',
-                            text: result.stat === 'success' ? 'The remarks have been updated.' : result.message,
-                            showConfirmButton: true,
-                            confirmButtonText: 'OK'
-                        });
-                    }
+                    Swal.fire({
+                        icon: result.stat === 'success' ? 'success' : 'error',
+                        title: result.stat === 'success' ? 'Update Successful' : 'Update Failed',
+                        text: result.stat === 'success' ? 'The remarks have been updated.' : result.message,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to Barangay-Residency.php after clicking "OK" button
+                            window.location.href = 'Barangay-Residency.php';
+                        }
+                    });
                     qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
                 })
                 .catch(error => {
