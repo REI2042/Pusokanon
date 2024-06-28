@@ -56,7 +56,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                         </a>
                         <div class="dropdown-menu" aria-labelledby="servicesDropdown">
                             <a class="dropdown-item" href="requestDocument.php">Request Documents</a>
-                            <a class="dropdown-item" href="#">File Complaint</a>
+                            <a class="dropdown-item" href="residentComplaints.php">File Complaint</a>
                         </div>
                     </li>
 

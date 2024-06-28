@@ -1,5 +1,6 @@
 <?php
 include 'headerAdmin.php';
+include '../db/DBconn.php';
 ?>
 
 <link rel="stylesheet" href="css/document.css">
@@ -21,7 +22,7 @@ include 'headerAdmin.php';
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center scan-con">
         <div class="scanner-container">
             <div id="my-qr-reader"></div>
         </div>
@@ -34,6 +35,7 @@ include 'headerAdmin.php';
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 let qrCodeScanned = false;
 let htmlscanner;
@@ -48,18 +50,55 @@ function domReady(fn) {
 
 domReady(function () {
     function onScanSuccess(decodeText, decodeResult) {
+        console.log("Scanned Text: ", decodeText); // Debug: Log scanned text
+
         if (!qrCodeScanned) {
-            Swal.fire({
-                icon: 'success',
-                title: 'QR Code Scanned!',
-                text: `Your QR Code: ${decodeText}`,
-                showConfirmButton: true,
-                confirmButtonText: 'OK'
-            }).then(() => {
-                qrCodeScanned = false;
-                htmlscanner.render(onScanSuccess);
-            });
-            qrCodeScanned = true;
+            try {
+                let data = JSON.parse(decodeText);
+                console.log("Parsed Data: ", data); // Debug: Log parsed data
+                let { doc_ID, request_id, resident_id } = data;
+
+                fetch('phpConn/updateRemarks.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ doc_ID, request_id, resident_id })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    Swal.fire({
+                        icon: result.stat === 'success' ? 'success' : 'error',
+                        title: result.stat === 'success' ? 'Update Successful' : 'Update Failed',
+                        text: result.stat === 'success' ? 'The remarks have been updated.' : result.message,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK'
+                    });
+                    qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'An error occurred',
+                        text: 'There was a problem with the request.',
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK'
+                    });
+                    qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
+                });
+
+                qrCodeScanned = true;
+            } catch (error) {
+                console.error("Error parsing JSON: ", error); // Debug: Log parsing error
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid QR Code',
+                    text: 'The scanned QR code is not valid.',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK'
+                });
+                qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
+            }
         }
     }
 
@@ -71,7 +110,5 @@ domReady(function () {
     htmlscanner.render(onScanSuccess);
 });
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php include 'footerAdmin.php'; ?>

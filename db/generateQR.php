@@ -11,25 +11,25 @@ $res_id = $_SESSION['res_ID'];
 $userData = fetchLatestRequest($pdo, $res_id);
 
 if ($userData) {
-    // Generate QR code data
-    $qrData = "Request ID: {$userData['request_id']}\n";
-    $qrData .= "Resident ID: {$userData['resident_id']}\n";
-    $qrData .= "Resident Name: {$userData['resident_name']}\n";
-    $qrData .= "Resident Address: Sitio {$userData['sitio']}, Pusok, Lapu-Lapu City\n";
-    $qrData .= "Document ID: {$userData['document_id']}\n";
-    $qrData .= "Document Requested: {$userData['document_name']}\n";
-    $qrData .= "Purpose: {$userData['purpose']}\n";
-    $qrData .= "Date Requested: {$userData['request_date']}\n";
-    $qrData .= "Rate: {$userData['doc_amount']}\n";
+    // Generate QR code data in JSON format
+    $qrData = json_encode([
+        'doc_ID' => $userData['document_id'],
+        'request_id' => $userData['request_id'],
+        'resident_id' => $userData['resident_id'],
+        'resident_name' => $userData['resident_name'],
+        'address' => "Sitio {$userData['sitio']}, Pusok, Lapu-Lapu City",
+        'document_name' => $userData['document_name'],
+        'purpose' => $userData['purpose'],
+        'request_date' => $userData['request_date'],
+        'rate' => $userData['doc_amount']
+    ]);
 
-    
     $path = 'QRCODES/';
     $qrcodeName = time() . '.png';  // Generate a unique filename for the QR code
     $qrcodePath = $path . $qrcodeName;
 
     QRcode::png($qrData, $qrcodePath, 'L', 4, 4);
 
-   
     if (file_exists($qrcodePath)) {
         echo "<img src='" . $qrcodePath . "'><br>";  // Display the QR code image
 

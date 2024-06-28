@@ -1,4 +1,4 @@
-.tools form{
+.tools form {
   display: inline;
 }
 .btn-gray {
@@ -8,10 +8,10 @@
 }
 
 .Ready {
-  background-color: #6b6b6b
+  background-color: #6b6b6b;
 }
 .scanBtn {
-  background-color: #2260A7;
+  background-color: #2260a7;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -22,8 +22,12 @@
   border: 1px solid black;
 }
 
-.btn-sm{
-  font-size: 13px ;
+.scan-con {
+  margin-top: -40px;
+}
+
+.btn-sm {
+  font-size: 13px;
 }
 
 .scanBtn:hover {
@@ -46,23 +50,22 @@
   background-color: #0056b3;
 }
 
-main{
+main {
   margin-left: 60px;
 }
 
 .title {
-  font-family: 'Titan One', cursive;
-  font-size: 50px;
+  font-family: "Titan One", cursive;
+  font-size: 2.5rem;
   color: #434349;
 }
-
 
 .ctn {
   margin: 0px 50px !important;
 }
 
 .docs {
-  background-color: #347FD8;
+  background-color: #347fd8;
   border: 1px solid black;
   margin: 5px;
   padding: 25px;
@@ -70,7 +73,7 @@ main{
 }
 
 .document-bx {
-  background-color: #347FD8;
+  background-color: #347fd8;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -96,7 +99,7 @@ main{
 }
 
 .d-dash {
-  background-color: #347FD8;
+  background-color: #347fd8;
   border: 1px solid black;
   border-radius: 5px;
   display: flex;
@@ -110,7 +113,7 @@ main{
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #2260A7;
+  background-color: #2260a7;
   color: white;
   padding: 5px 10px;
   border: none;
@@ -126,28 +129,28 @@ main{
   text-decoration: none;
 }
 
-.table tr th{
+.table tr th {
   font-size: 13px;
   width: 20px;
-  background-color: #2260A7;
+  background-color: #2260a7;
   color: white;
 }
 
-.table tr td{
+.table tr td {
   font-size: 13px;
-  background-color: #CEBDB1;
+  background-color: #cebdb1;
 }
 
-.table th{
+.table th {
   border-bottom: 1px solid blue;
-    position: sticky;
-    top: 0;
-    background-color: #2260A7;
-    padding-bottom: 20px;
-    color: white;
+  position: sticky;
+  top: 0;
+  background-color: #2260a7;
+  padding-bottom: 20px;
+  color: white;
 }
 .asd-button {
-  background-color: #2260A7;
+  background-color: #2260a7;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -168,19 +171,19 @@ main{
 .card {
   margin-left: 50px;
   width: 90vw;
-  background-color: #E9E9E9; 
+  background-color: #e9e9e9;
 }
 
 .dropdown .btn {
-  background-color: #2260A7 !important;
+  background-color: #2260a7 !important;
   color: white;
-} 
+}
 
 .table-responsive {
   border-radius: 10px;
   overflow-x: auto;
   max-height: 300px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 /*QR CODE*/
@@ -191,70 +194,70 @@ main{
   justify-content: center;
   align-items: center;
 }
-  
- .card-scanner {
+
+.card-scanner {
   width: 75vw;
   height: 60vh;
-  background-color: #E9E9E9;
+  background-color: #e9e9e9;
   border: 1px solid black;
   border-radius: 5px;
 }
 /*QR CODE*/
 
 @media (max-width: 991px) {
-  .tools .btn{
+  .tools .btn {
     font-size: 12px;
   }
   .title {
-      font-size: 18px !important;
-      text-align: center;
-    }
+    font-size: 18px !important;
+    text-align: center;
+  }
 
   .scan-button {
-      font-size: 10px;
+    font-size: 10px;
   }
 
   .ctn {
-      margin: 0px !important;
-      gap: 5px;
+    margin: 0px !important;
+    gap: 5px;
   }
 
   .docs {
-      font-size: 10px;
-      color: white;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 10px !important;
-    }
-  
+    font-size: 10px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px !important;
+  }
+
   .document-bx {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
   }
 
   .data1 {
-      font-size: 5px;
-      text-align: center;
+    font-size: 5px;
+    text-align: center;
   }
 
   .data2 {
     text-align: center;
-}
+  }
 
   .d-dash {
-      padding-left: 0px;
-      padding-right: 0px;
-      align-items: center;
-      justify-content: center;
-      display: flex;
-      flex-direction: column;
+    padding-left: 0px;
+    padding-right: 0px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
 
   .ftr {
-      margin-top: 10px;
-      margin-right: 0px
+    margin-top: 10px;
+    margin-right: 0px;
   }
 
   .asd-button {
@@ -262,135 +265,132 @@ main{
   }
 
   .card {
-      margin: 0px;
-      width: 70vw;
+    margin: 0px;
+    width: 70vw;
   }
 
   .dropdown .btn {
-      font-size: 10px;
+    font-size: 10px;
   }
 
   .tools {
-      display: flex;
-      flex-direction: row;
-      gap: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
   }
 
   .dropdown-menu a {
-      font-size: 10px;
-    }
+    font-size: 10px;
+  }
 
   .card-body {
-      padding: 0px;
+    padding: 0px;
   }
 
   .fa-2x {
-      font-size: 1rem;
+    font-size: 1rem;
   }
-  main{
+  main {
     padding-left: 0;
   }
 }
 
-
- 
 .section {
-    background-color: #ffffff;
-    padding: 50px 30px;
-    border: 1.5px solid #b2b2b2;
-    border-radius: 0.25em;
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
-}
- 
-#my-qr-reader {
-    padding: 20px !important;
-    border: 1.5px solid #b2b2b2 !important;
-    border-radius: 8px;
-}
- 
-#my-qr-reader img[alt="Info icon"] {
-    display: none;
-}
- 
-#my-qr-reader img[alt="Camera based scan"] {
-    width: 100px !important;
-    height: 100px !important;
-}
- 
-#my-qr-reader button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: 1px solid #b2b2b2;
-    outline: none;
-    border-radius: 0.25em;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    background-color: #447BCE;
-    transition: 0.3s background-color;
-}
- 
-#my-qr-reader button:hover {
-    background-color: #004280;
-}
- 
-#html5-qrcode-anchor-scan-type-change {
-    text-decoration: none !important;
-    color: #1d9bf0;
-}
- 
-video {
-    width: 100% !important;
-    border: 1px solid #b2b2b2 !important;
-    border-radius: 0.25em;
+  background-color: #ffffff;
+  padding: 50px 30px;
+  border: 1.5px solid #b2b2b2;
+  border-radius: 0.25em;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
 }
 
+#my-qr-reader {
+  padding: 20px !important;
+  border: 1.5px solid #b2b2b2 !important;
+  border-radius: 8px;
+}
+
+#my-qr-reader img[alt="Info icon"] {
+  display: none;
+}
+
+#my-qr-reader img[alt="Camera based scan"] {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+#my-qr-reader button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 1px solid #b2b2b2;
+  outline: none;
+  border-radius: 0.25em;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #447bce;
+  transition: 0.3s background-color;
+}
+
+#my-qr-reader button:hover {
+  background-color: #004280;
+}
+
+#html5-qrcode-anchor-scan-type-change {
+  text-decoration: none !important;
+  color: #1d9bf0;
+}
+
+video {
+  width: 100% !important;
+  border: 1px solid #b2b2b2 !important;
+  border-radius: 0.25em;
+}
 
 .table th,
 .table td {
-    width: auto; /* Default width for columns */
-    padding: 8px;
-    text-align: center;
+  width: auto; /* Default width for columns */
+  padding: 8px;
+  text-align: center;
 }
 
 .table th.account-no,
 .table td.account-no {
-    width: 5%; /* Adjust the width as needed */
+  width: 5%; /* Adjust the width as needed */
 }
 
 .table th.name,
 .table td.name {
-    width: 15%;
+  width: 15%;
 }
 
 .table th.document-requested,
 .table td.document-requested {
-    width: 15%;
+  width: 15%;
 }
 
 .table th.purpose,
 .table td.purpose {
-    width: 15%;
+  width: 15%;
 }
 
 .table th.status,
 .table td.status {
-    width: 10%;
+  width: 10%;
 }
 
 .table th.date-time-requested,
 .table td.date-time-requested {
-    width: 10%;
+  width: 10%;
 }
 
 .table th.remarks,
 .table td.remarks {
-    width: 15%;
+  width: 15%;
 }
 
 .table th.tools,
 .table td.tools {
-    width: 25%;
+  width: 25%;
 }
 
 .inline-tools {
