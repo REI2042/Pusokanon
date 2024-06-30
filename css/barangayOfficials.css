@@ -12,9 +12,6 @@ hr {
   width: 100%;
 }
 
-.content-holder {
-  padding: 0 100px;
-}
 
 h1 {
   font-family: "Titan One", cursive;
@@ -27,24 +24,66 @@ h1 {
   height: 5rem;
 }
 
-.header-color {
+
+.header-container {
   background-color: #0080ff;
+  height: 50px;
+  
+}
+.content-container {
+  height: inherit;
+  
 }
 
-.card-header {
+h4 {
   font-weight: bold;
-  font-size: 20px;
+  color: white;
 }
+
+.img-fluid {
+  width: 150px;
+  height: 150px;
+}
+
 .text-format {
   font-weight: bold;
   color: black;
 }
 
-.no-border {
-  border: none !important;
-}
 @media (max-width: 576px) {
-  .content-holder {
-    padding: 0;
+
+  .container-fluid{
+      margin-top: 80px;
+      width: 100%;
+  }
+  
+  h1 {
+      text-align: center;
+      margin-left: 0vw;
+      font-size: 1.5rem;
+  }
+
+  h4 {
+      text-align: center;
+      font-size: 1rem;
+  }
+
+  p{
+      text-align: center;
+      font-size: 15px;
+  }
+
+  .container-fluid {
+      align-items:center;
+  }
+
+  .img-fluid {
+      width: 100px;
+      height: 100px;
+  }
+
+  .mt-5 {
+      margin-top: 0px !important;
+      margin-bottom: 10px !important;
   }
 }

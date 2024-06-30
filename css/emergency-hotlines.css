@@ -8,9 +8,7 @@ hr {
   width: 100%;
 }
 
-.content-holder {
-  padding: 0 90px;
-}
+
 
 h1 {
   font-family: "Titan One", cursive;
@@ -23,44 +21,55 @@ h1 {
   height: 5rem;
 }
 
+
+.header-container {
+  background-color: #0080ff;
+  height: 50px;
+  
+}
+.content-container {
+  height: 150px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #0080ff;
+}
+
+h4 {
+  font-weight: bold;
+  color: white;
+}
+
+h2{
+  color:#0080ff;
+}
+
 .text-color {
   color: #0080ff;
 }
 
-.header-color {
-  background-color: #0080ff;
-}
 
-.card-header {
-  font-weight: bold;
-  font-size: 24px;
-}
 
-.card-border {
-  border-style: solid;
-  border-width: 3px;
-  border-color: #0080ff;
-  border-radius: 7px;
-}
-.card {
-  height: 16rem;
-}
 
 @media (max-width: 576px) {
-  .card-body p {
-    font-size: 1.2rem; /* Smaller font size for smaller screens */
+
+  .container-fluid{
+      margin-top: 80px;
+      width: 100%;
   }
-  .content-holder {
-    padding: 0;
+  
+  h1 {
+      text-align: center;
+      margin-left: 0vw;
+      font-size: 1.5rem;
   }
-}
-@media (min-width: 577px) and (max-width: 768px) {
-  .card-body p {
-    font-size: 1.5rem; /* Medium font size for medium screens */
+
+  h4 {
+      text-align: center;
+      font-size: 20px;
   }
-}
-@media (min-width: 769px) {
-  .card-body p {
-    font-size: 2rem; /* Larger font size for larger screens */
+
+  .container-fluid {
+    align-items:center;
+    
   }
 }

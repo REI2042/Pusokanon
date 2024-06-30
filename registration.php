@@ -243,7 +243,22 @@
 						
 						<div class="col px-1">
 							<label for="sitio" class="form-label">Sitio</label>
-							<input type="text" class="form-control" name="addsitio" id="sitio" placeholder="Sitio" required>
+							<select class="form-select" name="addsitio" id="sitio" required>
+								<option value="Arca">Arca</option>
+								<option value="Cemento">Cemento</option>
+								<option value="Chumba-Chumba">Chumba-Chumba</option>
+								<option value="Ibabao">Ibabao</option>
+								<option value="Lawis">Lawis</option>
+								<option value="Matumbo">Matumbo</option>
+								<option value="Mustang">Mustang</option>
+								<option value="New Lipata">New Lipata</option>
+								<option value="San Roque">San Roque</option>
+								<option value="Seabreeze">Seabreeze</option>
+								<option value="Seaside">Seaside</option>
+								<option value="Sewage">Sewage</option>
+								<option value="Sta. Maria">Sta. Maria</option>
+                        	</select>
+							
 						</div>
 						<div class="col-md-auto col-sm-6 px-1">
 							<label for="purok" class="form-label">Purok</label>
