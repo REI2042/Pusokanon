@@ -58,12 +58,14 @@ domReady(function () {
                 console.log("Parsed Data: ", data); // Debug: Log parsed data
                 let { doc_ID, request_id, resident_id } = data;
 
+                let formData = new FormData();
+                formData.append('doc_ID', doc_ID);
+                formData.append('request_id', request_id);
+                formData.append('resident_id', resident_id);
+
                 fetch('phpConn/updateRemarks.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ doc_ID, request_id, resident_id })
+                    body: formData
                 })
                 .then(response => response.json())
                 .then(result => {
@@ -73,6 +75,10 @@ domReady(function () {
                         text: result.stat === 'success' ? 'The remarks have been updated.' : result.message,
                         showConfirmButton: true,
                         confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'Barangay-Residency.php';
+                        }
                     });
                     qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
                 })
