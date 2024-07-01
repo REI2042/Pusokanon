@@ -2,7 +2,7 @@
     include 'include/res_restrict_pages.php';
     require_once 'include/header.php';
 ?>
-    <link rel="stylesheet" href="css/barangay-officials.css">
+    <link rel="stylesheet" href="css/barangayOfficials.css">
 
 
 		<div class="container-fluid px-0">
