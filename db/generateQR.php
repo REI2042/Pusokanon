@@ -15,7 +15,11 @@ if ($userData) {
     $qrData = json_encode([
         'doc_ID' => $userData['document_id'],
         'res_id' => $userData['resident_id'],
-        'request_id' => $userData['request_id']
+        'request_id' => $userData['request_id'],
+        'resident_name' => $userData['resident_name'],
+        'doc_name' => $userData['document_name'],
+        'purpose' => $userData['purpose'],
+        'date_req' => $userData['request_date']
     ]);
 
     $path = 'QRCODES/';
