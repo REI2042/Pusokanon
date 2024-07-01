@@ -1,4 +1,4 @@
-.container-fluid{
+.container-fluid {
   display: flex;
 }
 
@@ -15,8 +15,8 @@ h1 {
   font-size: 2rem;
   color: #4f4f4f;
 }
-.container{
-  background-color: #0080ff;
+.container {
+  background-color: #2c7bd5;
   max-width: 500px;
   border-radius: 5px;
   display: flex;

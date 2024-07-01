@@ -79,7 +79,7 @@
         </nav>
     </header>
     <link rel="stylesheet" href="css/barangayOfficials.css">
-    <div class="container-fluid px-0">
+    <div class="container-fluid px-5 ">
 			<div class="title-container pl-3">
 				<h1>Barangay Officials</h1>
 				<hr class="bg-dark">
@@ -287,7 +287,7 @@
 				</div>
 			</div>						
         </div>  
-
+	</div>
 <?php
     include 'include/footer.php';
 ?>

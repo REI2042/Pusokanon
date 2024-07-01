@@ -4,7 +4,7 @@
 ?>
     <link rel="stylesheet" href="css/barangayOfficials.css">
 
-
+	<div class="container-fluid  ">
 		<div class="container-fluid px-0">
 			<div class="title-container pl-3">
 				<h1>Barangay Officials</h1>
@@ -214,7 +214,7 @@
 			</div>
 								
         </div>  
-
+	</div>
 
 
 <?php

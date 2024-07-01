@@ -6,12 +6,12 @@ html {
   width: 100%;
   height: 100%;
   margin-top: 100px;
+  padding: 0 80px;
 }
 
 hr {
   width: 100%;
 }
-
 
 h1 {
   font-family: "Titan One", cursive;
@@ -24,15 +24,12 @@ h1 {
   height: 5rem;
 }
 
-
 .header-container {
-  background-color: #0080ff;
+  background-color: #2c7bd5;
   height: 50px;
-  
 }
 .content-container {
   height: inherit;
-  
 }
 
 h4 {
@@ -51,39 +48,39 @@ h4 {
 }
 
 @media (max-width: 576px) {
-
-  .container-fluid{
-      margin-top: 80px;
-      width: 100%;
+  .container-fluid {
+    margin-top: 80px;
+    width: 100%;
+    padding: 0 5px;
   }
-  
+
   h1 {
-      text-align: center;
-      margin-left: 0vw;
-      font-size: 1.5rem;
+    text-align: center;
+    margin-left: 0vw;
+    font-size: 1.5rem;
   }
 
   h4 {
-      text-align: center;
-      font-size: 1rem;
+    text-align: center;
+    font-size: 1rem;
   }
 
-  p{
-      text-align: center;
-      font-size: 15px;
+  p {
+    text-align: center;
+    font-size: 15px;
   }
 
   .container-fluid {
-      align-items:center;
+    align-items: center;
   }
 
   .img-fluid {
-      width: 100px;
-      height: 100px;
+    width: 100px;
+    height: 100px;
   }
 
   .mt-5 {
-      margin-top: 0px !important;
-      margin-bottom: 10px !important;
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
   }
 }
