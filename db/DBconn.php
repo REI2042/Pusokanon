@@ -21,6 +21,7 @@
 	}
 
 	
+	
 	function fetchRegister($pdo) {
 	    $sql = "SELECT * FROM registration_tbl";  
 	    $stmt = $pdo->prepare($sql);

@@ -1,41 +1,3 @@
-<?php
-	
-	// session_start();
-	// require_once 'db/DBconn.php';
-    // if(isset($_POST['save_account'])) {
-    // 	 $userData = $_POST;
-    //     $firstName = $userData['fname'];
-    //     $lastName = $userData['lname'];
-    //     $middleName = $userData['mname'];
-    //     $suffix = $userData['sufname'];
-    //     $contactNo = $userData['contactNo'];
-    //     $email = $userData['accemail'];
-
-
-    //     $sql = "SELECT * FROM resident_users WHERE (res_fname = ? AND res_lname = ? AND res_midname = ? AND res_suffix = ?) OR (contact_no = ? OR res_email = ?)";
-    //     $stmt = $pdo->prepare($sql);
-    //     $stmt->execute([$firstName, $lastName, $middleName, $suffix, $contactNo, $email]);
-
-
-    //     // Check if the user already exists
-    //     if($stmt->rowCount() < 1) {
-    //     	$_SESSION['userdata'] = $userData;
-    //         header("Location:verificationUpload.php");
-    //         exit();
-            
-    //     } else {
-    //         echo "<script>alert('An account with provided information already exists.');</script>";
-    //     }
-    // }
-
-?>
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -259,10 +221,6 @@
 								<option value="Sta. Maria">Sta. Maria</option>
                         	</select>
 							
-						</div>
-						<div class="col-md-auto col-sm-6 px-1">
-							<label for="purok" class="form-label">Purok</label>
-							<input type="text" class="form-control" name="addpurok" id="purok" placeholder="Purok">
 						</div>
 						<div class="col-12 px-1">
                             <label for="email" class="form-label">Email</label>
