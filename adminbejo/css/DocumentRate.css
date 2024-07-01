@@ -37,6 +37,17 @@ body {
     color: #28A745;
 }
 
+.swal2-input {
+    margin: 0px 10px;
+    background-color: #F9F8FD;
+    color: #434349;    
+}
+
+.custom-swal {
+    background-color: #1D4E89;
+    color: #F9F8FD;
+}
+
 @media (max-width: 768px) {
     
     .page_header {
