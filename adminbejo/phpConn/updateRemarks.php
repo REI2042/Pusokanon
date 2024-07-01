@@ -2,19 +2,26 @@
 include '../../db/DBconn.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $doc_ID = $_POST['doc_ID'];
-    $request_id = $_POST['request_id'];
-    $resident_id = $_POST['resident_id'];
+    $data = file_get_contents('php://input');
+    $data = json_decode($data, true);
 
-    // Update the database
-    $sql = "UPDATE request_doc SET remarks = 'Released' WHERE doc_ID = ? AND res_id = ? AND request_id = ?";
-    $stmt = $pdo->prepare($sql);
-    $result = $stmt->execute([$doc_ID, $resident_id, $request_id]);
+    if (isset($data['doc_ID'], $data['request_id'], $data['res_id'])) {
+        $doc_ID = $data['doc_ID'];
+        $request_id = $data['request_id'];
+        $resident_id = $data['res_id'];
+        
+        // Update the database
+        $sql = "UPDATE request_doc SET remarks = 'Released' WHERE doc_ID = ? AND request_id = ? AND res_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $result = $stmt->execute([$doc_ID,  $request_id, $resident_id]);
 
-    if ($result) {
-        echo json_encode(['stat' => 'success']);
+        if ($result) {
+            echo json_encode(['stat' => 'success']);
+        } else {
+            echo json_encode(['stat' => 'error', 'message' => 'Failed to update remarks']);
+        }
     } else {
-        echo json_encode(['stat' => 'error', 'message' => 'Failed to update remarks']);
+        echo json_encode(['stat' => 'error', 'message' => 'Invalid input data']);
     }
 }
 ?>

@@ -56,30 +56,40 @@ domReady(function () {
             try {
                 let data = JSON.parse(decodeText);
                 console.log("Parsed Data: ", data); // Debug: Log parsed data
-                let { doc_ID, request_id, resident_id } = data;
+                let { doc_ID, res_id, request_id } = data;
 
-                let formData = new FormData();
-                formData.append('doc_ID', doc_ID);
-                formData.append('request_id', request_id);
-                formData.append('resident_id', resident_id);
-
+                // Send AJAX request to update remarks
                 fetch('phpConn/updateRemarks.php', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
                 })
                 .then(response => response.json())
                 .then(result => {
-                    Swal.fire({
-                        icon: result.stat === 'success' ? 'success' : 'error',
-                        title: result.stat === 'success' ? 'Update Successful' : 'Update Failed',
-                        text: result.stat === 'success' ? 'The remarks have been updated.' : result.message,
-                        showConfirmButton: true,
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'Barangay-Residency.php';
-                        }
-                    });
+                    // Handle the response from the server
+                    if (result.stat === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Update Successful',
+                            text: 'The remarks have been updated.',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'Barangay-Residency.php';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Update Failed',
+                            text: result.message,
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK'
+                        });
+                    }
                     qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
                 })
                 .catch(error => {

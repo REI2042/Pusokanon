@@ -13,15 +13,9 @@ $userData = fetchLatestRequest($pdo, $res_id);
 if ($userData) {
     // Generate QR code data in JSON format
     $qrData = json_encode([
-        'document_id' => $userData['document_id'],
-        'request_id' => $userData['request_id'],
-        'resident_id' => $userData['resident_id'],
-        'resident_name' => $userData['resident_name'],
-        'address' => "Sitio {$userData['sitio']}, Pusok, Lapu-Lapu City",
-        'document_name' => $userData['document_name'],
-        'purpose' => $userData['purpose'],
-        'request_date' => $userData['request_date'],
-        'rate' => $userData['doc_amount']
+        'doc_ID' => $userData['document_id'],
+        'res_id' => $userData['resident_id'],
+        'request_id' => $userData['request_id']
     ]);
 
     $path = 'QRCODES/';
@@ -50,7 +44,6 @@ if ($userData) {
     } else {
         echo "Failed to generate QR code or save file.";
     }
-
 } else {
     echo "No data found for this user.";
 }

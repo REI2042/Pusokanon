@@ -101,8 +101,9 @@
 				rd.res_id AS resident_id,
 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
 				ru.addr_sitio AS sitio,
+				rd.doc_ID AS document_id,
 				dt.doc_name AS document_name,
-				rd.doctype_id AS document_id, 
+				rd.doctype_id AS document_type_id, 
 				rd.purpose_name AS purpose, 
 				rd.date_req AS request_date,
 				dt.doc_amount
