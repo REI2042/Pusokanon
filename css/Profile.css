@@ -1,0 +1,74 @@
+.main {
+    margin-top: 81px;
+    padding: 0px 75px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.profile-box,
+.request-box {
+    background: linear-gradient(45deg, #2C7BD5, #4A90E2, #6AAFE6);
+    border-radius: 15px;
+}
+
+.profile-picture {
+    border: 5px solid #F9F8FD;
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.profile-information {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-button,
+.change-button {
+    padding: 13px;
+    border-radius: 26px;
+    border-style: none;
+    background-color: #005BB5;
+    color: #F9F8FD;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.additional-information p {
+    color: #F9F8FD;
+    font-weight: bold;
+    margin: 12px 0px;
+}
+
+.name, .gender, .age, .voter {
+    color: #F9F8FD;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+
+    .main {
+        margin-top: 65.5px;
+        padding: 0px 10px;
+    }
+
+    .additional-information {
+        font-size: small;
+    }
+
+    footer .footerContainer p {
+        font-size: small;
+    }
+
+    footer {
+        position: static;
+    }
+
+}

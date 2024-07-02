@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['birth_date'] = $resident['birth_date']; 
         $_SESSION['res_midname'] = $resident['res_midname']; // Store user middle name in session
         $_SESSION['res_lname'] = $resident['res_lname']; // Store user last name in session
+        $_SESSION['res_suffix'] = isset($resident['res_suffix']) ? $resident['res_suffix'] : '';
         $_SESSION['gender'] = $resident['gender']; 
         $_SESSION['civil_status'] = $resident['civil_status']; 
         $_SESSION['res_email'] = decryptData($resident['res_email']); // Store user email in session
