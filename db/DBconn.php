@@ -147,6 +147,26 @@
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	function fetchListofComplaints($pdo, $offset, $limit) {
+		$sql = "SELECT 
+					complaint_id, case_type, incident_date, incident_place, date_filed, status
+				FROM complaints_tbl
+				LIMIT :offset, :limit";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	function fetchTotalComplaints($pdo) {
+		$sql = "SELECT COUNT(*) FROM complaints_tbl";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
+	
+
 	function fetchTotalMales($pdo) {
 		$sql = "SELECT COUNT(*) FROM resident_users WHERE gender = 'Male'";
 		$stmt = $pdo->prepare($sql);
