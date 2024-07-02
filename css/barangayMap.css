@@ -29,7 +29,12 @@ h1 {
 
 .iframe-container iframe {
   width: 80vw;
-  height: 70vh;
+  height: 65vh;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
 }
 
 @media (max-width: 767px) {
@@ -40,4 +45,8 @@ h1 {
   .content-holder {
     padding: 0;
   }
+
+  footer {
+    position: static;
+}
 }
