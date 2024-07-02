@@ -7,6 +7,13 @@
     
     // $userId = $_SESSION['res_ID'];
     // $requests = fetchResdocsRequest($pdo, $userId);
+
+    // $birthdate = $_SESSION['birth_date'];
+    // $date = DateTime::createFromFormat('d/m/Y', $birthdate);
+    // $birthdate = date("m.d.Y", strtotime($date->format('Y-m-d')));
+    // <?= htmlspecialchars($birthdate); ?>
+
+    
 ?>
 <link rel="stylesheet" href="css/Profile.css">
 <section class="main">
@@ -18,7 +25,7 @@
                         <img src="PicturesNeeded/profile-pic.jpg"  class="profile-picture" alt="Profile Picture"/>
                         <div class="">
                             <p class="name"><?= htmlspecialchars($fullName); ?></p>
-                            <p class="gender">Male</p>
+                            <p class="gender"><?= htmlspecialchars($_SESSION['gender']); ?></p>
                             <p class="age">20</p>
                             <p class="voter">Registered Voter</p>
                         </div>
@@ -26,13 +33,13 @@
                 </div>
                 <div class="row mx-0 px-4">
                     <div class="additional-information">
-                        <p>Birthday: <span>April 14, 2003</span></p>
-                        <p>Contact Number: <span>0912 345 6789</span></p>
-                        <p>Civil Status: <span>Married</span></p>
-                        <p>Citizenship: <span>Filipino</span></p>
-                        <p>Place of Birth: <span>Cebu</span></p>
-                        <p>Address: <span>Sewage Barangay Pusok, Lapu - Lapu City</span></p>
-                        <p>Email Address: <span>juan.delacruz@gmail.com</span></p>
+                        <p>Birthday: <span>January 15, 2022</span></p>
+                        <p>Contact Number: <?= htmlspecialchars($_SESSION['contact_no']); ?></p>
+                        <p>Civil Status: <?= htmlspecialchars($_SESSION['civil_status']); ?></p>
+                        <p>Citizenship: <?= htmlspecialchars($_SESSION['citizenship']); ?></p>
+                        <p>Place of Birth: <?= htmlspecialchars($_SESSION['place_birth']); ?></p>
+                        <p>Address: <?= htmlspecialchars($_SESSION['addr_sitio']); ?> Barangay Pusok, Lapu - Lapu City</span></p>
+                        <p>Email Address: <?= htmlspecialchars($_SESSION['res_email']); ?></p>
                     </div>
                 </div>
                 <div class="row">

@@ -41,7 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['res_lname'] = $resident['res_lname']; // Store user last name in session
         $_SESSION['res_suffix'] = isset($resident['res_suffix']) ? $resident['res_suffix'] : '';
         $_SESSION['gender'] = $resident['gender']; 
-        $_SESSION['civil_status'] = $resident['civil_status']; 
+        $_SESSION['civil_status'] = $resident['civil_status'];
+        $_SESSION['contact_no'] = $resident['contact_no'];
+        $_SESSION['citizenship'] = $resident['citizenship'];
+        $_SESSION['place_birth'] = $resident['place_birth'];
+        $_SESSION['addr_sitio'] = $resident['addr_sitio'];
         $_SESSION['res_email'] = decryptData($resident['res_email']); // Store user email in session
         $_SESSION['res_ID'] = $resident['res_ID']; // Store user ID in session
         // Redirect to resident landing page
