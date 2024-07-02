@@ -12,11 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 title: 'Update Price',
                 html: `
-                    <p>Document Name: ${documentName}</p>
+                    <p class="document-name">Document Name: ${documentName}</p>
+                    <label class="document-price" for="newPrice">Price: ₱</label>
                     <input type="number" id="newPrice" class="swal2-input" value="${documentPrice}">
                 `,
+                confirmButtonColor: "#3D7CC4",
                 confirmButtonText: 'Update Price',
                 showCloseButton: true,
+                customClass: {
+                    popup: 'custom-swal'
+                },
                 preConfirm: () => {
                     const newPrice = document.getElementById('newPrice').value;
                     if (!newPrice || newPrice <= 0) {
@@ -37,8 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         text: `You are about to change the price of ${documentName} to ₱${newPrice}`,
                         icon: 'warning',
                         showCancelButton: true,
+                        cancelButtonColor: "#CC0000",
+                        confirmButtonColor: "#3D7CC4",
                         confirmButtonText: 'Yes, update it!',
-                        cancelButtonText: 'No, cancel!'
+                        cancelButtonText: 'No, cancel!',
+                        customClass: {
+                            popup: 'custom-swal'
+                        }
                     }).then((confirmResult) => {
                         if (confirmResult.isConfirmed) {
                             fetch('phpConn/update_price.php', {
@@ -56,15 +66,18 @@ document.addEventListener('DOMContentLoaded', function() {
                                         title: 'Updated!',
                                         text: 'The price has been updated.',
                                         icon: 'success',
-                                        confirmButtonText: 'OK'
+                                        confirmButtonText: 'OK',
+                                        confirmButtonColor: "#3D7CC4",
+                                        customClass: {
+                                            popup: 'custom-swal'
+                                        }
                                     }).then((result) => {
                                         if (result.isConfirmed) {
                                             location.reload();
                                         }
                                     });
-                                } else {
-                                    Swal.fire('Error!', 'There was an error updating the price.', 'error');
-                                }                            });
+                                }
+                            });
                         }
                     });
                 }
