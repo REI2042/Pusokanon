@@ -1,10 +1,15 @@
 <?php
 
-	$host = 'localhost';
-	$db   = 'database_pusokanon';
-	$user = 'root';
-	$pass = '';
-	$port = '3307';
+	// $host = 'localhost';
+	// $db   = 'database_pusokanon';
+	// $user = 'root';
+	// $pass = '';
+	// $port = '3307';
+	$host = 'ba3mgkm7ybvrjelzfj5p-mysql.services.clever-cloud.com';
+	$db   = 'ba3mgkm7ybvrjelzfj5p';
+	$user = 'uokt9ejhkioabyku';
+	$pass = 'PZg0wRK0jtIFuchrP0Ck';
+	$port = '3306';
 	$charset = 'utf8mb4';
 
 	$dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
