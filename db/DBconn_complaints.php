@@ -1,10 +1,12 @@
 <?php
+date_default_timezone_set('Asia/Manila');
+session_start();
+require_once 'DBconn.php'; 
 
-    session_start();
-    require_once 'DBconn.php';
-
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_SESSION['res_ID'])) {
+    $res_id = $_SESSION['res_ID'];
+    
+    if (isset($_POST['fname'], $_POST['mname'], $_POST['lname'], $_POST['sufname'], $_POST['gender'], $_POST['age'], $_POST['incident-date'], $_POST['incident-time'], $_POST['addsitio'], $_POST['case_type'], $_POST['narrative'])) {
         $fname = $_POST['fname'];
         $mname = $_POST['mname'];
         $lname = $_POST['lname'];
@@ -14,37 +16,66 @@
         $incident_date = $_POST['incident-date'];
         $incident_time = $_POST['incident-time'];
         $addsitio = $_POST['addsitio'];
-        $date_filed = $_POST['addsitio'];
+        $date_filed = date('Y-m-d H:i:s');
         $case_type = $_POST['case_type'];
         $narrative = $_POST['narrative'];
 
-        // Prepare the SQL statement
-        $sql = "INSERT INTO complaints_tbl (respondent_fname, respondent_mname, respondent_lname, respondent_suffix, respondent_gender, respondent_age, incident_date, incident_time, incident_place, date_filed, case_type, narrative) 
-                VALUES (:respondent_fname, :respondent_mname, :respondent_lname, :respondent_suffix, :respondent_gender, :respondent_age, :incident_date, :incident_time, :incident_place, :date_filed :case_type, :narrative)";
+        $status = 'pending'; // Default status for new complaints
+        $staff_id = 2; // Make sure this staff_id exists in the barangay_staff table
 
-        // Prepare the statement
-        $stmt = $conn->prepare($sql);
+        $sql = "INSERT INTO complaints_tbl (res_id, staff_id, respondent_fname, respondent_mname, respondent_lname, respondent_suffix, respondent_gender, respondent_age, incident_date, incident_time, incident_place, date_filed, case_type, narrative, status) 
+                VALUES (:res_id, :staff_id, :fname, :mname, :lname, :sufname, :gender, :age, :incident_date, :incident_time, :addsitio, :date_filed, :case_type, :narrative, :status)";
 
-        // Bind parameters
-        $stmt->bindParam(':respondent_fname', $fname);
-        $stmt->bindParam(':respondent_mname', $mname);
-        $stmt->bindParam(':respondent_lname', $lname);
-        $stmt->bindParam(':respondent_suffix', $sufname);
-        $stmt->bindParam(':respondent_gender', $gender);
-        $stmt->bindParam(':respondent_age', $age);
-        $stmt->bindParam(':incident_date', $incident_date);
-        $stmt->bindParam(':incident_time', $incident_time);
-        $stmt->bindParam(':incident_place', $addsitio);
-        $stmt->bindParam(':date_filed', $date_filed);
-        $stmt->bindParam(':case_type', $case_type);
-        $stmt->bindParam(':narrative', $narrative);
+        if (isset($pdo)) {
+            $stmt = $pdo->prepare($sql);
 
-        // Execute the statement
-        $stmt->execute();
+            $stmt->bindParam(':res_id', $res_id);
+            $stmt->bindParam(':staff_id', $staff_id);
+            $stmt->bindParam(':fname', $fname);
+            $stmt->bindParam(':mname', $mname);
+            $stmt->bindParam(':lname', $lname);
+            $stmt->bindParam(':sufname', $sufname);
+            $stmt->bindParam(':gender', $gender);
+            $stmt->bindParam(':age', $age);
+            $stmt->bindParam(':incident_date', $incident_date);
+            $stmt->bindParam(':incident_time', $incident_time);
+            $stmt->bindParam(':addsitio', $addsitio);
+            $stmt->bindParam(':date_filed', $date_filed);
+            $stmt->bindParam(':case_type', $case_type);
+            $stmt->bindParam(':narrative', $narrative);
+            $stmt->bindParam(':status', $status);
 
-        
+            if ($stmt->execute()) {
+                echo "Complaint submitted successfully.";
+                $complaint_id = $pdo->lastInsertId(); // Retrieve last inserted ID
+            } else {
+                echo "Error: " . $stmt->errorInfo()[2]; // Print error message for debugging
+            }
+        } else {
+            echo "Database connection error.";
+        }
+    } else {
+        echo "Missing required form fields.";
     }
+} else {
+    echo "User not logged in or session expired.";
+}
 
+if (isset($_POST['complaint_id']) && isset($_POST['update_status'])) {
+    $complaint_id = $_POST['complaint_id'];
 
+    $new_status = 'done';
 
+    $update_sql = "UPDATE complaints_tbl SET status = :new_status WHERE complaint_id = :complaint_id";
+    $update_stmt = $pdo->prepare($update_sql);
+    $update_stmt->bindParam(':new_status', $new_status);
+    $update_stmt->bindParam(':complaint_id', $complaint_id);
+
+    if ($update_stmt->execute()) {
+        echo "Status updated to 'done' for complaint ID: " . $complaint_id;
+    } else {
+        echo "Error updating status.";
+    }
+}
 ?>
+
