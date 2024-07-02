@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/navbarstyles.css">
 
 
-    <title>Pusokanon</title>
+    <title>Pusokanon Barangay Officials</title>
 
 </head>
 <body>
@@ -81,13 +81,13 @@
 
     <link rel="stylesheet" href="css/barangayInfo.css">
     
-    <div class="content-holder">
-        <div class="container-fluid px-0">
-			<div class="title-container pl-3">
-				<h1>Barangay Information</h1>
-				<hr class="bg-dark">
-			</div> 
-		</div>
+    
+    <div class="container-fluid px-0">
+        <div class="title-container">
+            <h1>Barangay Information</h1>
+            <hr class="bg-dark">
+        </div> 
+    
         <div class="text-container mt-0 text-center px-5 py-5">
             <h5 class="fw-bold">HOW DID "PUSOK" GET ITS NAME?</h5>
             <p>
@@ -113,5 +113,6 @@
             </p>
         </div>
     </div>
+    
 
 <?php include 'include/footer.php';?>
