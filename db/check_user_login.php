@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['contact_no'] = $resident['contact_no'];
         $_SESSION['citizenship'] = $resident['citizenship'];
         $_SESSION['place_birth'] = $resident['place_birth'];
+        $_SESSION['registered_voter'] = $resident['registered_voter'];
         $_SESSION['addr_sitio'] = $resident['addr_sitio'];
         $_SESSION['res_email'] = decryptData($resident['res_email']); // Store user email in session
         $_SESSION['res_ID'] = $resident['res_ID']; // Store user ID in session
