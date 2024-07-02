@@ -24,10 +24,10 @@
 </head>
 <body>
 	
-    <header>
+<header>
         <nav class="navbar navbar-expand-lg ">
             <a class="navbar-brand" href="index.php"> 
-                <img src="PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo"><span class> PUSOKANON</span>
+                <img src="PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo"><span > PUSOKANON</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -44,13 +44,13 @@
                             Services
                         </a>
                         <div class="dropdown-menu" aria-labelledby="servicesDropdown">
-                            <a class="dropdown-item" href="#">Request Documents</a>
+                            <a class="dropdown-item" href="requestDocument.php">Request Documents</a>
                             <a class="dropdown-item" href="#">File Complaint</a>
                         </div>
                     </li>
 
                     <li class="nav-item mt-2 pt-1">
-                        <a class="nav-link" href="#">Forum</a>
+                        <a class="nav-link" href="#">Updates</a>
                     </li>
 
                     <li class="nav-item dropdown mt-2 pt-1">
@@ -58,15 +58,15 @@
                             About Us
                         </a>
                         <div class="dropdown-menu" aria-labelledby="aboutUsDropdown">
-                            <a class="dropdown-item" href="#">Barangay Info</a>
-                            <a class="dropdown-item" href="#">Barangay Officials</a>
-                            <a class="dropdown-item" href="#">Hazard Map</a>
+                            <a class="dropdown-item" href="aboutus-barangayInfo.php">Barangay Info</a>
+                            <a class="dropdown-item" href="aboutus-barangayOfficials.php">Barangay Officials</a>
+                            <a class="dropdown-item" href="barangayMap.php">Barangay Map</a>
                         </div>
                     </li>
     
                     <li class="nav-item mt-2 pt-1 me-3">
-                        <a class="nav-link" href="#">Hotlines</a>
-                    </li>
+                        <a class="nav-link" href="emergency-hotlines.php">Hotlines</a>
+                    </li>   
                     <li class="nav-item mt-1">
                         <a class="nav-link" href="login.php">
                         <div class="row">
