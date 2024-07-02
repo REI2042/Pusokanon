@@ -2,6 +2,7 @@
     include 'include/res_restrict_pages.php';
     require_once 'include/header.php';
 ?>
+<<<<<<< HEAD
 
     <link rel="stylesheet" href="css/barangayOfficials.css">
     
@@ -10,6 +11,30 @@
 			<div class="title-container">
 			<h1>Barangay Officials</h1>
 			<hr class="bg-dark">
+=======
+    <link rel="stylesheet" href="css/barangayOfficials.css">
+
+	<div class="container-fluid  ">
+		<div class="container-fluid px-0">
+			<div class="title-container pl-3">
+				<h1>Barangay Officials</h1>
+				<hr class="bg-dark">
+			</div> 
+		</div>
+		<div class="container-fluid px-3 mt-3 mb-5">
+			<div class="container-fluid mt-1 px-0 justify-content-center">
+				<div class="container-fluid  mt-0 pt-2 text-center header-container">
+					<h4>BARANGAY CAPTAIN</h4>
+				</div>
+				<div class="container-fluid d-flex flex-column flex-md-row mt-0 justify-content-center content-container">
+					<img src="PicturesNeeded/ranie-emperio.jpg" class="img-fluid rounded-circle my-3 mx-3">
+					<p class="ml-md-text-md-start mt-5">
+						<a class="text-format" href="https://www.facebook.com/KuyaRanieEmperio2022">Hon. Ranulfo G. Emperio</a><br>
+						0912-345-6789 <br>
+						ranie.emperio@gmail.com
+					</p>
+				</div>
+>>>>>>> 1b39ce7d07fc15689f955f10d73c2b7be3a6aa99
 			</div>
 		
 			
@@ -176,6 +201,7 @@
 			<div class="header-container mt-0 pt-2 text-center">
 				<h4>BARANGAY SK OFFICIALS</h4>
 			</div>
+<<<<<<< HEAD
 			<div class="row no-gutters">
 				<div class="col-12 col-sm-4">
 					<div class="content-container d-flex flex-column flex-md-row mt-0 justify-content-center align-items-center">
@@ -211,5 +237,10 @@
 		</div>
 	</div>
 
+=======
+								
+        </div>  
+	</div>
+>>>>>>> 1b39ce7d07fc15689f955f10d73c2b7be3a6aa99
 
 <?php include 'include/footer.php';?>
