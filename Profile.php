@@ -30,7 +30,7 @@
                             <p class="name"><?= htmlspecialchars($fullName); ?></p>
                             <p class="gender"><?= htmlspecialchars($_SESSION['gender']); ?></p>
                             <p class="age"><?= htmlspecialchars($age); ?></p>
-                            <p class="voter"><?= htmlspecialchars($_SESSION['registered_voter']); ?></p>
+                            <p class="voter"><?= htmlspecialchars($_SESSION['registered_voter']); ?> Voter</p>
                         </div>
                     </div>
                 </div>
