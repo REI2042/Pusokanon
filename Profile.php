@@ -4,15 +4,18 @@
     
     $suffix = isset($_SESSION['res_suffix']) ? $_SESSION['res_suffix'] : '';
     $fullName = trim($_SESSION['res_fname'] . ' ' . $_SESSION['res_midname'] . ' ' . $_SESSION['res_lname'] . ' ' . $suffix);
+
+    $birthdateStr = $_SESSION['birth_date'];
+    $birthdate = DateTime::createFromFormat('Y-m-d', $birthdateStr);
+    $currentDate = new DateTime();
+    $age = $currentDate->diff($birthdate)->y;
     
     // $userId = $_SESSION['res_ID'];
     // $requests = fetchResdocsRequest($pdo, $userId);
 
-    // $birthdate = $_SESSION['birth_date'];
-    // $date = DateTime::createFromFormat('d/m/Y', $birthdate);
-    // $birthdate = date("m.d.Y", strtotime($date->format('Y-m-d')));
-    // <?= htmlspecialchars($birthdate); ?>
-
+    $birthdate = $_SESSION['birth_date'];
+    $date = DateTime::createFromFormat('Y-m-d', $birthdate);
+    $formattedBirthdate = $date->format('F j, Y');
     
 ?>
 <link rel="stylesheet" href="css/Profile.css">
@@ -26,14 +29,14 @@
                         <div class="">
                             <p class="name"><?= htmlspecialchars($fullName); ?></p>
                             <p class="gender"><?= htmlspecialchars($_SESSION['gender']); ?></p>
-                            <p class="age">20</p>
-                            <p class="voter">Registered Voter</p>
+                            <p class="age"><?= htmlspecialchars($age); ?></p>
+                            <p class="voter"><?= htmlspecialchars($_SESSION['registered_voter']); ?> Voter</p>
                         </div>
                     </div>
                 </div>
                 <div class="row mx-0 px-4">
                     <div class="additional-information">
-                        <p>Birthday: <span>January 15, 2022</span></p>
+                        <p>Birthday: <?= htmlspecialchars($formattedBirthdate); ?></p>
                         <p>Contact Number: <?= htmlspecialchars($_SESSION['contact_no']); ?></p>
                         <p>Civil Status: <?= htmlspecialchars($_SESSION['civil_status']); ?></p>
                         <p>Citizenship: <?= htmlspecialchars($_SESSION['citizenship']); ?></p>

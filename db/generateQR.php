@@ -4,14 +4,12 @@ session_start();
 require_once '../phpqrcode/qrlib.php';
 require_once 'DBconn.php';
 
-// Assuming you have a session variable for resident ID
+
 $res_id = $_SESSION['res_ID'];
 
-// Fetch user data based on resident ID
 $userData = fetchLatestRequest($pdo, $res_id);
 
 if ($userData) {
-    // Generate QR code data in JSON format
     $qrData = json_encode([
         'doc_ID' => $userData['document_id'],
         'res_id' => $userData['resident_id'],
@@ -23,15 +21,14 @@ if ($userData) {
     ]);
 
     $path = 'QRCODES/';
-    $qrcodeName = time() . '.png';  // Generate a unique filename for the QR code
+    $qrcodeName = time() . '.png';  
     $qrcodePath = $path . $qrcodeName;
 
     QRcode::png($qrData, $qrcodePath, 'L', 4, 4);
 
     if (file_exists($qrcodePath)) {
-        echo "<img src='" . $qrcodePath . "'><br>";  // Display the QR code image
+        echo "<img src='" . $qrcodePath . "'><br>";  
 
-        // Update database with QR code filename
         $sql = "UPDATE request_doc SET qrCode_image = :qrcodeName WHERE request_id = :request_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':qrcodeName', $qrcodeName, PDO::PARAM_STR);

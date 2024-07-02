@@ -1,56 +1,53 @@
-body {
-  display: flex;
+.container-fluid {
+  margin-top: 23px;
+  margin-left: 90px;
+  padding-bottom: 47px;
 }
 
-.main-container {
-  width: auto;
-  height: auto;
-  margin-top: 23px;
-  margin-left: 80px;
-  position: relative;
-  padding-bottom: 10px;
-}
 
 h1 {
   font-family: "Titan One", cursive;
+  font-size: 50px;
   color: #434349;
-  font-size: 55px;
+  display: flex;
 }
 
-card-title {
-  color: black !important;
+.container{
+  background-color: #0080ff;
+  max-width: 500px;
+  border-radius: 5px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+p {
   font-weight: bold;
+  color: white;
+  margin-bottom: -15px;
 }
 
-.card1 {
-  width: auto;
-  height: auto;
-  background-color: #d9d9d9 !important;
-}
+@media (max-width: 767px) {
+  .form-label {
+    font-size: 0.9rem;
+  }
 
-.card2 {
-  width: auto;
-  height: auto;
-  overflow-y: auto;
-  background-color: #d9d9d9 !important;
-}
-
-.submit {
-  width: 100%;
-  max-width: 400px;
-  height: 50px;
-  margin-bottom: 10px;
-  background-color: #2260a7;
-  color: #ffff;
-  font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .main-container {
-    margin-left: 50px;
+  .form-control,
+  .form-select {
+    font-size: 0.8rem;
   }
 
   h1 {
-    font-size: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
   }
+
+  .container-fluid{
+      margin-top: 80px;
+      width: 100%;
+  }
+
+
 }
+

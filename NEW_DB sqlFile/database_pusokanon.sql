@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jun 27, 2024 at 11:19 AM
+-- Generation Time: Jul 02, 2024 at 08:52 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -72,6 +72,44 @@ CREATE TABLE `barangay_staff` (
 INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `year_of_service`, `contact_no`, `userRole_id`, `registered_voters`, `addr_sitio`, `addr_purok`, `staff_email`, `staff_password`) VALUES
 (2, 'Ranie', 'Godinez', 'EMPERIO', NULL, '0000-00-00', '', '0000-00-00', '', 1, '', '', '', 'Admin', '2402'),
 (3, 'airene', 'mabulay', 'cabunilas', NULL, '0000-00-00', '', '0000-00-00', '', 3, '', '', '', 'secretary', '2402');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complaints_tbl`
+--
+
+CREATE TABLE `complaints_tbl` (
+  `complaint_id` int(11) NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `respondent_fname` varchar(50) NOT NULL,
+  `respondent_mname` varchar(50) DEFAULT NULL,
+  `respondent_lname` varchar(50) NOT NULL,
+  `respondent_suffix` varchar(10) DEFAULT NULL,
+  `respondent_gender` varchar(10) NOT NULL,
+  `respondent_age` int(11) NOT NULL,
+  `incident_date` date NOT NULL,
+  `incident_time` time NOT NULL,
+  `date_filed` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `incident_place` varchar(50) NOT NULL,
+  `case_type` varchar(50) NOT NULL,
+  `narrative` text DEFAULT NULL,
+  `staff_id` int(11) NOT NULL,
+  `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaints_tbl`
+--
+
+INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `staff_id`, `status`) VALUES
+(1, 21, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 22, '2024-05-24', '18:30:00', '2024-07-02 11:06:36', 'Sewage', 'Threat', 'hakdog.', 2, 'pending'),
+(2, 21, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 22, '2024-05-24', '18:30:00', '2024-07-02 11:08:07', 'Sewage', 'Threat', 'hakdog.', 2, 'pending'),
+(3, 21, 'Demi', 'The', 'Great', ' ', 'Female', 26, '2024-03-20', '10:30:00', '2024-07-02 11:08:53', 'Lawis', 'Physical Abuse', 'She slapped me in the face.', 2, 'pending'),
+(4, 21, 'Dwight', '', 'Callahan', 'II.', 'Male', 24, '2024-06-30', '03:02:00', '2024-07-02 11:09:58', 'Sta. Maria', 'Bullying', 'Bullied my forehead', 2, 'pending'),
+(5, 21, 'Dwight', '', 'Callahan', 'II.', 'Male', 24, '2024-06-30', '03:02:00', '2024-07-02 17:12:10', 'Sta. Maria', 'Bullying', 'Bullied my forehead', 2, 'pending'),
+(6, 21, 'Regina', '', 'Cotoner', ' ', 'Female', 32, '2024-03-26', '17:25:00', '2024-07-02 17:13:41', 'Chumba-Chumba', 'Physical Abuse', 'she broke my ankleeeeeeeeeeeeeee', 2, 'pending'),
+(7, 21, 'Demitria', '', 'Mabulay', ' ', 'Female', 25, '2024-05-15', '16:06:00', '2024-07-02 17:15:40', 'Arca', 'Bullying', 'hiihpop', 2, 'pending');
 
 -- --------------------------------------------------------
 
@@ -179,7 +217,10 @@ INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purp
 (1, 21, 1, 1, 'Employment', 'pending', '2024-06-26 12:31:51', '2024-06-26 12:31:51', 'Not released', 'O4nx3jm-dA$b=', '1719405111.png'),
 (2, 21, 1, 4, 'Senior Citizen Assistance', 'pending', '2024-06-26 12:32:49', '2024-06-26 12:32:50', 'Not released', 'OYA;F7Ny', '1719405169.png'),
 (3, 21, 1, 4, 'Senior Citizen Assistance', 'pending', '2024-06-26 13:21:44', '2024-06-26 13:21:44', 'Not released', '2ztQ-Mq?.d', '1719408104.png'),
-(4, 13, 1, 4, 'Senior Citizen Assistance', 'pending', '2024-06-27 07:32:31', '2024-06-27 07:32:31', 'Not released', '<+5pzI}4G4qo;', '1719473551.png');
+(4, 13, 1, 4, 'Senior Citizen Assistance', 'pending', '2024-06-27 07:32:31', '2024-06-27 07:32:31', 'Not released', '<+5pzI}4G4qo;', '1719473551.png'),
+(5, 21, 1, 1, 'Employment', 'pending', '2024-06-30 14:32:09', '2024-06-30 14:35:00', 'Not released', 'Ht^XHi3Qn<y', '1719758100.png'),
+(6, 21, 1, 1, 'Employment', 'pending', '2024-07-01 09:00:01', '2024-07-01 09:00:02', 'Not released', 'M;SL*:Yqwj', '1719824402.png'),
+(7, 21, 1, 4, 'Senior Citizen Assistance', 'pending', '2024-07-01 09:09:35', '2024-07-01 09:10:14', 'Released', 'gS!bOhinB', '1719824976.png');
 
 -- --------------------------------------------------------
 
@@ -206,20 +247,22 @@ CREATE TABLE `resident_users` (
   `res_password` varchar(100) NOT NULL,
   `userRole_id` int(11) NOT NULL,
   `reset_token_hash` varchar(64) DEFAULT NULL,
-  `reset_token_expires_at` datetime DEFAULT NULL
+  `reset_token_expires_at` datetime DEFAULT NULL,
+  `profile_picture` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `resident_users`
 --
 
-INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `registered_voter`, `citizenship`, `contact_no`, `place_birth`, `addr_sitio`, `addr_purok`, `res_email`, `res_password`, `userRole_id`, `reset_token_hash`, `reset_token_expires_at`) VALUES
-(10, 'nino rey', 'cabunilas', 'yonson', ' ', 'Male', '2002-05-24', 'Single', 'Registered', 'Filipino', '09682027920', 'sewage, pusok, llc', 'sewage', '', 'cabunilasninorey@gmail.com', '2402', 2, NULL, NULL),
-(11, 'airene marie', 'mabulay', 'banajos', ' ', 'Female', '2003-01-05', 'Single', 'Registered', 'Korean', '09876571324', 'sewage, pusok, llc', 'sta. losia', '', 'airene@gmail.com', '2402', 2, NULL, NULL),
-(13, 'yuna', 'cabunilas', 'mabulay', ' ', 'Female', '2003-03-08', 'Single', 'Not-regist', 'Filipino', '09682027920', 'sewage', 'sewage', 'blck 6', 'yuna@gmail.com', '2402', 2, NULL, NULL),
-(18, 'rei', 'cabunilas', 'yonson', 'Jr', 'Female', '2006-11-03', 'Married', 'Registered', 'filipino', '092374823243', 'sewage', 'sewage', '', 'rei@gmail.com', '2402', 2, NULL, NULL),
-(21, 'Maria Irenea', 'Bebanco', 'Asne', ' ', 'Female', '2003-01-05', 'Single', 'Registered', 'Spanish', '09954702461', 'Cebu City', 'Sewage', '4', 'renmarie153@gmail.com', 'indayamm153', 2, NULL, NULL),
-(24, 'ninis', 'cabus', 'Yalall', 'Jr', 'Male', '2003-02-23', 'Married', 'Registered', 'Filipino', '09682027910', 'Pusok, sewage', 'Sewage', '', 'myname@gmail.com', '2402', 2, NULL, NULL);
+INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `registered_voter`, `citizenship`, `contact_no`, `place_birth`, `addr_sitio`, `addr_purok`, `res_email`, `res_password`, `userRole_id`, `reset_token_hash`, `reset_token_expires_at`, `profile_picture`) VALUES
+(10, 'nino rey', 'cabunilas', 'yonson', ' ', 'Male', '2002-05-24', 'Single', 'Registered', 'Filipino', '09682027920', 'sewage, pusok, llc', 'sewage', '', 'cabunilasninorey@gmail.com', '2402', 2, NULL, NULL, NULL),
+(11, 'airene marie', 'mabulay', 'banajos', ' ', 'Female', '2003-01-05', 'Single', 'Registered', 'Korean', '09876571324', 'sewage, pusok, llc', 'sta. losia', '', 'airene@gmail.com', '2402', 2, NULL, NULL, NULL),
+(13, 'yuna', 'cabunilas', 'mabulay', ' ', 'Female', '2003-03-08', 'Single', 'Not-regist', 'Filipino', '09682027920', 'sewage', 'sewage', 'blck 6', 'yuna@gmail.com', '2402', 2, NULL, NULL, NULL),
+(18, 'rei', 'cabunilas', 'yonson', 'Jr', 'Female', '2006-11-03', 'Married', 'Registered', 'filipino', '092374823243', 'sewage', 'sewage', '', 'rei@gmail.com', '2402', 2, NULL, NULL, NULL),
+(21, 'Maria Irenea', 'Bebanco', 'Asne', ' ', 'Female', '2003-01-05', 'Single', 'Registered', 'Spanish', '09954702461', 'Cebu City', 'Sewage', '4', 'renmarie153@gmail.com', 'indayamm153', 2, NULL, NULL, NULL),
+(24, 'ninis', 'cabus', 'Yalall', 'Jr', 'Male', '2003-02-23', 'Married', 'Registered', 'Filipino', '09682027910', 'Pusok, sewage', 'Sewage', '', 'myname@gmail.com', '2402', 2, NULL, NULL, NULL),
+(25, 'Walter', 'Bejo', 'Ologuinsan', 'Jr', 'Male', '2002-09-28', 'Single', 'Not-regist', 'Filipino', '09329464', 'Cebu', 'San Roque', '', 'PJ6J915x8o9TOAacnxoyYeBgMb+kOu5rhxPo4s+u8J0=', '$2y$10$5Di9MKY337fGDf3iT4i5fOUBfLuHQxlHotnHfNw0Yeh6/1ILJMQx2', 2, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -237,6 +280,14 @@ ALTER TABLE `account_role`
 ALTER TABLE `barangay_staff`
   ADD PRIMARY KEY (`staff_id`),
   ADD KEY `userRole_id` (`userRole_id`);
+
+--
+-- Indexes for table `complaints_tbl`
+--
+ALTER TABLE `complaints_tbl`
+  ADD PRIMARY KEY (`complaint_id`),
+  ADD KEY `res_id` (`res_id`),
+  ADD KEY `staff_id` (`staff_id`);
 
 --
 -- Indexes for table `docs_purpose`
@@ -290,6 +341,12 @@ ALTER TABLE `barangay_staff`
   MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `complaints_tbl`
+--
+ALTER TABLE `complaints_tbl`
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `docs_purpose`
 --
 ALTER TABLE `docs_purpose`
@@ -305,19 +362,19 @@ ALTER TABLE `doc_type`
 -- AUTO_INCREMENT for table `registration_tbl`
 --
 ALTER TABLE `registration_tbl`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
 --
 ALTER TABLE `resident_users`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
@@ -328,6 +385,13 @@ ALTER TABLE `resident_users`
 --
 ALTER TABLE `barangay_staff`
   ADD CONSTRAINT `barangay_staff_ibfk_1` FOREIGN KEY (`userRole_id`) REFERENCES `account_role` (`userRole_id`);
+
+--
+-- Constraints for table `complaints_tbl`
+--
+ALTER TABLE `complaints_tbl`
+  ADD CONSTRAINT `complaints_tbl_ibfk_1` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`),
+  ADD CONSTRAINT `complaints_tbl_ibfk_2` FOREIGN KEY (`staff_id`) REFERENCES `barangay_staff` (`staff_id`);
 
 --
 -- Constraints for table `request_doc`

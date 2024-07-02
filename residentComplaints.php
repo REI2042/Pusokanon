@@ -23,11 +23,11 @@
                     </div>
                     <div class="col-md px-1 ">
                         <label for="lastname" class="form-label">Middle Name</label>
-                        <input type="text" name="mname" class="form-control" id="lastname" placeholder="Optional" required>
+                        <input type="text" name="mname" class="form-control" id="lastname" placeholder="Optional">
                     </div>
                     <div class="col px-1">
                         <label for="midname" class="form-label">Last Name</label>
-                        <input type="text" name="lname" class="form-control" id="midname" placeholder="Last Name">
+                        <input type="text" name="lname" class="form-control" id="midname" placeholder="Last Name" required>
                     </div>
                     <div class="w-100"></div>
                     <div class="col-4 px-1 mt-1">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-4 mt-1 mb-2 px-1">
                             <label for="quantity" class="form-label">Age</label>
-                            <input class="form-control" type="integer" id="age" placeholder="Age" required>
+                            <input class="form-control" type="integer" name="age" id="age" placeholder="Age" required>
                     </div>
 
                     <p>DETAILS OF THE REPORT:</p>
