@@ -7,19 +7,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['userPassword'];
 
     // Query to check barangay staff table
-    $sqlStaff = "SELECT * FROM barangay_staff WHERE staff_email = :staff_email AND staff_password = :staff_password";
+    $sqlStaff = "SELECT * FROM barangay_staff WHERE staff_email = :staff_email";
     $stmtStaff = $pdo->prepare($sqlStaff);
-    $stmtStaff->execute(['staff_email' => $email, 'staff_password' => $password]);
+    $stmtStaff->execute(['staff_email' => encryptData($email)]);
     $staff = $stmtStaff->fetch();
 
     // Query to check resident user table
-    $sqlResident = "SELECT * FROM resident_users WHERE res_email = :res_email AND res_password = :res_password";
+    $sqlResident = "SELECT * FROM resident_users WHERE res_email = :res_email";
     $stmtResident = $pdo->prepare($sqlResident);
-    $stmtResident->execute(['res_email' => $email, 'res_password' => $password]);
+    $stmtResident->execute(['res_email' => encryptData($email)]);
     $resident = $stmtResident->fetch();
 
     // Check if either staff or resident exists
-    if ($staff) {
+    if ($staff && password_verify($password, $staff['staff_password'])) {
         session_start();
         $_SESSION['loggedin'] = true;
         $_SESSION['userRole'] = $staff['userRole_id'];
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../include/staff_restrict_pages.php");
             exit();
         }
-    } elseif ($resident) {
+    } elseif ($resident && password_verify($password, $resident['res_password'])) {
         session_start();
         $_SESSION['loggedin'] = true;
         $_SESSION['userRole'] = 2; // Resident
@@ -41,10 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['res_lname'] = $resident['res_lname']; // Store user last name in session
         $_SESSION['gender'] = $resident['gender']; 
         $_SESSION['civil_status'] = $resident['civil_status']; 
-        $_SESSION['res_email'] = $resident['res_email']; // Store user email in session
+        $_SESSION['res_email'] = decryptData($resident['res_email']); // Store user email in session
         $_SESSION['res_ID'] = $resident['res_ID']; // Store user ID in session
         // Redirect to resident landing page
-        header("Location: resident_landingPage.php");
+        header("Location: ../resident_landingPage.php");
         exit();
     } else {
         // User not found 

@@ -1,36 +1,43 @@
 <?php
-    session_start();
+   session_start();
 
-    if(empty($_SESSION['userdata'])){
-        header("location: registration.php");
-        exit();
-    }
-    
-    if(isset($_POST['submit'])) {
-    require 'db/DBconn.php';
-
-    $userdata = $_SESSION['userdata'];
-
-    $file_name = $_FILES['fileInput']['name'];
-    $file_tmp = $_FILES['fileInput']['tmp_name'];
-    $file_type = $_FILES['fileInput']['type'];
-    $birthdate = $userdata['byear'].'-'.$userdata['bmonth'].'-'.$userdata['bday'];
-        try {
-            $stmt = $pdo->prepare("INSERT INTO registration_tbl (res_ID,res_fname, res_lname, res_midname, res_suffix, gender, birth_date, civil_status, registered_voter, citizenship, contact_no, place_birth, addr_sitio,  res_email, res_password, userRole_id, verification_image)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            
-            $stmt->execute(['',$userdata['fname'], $userdata['lname'], $userdata['mname'], $userdata['sufname'], 
-                            $userdata['gender'], $birthdate, $userdata['civilStatus'], $userdata['voter'],$userdata['citizenship'],$userdata['contactNo'],$userdata['placeBirth'],$userdata['addsitio'],$userdata['accemail'], $userdata['accpassword'], $userdata['user_type'],$file_name]);
-            
-            // Move uploaded file to directory
-            move_uploaded_file($file_tmp, "db/uploadedFiles/".$file_name);
-            
-            // Redirect to success page
-            header("Location:success.php");
-            exit();
-        } catch(PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
+   if (empty($_SESSION['userdata'])) {
+       header("location: registration.php");
+       exit();
+   }
+   
+   if (isset($_POST['submit'])) {
+       require 'db/DBconn.php';
+   
+       $userdata = $_SESSION['userdata'];
+   
+       $file_name = $_FILES['fileInput']['name'];
+       $file_tmp = $_FILES['fileInput']['tmp_name'];
+       $file_type = $_FILES['fileInput']['type'];
+       $birthdate = $userdata['byear'] . '-' . $userdata['bmonth'] . '-' . $userdata['bday'];
+       
+       // Hash the password
+       $hashed_password = hashPassword($userdata['accpassword']);
+       
+       // Encrypt the email
+       $encrypted_email = encryptData($userdata['accemail']);
+   
+       try {
+           $stmt = $pdo->prepare("INSERT INTO registration_tbl (res_ID, res_fname, res_lname, res_midname, res_suffix, gender, birth_date, civil_status, registered_voter, citizenship, contact_no, place_birth, addr_sitio, res_email, res_password, userRole_id, verification_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+           
+           $stmt->execute(['', $userdata['fname'], $userdata['lname'], $userdata['mname'], $userdata['sufname'], 
+                           $userdata['gender'], $birthdate, $userdata['civilStatus'], $userdata['voter'], $userdata['citizenship'], $userdata['contactNo'], $userdata['placeBirth'], $userdata['addsitio'], $encrypted_email, $hashed_password, $userdata['user_type'], $file_name]);
+           
+           // Move uploaded file to directory
+           move_uploaded_file($file_tmp, "db/uploadedFiles/" . $file_name);
+           
+           // Redirect to success page
+           header("Location: success.php");
+           exit();
+       } catch (PDOException $e) {
+           echo "Error: " . $e->getMessage();
+       }
+   }
 ?>
 <!DOCTYPE html>
 <html>

@@ -98,7 +98,7 @@ session_start();
                                 <hr>
                         </div>
                         <div class="card-body mt-3">
-                            <form method="POST">
+                            <form action="db/check_user_login.php" method="POST">
                                 <div class="mb-3">
                                     <label for="text" class="form-label">Email</label>
                                     <input type="text" class="form-control" name="username" id="email" placeholder="Enter your email" required>

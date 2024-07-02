@@ -79,6 +79,9 @@ $users = fetchResident($pdo, $records_per_page, $offset);
                             <?php else: ?>    
                                 <?php foreach ($users as $index => $user): ?>
                                     <tr>
+                                        <?php 
+                                            $decryptedEmail = decryptData($user['res_email']); 
+                                        ?>
                                         <td><?= htmlspecialchars($offset + $index + 1) ?></td>
                                         <td><?= htmlspecialchars(ucfirst($user['res_fname']) . ' ' . ucfirst(substr($user['res_midname'], 0, 1)) . '. ' . ucfirst($user['res_lname'])) ?></td>
                                         <td><?= htmlspecialchars($user['res_ID']) ?></td>
@@ -90,7 +93,7 @@ $users = fetchResident($pdo, $records_per_page, $offset);
                                         ?>
                                         <td><?= htmlspecialchars($age) ?></td>
                                         <td><?= htmlspecialchars($user['addr_sitio']) ?></td>
-                                        <td><?= htmlspecialchars($user['res_email']) ?>, <?= htmlspecialchars($user['contact_no']) ?></td>
+                                        <td><?= htmlspecialchars($decryptedEmail) ?>, <?= htmlspecialchars($user['contact_no']) ?></td>
                                         <td class="tools">
                                             <div class="btn btn-secondary btn-sm">View</div>
                                         </td>

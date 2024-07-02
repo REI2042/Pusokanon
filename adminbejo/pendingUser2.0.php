@@ -3,7 +3,7 @@ include 'headerAdmin.php';
 include '../db/DBconn.php'; 
 
 // Determine the current page and set the number of records per page
-$records_per_page = 3;
+$records_per_page = 10;
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $records_per_page;
 
@@ -24,11 +24,22 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
         <div class="mu-ds row d-flex justify-content-end">
             <div class="col-12 col-md-5 d-flex justify-content-center align-items-center">
                 <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Gender
+                    Sitio
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item">Male</a>
-                    <a class="dropdown-item">Female</a>
+                    <a class="dropdown-item" value="Arca">Arca</a>
+                    <a class="dropdown-item" value="Cemento">Cemento</a>
+                    <a class="dropdown-item" value="Chumba-Chumba">Chumba-Chumba</a>
+                    <a class="dropdown-item" value="Ibabao">Ibabao</a>
+                    <a class="dropdown-item" value="Lawis">Lawis</a>
+                    <a class="dropdown-item" value="Matumbo">Matumbo</a>
+                    <a class="dropdown-item" value="Mustang">Mustang</a>
+                    <a class="dropdown-item" value="New Lipata">New Lipata</a>
+                    <a class="dropdown-item" value="San Roque">San Roque</a>
+                    <a class="dropdown-item" value="Seabreeze">Seabreeze</a>
+                    <a class="dropdown-item" value="Seaside">Seaside</a>
+                    <a class="dropdown-item" value="Sewage">Sewage</a>
+					<a class="dropdown-item" value="Sta. Maria">Sta. Maria</a>
                 </div>
                 <input class="form-control" type="input" placeholder="Search Name" aria-label="Search">
                 <button class="btn my-2 my-sm-0" type="submit">Search</button>
@@ -69,6 +80,8 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
                                             } else {
                                                 $imageSrc = ''; 
                                             }
+
+                                            $decryptedEmail = decryptData($user['res_email']);
                                         ?>
                                         <td><?= htmlspecialchars(ucfirst($user['res_fname']) . ' ' . ucfirst(substr($user['res_midname'], 0, 1)) . '. ' . ucfirst($user['res_lname'])) ?></td>
                                         <td><?= htmlspecialchars($age) ?></td>
@@ -85,7 +98,7 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
                                                                                 '<?= htmlspecialchars($user['addr_sitio'])?>',
                                                                                 '<?= htmlspecialchars($user['birth_date'])?>',
                                                                                 '<?= htmlspecialchars($user['contact_no'])?>',
-                                                                                '<?= htmlspecialchars($user['res_email'])?>',
+                                                                                '<?= htmlspecialchars($decryptedEmail)?>',
                                                                                 '<?= htmlspecialchars($user['citizenship'])?>')">View details</a>
                                         </td>
                                         <td class="tools">

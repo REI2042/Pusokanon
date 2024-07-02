@@ -20,6 +20,28 @@
 	    throw new \PDOException($e->getMessage(), (int)$e->getCode());
 	}
 
+	// Function to hash passwords
+	function hashPassword($password) {
+		return password_hash($password, PASSWORD_BCRYPT);
+	}
+
+	// Function to verify password
+	function verifyPassword($password, $hash) {
+		return password_verify($password, $hash);
+	}
+
+	// Encryption key (you should use a secure key management system)
+	define('ENCRYPTION_KEY', 'qwmnsdfghankyetr'); 
+
+	// Function to encrypt data
+	function encryptData($data) {
+		return openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
+	}
+
+	// Function to decrypt data
+	function decryptData($data) {
+		return openssl_decrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
+	}
 	
 	
 	function fetchRegister($pdo, $limit, $offset) {
