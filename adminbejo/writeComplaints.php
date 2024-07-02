@@ -4,93 +4,100 @@
 
 <link rel="stylesheet" href="css/write.css">
 
-<div class="container-fluid"> <!-- Use container-fluid for full-width layout -->
-    <div class="main-container">
-        <div class="row justify-content-center"> <!-- Center content horizontally -->
-            <div class="col-lg-8"> <!-- Use grid classes for responsiveness -->
-                <h1 class="text-center">Write Complaints</h1> <!-- Center heading -->
-                <div class="card mt-4">
-                    <div class="card-body card1">
-                        <h5 class="card-title">Respondent</h5>
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-md-5">
-                                    <label for="fname" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="fname" placeholder="Enter First Name" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="lname" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="Suffix" class="form-label">Suffix</label>
-                                    <select class="form-select" name="sufname" id="Suffix">
-                                        <option value="N/A">N/A</option>
-                                        <option value="Jr">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">I</option>
-                                        <option value="II.">II</option>
-                                        <option value="III">III</option>
-                                    </select>
-                                </div>
-                                <div class="col-8">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Enter address">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="age" class="form-label">Age</label>
-                                    <input type="number" class="form-control" id="age" placeholder="Enter Age">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 mt-4"> <!-- Use grid classes for responsiveness -->
-                <div class="card">
-                    <div class="card-body card1">
-                        <h5 class="card-title">Details about the Report</h5>
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="date" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="date" placeholder="Enter Date of Incident" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="time" class="form-label">Time</label>
-                                    <input type="time" class="form-control" id="time" placeholder="Enter Time of Incident" required>
-                                </div>
-                                <div class="col-md-8">
-                                    <label for="place" class="form-label">Place</label>
-                                    <input type="text" class="form-control" id="place" placeholder="Enter Place of Incident" required>
-                                </div>
-                                <div class="col-4">
-                                    <label for="caseType" class="form-label">Case Type</label>
-                                    <select class="form-select" name="sufname" id="caseType" required>
-                                        <option value="Jr">Blotter</option>
-                                        <option value="Sr.">Complaint</option>
-                                        <option value="I">WCP</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 mt-4">
-                <div class="card">
-                    <div class="card-body card2">
-                        <h5 class="card-title">Narrative/More Details</h5>
-                        <textarea class="form-control" rows="3"></textarea> <!-- Use rows attribute for textarea height -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 mt-4">
-                <div class="text-center">
-                    <button type="submit" name="save_account" class="btn btn-secondary submit">SUBMIT</button>
-                </div>
+<div class="container-fluid my-4">
+    <h1>File a Complaint</h1>
+    <div class="row container pb-3 mt-3">
+        <div class="row align-items-start holder-title mt-3 ">
+            <div class="col">
+                <h4 class=" text-center text-white"><b>Complaint Form</b></h4><hr class="bg-white">
             </div>
         </div>
+        <p>INFORMATION OF THE RESPONDENT:</p>
+        <form class="row gy-2 gx-3 text-white" action="db/DBconn_complaints.php" method="POST" enctype="multipart/form-data">
+                <div class="col px-1">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" name="fname" class="form-control" id="firstname" placeholder="First Name" required>
+                </div>
+                <div class="col-md px-1 ">
+                    <label for="lastname" class="form-label">Middle Name</label>
+                    <input type="text" name="mname" class="form-control" id="lastname" placeholder="Optional">
+                </div>
+                <div class="col px-1">
+                    <label for="midname" class="form-label">Last Name</label>
+                    <input type="text" name="lname" class="form-control" id="midname" placeholder="Last Name" required>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-4 px-1 mt-1">
+                            <label for="Suffix" class="form-label">Suffix</label>
+                            <select class="form-select" name="sufname" id="Suffix">
+                                <option value=" ">N/A</option>
+                                <option value="Jr">Jr.</option>
+                                <option value="Sr.">Sr.</option>
+                                <option value="I">I</option>
+                                <option value="II.">II</option>
+                                <option value="III">III</option>
+                            </select>
+                        </div>
+                <div class="col-4 mt-1 px-1 ">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-select" name="gender" id="gender" required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="col-4 mt-1 mb-2 px-1">
+                        <label for="quantity" class="form-label">Age</label>
+                        <input class="form-control" type="integer" name="age" id="age" placeholder="Age" required>
+                </div>
+
+                <p>DETAILS OF THE REPORT:</p>
+                <div class="col-6 mt-3 px-1">
+                    <label for="incident-date" class="form-label">Date</label>
+                    <input type="date" class="form-select" name="incident-date" id="incident-date" required>
+                </div>
+                <div class="col-6 mt-3 px-1 ">
+                    <label for="incident-time" class="form-label">Time</label>
+                    <input type="time" class="form-select" name="incident-time" id="incident-time" required>
+                </div>
+                <div class="col-5 px-1">
+                    <label for="sitio" class="form-label">Place of incident</label>
+                    <select class="form-select" name="addsitio" id="sitio" required>
+                        <option value="Arca">Arca</option>
+                        <option value="Cemento">Cemento</option>
+                        <option value="Chumba-Chumba">Chumba-Chumba</option>
+                        <option value="Ibabao">Ibabao</option>
+                        <option value="Lawis">Lawis</option>
+                        <option value="Matumbo">Matumbo</option>
+                        <option value="Mustang">Mustang</option>
+                        <option value="New Lipata">New Lipata</option>
+                        <option value="San Roque">San Roque</option>
+                        <option value="Seabreeze">Seabreeze</option>
+                        <option value="Seaside">Seaside</option>
+                        <option value="Sewage">Sewage</option>
+                        <option value="Sta. Maria">Sta. Maria</option>
+                    </select>
+                    
+                </div>
+                <div class="col-7 px-1">
+                <label for="case_type" class="form-label">Case Type</label>
+                    <select class="form-select" name="case_type" id="case_type" required>
+                        <option value="Bullying">Bullying</option>
+                        <option value="Damaging Properties">Damaging Properties</option>
+                        <option value="Physical Abuse">Physical Abuse</option>
+                        <option value="Threat">Threat</option>
+                        <option value="Trespassing">Trespassing</option>
+                        <option value="Thief">Thief</option>
+                    </select>
+                </div>  
+                <div class="col-12 px-1">
+                    <label for="narrative" class="form-label">Narrative</label>
+                    <textarea class="form-control" rows="3" name="narrative" id="narrative" placeholder="Narrate what happened..." optional></textarea>
+                </div>
+                
+                <div class="text-center d-grid col-8 mx-auto">
+                    <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                </div>
+        </form>
     </div>
 </div>
 
