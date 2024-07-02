@@ -16,7 +16,7 @@
     $file_type = $_FILES['fileInput']['type'];
     $birthdate = $userdata['byear'].'-'.$userdata['bmonth'].'-'.$userdata['bday'];
         try {
-            $stmt = $pdo->prepare("INSERT INTO registration_tbl (res_ID,res_fname, res_lname, res_midname, res_suffix, gender, birth_date, civil_status, registered_voter, citizenship, contact_no, place_birth, addr_sitio,  res_email, res_password, userRole_id, verification_image)VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt = $pdo->prepare("INSERT INTO registration_tbl (res_ID,res_fname, res_lname, res_midname, res_suffix, gender, birth_date, civil_status, registered_voter, citizenship, contact_no, place_birth, addr_sitio,  res_email, res_password, userRole_id, verification_image)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             
             $stmt->execute(['',$userdata['fname'], $userdata['lname'], $userdata['mname'], $userdata['sufname'], 
                             $userdata['gender'], $birthdate, $userdata['civilStatus'], $userdata['voter'],$userdata['citizenship'],$userdata['contactNo'],$userdata['placeBirth'],$userdata['addsitio'],$userdata['accemail'], $userdata['accpassword'], $userdata['user_type'],$file_name]);

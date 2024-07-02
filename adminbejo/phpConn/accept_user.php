@@ -1,8 +1,8 @@
 <?php
     include '../../db/DBconn.php'; // Adjust the path as needed
 
-    if (isset($_POST['id'])) {
-        $id = $_POST['id'];
+    if (isset($_POST['res_id'])) {
+        $res_id = $_POST['res_id'];
 
         // Begin transaction
         $pdo->beginTransaction();
@@ -10,11 +10,11 @@
             // Fetch user from registration table
             $fetchSql = "SELECT * FROM registration_tbl WHERE res_ID = ?";
             $fetchStmt = $pdo->prepare($fetchSql);
-            $fetchStmt->execute([$id]);
+            $fetchStmt->execute([$res_id]);
             $userData = $fetchStmt->fetch(PDO::FETCH_ASSOC);
 
             // Insert user into resident table
-            $insertSql = "INSERT INTO resident_users (res_ID, res_fname, res_lname, res_midname, res_suffix, gender, birth_date, civil_status, registered_voter, citizenship, contact_no, place_birth, addr_sitio, addr_purok, res_email, res_password, userRole_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $insertSql = "INSERT INTO resident_users (res_ID, res_fname, res_lname, res_midname, res_suffix, gender, birth_date, civil_status, registered_voter, citizenship, contact_no, place_birth, addr_sitio, res_email, res_password, userRole_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $insertStmt = $pdo->prepare($insertSql);
             $insertStmt->execute([$userData['res_ID'], 
                                 $userData['res_fname'], 
@@ -29,7 +29,6 @@
                                 $userData['contact_no'],
                                 $userData['place_birth'],
                                 $userData['addr_sitio'],
-                                $userData['addr_purok'],
                                 $userData['res_email'],
                                 $userData['res_password'],
                                 $userData['userRole_id']]);
@@ -37,7 +36,7 @@
             // Delete user from registration table
             $deleteSql = "DELETE FROM registration_tbl WHERE res_ID = ?";
             $deleteStmt = $pdo->prepare($deleteSql);
-            $deleteStmt->execute([$id]);
+            $deleteStmt->execute([$res_id]);
 
             // Commit transaction
             $pdo->commit();

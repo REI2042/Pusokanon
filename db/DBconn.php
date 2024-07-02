@@ -22,12 +22,22 @@
 
 	
 	
-	function fetchRegister($pdo) {
-	    $sql = "SELECT * FROM registration_tbl";  
+	function fetchRegister($pdo, $limit, $offset) {
+	    $sql = "SELECT * FROM registration_tbl LIMIT :limit OFFSET :offset";  
 	    $stmt = $pdo->prepare($sql);
+	    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 	    $stmt->execute();
 	    return $stmt->fetchAll();  
 	}
+
+	//for pagination in the pending residents table
+	function fetchTotalPending($pdo) {
+		$sql = "SELECT COUNT(*) FROM registration_tbl";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}	
 
 	// function fetchResident($pdo) {
 	//     $sql = "SELECT * FROM resident_users";  
@@ -36,12 +46,14 @@
 	//     return $stmt->fetchAll();  
 	// }
 
+//for pagination in the manage residents table
 	function fetchTotalResidents($pdo) {
     $sql = "SELECT COUNT(*) FROM resident_users";  
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     return $stmt->fetchColumn();  
 	}
+
 
 	function fetchResident($pdo, $limit, $offset) {
 	    $sql = "SELECT * FROM resident_users LIMIT :limit OFFSET :offset";  
@@ -52,13 +64,6 @@
 	    return $stmt->fetchAll();  
 	}
 
-	// function fetchCombinedData($pdo) {
-    // $sql = "SELECT * FROM registration_tbl 
-    //         INNER JOIN resident_users ON registration_tbl.user_id = resident_users.id";  
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute();
-    // return $stmt->fetchAll();  
-	// }
 
 	function fetchdocsRequest($pdo) {
 		$sql = "SELECT 

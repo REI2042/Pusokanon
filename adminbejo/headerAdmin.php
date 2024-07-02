@@ -114,7 +114,7 @@
                         </ul>
                     </li>
                     <li class="sidebar-item">
-                        <a href="pendingUsers.php" class="sidebar-link">
+                        <a href="pendingUser2.0.php" class="sidebar-link">
                             <i class="fa-solid fa-user-clock"></i>
                             <span>Pending User</span>
                         </a>
