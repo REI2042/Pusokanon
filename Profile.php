@@ -2,6 +2,9 @@
     include 'include/header.php';
     include 'db/DBconn.php';
     
+
+    $userId = $_SESSION['res_ID'];
+    $profilePicture = fetchProfilePicture($pdo, $userId);
     $suffix = isset($_SESSION['res_suffix']) ? $_SESSION['res_suffix'] : '';
     $fullName = trim($_SESSION['res_fname'] . ' ' . $_SESSION['res_midname'] . ' ' . $_SESSION['res_lname'] . ' ' . $suffix);
 
@@ -10,7 +13,6 @@
     $currentDate = new DateTime();
     $age = $currentDate->diff($birthdate)->y;
     
-    // $userId = $_SESSION['res_ID'];
     // $requests = fetchResdocsRequest($pdo, $userId);
 
     $birthdate = $_SESSION['birth_date'];
@@ -25,7 +27,7 @@
             <div class="profile-box">
                 <div class="row p-3 m-0">
                     <div class="profile-information my-3">
-                        <img src="PicturesNeeded/blank_profile.png"  class="profile-picture" alt="Profile Picture"/>
+                        <img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" alt="Profile Picture"/>
                         <div class="">
                             <p class="name"><?= htmlspecialchars($fullName); ?></p>
                             <p class="gender"><?= htmlspecialchars($_SESSION['gender']); ?></p>

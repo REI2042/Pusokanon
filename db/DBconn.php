@@ -240,6 +240,16 @@
 		return $stmt->fetchColumn();
 	}
 
+<<<<<<< HEAD
 	
 	
+=======
+	function fetchProfilePicture($pdo, $userId) {
+		$sql = "SELECT profile_picture FROM resident_users WHERE res_ID = :userId";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
+>>>>>>> cff7836a5a0362574983da372d08ce4b24946066
 ?>
