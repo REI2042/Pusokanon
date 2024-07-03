@@ -21,7 +21,6 @@ if (isset($_POST['docTypeId']) && isset($_POST['purposeId']) && isset($_POST['pu
             ':docTypeId' => $docTypeId,
             ':purposeId' => $purposeId,
             ':purposeName' => $purposeName, 
-            
             ':requestId' => $requestId
         ]);
 
