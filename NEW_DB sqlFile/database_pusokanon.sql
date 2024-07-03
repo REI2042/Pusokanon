@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 03, 2024 at 04:11 PM
+-- Generation Time: Jul 03, 2024 at 04:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -151,7 +151,14 @@ CREATE TABLE `doc_type` (
 --
 
 INSERT INTO `doc_type` (`docType_id`, `doc_name`, `doc_amount`) VALUES
-(1, 'Barangay Clearance', 80);
+(1, 'Barangay Clearance', 80),
+(2, 'Barangay Indigency', 50),
+(3, 'Cedula', 50),
+(4, 'Barangay Residency', 50),
+(5, 'Barangay Electrical Permit', 500),
+(6, 'Barangay Construction Permit', 500),
+(7, 'Barangay Fencing Permit', 500),
+(8, 'Barangay Business Clearance', 630);
 
 -- --------------------------------------------------------
 
@@ -359,7 +366,7 @@ ALTER TABLE `docs_purpose`
 -- AUTO_INCREMENT for table `doc_type`
 --
 ALTER TABLE `doc_type`
-  MODIFY `docType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `docType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `registration_tbl`
