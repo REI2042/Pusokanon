@@ -12,6 +12,7 @@ footer {
 .request-box {
     background: linear-gradient(45deg, #2C7BD5, #4A90E2, #6AAFE6);
     border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .profile-picture {
