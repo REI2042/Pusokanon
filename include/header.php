@@ -4,8 +4,9 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if the user is logged in
-    
     $firstName = isset($_SESSION['res_fname'] ) ? $_SESSION['res_fname'] : '';// If logged in display the user's first name
+    $userId = $_SESSION['res_ID'];
+    $profilePicture = $_SESSION['profile_picture'];
 } else {
     header("Location: login.php"); // redirect to login page if ot log in
     exit();
@@ -39,19 +40,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
 <body>
     <header>
         <nav class="navbar navbar-expand-lg ">
-            <a class="navbar-brand" href="resident_landingPage.php"> 
-                <img src="PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo"><span class> PUSOKANON</span>
+            <a class="navbar-brand" href="resident_landingPage.php">
+                <img src="PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo"><span> PUSOKANON</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mt-2 pt-1">
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item">
                         <a class="nav-link" href="resident_landingPage.php">Home</a>
                     </li>
 
-                    <li class="nav-item dropdown mt-2 pt-1">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Services
                         </a>
@@ -61,11 +62,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                         </div>
                     </li>
 
-                    <li class="nav-item mt-2 pt-1">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Updates</a>
                     </li>
 
-                    <li class="nav-item dropdown mt-2 pt-1">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="aboutUsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             About Us
                         </a>
@@ -76,17 +77,26 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                         </div>
                     </li>
     
-                    <li class="nav-item mt-2 pt-1 me-3">
+                    <li class="nav-item">
                         <a class="nav-link" href="Resemergency-hotlines.php">Hotlines</a>
                     </li>   
-                    <li class="nav-item mt-1">
+                    <li class="nav-item justify-content-center">
                         <div class="dropdown">
                             <a class="nav-link text-light" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="row">
-                                    <div class="col px-1 mt-1 pt-1">
+                                <div class="row align-items-center">
+                                    <div class="col">
                                         <span class="login-text"><?php echo $firstName; ?></span>
                                     </div>
-                                    <div class="col"><i class="bi-person-circle"></i></div>
+                                    <div class="col">
+                                        <?php if ($profilePicture): ?>
+                                            <img src="db/ProfilePictures/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" style="border: 1px solid #F9F8FD;
+                                            max-width: 30px;
+                                            height: auto;
+                                            border-radius: 50%;">
+                                        <?php else: ?>
+                                            <i class="bi bi-person-circle"></i>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="loginDropdown">

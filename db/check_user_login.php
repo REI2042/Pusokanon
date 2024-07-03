@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['addr_sitio'] = $resident['addr_sitio'];
         $_SESSION['res_email'] = decryptData($resident['res_email']); // Store user email in session
         $_SESSION['res_ID'] = $resident['res_ID']; // Store user ID in session
+        $_SESSION['profile_picture'] = $resident['profile_picture'];
         // Redirect to resident landing page
         header("Location: ../resident_landingPage.php");
         exit();
