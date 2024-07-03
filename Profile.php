@@ -25,7 +25,7 @@
             <div class="profile-box">
                 <div class="row p-3 m-0">
                     <div class="profile-information my-3">
-                        <img src="PicturesNeeded/profile-pic.jpg"  class="profile-picture" alt="Profile Picture"/>
+                        <img src="PicturesNeeded/blank_profile.png"  class="profile-picture" alt="Profile Picture"/>
                         <div class="">
                             <p class="name"><?= htmlspecialchars($fullName); ?></p>
                             <p class="gender"><?= htmlspecialchars($_SESSION['gender']); ?></p>
