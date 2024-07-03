@@ -84,7 +84,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                         <div class="dropdown">
                             <a class="nav-link text-light" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="row align-items-center">
-                                    <div class="col">
+                                    <div class="col pr-0">
                                         <span class="login-text"><?php echo $firstName; ?></span>
                                     </div>
                                     <div class="col">
