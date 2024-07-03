@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", initDocumentSelection);
 async function initDocumentSelection() {
   const buttons1 = document.querySelectorAll(".btn-1");
   const buttons2 = document.querySelectorAll(".btn-2");
-  const buttons3 = document.querySelectorAll(".btn-3");
+  const buttons4 = document.querySelectorAll(".btn-4");
 
   const purposeMap = {
     1: "Employment",
@@ -210,5 +210,5 @@ async function initDocumentSelection() {
 
   addButtonListener(buttons1, "clearance");
   addButtonListener(buttons2, "indigency");
-  addButtonListener(buttons3, "residency");
+  addButtonListener(buttons4, "residency");
 }
