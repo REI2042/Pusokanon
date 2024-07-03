@@ -40,6 +40,11 @@ footer {
     font-size: 14px;
 }
 
+.edit-button:hover,
+.change-button:hover {
+    border: 2px solid #434349;
+}
+
 .additional-information p {
     color: #F9F8FD;
     font-weight: bold;
@@ -50,7 +55,6 @@ footer {
     color: #F9F8FD;
     font-weight: bold;
 }
-
 
 @media (max-width: 768px) {
 
