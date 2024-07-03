@@ -81,7 +81,7 @@
             	</button>
 	        </div>
 	        <div class="holder col-12 col-md-6 mb-2">
-	            <button class="btn btn-success text-left  w-100">
+	            <button class="btn btn-success text-left  w-100 btn-5" name="residency" value="5" data-value="5">
             		<div class="div-holder row ">
             			<div class="img-holder col">
             				<img src="PicturesNeeded/SampleDocument.jpg" class="" alt="pic">
@@ -96,7 +96,7 @@
             	</button>
 	        </div>
 	        <div class="holder col-12 col-md-6 mb-2">
-            	<button class="btn btn-success text-left  w-100">
+            	<button class="btn btn-success text-left  w-100 btn-6" name="residency" value="6" data-value="6">
             		<div class="div-holder row ">
             			<div class="img-holder col">
             				<img src="PicturesNeeded/SampleDocument.jpg" class="" alt="pic">
@@ -111,7 +111,7 @@
             	</button>
 	        </div>
 	        <div class="holder col-12 col-md-6 mb-2">
-	            <button class="btn btn-success text-left  w-100">
+	            <button class="btn btn-success text-left  w-100 btn-7" name="residency" value="7" data-value="7" >
             		<div class="div-holder row ">
             			<div class="img-holder col">
             				<img src="PicturesNeeded/SampleDocument.jpg" class="" alt="pic">
@@ -126,7 +126,7 @@
             	</button>
 	        </div>
 	        <div class="holder col-12 col-md-6 mb-2">
-	           <button class="btn btn-success text-left  w-100">
+	           <button class="btn btn-success text-left  w-100 btn-8" name="residency" value="8" data-value="8">
             		<div class="div-holder row ">
             			<div class="img-holder col">
             				<img src="PicturesNeeded/SampleDocument.jpg" class="" alt="pic">
