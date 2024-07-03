@@ -152,6 +152,15 @@
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	// function fetchDocRateClearance($pdo, $docType_id){
+	// 	$sql = "SELECT doc_amount FROM doc_type WHERE docType_id = :docType_id";
+	// 	$stmt = $pdo->prepare($sql);
+	// 	$stmt->bindParam(':docType_id', $docType_id, PDO::PARAM_INT);
+	// 	$stmt->execute();
+	// 	$result = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch a single row
+	// 	return $result ? $result['doc_amount'] : null; // Return the doc_amount or null if no result
+	// }
+
 	function fetchListofComplaints($pdo, $offset, $limit) {
 		$sql = "SELECT 
 					complaint_id, case_type, incident_date, incident_place, date_filed, status
@@ -230,4 +239,7 @@
 		$stmt->execute();
 		return $stmt->fetchColumn();
 	}
+
+	
+	
 ?>
