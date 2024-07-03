@@ -38,6 +38,7 @@ body {
 }
 
 .swal2-input {
+    width: 50%;
     margin: 0px 10px;
     background-color: #F9F8FD;
     color: #434349;    
@@ -49,6 +50,10 @@ body {
 }
 
 @media (max-width: 768px) {
+
+    .document-name {
+        font-size: small;
+    }
     
     .page_header {
         font-size: 1rem;
