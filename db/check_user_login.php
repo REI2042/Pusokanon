@@ -54,8 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../resident_landingPage.php");
         exit();
     } else {
-        // User not found 
-        echo "Invalid username or password";
+        // User not found
+        session_start();
+        $_SESSION['login_error'] = true;
+        header("Location: ../login.php");
+        exit();
     }
 }
 ?>
