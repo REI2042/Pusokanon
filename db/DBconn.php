@@ -144,8 +144,20 @@
 
 	function fetchListofComplaints($pdo, $offset, $limit) {
 		$sql = "SELECT 
-					complaint_id, case_type, incident_date, incident_place, date_filed, status
-				FROM complaints_tbl
+					ct.complaint_id AS complaint_id,
+					CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+					ct.case_type AS case_type, 
+					ct.incident_date AS incident_date, 
+					ct.incident_time AS incident_time, 
+					ct.incident_place AS incident_place, 
+					ct.date_filed AS date_filed, 
+					ct.status AS status,
+					ct.narrative AS narrative,
+					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+					ct.respondent_age AS respondent_age,
+					ct.respondent_gender AS respondent_gender
+				FROM complaints_tbl ct 
+				INNER JOIN resident_users ru ON ct.res_id = ru.res_id
 				LIMIT :offset, :limit";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -153,6 +165,7 @@
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+	
 	
 	function fetchTotalComplaints($pdo) {
 		$sql = "SELECT COUNT(*) FROM complaints_tbl";

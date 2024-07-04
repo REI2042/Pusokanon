@@ -1,28 +1,20 @@
 <?php
-    include 'headerAdmin.php';
-    include '../db/DBconn.php';
+include 'headerAdmin.php';
+include '../db/DBconn.php';
 
-    // Number of complaints per page
-    $limit = 5;
-    
-    // Current page number
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    
-    // Calculate the offset for the SQL query
-    $offset = ($page - 1) * $limit;
-    
-    // Fetch the complaints for the current page
-    $requests = fetchListofComplaints($pdo, $offset, $limit);
-    
-    // Fetch the total number of complaints
-    $totalRequests = fetchTotalComplaints($pdo);
-    
-    // Calculate total pages
-    $totalPages = ceil($totalRequests / $limit);
-?>  
+$limit = 5;
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+
+$requests = fetchListofComplaints($pdo, $offset, $limit);
+$totalRequests = fetchTotalComplaints($pdo);
+
+$totalPages = ceil($totalRequests / $limit);
+?>
 <link rel="stylesheet" href="css/list.css">
 
-<div class="container-fluid">   
+<div class="container-fluid">
     <h1>List of Complaints</h1>
     <div class="card-body">
         <div class="table-responsive">
@@ -32,6 +24,7 @@
                         <th>Case ID</th>
                         <th>Case Type</th>
                         <th>Date of Incident</th>
+                        <th>Time of Incident</th>
                         <th>Place of Incident</th>
                         <th>Date Reported</th>
                         <th>Status</th>
@@ -45,20 +38,36 @@
                                 <td><?php echo htmlspecialchars($request['complaint_id']); ?></td>
                                 <td><?php echo htmlspecialchars($request['case_type']); ?></td>
                                 <td><?php echo htmlspecialchars($request['incident_date']); ?></td>
+                                <td><?php echo htmlspecialchars($request['incident_time']); ?></td>
                                 <td><?php echo htmlspecialchars($request['incident_place']); ?></td>
                                 <td><?php echo htmlspecialchars($request['date_filed']); ?></td>
-                                <td><?php echo htmlspecialchars($request['status']); ?></td>
+                                <td id="status-<?php echo htmlspecialchars($request['complaint_id']); ?>">
+                                    <?php echo htmlspecialchars($request['status']); ?>
+                                </td>
                                 <td>
-                                    <a href="viewComplaint.php?id=<?php echo $request['complaint_id']; ?>" class="btn btn-primary btn-sm">
+                                    <a href="#" class="btn btn-primary btn-sm" onclick="showDetails(
+                                        '<?= htmlspecialchars($request['resident_name'])?>',
+                                        '<?= htmlspecialchars($request['respondent_name'])?>',
+                                        '<?= htmlspecialchars($request['respondent_age'])?>',
+                                        '<?= htmlspecialchars($request['respondent_gender'])?>',
+                                        '<?= htmlspecialchars($request['narrative'])?>')">
                                         <i class="fas fa-eye"></i> View
                                     </a>
-                                    
+                                    <div class="inline-tools" style="display: inline-block; margin-left: 10px;">
+                                        <form class="status-form" method="POST">
+                                            <input type="hidden" name="complaint_id" value="<?= htmlspecialchars($request['complaint_id']); ?>">
+                                            <select name="status" class="form-select form-select-sm" onchange="handleStatusChange(event)">
+                                                <option value="Pending" <?= $request['status'] == 'Pending' ? 'selected' : ''; ?>>Pending</option>
+                                                <option value="Done" <?= $request['status'] == 'Done' ? 'selected' : ''; ?>>Done</option>
+                                            </select>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="7">No complaints found.</td>
+                            <td colspan="8">No complaints found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -90,4 +99,7 @@
     </div>
 </div>
 
-<?php require_once 'footerAdmin.php';?> 
+<script src="../js/complaints_popUp.js"></script>
+<script src="complaints_updateStatus.js"></script>
+
+<?php require_once 'footerAdmin.php'; ?>

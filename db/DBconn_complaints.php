@@ -61,10 +61,9 @@ if (isset($_SESSION['res_ID'])) {
     echo "User not logged in or session expired.";
 }
 
-if (isset($_POST['complaint_id']) && isset($_POST['update_status'])) {
+if (isset($_POST['complaint_id']) && isset($_POST['status'])) {
     $complaint_id = $_POST['complaint_id'];
-
-    $new_status = 'Done';
+    $new_status = $_POST['status'];
 
     $update_sql = "UPDATE complaints_tbl SET status = :new_status WHERE complaint_id = :complaint_id";
     $update_stmt = $pdo->prepare($update_sql);
@@ -72,10 +71,12 @@ if (isset($_POST['complaint_id']) && isset($_POST['update_status'])) {
     $update_stmt->bindParam(':complaint_id', $complaint_id);
 
     if ($update_stmt->execute()) {
-        echo "Status updated to 'done' for complaint ID: " . $complaint_id;
+        echo json_encode(['success' => true]);
     } else {
-        echo "Error updating status.";
+        echo json_encode(['success' => false]);
     }
+} else {
+    echo json_encode(['success' => false]);
 }
 ?>
 
