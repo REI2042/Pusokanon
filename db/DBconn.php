@@ -230,30 +230,30 @@
 	}
 
 	function fetchResdocsRequest($pdo, $userId, $status, $limit, $offset) {
-		$sql = "SELECT 
-				rd.doc_ID, dt.doc_name AS document_name, rd.stat, 
-				rd.date_req, rd.remarks 
-			FROM request_doc rd
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			WHERE rd.res_id = :userId AND rd.stat = :status
-			ORDER BY rd.date_req DESC
-			LIMIT :limit OFFSET :offset";
-		
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-		$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-	}
-	
-	function countResdocsRequest($pdo, $userId, $status) {
-		$sql = "SELECT COUNT(*) FROM request_doc WHERE res_id = :userId AND stat = :status";
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-		$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-		$stmt->execute();
-		return $stmt->fetchColumn();
-	}
+    $sql = "SELECT 
+            rd.doc_ID, dt.doc_name AS document_name, rd.stat, 
+            rd.date_req, rd.remarks 
+        FROM request_doc rd
+        INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+        WHERE rd.res_id = :userId AND rd.stat = :status
+        ORDER BY rd.date_req DESC
+        LIMIT :limit OFFSET :offset";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function countResdocsRequest($pdo, $userId, $status) {
+    $sql = "SELECT COUNT(*) FROM request_doc WHERE res_id = :userId AND stat = :status";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
 ?>
