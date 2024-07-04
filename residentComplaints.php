@@ -16,7 +16,7 @@
                 </div>
             </div>
             <p>INFORMATION OF THE RESPONDENT:</p>
-            <form class="row gy-2 gx-3 text-white" action="db/DBconn_complaints.php" method="POST"  id="complaintForm" enctype="multipart/form-data">
+            <form class="row gy-2 gx-3 text-white" id="complaintForm" enctype="multipart/form-data">
                     <div class="col px-1">
                         <label for="firstname" class="form-label">First Name</label>
                         <input type="text" name="fname" class="form-control" id="firstname" placeholder="First Name" required>
@@ -98,8 +98,8 @@
                     </div>
                     
                     <div class="text-center d-grid col-8 mx-auto">
-                    <button type="submit" name="submit" class="btn btn-success">Submit</button>
-                </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
 
             </form>
         </div>

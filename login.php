@@ -1,12 +1,11 @@
-<?php ;
+<?php
 session_start();
-    if (isset($_SESSION['loggedin'])) {
-
+if (isset($_SESSION['loggedin'])) {
     header("Location: resident_landingPage.php");
     exit();
 }
 
-    include 'db/check_user_login.php';
+include 'db/check_user_login.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +17,7 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Titan+One" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
@@ -29,7 +28,6 @@ session_start();
     <link rel="stylesheet" href="css/navbarstyles.css">
     <link rel="stylesheet" href="css/stylesLogin.css">
     <title>Login to Pusokanon</title>
-
 </head>
 <body>
      <header>
@@ -45,8 +43,6 @@ session_start();
                     <li class="nav-item mt-2 pt-1">
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
-
-                    
                     <li class="nav-item dropdown mt-2 pt-1">
                         <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Services
@@ -56,11 +52,9 @@ session_start();
                             <a class="dropdown-item" href="#">File Complaint</a>
                         </div>
                     </li>
-
                     <li class="nav-item mt-2 pt-1">
                         <a class="nav-link" href="#">Updates</a>
                     </li>
-
                     <li class="nav-item dropdown mt-2 pt-1">
                         <a class="nav-link dropdown-toggle" href="#" id="aboutUsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             About Us
@@ -71,7 +65,6 @@ session_start();
                             <a class="dropdown-item" href="barangayMap.php">Barangay Map</a>
                         </div>
                     </li>
-    
                     <li class="nav-item mt-2 pt-1 me-3">
                         <a class="nav-link" href="emergency-hotlines.php">Hotlines</a>
                     </li>   
@@ -89,7 +82,7 @@ session_start();
     </header>
 
     <div class="content-wrapper">
-    	<main>
+        <main>
             <section class="holder-section mt-4">
                 <div class="container mt-4">
                     <div class="card">
@@ -123,10 +116,38 @@ session_start();
             </section>
         </main>
     </div>
-</div>    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+
+    <script>
+        <?php
+        if (isset($_SESSION['login_error'])) {
+            echo 'const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+                });
+                Toast.fire({
+                icon: "error",
+                title: "Signed in unseccessful wrong username or password",
+                customClass: {
+                    popup: "mt-5" // Adjust the margin-top as needed
+                }
+                });';
+            unset($_SESSION['login_error']);
+        }
+        ?>
+    </script>
 </body>
 </html>
