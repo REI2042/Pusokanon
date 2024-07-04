@@ -15,6 +15,10 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
+.request-box {
+    height: 100%;
+}
+
 .profile-picture {
     border: 5px solid #F9F8FD;
     max-width: 150px;
@@ -60,6 +64,77 @@ footer {
     font-weight: bold;
 }
 
+.pending-button,
+.ready-button,
+.processing-button {
+    padding: 10px 20px;
+    background: transparent;
+    border-radius: 26px;
+    border-style: none;
+    color: #F9F8FD;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pending-button {
+    border: 2px solid #FAB020;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.processing-button {
+    border: 2px solid #5BC0DE;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ready-button {
+    border: 2px solid #29B95F;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pending-button:hover {
+    background-color: #FAB020;
+}
+
+.ready-button:hover {
+    background-color: #29B95F;
+}
+
+.processing-button:hover {
+    background-color: #5BC0DE;
+}
+
+.pending-button.active,
+.processing-button.active,
+.ready-button.active {
+    color: #F9F8FD;
+    font-weight: bold;
+}
+
+.pending-button.active {
+    background-color: #FAB020;
+}
+
+.processing-button.active {
+    background-color: #5BC0DE;
+}
+
+.ready-button.active {
+    background-color: #29B95F;
+}
+
+.pagination {
+    position:absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    gap: 5px;
+}
+
+.page-link {
+    border-radius: 10%;
+}
+
 @media (max-width: 768px) {
 
     .main {
@@ -79,4 +154,11 @@ footer {
         position: static;
     }
 
+    table thead th {
+        font-size: small;
+    }
+
+    .pagination {
+        position:static;
+    }
 }
