@@ -52,9 +52,7 @@
                                     <a href="viewComplaint.php?id=<?php echo $request['complaint_id']; ?>" class="btn btn-primary btn-sm">
                                         <i class="fas fa-eye"></i> View
                                     </a>
-                                    <a href="deleteComplaint.php?id=<?php echo $request['complaint_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this complaint?');">
-                                        <i class="fas fa-trash-alt"></i> Delete
-                                    </a>
+                                    
                                 </td>
                             </tr>
                         <?php endforeach; ?>

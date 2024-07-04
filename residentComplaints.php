@@ -16,7 +16,7 @@
                 </div>
             </div>
             <p>INFORMATION OF THE RESPONDENT:</p>
-            <form class="row gy-2 gx-3 text-white" action="db/DBconn_complaints.php" method="POST" enctype="multipart/form-data">
+            <form class="row gy-2 gx-3 text-white" action="db/DBconn_complaints.php" method="POST"  id="complaintForm" enctype="multipart/form-data">
                     <div class="col px-1">
                         <label for="firstname" class="form-label">First Name</label>
                         <input type="text" name="fname" class="form-control" id="firstname" placeholder="First Name" required>
@@ -49,7 +49,7 @@
                         </select>
                     </div>
                     <div class="col-4 mt-1 mb-2 px-1">
-                            <label for="quantity" class="form-label">Age</label>
+                            <label for="age" class="form-label">Age</label>
                             <input class="form-control" type="integer" name="age" id="age" placeholder="Age" required>
                     </div>
 
@@ -89,7 +89,7 @@
                             <option value="Physical Abuse">Physical Abuse</option>
                             <option value="Threat">Threat</option>
                             <option value="Trespassing">Trespassing</option>
-                            <option value="Thief">Thief</option>
+                            <option value="Theft">Theft</option>
                         </select>
                     </div>  
                     <div class="col-12 px-1">
@@ -98,14 +98,15 @@
                     </div>
                     
                     <div class="text-center d-grid col-8 mx-auto">
-                        <button type="submit" name="submit" class="btn btn-success">Submit</button>
-                    </div>
+                    <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                </div>
+
             </form>
         </div>
 	</div>
 
     
-
+    <script src="js/complaints_popUp.js"></script>
 <?php
     include 'include/footer.php';
 ?>
