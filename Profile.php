@@ -70,7 +70,7 @@
                     <div class="buttons text-center my-3">
                         <a href="?status=pending" class="btn pending-button <?php echo $status === 'pending' ? 'active' : ''; ?>">Pending</a>
                         <a href="?status=processing" class="btn processing-button <?php echo $status === 'processing' ? 'active' : ''; ?>">Processing</a>
-                        <a href="?status=ready" class="btn ready-button <?php echo $status === 'ready' ? 'active' : ''; ?>">Ready to Pick-up</a>
+                        <a href="?status=Ready to Pick Up" class="btn ready-button <?php echo $status === 'Ready to Pick Up' ? 'active' : ''; ?>">Ready to Pick-up</a>
                     </div>
                 </div>
                 <div class="table-responsive">
