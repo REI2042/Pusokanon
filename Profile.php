@@ -89,7 +89,13 @@
                                 <tr><td colspan="5" class="text-center">No records found.</td></tr>
                             <?php else: ?>
                                 <?php foreach ($requests as $request): ?>
-                                    <tr>
+                                    <tr class="clickable-row" data-doc-id="<?php echo htmlspecialchars($request['doc_ID']); ?>"
+                                        data-doc-name="<?php echo htmlspecialchars($request['document_name']); ?>"
+                                        data-status="<?php echo htmlspecialchars($request['stat']); ?>"
+                                        data-date-req="<?php echo htmlspecialchars($request['date_req']); ?>"
+                                        data-remarks="<?php echo htmlspecialchars($request['remarks']); ?>"
+                                        data-purpose="<?php echo htmlspecialchars($request['purpose_name']); ?>"
+                                        data-qr-code="<?php echo htmlspecialchars($request['qrCode_image']); ?>">
                                         <td><?php echo htmlspecialchars($request['doc_ID']); ?></td>
                                         <td><?php echo htmlspecialchars($request['document_name']); ?></td>
                                         <td><?php echo htmlspecialchars($request['stat']); ?></td>
@@ -140,5 +146,5 @@
         </div>
     </div>
 </section>
-
+<script src="js/ViewDocumentRequest.js"></script>
 <?php include 'include/footer.php'; ?>

@@ -72,6 +72,7 @@ footer {
     font-weight: bold;
     font-size: 14px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin: 5px;
 }
 
 .pending-button {
@@ -119,17 +120,18 @@ footer {
 .ready-button.active {
     background-color: #29B95F;
 }
-    
-.pagination {
-    position:absolute;
-    left: 0;
-    right: 0;
-    bottom: 10px;
-    gap: 5px;
-}
 
 .page-link {
     border-radius: 10%;
+}
+
+.table-responsive .table td, th {
+    font-size: 12px;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 @media (max-width: 768px), (min-height: 768px) {
@@ -155,7 +157,4 @@ footer {
         font-size: small;
     }
 
-    .pagination {
-        position:static;
-    }
 }

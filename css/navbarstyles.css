@@ -85,6 +85,7 @@ footer {
   text-align: center;
   width: 100%;
 }
+
 @media (max-width: 992px) {
   .navbar-brand img {
     height: 45px;
@@ -96,5 +97,9 @@ footer {
     font-family: "Titan One", cursive;
     color: white;
     -webkit-text-stroke: 1px #2260a7;
+  }
+
+  footer .footerContainer p {
+    font-size: small;
   }
 }
