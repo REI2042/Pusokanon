@@ -45,18 +45,18 @@ $totalPages = ceil($totalRequests / $limit);
                                     <?php echo htmlspecialchars($request['status']); ?>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-primary btn-sm" onclick="showDetails(
-                                        '<?= htmlspecialchars($request['resident_name'])?>',
-                                        '<?= htmlspecialchars($request['respondent_name'])?>',
-                                        '<?= htmlspecialchars($request['respondent_age'])?>',
-                                        '<?= htmlspecialchars($request['respondent_gender'])?>',
-                                        '<?= htmlspecialchars($request['narrative'])?>')">
-                                        <i class="fas fa-eye"></i> View
-                                    </a>
-                                    <div class="inline-tools" style="display: inline-block; margin-left: 10px;">
-                                        <form class="status-form" method="POST">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
+                                            '<?= htmlspecialchars($request['resident_name'])?>',
+                                            '<?= htmlspecialchars($request['respondent_name'])?>',
+                                            '<?= htmlspecialchars($request['respondent_age'])?>',
+                                            '<?= htmlspecialchars($request['respondent_gender'])?>',
+                                            '<?= htmlspecialchars($request['narrative'])?>')">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                        <form class="status-form mb-0" action="../db/DBconn_complaints.php" method="POST">
                                             <input type="hidden" name="complaint_id" value="<?= htmlspecialchars($request['complaint_id']); ?>">
-                                            <select name="status" class="form-select form-select-sm" onchange="handleStatusChange(event)">
+                                            <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
                                                 <option value="Pending" <?= $request['status'] == 'Pending' ? 'selected' : ''; ?>>Pending</option>
                                                 <option value="Done" <?= $request['status'] == 'Done' ? 'selected' : ''; ?>>Done</option>
                                             </select>
@@ -100,6 +100,7 @@ $totalPages = ceil($totalRequests / $limit);
 </div>
 
 <script src="../js/complaints_popUp.js"></script>
-<script src="complaints_updateStatus.js"></script>
+<script src="../complaints_updateStatus.js"></script>
+
 
 <?php require_once 'footerAdmin.php'; ?>
