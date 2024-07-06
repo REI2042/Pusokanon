@@ -24,7 +24,7 @@
 
     $totalPages = ceil($totalRequests / $perPage);
 
-    $complaintsPerPage = 1;
+    $complaintsPerPage = 5;
     $complaintsPage = isset($_GET['complaints_page']) ? (int)$_GET['complaints_page'] : 1;
     $complaintsOffset = ($complaintsPage - 1) * $complaintsPerPage;
     
@@ -69,8 +69,8 @@
                 </div>
                 <div class="row">
                     <div class="buttons text-center my-3">
-                        <button class="change-button">Change Password</button>
-                        <button class="edit-button">Edit Profile</button>
+                        <a href="EditProfile.php"><button class="change-button">Change Password</button></a>
+                        <a href="EditProfile.php"><button class="edit-button">Edit Profile</button></a>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
         <div class="col-12 col-sm-7 p-3">
             <div class="request-box p-3">
                 <div class="row">
-                    <div class="buttons text-center my-3">
+                    <div class="buttons text-center mt-3">
                         <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?>" data-target="document-requests">Your Document Request(s)</button>
                         <button class="btn complaints-button <?php echo $activeTab === 'complaints' ? 'active' : ''; ?>" data-target="complaints">Your Complaint(s)</button>
                     </div>
