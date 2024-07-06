@@ -158,3 +158,18 @@ footer {
     }
 
 }
+
+@media (max-width: 1024px) {
+
+    footer .footerContainer p {
+        font-size: small;
+    }
+
+    footer {
+        position: static;
+    }
+    table thead th {
+        font-size: small;
+    }
+
+}
