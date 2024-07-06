@@ -46,10 +46,6 @@ body {
   color: #336fb4 !important;
 }
 
-#navbarNav {
-  margin-right: 30px;
-}
-
 .dropdown-menu {
   background-color: whitesmoke;
 }
@@ -102,4 +98,12 @@ footer {
   footer .footerContainer p {
     font-size: small;
   }
+
+  .nav-link {
+    margin-right: 0px;
+  }
+
+  /* .navbar-nav {
+    align-items: start !important;
+  } */
 }

@@ -36,6 +36,8 @@
     $birthdate = $_SESSION['birth_date'];
     $date = DateTime::createFromFormat('Y-m-d', $birthdate);
     $formattedBirthdate = $date->format('F j, Y');
+
+    $activeTab = isset($_GET['active_tab']) ? $_GET['active_tab'] : 'document-requests';
     
 ?>
 <link rel="stylesheet" href="css/Profile.css">
@@ -77,12 +79,12 @@
             <div class="request-box p-3">
                 <div class="row">
                     <div class="buttons text-center my-3">
-                        <button class="btn request-button active" data-target="document-requests">Your Document Request(s)</button>
-                        <button class="btn complaints-button" data-target="complaints">Your Complaint(s)</button>
+                        <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?>" data-target="document-requests">Your Document Request(s)</button>
+                        <button class="btn complaints-button <?php echo $activeTab === 'complaints' ? 'active' : ''; ?>" data-target="complaints">Your Complaint(s)</button>
                     </div>
                 </div>
                 
-                <div id="document-requests">
+                <div id="document-requests" style="display: <?php echo $activeTab === 'document-requests' ? 'block' : 'none'; ?>">
                     <div class="row">
                         <div class="buttons text-center my-3">
                             <a href="?status=pending" class="btn pending-button <?php echo $status === 'pending' ? 'active' : ''; ?>">Pending</a>
@@ -138,9 +140,11 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php for ($i = max(1, $page - 2); $i <= min($totalPages, $page + 2); $i++): ?>
+                            <?php for ($i = max(1, $page - 1); $i <= min($totalPages, $page + 1); $i++): ?>
                                 <li class="page-item <?php echo $i === $page ? 'active' : ''; ?>">
-                                    <a class="page-link" href="?status=<?php echo $status; ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                <a class="page-link" href="?status=<?php echo $status; ?>&page=<?php echo $i; ?>&active_tab=document-requests">
+                                    <?php echo $i; ?>
+                                </a>
                                 </li>
                             <?php endfor; ?>
                             <?php if ($page < $totalPages): ?>
@@ -159,7 +163,7 @@
                     </nav>
                 </div>
 
-                <div id="complaints" style="display: none;">
+                <div id="complaints" style="display: <?php echo $activeTab === 'complaints' ? 'block' : 'none'; ?>">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -199,29 +203,31 @@
                         <ul class="pagination justify-content-center">
                             <?php if ($complaintsPage > 1): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="?complaints_page=1" aria-label="First">
+                                    <a class="page-link" href="?complaints_page=1&active_tab=complaints" aria-label="First">
                                         <span aria-hidden="true">First</span>
                                     </a>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link" href="?complaints_page=<?php echo $complaintsPage - 1; ?>" aria-label="Previous">
+                                    <a class="page-link" href="?complaints_page=<?php echo $complaintsPage - 1; ?>&active_tab=complaints" aria-label="Previous">
                                         <span aria-hidden="true">Previous</span>
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php for ($i = max(1, $complaintsPage - 2); $i <= min($totalComplaintPages, $complaintsPage + 2); $i++): ?>
+                            <?php for ($i = max(1, $complaintsPage - 1); $i <= min($totalComplaintPages, $complaintsPage + 1); $i++): ?>
                                 <li class="page-item <?php echo $i === $complaintsPage ? 'active' : ''; ?>">
-                                    <a class="page-link" href="?complaints_page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                    <a class="page-link" href="?complaints_page=<?php echo $i; ?>&active_tab=complaints">
+                                        <?php echo $i; ?>
+                                    </a>
                                 </li>
                             <?php endfor; ?>
                             <?php if ($complaintsPage < $totalComplaintPages): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="?complaints_page=<?php echo $complaintsPage + 1; ?>" aria-label="Next">
+                                    <a class="page-link" href="?complaints_page=<?php echo $complaintsPage + 1; ?>&active_tab=complaints" aria-label="Next">
                                         <span aria-hidden="true">Next</span>
                                     </a>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link" href="?complaints_page=<?php echo $totalComplaintPages; ?>" aria-label="Last">
+                                    <a class="page-link" href="?complaints_page=<?php echo $totalComplaintPages; ?>&active_tab=complaints" aria-label="Last">
                                         <span aria-hidden="true">Last</span>
                                     </a>
                                 </li>
@@ -233,5 +239,5 @@
         </div>
     </div>
 </section>
-<script src="js/ViewDocumentRequest.js"></script>
+<script src="js/Profile.js"></script>
 <?php include 'include/footer.php'; ?>
