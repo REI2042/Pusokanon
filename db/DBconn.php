@@ -269,4 +269,22 @@
 		$stmt->execute();
 		return $stmt->fetchColumn();
 	}
+
+	function fetchComplaints($pdo, $userId, $limit, $offset) {
+		$sql = "SELECT * FROM complaints_tbl WHERE res_id = :userId ORDER BY date_filed DESC LIMIT :limit OFFSET :offset";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	function countComplaints($pdo, $userId) {
+		$sql = "SELECT COUNT(*) FROM complaints_tbl WHERE res_id = :userId";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
 ?>
