@@ -85,7 +85,7 @@
                 </div>
                 
                 <div id="document-requests" style="display: <?php echo $activeTab === 'document-requests' ? 'block' : 'none'; ?>">
-                    <div class="row text-center my-3">
+                    <div class="row text-center align-items-center my-3">
                         <div class="col-6 col-sm-4">
                             <a href="?status=pending" class="pending-button <?php echo $status === 'pending' ? 'active' : ''; ?>">Pending</a>
                         </div>
@@ -104,7 +104,7 @@
                                     <th scope="col">Document Name</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Date & Time Requested</th>
-                                    <th scope="col">Remarks</th>
+                                    <th scope="col">Purpose</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -123,7 +123,7 @@
                                             <td><?php echo htmlspecialchars($request['document_name']); ?></td>
                                             <td><?php echo htmlspecialchars($request['stat']); ?></td>
                                             <td><?php echo htmlspecialchars($request['date_req']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['remarks']); ?></td>
+                                            <td><?php echo htmlspecialchars($request['purpose_name']); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>

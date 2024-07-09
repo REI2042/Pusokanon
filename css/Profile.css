@@ -114,7 +114,7 @@ footer {
     padding: 10px 20px;
     border-radius: 26px;
     border-style: none;
-    color: #222324;
+    color: #F9F8FD;
     font-weight: bold;
     font-size: 14px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -166,6 +166,12 @@ footer {
 
 .pagination {
     gap: 5px;
+}
+
+.custom-swal {
+    background-color: #1D4E89;
+    color: #F9F8FD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px), (min-height: 768px) {

@@ -1,8 +1,26 @@
 .main {
-    margin-top: 81px;
-    padding: 0px 75px;
+    margin-top: 77px;
+    padding: 10px 150px;
 }
 
 .form {
-    background-color: aqua;
+    background: linear-gradient(45deg, #2c7bd5, #4a90e2, #6aafe6);
+    margin: 0px 50px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+@media (max-width: 768px), (min-height: 768px) {
+
+    .main {
+        margin-top: 81px;
+        padding: 0px 15px;
+    }
+
+    .form {
+        background-color: aqua;
+        margin: 0px 0px;
+        font-size: small;
+    }
+    
 }

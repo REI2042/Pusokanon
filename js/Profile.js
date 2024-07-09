@@ -22,11 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p><strong>Remarks:</strong> ${remarks}</p>
                 `,
                 showCloseButton: true,
-                showCancelButton: true,
-                cancelButtonText: 'Close',
                 confirmButtonText: 'Download QR Code',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33'
+                confirmButtonColor: '#3D7CC4',
+                cancelButtonColor: '#d33',
+                customClass: {
+                    popup: 'custom-swal'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     const link = document.createElement('a');
@@ -61,7 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 showCloseButton: true,
                 showCancelButton: false,
                 confirmButtonText: 'Close',
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#3D7CC4',
+                customClass: {
+                    popup: 'custom-swal'
+                }
             });
         });
     });
