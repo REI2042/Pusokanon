@@ -23,8 +23,6 @@ $totalPages = ceil($totalRequests / $limit);
                     <tr>
                         <th>Case ID</th>
                         <th>Case Type</th>
-                        <th>Date of Incident</th>
-                        <th>Time of Incident</th>
                         <th>Place of Incident</th>
                         <th>Date Reported</th>
                         <th>Status</th>
@@ -34,11 +32,17 @@ $totalPages = ceil($totalRequests / $limit);
                 <tbody class="scrollable-table-body">
                     <?php if (!empty($requests)): ?>
                         <?php foreach ($requests as $request): ?>
-                            <tr>
+                            <tr onclick="showDetails(
+                                            '<?= htmlspecialchars($request['resident_name'])?>',
+                                            '<?= htmlspecialchars($request['respondent_name'])?>',
+                                            '<?= htmlspecialchars($request['respondent_age'])?>',
+                                            '<?= htmlspecialchars($request['respondent_gender'])?>',
+                                            '<?= htmlspecialchars($request['incident_date'])?>',
+                                            '<?= htmlspecialchars($request['incident_time'])?>',
+                                            '<?= htmlspecialchars($request['incident_place'])?>',
+                                            '<?= htmlspecialchars($request['narrative'])?>')">
                                 <td><?php echo htmlspecialchars($request['complaint_id']); ?></td>
                                 <td><?php echo htmlspecialchars($request['case_type']); ?></td>
-                                <td><?php echo htmlspecialchars($request['incident_date']); ?></td>
-                                <td><?php echo htmlspecialchars($request['incident_time']); ?></td>
                                 <td><?php echo htmlspecialchars($request['incident_place']); ?></td>
                                 <td><?php echo htmlspecialchars($request['date_filed']); ?></td>
                                 <td id="status-<?php echo htmlspecialchars($request['complaint_id']); ?>">
@@ -46,18 +50,22 @@ $totalPages = ceil($totalRequests / $limit);
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-start align-items-center">
-                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
-                                            '<?= htmlspecialchars($request['resident_name'])?>',
-                                            '<?= htmlspecialchars($request['respondent_name'])?>',
-                                            '<?= htmlspecialchars($request['respondent_age'])?>',
-                                            '<?= htmlspecialchars($request['respondent_gender'])?>',
-                                            '<?= htmlspecialchars($request['narrative'])?>')">
-                                            <i class="fas fa-eye"></i> View
-                                        </a>
+                                        <button class="btn btn-success btn-sm me-2" onclick="approveComplaint(
+                                            '<?= htmlspecialchars($request['complaint_id'])?>',
+                                            '<?= htmlspecialchars($request['resident_email'])?>')">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                        <form class="status-form mb-0 me-2" action="../db/DBconn_disapprove.php" method="POST">
+                                            <input type="hidden" name="complaint_id" value="<?= htmlspecialchars($request['complaint_id']); ?>">
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-times"></i> Disapprove
+                                            </button>
+                                        </form>
                                         <form class="status-form mb-0" action="../db/DBconn_complaints.php" method="POST">
                                             <input type="hidden" name="complaint_id" value="<?= htmlspecialchars($request['complaint_id']); ?>">
                                             <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
                                                 <option value="Pending" <?= $request['status'] == 'Pending' ? 'selected' : ''; ?>>Pending</option>
+                                                <option value="Processing" <?= $request['status'] == 'Processing' ? 'selected' : ''; ?>>Processing</option>
                                                 <option value="Done" <?= $request['status'] == 'Done' ? 'selected' : ''; ?>>Done</option>
                                             </select>
                                         </form>
