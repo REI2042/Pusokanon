@@ -28,6 +28,18 @@ h1 {
 }
 
 
+.table tr td {
+  font-size: 13px;
+  
+}
+
+.table tr th {
+  font-size: 13px;
+  width: 20px;
+  background-color: #2260a7;
+  color: white;
+}
+
 .table-responsive {
   position: relative;
   border-radius: 10px;

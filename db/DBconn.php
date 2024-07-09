@@ -160,6 +160,7 @@
 					ct.respondent_gender AS respondent_gender
 				FROM complaints_tbl ct 
 				INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+				ORDER BY ct.date_filed DESC
 				LIMIT :offset, :limit";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);

@@ -107,8 +107,8 @@ $totalPages = ceil($totalRequests / $limit);
     </div>
 </div>
 
+
 <script src="../js/complaints_popUp.js"></script>
 <script src="../complaints_updateStatus.js"></script>
-
 
 <?php require_once 'footerAdmin.php'; ?>

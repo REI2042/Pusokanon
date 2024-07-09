@@ -47,7 +47,7 @@ if (isset($_SESSION['res_ID'])) {
 
             if ($stmt->execute()) {
                 $complaint_id = $pdo->lastInsertId();
-                echo json_encode(['success' => true, 'message' => 'Complaint submitted successfully.', 'complaint_id' => $complaint_id]);
+                echo json_encode(['success' => true, 'message' => 'Thank you for filling up the form. Kindly check your email from time to time for updates.', 'complaint_id' => $complaint_id]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Error submitting complaint.']);
             }

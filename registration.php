@@ -108,12 +108,12 @@
 	                    </div>
 	                    <div class="col px-1">
 	                        <label for="midname" class="form-label">Middle Name</label>
-                            <input type="text" name="mname" class="form-control" id="midname" placeholder="Middle name" required>
+                            <input type="text" name="mname" class="form-control" id="midname" placeholder="Middle name">
 	                    </div>
 	                    <div class="w-100"></div>
 	                    <div class="col-6 px-1 mt-2">
                                     <label for="Suffix" class="form-label">Suffix</label>
-                                    <select class="form-select" name="sufname" id="Suffix" required>
+                                    <select class="form-select" name="sufname" id="Suffix">
                                         <option value=" ">N/A</option>
                                         <option value="Jr">Jr.</option>
                                         <option value="Sr.">Sr.</option>
