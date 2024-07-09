@@ -11,6 +11,13 @@
 <div class="container fluid d-flex justify-content-center">
 <section class="main">
 	<form class="form row text-white" action="#" method="POST" enctype="multipart/form-data">
+		<div class="col-12 mt-2 d-flex justify-content-center align-items-center">
+			<div class="user-profile">
+				<img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" alt="Profile Picture">
+				<input type="file" id="file">
+				<label for="file" id="upload_button"><i class="fas fa-camera"></i></label>
+			</div>
+		</div>
 		<div class="col-12 col-sm-6 px-1 mt-2">
 			<label for="firstname" class="form-label">First Name</label>
 			<input type="text" name="fname" class="form-control" id="firstname" placeholder="<?= htmlspecialchars($_SESSION['res_fname']); ?>" value="<?= htmlspecialchars($_SESSION['res_fname']); ?>" required>
