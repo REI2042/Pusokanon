@@ -85,11 +85,15 @@
                 </div>
                 
                 <div id="document-requests" style="display: <?php echo $activeTab === 'document-requests' ? 'block' : 'none'; ?>">
-                    <div class="row">
-                        <div class="buttons text-center my-3">
-                            <a href="?status=pending" class="btn pending-button <?php echo $status === 'pending' ? 'active' : ''; ?>">Pending</a>
-                            <a href="?status=processing" class="btn processing-button <?php echo $status === 'processing' ? 'active' : ''; ?>">Processing</a>
-                            <a href="?status=Ready to Pick Up" class="btn ready-button <?php echo $status === 'Ready to Pick Up' ? 'active' : ''; ?>">Ready to Pick-up</a>
+                    <div class="row text-center my-3">
+                        <div class="col-6 col-sm-4">
+                            <a href="?status=pending" class="pending-button <?php echo $status === 'pending' ? 'active' : ''; ?>">Pending</a>
+                        </div>
+                        <div class="col-6 col-sm-4">
+                            <a href="?status=processing" class="processing-button <?php echo $status === 'processing' ? 'active' : ''; ?>">Processing</a>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <a href="?status=Ready to Pick Up" class="ready-button <?php echo $status === 'Ready to Pick Up' ? 'active' : ''; ?>">Ready to Pick-up</a>
                         </div>
                     </div>
                     <div class="table-responsive">
