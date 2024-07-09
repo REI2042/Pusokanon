@@ -1,38 +1,52 @@
 <?php
-    include '../../db/DBconn.php'; // Adjust the path as needed
+include '../../db/DBconn.php'; // Adjust the path as needed
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['complaint_id'], $_POST['date'], $_POST['email'])) {
-        try {
-            $complaint_id = $_POST['complaint_id'];
-            $hearing_date = $_POST['date'];
-            $resident_email = $_POST['email'];
-    
-            // Update the complaint status
-            $update_sql = "UPDATE complaints_tbl SET status = 'Approved' WHERE complaint_id = :complaint_id";
-            $update_stmt = $pdo->prepare($update_sql);
-            $update_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
-            $update_stmt->execute();
-    
-            // Prepare the email
-            $message = "Dear Resident,\n\nYour complaint has been approved. The hearing is scheduled on: $hearing_date.\n\nThank you.";
-            $subject = "Complaint Hearing Date";
-    
-            // Send the email
-            $headers = 'From: peace.mari@gmail.com' . "\r\n" .
-                'Reply-To: peace.mari@gmail.com' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion();
-    
-            if (mail($resident_email, $subject, $message, $headers)) {
-                echo json_encode(['success' => true, 'message' => 'Complaint approved and email sent.']);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Failed to send email.']);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+
+
+header('Content-Type: application/json'); // Set the header to return JSON
+
+$response = ['success' => false, 'message' => 'Invalid request.'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['complaint_id'])) {
+    try {
+        $complaint_id = $_POST['complaint_id'];
+
+        // Fetch resident email based on complaint_id
+        $fetch_email_sql = "
+            SELECT ru.res_email AS resident_email
+            FROM resident_users ru 
+            JOIN complaints_tbl ct ON ct.res_id = ru.res_ID
+            WHERE ct.complaint_id = :complaint_id
+        ";
+        $fetch_email_stmt = $pdo->prepare($fetch_email_sql);
+        $fetch_email_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
+        $fetch_email_stmt->execute();
+        $result = $fetch_email_stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$result) {
+            $response['message'] = 'No resident found for the given complaint ID.';
+            echo json_encode($response);
+            exit;
         }
-        exit;
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid request.']);
-        exit;
+
+        $resident_email = $result['resident_email'];
+
+        // Update the complaint status
+        $update_sql = "UPDATE complaints_tbl SET status = 'Approved' WHERE complaint_id = :complaint_id";
+        $update_stmt = $pdo->prepare($update_sql);
+        $update_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
+        $update_stmt->execute();
+
+        $response['success'] = true;
+        $response['resident_email'] = $resident_email;
+    } catch (Exception $e) {
+        $response['message'] = $e->getMessage();
     }
+
+    echo json_encode($response);
+    exit;
+} else {
+    echo json_encode($response);
+    exit;
+}
 ?>

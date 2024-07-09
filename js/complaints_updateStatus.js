@@ -97,13 +97,13 @@
 //     });
 // }
 
-function updateStatus(complaintId, newStatus) {
+function updateStatus(complaint_id, newStatus) {
     fetch('../db/DBconn_complaints.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `complaint_id=${complaintId}&status=${newStatus}`
+        body: `complaint_id=${complaint_id}&status=${newStatus}`
     })
     .then(response => response.json())
     .then(data => {

@@ -32,15 +32,7 @@ $totalPages = ceil($totalRequests / $limit);
                 <tbody class="scrollable-table-body">
                     <?php if (!empty($requests)): ?>
                         <?php foreach ($requests as $request): ?>
-                            <tr onclick="showDetails(
-                                            '<?= htmlspecialchars($request['resident_name'])?>',
-                                            '<?= htmlspecialchars($request['respondent_name'])?>',
-                                            '<?= htmlspecialchars($request['respondent_age'])?>',
-                                            '<?= htmlspecialchars($request['respondent_gender'])?>',
-                                            '<?= htmlspecialchars($request['incident_date'])?>',
-                                            '<?= htmlspecialchars($request['incident_time'])?>',
-                                            '<?= htmlspecialchars($request['incident_place'])?>',
-                                            '<?= htmlspecialchars($request['narrative'])?>')">
+                            <tr>
                                 <td><?php echo htmlspecialchars($request['complaint_id']); ?></td>
                                 <td><?php echo htmlspecialchars($request['case_type']); ?></td>
                                 <td><?php echo htmlspecialchars($request['incident_place']); ?></td>
@@ -50,9 +42,17 @@ $totalPages = ceil($totalRequests / $limit);
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-start align-items-center">
-                                        <button class="btn btn-success btn-sm me-2" onclick="approveComplaint(
-                                            '<?= htmlspecialchars($request['complaint_id'])?>',
-                                            '<?= htmlspecialchars($request['resident_email'])?>')">
+                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
+                                                                '<?= htmlspecialchars($request['resident_name'])?>',
+                                                                '<?= htmlspecialchars($request['respondent_name'])?>',
+                                                                '<?= htmlspecialchars($request['respondent_age'])?>',
+                                                                '<?= htmlspecialchars($request['respondent_gender'])?>',
+                                                                '<?= htmlspecialchars($request['incident_date'])?>',
+                                                                '<?= htmlspecialchars($request['incident_time'])?>',
+                                                                '<?= htmlspecialchars($request['incident_place'])?>',
+                                                                '<?= htmlspecialchars($request['narrative'])?>')">
+                                                    <i class="fas fa-eye"></i> View</a>
+                                        <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                             <i class="fas fa-check"></i> Approve
                                         </button>
                                         <form class="status-form mb-0 me-2" action="../db/DBconn_disapprove.php" method="POST">
