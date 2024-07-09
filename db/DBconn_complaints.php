@@ -61,21 +61,25 @@ if (isset($_SESSION['res_ID'])) {
     echo "User not logged in or session expired.";
 }
 
-if (isset($_POST['complaint_id']) && isset($_POST['update_status'])) {
-    $complaint_id = $_POST['complaint_id'];
 
-    $new_status = 'Done';
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['complaint_id'], $_POST['status'])) {
+    try {
+        $complaint_id = $_POST['complaint_id'];
+        $new_status = $_POST['status'];
 
-    $update_sql = "UPDATE complaints_tbl SET status = :new_status WHERE complaint_id = :complaint_id";
-    $update_stmt = $pdo->prepare($update_sql);
-    $update_stmt->bindParam(':new_status', $new_status);
-    $update_stmt->bindParam(':complaint_id', $complaint_id);
-
-    if ($update_stmt->execute()) {
-        echo "Status updated to 'done' for complaint ID: " . $complaint_id;
-    } else {
-        echo "Error updating status.";
+        $update_sql = "UPDATE complaints_tbl SET status = :new_status WHERE complaint_id = :complaint_id";
+        $update_stmt = $pdo->prepare($update_sql);
+        $update_stmt->bindParam(':new_status', $new_status, PDO::PARAM_STR);
+        $update_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
+        
+        $update_stmt->execute();
+        
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
+    exit;
 }
+
 ?>
 

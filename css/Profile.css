@@ -13,6 +13,7 @@ footer {
     background: linear-gradient(45deg, #2C7BD5, #4A90E2, #6AAFE6);
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    height: 100%;
 }
 
 .profile-picture {
@@ -60,7 +61,130 @@ footer {
     font-weight: bold;
 }
 
-@media (max-width: 768px) {
+.request-button,
+.complaints-button {
+    padding: 10px 20px;
+    background: #F9F8FD;
+    border-style: none;
+    color: #222324;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin: 5px;
+}
+
+.request-button {
+    border: 2px solid green;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.complaints-button {
+    border: 2px solid red;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.request-button:hover {
+    background-color: green;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.complaints-button:hover {
+    background-color: red;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.request-button.active,
+.complaints-button.active {
+    color: #F9F8FD;
+    font-weight: bold;
+}
+
+.request-button.active {
+    background-color: green;
+}
+
+.complaints-button.active {
+    background-color: red;
+}
+
+.pending-button,
+.ready-button,
+.processing-button {
+    padding: 10px 20px;
+    background: #F9F8FD;
+    border-radius: 26px;
+    border-style: none;
+    color: #222324;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin: 5px;
+}
+
+.pending-button {
+    border: 2px solid #FAB020;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.processing-button {
+    border: 2px solid #5BC0DE;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ready-button {
+    border: 2px solid #29B95F;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pending-button:hover {
+    background-color: #FAB020;
+}
+
+.ready-button:hover {
+    background-color: #29B95F;
+}
+
+.processing-button:hover {
+    background-color: #5BC0DE;
+}
+
+.pending-button.active,
+.processing-button.active,
+.ready-button.active {
+    color: #F9F8FD;
+    font-weight: bold;
+}
+
+.pending-button.active {
+    background-color: #FAB020;
+}
+
+.processing-button.active { 
+    background-color: #5BC0DE;
+}
+
+.ready-button.active {
+    background-color: #29B95F;
+}
+
+.page-link {
+    border-radius: 10%;
+}
+
+.table-responsive .table td, th {
+    font-size: 12px;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination {
+    gap: 5px;
+}
+
+@media (max-width: 768px), (min-height: 768px) {
 
     .main {
         margin-top: 65.5px;
@@ -77,6 +201,26 @@ footer {
 
     footer {
         position: static;
+    }
+
+    table thead th {
+        font-size: small;
+    }
+    
+}
+
+@media (max-width: 1024px) {
+
+    footer .footerContainer p {
+        font-size: small;
+    }
+
+    footer {
+        position: static;
+    }
+
+    table thead th {
+        font-size: small;
     }
 
 }
