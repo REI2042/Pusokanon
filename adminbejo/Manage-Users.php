@@ -3,7 +3,7 @@ include 'headerAdmin.php';
 include '../db/DBconn.php'; 
 
 // Determine the current page and set the number of records per page
-$records_per_page = 3;
+$records_per_page = 5;
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $records_per_page;
 
@@ -44,7 +44,7 @@ $users = fetchResident($pdo, $records_per_page, $offset);
         </div>
     </div>
     <div class="mu-ds row d-flex justify-content-end">
-        <div class="col-12 col-md-5 d-flex justify-content-center align-items-center">
+        <div class="cont col-12 col-md-5 d-flex justify-content-center align-items-center">
             <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Gender
             </a>
@@ -103,7 +103,9 @@ $users = fetchResident($pdo, $records_per_page, $offset);
                         </tbody>
                     </table>
                 </div>
-                <nav aria-label="Page navigation">
+                
+            </div>
+            <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
                         <?php if ($current_page > 1): ?>
                             <li class="page-item">
@@ -136,8 +138,7 @@ $users = fetchResident($pdo, $records_per_page, $offset);
                         <?php endif; ?>
                     </ul>
                 </nav>
-            </div>
-        </div>
+        </div>  
     </div>
 </div>
 

@@ -4,16 +4,21 @@
 
 .mu-ds {
     margin: 1rem;
+    
 }
 
 .mu-title {
   font-family: 'Titan One', cursive;
-  font-size: 50px;
+  font-size: 2rem;
   color: #434349;
 }
 
+.dropdown-toggle, .dropdown-item, .btn, .form-control{
+    font-size: 13px;
+}
+
 .mudash {
-    font-family: 'Titan One', cursive;
+    font-size: 1rem;
     background-color: #346BA9;
     color: #ffffff;
     text-align: center;
