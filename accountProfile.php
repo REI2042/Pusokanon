@@ -1,9 +1,10 @@
 <?php
-    include 'include/header.php';
-    include 'db/DBconn.php';
-    
-    $userId = $_SESSION['res_ID']; // Get logged-in user's ID from session
-    $requests = fetchResdocsRequest($pdo, $userId); // Fetch documents for the logged-in user
+include 'include/header.php';
+include 'db/DBconn.php';
+
+$userId = $_SESSION['res_ID']; // Get logged-in user's ID from session
+$requests = fetchResdocsRequest($pdo, $userId, $table, $fields, $where);
+
 ?>
 <link rel="stylesheet" href="css/accountprofile.css">
 <div class="prof-holder">
