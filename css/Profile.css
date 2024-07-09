@@ -136,16 +136,19 @@ footer {
 .pending-button.active {
     color: #FAB020;
     font-weight: bold;
+    text-decoration: underline;
 }
 
 .processing-button.active { 
     color: #00c3ff;
     font-weight: bold;
+    text-decoration: underline;
 }
 
 .ready-button.active {
     color: #00ff62;
     font-weight: bold;
+    text-decoration: underline;
 }
 
 .page-link {
