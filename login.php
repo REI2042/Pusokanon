@@ -129,7 +129,7 @@ include 'db/check_user_login.php';
         if (isset($_SESSION['login_error'])) {
             echo 'const Toast = Swal.mixin({
                 toast: true,
-                position: "top-end",
+                position: "top",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
@@ -142,7 +142,7 @@ include 'db/check_user_login.php';
                 icon: "error",
                 title: "Signed in unseccessful wrong username or password",
                 customClass: {
-                    popup: "mt-5" // Adjust the margin-top as needed
+                    popup: "mt-5 " // Adjust the margin-top as needed
                 }
                 });';
             unset($_SESSION['login_error']);

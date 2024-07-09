@@ -1,3 +1,27 @@
+body,
+html {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+main {
+  margin-left: 60px;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.table-container {
+  position: relative;
+  width: 100%;
+  right: -100%;
+  transition: right 0.5s ease-in-out;
+}
+.visible {
+  right: 0;
+}
+
+.hidden {
+  right: -100%;
+}
+
 .tools form {
   display: inline;
 }

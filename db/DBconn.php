@@ -92,7 +92,7 @@
 	}
 
 
-	function fetchdocsRequest($pdo) {
+	function fetchdocsRequest($pdo, $status) {
 		$sql = "SELECT 
 					ru.res_id, doc_ID, stat,
 					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
@@ -103,8 +103,10 @@
 				FROM request_doc rd
 				INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 				INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-				INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id";  
+				INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+				WHERE dt.doc_name = 'Barangay Clearance' && stat = :status";
 		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':status', $status, PDO::PARAM_STR);
 		$stmt->execute();
 		return $stmt->fetchAll();  
 	}
