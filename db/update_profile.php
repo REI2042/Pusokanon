@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_account'])) {
 
     $update_success = true;
     if (isset($update_success)) {
-        echo "<script>window.location.href = '../resident_landingPage.php';</script>";
+        echo "<script>alert('Profile has been updated successfully!'); window.location.href = '../Profile.php';</script>";
         exit;
     }
 }

@@ -90,8 +90,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                                     <div class="col">
                                         <?php if ($profilePicture): ?>
                                             <img src="db/ProfilePictures/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" style="border: 1px solid #F9F8FD;
-                                            max-width: 30px;
-                                            height: auto;
+                                            width: 30px;
+                                            height: 30px;
                                             border-radius: 50%;">
                                         <?php else: ?>
                                             <i class="bi bi-person-circle"></i>

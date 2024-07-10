@@ -68,7 +68,7 @@
                 </div>
                 <div class="row">
                     <div class="buttons text-center my-3">
-                        <a href="EditProfile.php"><button class="change-button">Change Password</button></a>
+                        <a href="#"><button class="change-button">Change Password</button></a>
                         <a href="EditProfile.php"><button class="edit-button">Edit Profile</button></a>
                     </div>
                 </div>
