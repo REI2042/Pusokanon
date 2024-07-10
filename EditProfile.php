@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="css/EditProfile.css">
 <div class="container fluid d-flex justify-content-center">
 <section class="main">
-	<form class="form row text-white" id="updateProfileForm" method="POST" enctype="multipart/form-data">
+	<form class="form row text-white" action="db/update_profile.php" method="POST" enctype="multipart/form-data">
 		<div class="col-12 mt-2 d-flex justify-content-center align-items-center">
 			<div class="user-profile">
 				<img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" id="profile-preview" alt="Profile Picture">
