@@ -49,7 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
                 header('Content-Length: ' . filesize($tempFile));
                 readfile($tempFile);
                 unlink($tempFile); // delete the temporary file
-                exit; // Ensure script stops here after download
+                if (file_exists($tempFile)) {
+                    
+                }
             } else {
                 $stats = 'Pending';
                 $sql = "UPDATE request_doc SET stat = :stats WHERE doc_ID = :doc_ID";
@@ -57,7 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
                 $stmt->bindParam(':stats', $stats, PDO::PARAM_STR);
                 $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
                 $stmt->execute();
-                echo json_encode(['stat' =>'success','message' => 'Document successfully generated.']);
+                header('Location:../adminbejo/Barangay-Residency.php');
+                exit;
             }
         } else {
             echo json_encode(['stat' => 'error', 'message' => 'Resident not found.']);

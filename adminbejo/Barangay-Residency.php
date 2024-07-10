@@ -15,7 +15,7 @@ $stmt->execute();
 $number_of_processing_results = $stmt->fetchColumn();
 
 // Find out the number of Completed results stored in the database
-$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Clearance') AND remarks = 'Released'");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Clearance') AND remarks = 'Not released'");
 $stmt->execute();
 $number_of_completed_results = $stmt->fetchColumn();
 
@@ -45,7 +45,7 @@ $completed_offset = ($completed_page - 1) * $results_per_page;
 // Retrieve the data to display for the current page
 $pending = fetchdocsRequest($pdo, 'Pending', $results_per_page, $pending_offset);
 $Processing = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $processing_offset);
-$completed = fetchdocsRequestRemarks($pdo, 'Released', $results_per_page, $completed_offset);
+$completed = fetchdocsRequestRemarks($pdo, 'Not released', $results_per_page, $completed_offset);
 ?>
 
 </div>
