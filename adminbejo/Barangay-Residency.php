@@ -15,7 +15,7 @@ $stmt->execute();
 $number_of_processing_results = $stmt->fetchColumn();
 
 // Find out the number of Completed results stored in the database
-$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Clearance') AND remarks = 'Not released'");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Clearance') AND remarks = 'Released'");
 $stmt->execute();
 $number_of_completed_results = $stmt->fetchColumn();
 
@@ -45,7 +45,7 @@ $completed_offset = ($completed_page - 1) * $results_per_page;
 // Retrieve the data to display for the current page
 $pending = fetchdocsRequest($pdo, 'Pending', $results_per_page, $pending_offset);
 $Processing = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $processing_offset);
-$completed = fetchdocsRequestRemarks($pdo, 'Not released', $results_per_page, $completed_offset);
+$completed = fetchdocsRequestRemarks($pdo, 'Released', $results_per_page, $completed_offset);
 ?>
 
 </div>
@@ -57,13 +57,22 @@ $completed = fetchdocsRequestRemarks($pdo, 'Not released', $results_per_page, $c
             <h1 class="title">BARANGAY RESIDENCY</h1>
         </div>
     </div>
-    <div class="controls text-center mt-3">
-        <a id="showTable1" class="link1">-- Pending Documents -- </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a id="showTable2" class="link2">-- Processing Documents --</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a id="showTable3" class="link3">-- Completed Documents --</a>
-    </div>
+    <div class="row d-flex justify-content-end m-2">
+            <div class="col-12 col-md-4 d-flex justify-content-end p-0">
+                <a href="Admin-Document.php" class="back-button">
+                    <i class="fa-solid fa-circle-chevron-left fa-2x"></i>
+                    <span>Back</span>
+                </a>
+            </div>
+        </div>
+    
 
     <div class="table-content">
+        <div class="controls text-center mt-3">
+            <a id="showTable1" class="link1">-- Pending Documents -- </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="showTable2" class="link2">-- Processing Documents --</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="showTable3" class="link3">-- Released Documents --</a>
+        </div>
         <div id="table1Container">
             <table id="table1">
                 <thead>
