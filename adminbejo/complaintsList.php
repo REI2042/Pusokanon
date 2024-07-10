@@ -24,7 +24,7 @@ $totalPages = ceil($totalRequests / $limit);
                         <th>Case ID</th>
                         <th>Case Type</th>
                         <th>Place of Incident</th>
-                        <th>Date Reported</th>
+                        <th>Date/Time Reported</th>
                         <th>Status</th>
                         <th>Tools</th>
                     </tr>
@@ -53,22 +53,19 @@ $totalPages = ceil($totalRequests / $limit);
                                                                 '<?= htmlspecialchars($request['narrative'])?>')">
                                                     <i class="fas fa-eye"></i> View</a>
                                         <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
-                                            <i class="fas fa-check"></i> Approve
+                                            <i class="fas fa-check"></i> Accept
                                         </button>
-                                        <form class="status-form mb-0 me-2" action="../db/DBconn_disapprove.php" method="POST">
-                                            <input type="hidden" name="complaint_id" value="<?= htmlspecialchars($request['complaint_id']); ?>">
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-times"></i> Disapprove
-                                            </button>
-                                        </form>
-                                        <form class="status-form mb-0" action="../db/DBconn_complaints.php" method="POST">
+                                        <button class="btn btn-danger btn-sm me-2" onclick="disapprove_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
+                                            <i class="fas fa-x"></i> Decline
+                                        </button>
+                                        <!-- <form class="status-form mb-0" action="../db/DBconn_complaints.php" method="POST">
                                             <input type="hidden" name="complaint_id" value="<?= htmlspecialchars($request['complaint_id']); ?>">
                                             <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
                                                 <option value="Pending" <?= $request['status'] == 'Pending' ? 'selected' : ''; ?>>Pending</option>
                                                 <option value="Processing" <?= $request['status'] == 'Processing' ? 'selected' : ''; ?>>Processing</option>
                                                 <option value="Done" <?= $request['status'] == 'Done' ? 'selected' : ''; ?>>Done</option>
                                             </select>
-                                        </form>
+                                        </form> -->
                                     </div>
                                 </td>
                             </tr>

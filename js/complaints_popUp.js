@@ -673,14 +673,18 @@ async function approve_complaint(complaint_id) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ complaint_id: complaint_id }),
+                body: JSON.stringify({ 
+                    complaint_id: complaint_id,
+                    hearing_date: hearingDate,
+                    hearing_time: hearingTime 
+                }),
             });
 
             const data = await response.json();
 
             if (data.success) {
                 const decryptedEmail = data.resident_email;
-                
+
                 // Log the fetched email address
                 console.log("Fetched decrypted resident email: ", decryptedEmail);
 
@@ -749,6 +753,117 @@ async function approve_complaint(complaint_id) {
         });
     }
 }
+
+async function disapprove_complaint(complaint_id) {
+    // Step 1: Admin provides reason for disapproval
+    const { value: reason } = await Swal.fire({
+        title: "Reason for Disapproval",
+        input: 'textarea',
+        inputLabel: 'Please provide a reason for disapproval',
+        inputPlaceholder: 'Enter your reason here...',
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        confirmButtonText: 'Decline',
+        cancelButtonText: 'Cancel',
+        inputValidator: (value) => {
+            if (!value) {
+                return 'You need to provide a reason for disapproval!'
+            }
+        }
+    });
+
+    if (reason) {
+        try {
+            // Step 2: Update the complaint status and fetch the resident email and other details
+            const response = await fetch('../adminbejo/phpConn/decline_complaint.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    complaint_id: complaint_id,
+                    reason: reason
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                const decryptedEmail = data.resident_email;
+                const residentName = data.resident_name;
+                const dateFiled = data.date_filed;
+
+                // Log the fetched email address
+                console.log("Fetched decrypted resident email: ", decryptedEmail);
+
+                // Validate the email format
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(decryptedEmail)) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "The fetched email address is invalid: " + decryptedEmail,
+                        icon: "error",
+                        confirmButtonColor: "#d33",
+                    });
+                    return;
+                }
+
+                // Step 3: Send the email
+                emailjs.send('service_e9wn0es', 'template_kpcbfsq', {
+                    to_email: decryptedEmail,
+                    name: residentName,
+                    complaint_id: complaint_id,
+                    date_filed: dateFiled,
+                    reason: reason
+                }).then(
+                    function(response) {
+                        console.log("EmailJS Response:", response);
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Email sent successfully and complaint disapproved.",
+                            icon: "success",
+                            confirmButtonColor: "#d33",
+                        }).then(() => {
+                            location.reload(); // Reload the page
+                        });
+                    },
+                    function(error) {
+                        console.log("EmailJS Error:", error);
+                        Swal.fire({
+                            title: "Error",
+                            text: "Failed to send email: " + error.text,
+                            icon: "error",
+                            confirmButtonColor: "#d33",
+                        });
+                    }
+                );
+
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: data.message,
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Failed to process request: " + error.message,
+                icon: "error",
+                confirmButtonColor: "#d33",
+            });
+        }
+    } else {
+        Swal.fire({
+            title: "Cancelled",
+            text: "Your action has been cancelled",
+            icon: "error",
+            confirmButtonColor: "#d33",
+        });
+    }
+}
+
 
 
 

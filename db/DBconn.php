@@ -157,6 +157,7 @@ function fetchdocsRequest($pdo, $status, $limit, $offset) {
 					ct.incident_place AS incident_place, 
 					ct.date_filed AS date_filed, 
 					ct.status AS status,
+					ct.remarks AS remarks,
 					ct.narrative AS narrative,
 					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
 					ct.respondent_age AS respondent_age,

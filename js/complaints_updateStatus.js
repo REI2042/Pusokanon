@@ -97,26 +97,26 @@
 //     });
 // }
 
-function updateStatus(complaint_id, newStatus) {
-    fetch('../db/DBconn_complaints.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `complaint_id=${complaint_id}&status=${newStatus}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Reload the page if update was successful
-            window.location.reload();
-        } else {
-            console.error('Failed to update status:', data.error);
-            alert('Failed to update status. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating status. Please try again.');
-    });
-}
+// function updateStatus(complaint_id, newStatus) {
+//     fetch('../db/DBconn_complaints.php', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: `complaint_id=${complaint_id}&status=${newStatus}`
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             // Reload the page if update was successful
+//             window.location.reload();
+//         } else {
+//             console.error('Failed to update status:', data.error);
+//             alert('Failed to update status. Please try again.');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('Error updating status. Please try again.');
+//     });
+// }
