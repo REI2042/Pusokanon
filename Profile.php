@@ -4,7 +4,6 @@
     
 	
     $userId = $_SESSION['res_ID'];
-    $profilePicture = fetchProfilePicture($pdo, $userId);
     $suffix = isset($_SESSION['res_suffix']) ? $_SESSION['res_suffix'] : '';
     $fullName = trim($_SESSION['res_fname'] . ' ' . $_SESSION['res_midname'] . ' ' . $_SESSION['res_lname'] . ' ' . $suffix);
 

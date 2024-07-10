@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="css/EditProfile.css">
 <div class="container fluid d-flex justify-content-center">
 <section class="main">
-	<form class="form row text-white" action="#" method="POST" enctype="multipart/form-data">
+	<form class="form row text-white" id="updateProfileForm" method="POST" enctype="multipart/form-data">
 		<div class="col-12 mt-2 d-flex justify-content-center align-items-center">
 			<div class="user-profile">
 				<img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" id="profile-preview" alt="Profile Picture">
@@ -49,7 +49,7 @@
 			</select>
 		</div>
 		<div class="col-3 col-md-3 px-1 mt-2">
-	        <label for="quantity" class="form-label">Birthdate</label>
+	        <label for="day" class="form-label">Birthdate</label>
 	    	<select class="form-select" name="bday" id="day" required>
 	            <option value="">Day</option>
 	            <?php for ($day = 1; $day <= 31; $day++): ?>
