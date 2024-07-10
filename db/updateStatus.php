@@ -4,14 +4,12 @@ require_once '../vendor/autoload.php'; // Ensure this is the correct path to the
 date_default_timezone_set('Asia/Manila');
 use PhpOffice\PhpWord\TemplateProcessor;
 
-header('Content-Type: application/json');
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['status'], $_POST['resident_id'])) {
     $doc_ID = $_POST['doc_ID'];
     $status = $_POST['status'];
     $resident_id = $_POST['resident_id'];
 
-    if ($status == 'download') {
+    if ($status == 'Processing') {
         // Fetch resident details
         $sql = "SELECT ru.res_id, ru.res_fname, ru.res_lname, rd.doc_ID, rd.purpose_name,
                        DAY(rd.date_req) AS Day, MONTHNAME(rd.date_req) AS Month, YEAR(rd.date_req) AS Year,
@@ -24,16 +22,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
         $stmt->bindParam(':resident_id', $resident_id, PDO::PARAM_INT);
         $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
         $stmt->execute();
-        $resident = $stmt->fetch();
+        $resident = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($resident) {
             // Generate the word document
             $templateProcessor = new TemplateProcessor('../template.docx');
-            $templateProcessor->setValue('name', $resident['res_fname'] . ' ' . $resident['res_lname']);
-            $templateProcessor->setValue('purpose', $resident['purpose_name']);
-            $templateProcessor->setValue('date', $resident['Day']);
-            $templateProcessor->setValue('month', $resident['Month']);
-            $templateProcessor->setValue('year', $resident['Year']);
+            $templateProcessor->setValue('name', htmlspecialchars($resident['res_fname'] . ' ' . $resident['res_lname']));
+            $templateProcessor->setValue('purpose', htmlspecialchars($resident['purpose_name']));
+            $templateProcessor->setValue('date', htmlspecialchars($resident['Day']));
+            $templateProcessor->setValue('month', htmlspecialchars($resident['Month']));
+            $templateProcessor->setValue('year', htmlspecialchars($resident['Year']));
             // Add other replacements as needed
 
             // Save the file in memory and send it for download
@@ -43,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
             if (file_exists($tempFile)) {
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                header('Content-Disposition: attachment; filename="'.$resident['doc_name'] . $resident['res_fname'] . '_' . $resident['res_lname'] . date('d-M').'.docx"');
+                header('Content-Disposition: attachment; filename="' . htmlspecialchars($resident['doc_name'] . '_' . $resident['res_fname'] . '_' . $resident['res_lname'] . '_' . date('d-M-Y')) . '.docx"');
                 header('Content-Transfer-Encoding: binary');
                 header('Expires: 0');
                 header('Cache-Control: must-revalidate');
@@ -51,27 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
                 header('Content-Length: ' . filesize($tempFile));
                 readfile($tempFile);
                 unlink($tempFile); // delete the temporary file
+                exit; // Ensure script stops here after download
             } else {
                 echo json_encode(['stat' => 'error', 'message' => 'Error generating document.']);
             }
-                    
         } else {
             echo json_encode(['stat' => 'error', 'message' => 'Resident not found.']);
         }
     } else {
-        // Handle Pending and Ready to Pick Up
-        $sql = "UPDATE request_doc SET stat = :status WHERE doc_ID = :doc_ID";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
-
-        if ($stmt->execute()) {
-            echo json_encode(['stat' => 'success']);
-            header('Location: ../adminbejo/Barangay-Residency.php');
-            exit();
-        } else {
-            echo json_encode(['stat' => 'error', 'message' => 'Error updating record.']);
-        }
+        echo json_encode(['stat' => 'error', 'message' => 'Invalid status.']);
     }
 } else {
     echo json_encode(['stat' => 'error', 'message' => 'Invalid request.']);

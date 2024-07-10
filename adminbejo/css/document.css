@@ -14,6 +14,11 @@ main {
   right: -100%;
   transition: right 0.5s ease-in-out;
 }
+
+#table2{
+  margin-top: -350px;
+}
+
 .visible {
   right: 0;
 }
@@ -421,9 +426,9 @@ video {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Space between the button and the dropdown */
+  gap: 5px;
 }
 
 .inline-tools form {
-  margin: 0; /* Remove default margin */
+  margin: 0;
 }
