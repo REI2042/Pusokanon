@@ -13,11 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $complaint_id = $data['complaint_id'];
             $reason = $data['reason'];  // This is the decline reason from JavaScript
 
-            // Fetch resident email, name, and date filed based on complaint_id
+            // Fetch resident email, name, date filed, and case type based on complaint_id
             $fetch_details_sql = "
                 SELECT ru.res_email AS resident_email, 
                        ru.res_fname, 
-                       ct.date_filed
+                       ct.date_filed,
+                       ct.case_type
                 FROM resident_users ru 
                 JOIN complaints_tbl ct ON ct.res_id = ru.res_ID
                 WHERE ct.complaint_id = :complaint_id
@@ -37,7 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $encrypted_email = $result['resident_email'];
             $resident_name = $result['res_fname'];
             $date_filed = $result['date_filed'];
+            $case_type = $result['case_type'];
             
+            // Format the date_filed
+            $date_obj = new DateTime($date_filed);
+            $formatted_date = $date_obj->format('F j, Y'); // e.g., "July 12, 2023"
+
             // Decrypt the email using the existing function
             $decrypted_email = decryptData($encrypted_email);
             
@@ -56,9 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $response['success'] = true;
             $response['message'] = 'Complaint declined successfully.';
-            $response['resident_email'] = $decrypted_email;
-            $response['resident_name'] = $resident_name;
-            $response['date_filed'] = $date_filed;
+            $response['to_email'] = $decrypted_email;
+            $response['name'] = $resident_name;
+            $response['complaint_id'] = $complaint_id;
+            $response['date_filed'] = $formatted_date;
+            $response['case_type'] = $case_type;
+            $response['reason'] = $reason;
             error_log("Complaint ID $complaint_id declined successfully");
         } catch (Exception $e) {
             $response['message'] = 'An error occurred: ' . $e->getMessage();

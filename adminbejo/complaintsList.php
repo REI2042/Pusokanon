@@ -44,6 +44,7 @@ $totalPages = ceil($totalRequests / $limit);
                                     <div class="d-flex justify-content-start align-items-center">
                                         <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
                                                                 '<?= htmlspecialchars($request['resident_name'])?>',
+                                                                '<?= htmlspecialchars($request['resident_email'])?>',
                                                                 '<?= htmlspecialchars($request['respondent_name'])?>',
                                                                 '<?= htmlspecialchars($request['respondent_age'])?>',
                                                                 '<?= htmlspecialchars($request['respondent_gender'])?>',
@@ -51,12 +52,12 @@ $totalPages = ceil($totalRequests / $limit);
                                                                 '<?= htmlspecialchars($request['incident_time'])?>',
                                                                 '<?= htmlspecialchars($request['incident_place'])?>',
                                                                 '<?= htmlspecialchars($request['narrative'])?>')">
-                                                    <i class="fas fa-eye"></i> View</a>
+                                                    <i class="fas fa-eye"></i> </a>
                                         <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
-                                            <i class="fas fa-check"></i> Accept
+                                            <i class="fas fa-check"></i>
                                         </button>
                                         <button class="btn btn-danger btn-sm me-2" onclick="disapprove_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
-                                            <i class="fas fa-x"></i> Decline
+                                            <i class="fas fa-times"></i> 
                                         </button>
                                         <!-- <form class="status-form mb-0" action="../db/DBconn_complaints.php" method="POST">
                                             <input type="hidden" name="complaint_id" value="<?= htmlspecialchars($request['complaint_id']); ?>">
@@ -80,22 +81,30 @@ $totalPages = ceil($totalRequests / $limit);
         </div>
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center mb-5">
+                <?php
+                $startPage = max(1, $page - 1);
+                $endPage = min($startPage + 2, $totalPages);
+                $startPage = max(1, $endPage - 2);
+                ?>
+                
                 <?php if($page > 1): ?>
                     <li class="page-item">
                         <a class="page-link" href="?page=<?php echo $page-1; ?>" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+                            <span aria-hidden="true">Prev</span>
                         </a>
                     </li>
                 <?php endif; ?>
-                <?php for($i = 1; $i <= $totalPages; $i++): ?>
+                
+                <?php for($i = $startPage; $i <= $endPage; $i++): ?>
                     <li class="page-item <?php if($i == $page) echo 'active'; ?>">
                         <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                     </li>
                 <?php endfor; ?>
+                
                 <?php if($page < $totalPages): ?>
                     <li class="page-item">
                         <a class="page-link" href="?page=<?php echo $page+1; ?>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
+                            <span aria-hidden="true">Next</span>
                         </a>
                     </li>
                 <?php endif; ?>

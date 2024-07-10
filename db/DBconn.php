@@ -14,15 +14,15 @@
 
 	$dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
 	$options = [
-		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-		PDO::ATTR_EMULATE_PREPARES   => false,
+	    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+	    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+	    PDO::ATTR_EMULATE_PREPARES   => false,
 	];
 
 	try {
-		$pdo = new PDO($dsn, $user, $pass, $options);
+	    $pdo = new PDO($dsn, $user, $pass, $options);
 	} catch (\PDOException $e) {
-		throw new \PDOException($e->getMessage(), (int)$e->getCode());
+	    throw new \PDOException($e->getMessage(), (int)$e->getCode());
 	}
 
 	// Function to hash passwords
@@ -50,12 +50,12 @@
 	
 	
 	function fetchRegister($pdo, $limit, $offset) {
-		$sql = "SELECT * FROM registration_tbl LIMIT :limit OFFSET :offset";  
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt->fetchAll();  
+	    $sql = "SELECT * FROM registration_tbl LIMIT :limit OFFSET :offset";  
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	    $stmt->execute();
+	    return $stmt->fetchAll();  
 	}
 
 	//for pagination in the pending residents table
@@ -75,44 +75,41 @@
 
 //for pagination in the manage residents table
 	function fetchTotalResidents($pdo) {
-	$sql = "SELECT COUNT(*) FROM resident_users";  
-	$stmt = $pdo->prepare($sql);
-	$stmt->execute();
-	return $stmt->fetchColumn();  
+    $sql = "SELECT COUNT(*) FROM resident_users";  
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchColumn();  
 	}
 
 
 	function fetchResident($pdo, $limit, $offset) {
-		$sql = "SELECT * FROM resident_users LIMIT :limit OFFSET :offset";  
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt->fetchAll();  
+	    $sql = "SELECT * FROM resident_users LIMIT :limit OFFSET :offset";  
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	    $stmt->execute();
+	    return $stmt->fetchAll();  
 	}
 
 
-function fetchdocsRequest($pdo, $status, $limit, $offset) {
-	$sql = "SELECT 
-				ru.res_id, doc_ID, stat,
-				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Clearance' AND stat = :status
-			LIMIT :limit OFFSET :offset";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	return $stmt->fetchAll();  
-}
+	function fetchdocsRequest($pdo, $status) {
+		$sql = "SELECT 
+					ru.res_id, doc_ID, stat,
+					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
+					dt.doc_name AS document_name, 
+					rd.purpose_name AS purpose_name, 
+					rd.date_req, 
+					rd.remarks 
+				FROM request_doc rd
+				INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+				INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+				INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+				WHERE dt.doc_name = 'Barangay Clearance' && stat = :status";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetchAll();  
+	}
 
 	function fetchLatestRequest($pdo, $userId) {
 		$sql = "SELECT
@@ -148,30 +145,43 @@ function fetchdocsRequest($pdo, $status, $limit, $offset) {
 	// }
 
 	function fetchListofComplaints($pdo, $offset, $limit) {
-		$sql = "SELECT 
-					ct.complaint_id AS complaint_id,
-					CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
-					ct.case_type AS case_type, 
-					ct.incident_date AS incident_date, 
-					ct.incident_time AS incident_time, 
-					ct.incident_place AS incident_place, 
-					ct.date_filed AS date_filed, 
-					ct.status AS status,
-					ct.remarks AS remarks,
-					ct.narrative AS narrative,
-					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
-					ct.respondent_age AS respondent_age,
-					ct.respondent_gender AS respondent_gender
-				FROM complaints_tbl ct 
-				INNER JOIN resident_users ru ON ct.res_id = ru.res_id
-				ORDER BY ct.date_filed DESC
-				LIMIT :offset, :limit";
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-	}
+    $sql = "SELECT 
+                ct.complaint_id AS complaint_id,
+                CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+                ct.case_type AS case_type, 
+                ct.incident_date AS incident_date, 
+                ct.incident_time AS incident_time, 
+                ct.incident_place AS incident_place, 
+                ct.date_filed AS date_filed, 
+                ct.status AS status,
+                ct.remarks AS remarks,
+                ct.narrative AS narrative,
+                CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+                ru.res_email AS encrypted_email,
+                ct.respondent_age AS respondent_age,
+                ct.respondent_gender AS respondent_gender
+            FROM complaints_tbl ct 
+            INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+            ORDER BY ct.date_filed DESC
+            LIMIT :offset, :limit";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Decrypt emails using your existing decryption function
+    foreach ($results as &$row) {
+        if (isset($row['encrypted_email'])) {
+            // Assuming your decryption function is named 'decryptData'
+            // Replace 'decryptData' with the actual name of your function if it's different
+            $row['resident_email'] = decryptData($row['encrypted_email']);
+            unset($row['encrypted_email']); // Remove the encrypted email from the result
+        }
+    }
+
+    return $results;
+}
 	
 	
 	function fetchTotalComplaints($pdo) {
@@ -258,7 +268,7 @@ function fetchdocsRequest($pdo, $status, $limit, $offset) {
 			WHERE rd.res_id = :userId AND rd.stat = :status
 			ORDER BY rd.date_req DESC
 			LIMIT :limit OFFSET :offset";
-	
+    
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 		$stmt->bindParam(':status', $status, PDO::PARAM_STR);

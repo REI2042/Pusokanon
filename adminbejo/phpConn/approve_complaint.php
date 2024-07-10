@@ -14,9 +14,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hearing_date = $data['hearing_date'];
             $hearing_time = $data['hearing_time'];
 
+            // Parse the date
+            $date_parts = explode('-', $hearing_date);
+            $year = $date_parts[0];
+            $month_num = $date_parts[1]; // Changed variable name to $month_num
+            $day = $date_parts[2];
+
+            $dateObj = DateTime::createFromFormat('!m', $month_num);
+            $month = $dateObj->format('F'); 
+
+            $timeObj = DateTime::createFromFormat('H:i', $hearing_time);
+            $formatted_time = $timeObj->format('g:i A'); // This will give time in 12-hour format with AM/PM
+            // $am_pm = $timeObj->format('A');
+            
             // Fetch resident email based on complaint_id
             $fetch_email_sql = "
-                SELECT ru.res_email AS resident_email
+                SELECT ru.res_email AS resident_email,
+                    ru.res_fname,
+                    ct.complaint_id,
+                    ct.case_type
                 FROM resident_users ru 
                 JOIN complaints_tbl ct ON ct.res_id = ru.res_ID
                 WHERE ct.complaint_id = :complaint_id
@@ -34,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             $encrypted_email = $result['resident_email'];
+            $resident_name = $result['res_fname'];
+            $complaint_id = $result['complaint_id'];
+            $complaint = $result['case_type'];
             
             // Decrypt the email using the existing function
             $decrypted_email = decryptData($encrypted_email);
@@ -43,7 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Update the complaint status and hearing date/time
             $update_sql = "
                 UPDATE complaints_tbl 
-                SET status = 'Accepted', hearing_date = :hearing_date, hearing_time = :hearing_time 
+                SET status = 'Accepted', 
+                    hearing_date = :hearing_date, 
+                    hearing_time = :hearing_time 
                 WHERE complaint_id = :complaint_id
             ";
             $update_stmt = $pdo->prepare($update_sql);
@@ -53,7 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $update_stmt->execute();
 
             $response['success'] = true;
-            $response['resident_email'] = $decrypted_email; // Use the decrypted email in the response
+            $response['resident_email'] = $decrypted_email;
+            $response['resident_name'] = $resident_name;
+            $response['complaint'] = $complaint;
+            $response['complaint_id'] = $complaint_id;
+            $response['hearing_day'] = $day;
+            $response['hearing_month'] = $month;
+            $response['hearing_year'] = $year;
+            $response['hearing_time'] = $formatted_time;
+            // $response['hearing_am_pm'] = $am_pm;
             error_log("Complaint ID $complaint_id approved successfully");
         } catch (Exception $e) {
             $response['message'] = $e->getMessage();
