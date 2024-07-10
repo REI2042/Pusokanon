@@ -12,8 +12,8 @@
 
 .profile-picture {
     border: 5px solid #F9F8FD;
-    max-width: 130px;
-    height: auto;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
 }
 

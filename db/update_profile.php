@@ -11,11 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_account'])) {
         $filetype = pathinfo($filename, PATHINFO_EXTENSION);
         
         if (in_array(strtolower($filetype), $allowed)) {
-            $newname = uniqid() . '.' . $filetype;
-            $uploaddir = 'db/ProfilePictures/';
-            $uploadfile = $uploaddir . $newname;
             
-           
+            $newname = pathinfo($filename, PATHINFO_FILENAME) . '_' . time() . '.' . $filetype;
+            $uploaddir = __DIR__ . '/ProfilePictures/';
+            $uploadfile = $uploaddir . $newname;
+
+            
+            if (!is_dir($uploaddir)) {
+                mkdir($uploaddir, 0777, true);
+            }
+            
             $stmt = $pdo->prepare("SELECT profile_picture FROM resident_users WHERE res_ID = :userId");
             $stmt->execute(['userId' => $userId]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,10 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_account'])) {
                         unlink($oldPicturePath);
                     }
                 }
-            
+                
                 $stmt = $pdo->prepare("UPDATE resident_users SET profile_picture = :profile_picture WHERE res_ID = :userId");
                 $stmt->execute(['profile_picture' => $newname, 'userId' => $userId]);
                 $_SESSION['profile_picture'] = $newname;
+            } else {
+                echo "Failed to move uploaded file.";
             }
         }
     }
@@ -87,10 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_account'])) {
 
     $update_success = true;
     if (isset($update_success)) {
-        echo "<script>window.location.href = '../EditProfile.php';</script>";
+        echo "<script>window.location.href = '../resident_landingPage.php';</script>";
         exit;
     }
-
-    
 }
 ?>
