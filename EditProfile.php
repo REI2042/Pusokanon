@@ -13,8 +13,8 @@
 	<form class="form row text-white" action="#" method="POST" enctype="multipart/form-data">
 		<div class="col-12 mt-2 d-flex justify-content-center align-items-center">
 			<div class="user-profile">
-				<img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" alt="Profile Picture">
-				<input type="file" id="file">
+				<img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" id="profile-preview" alt="Profile Picture">
+				<input type="file" id="file" name="profile_picture" accept="image/*" onchange="previewImage(this);">
 				<label for="file" id="upload_button"><i class="fas fa-camera"></i></label>
 			</div>
 		</div>
@@ -142,4 +142,5 @@
 	</form>
 </section>
 </div>
+<script src="js/UpdateProfile.js"></script>
 <?php include'include/footer.php'?>

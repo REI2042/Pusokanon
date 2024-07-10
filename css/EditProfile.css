@@ -34,7 +34,7 @@
     position: absolute;
     height: 30px;
     width: 30px;
-    padding: 3px 6px 8px 6px;
+    padding: 3px 6px 8px 7px;
     border-radius: 50%;
     cursor: pointer;
     transform: translateX(-40px);
@@ -52,8 +52,7 @@
     }
 
     .form {
-        background-color: aqua;
-        margin: 0px 0px;
+        margin: 0px 0px 10px;
         font-size: small;
     }
     
