@@ -137,7 +137,7 @@
             <input type="email" class="form-control" name="accemail" id="email" placeholder="<?= htmlspecialchars($_SESSION['res_email']); ?>" value="<?= htmlspecialchars($_SESSION['res_email']); ?>" required>
         </div>
 		<div class="text-center col-12 mt-3 d-flex justify-content-center">
-            <button type="submit" name="update_account" class="btn btn-primary" style="background-color: #4CAF50; border: none;">Update Profile</button>
+            <button type="submit" id="updateProfileBtn" name="update_account" class="btn btn-primary" style="background-color: #4CAF50; border: none;">Update Profile</button>
         </div>
 	</form>
 </section>
