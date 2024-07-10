@@ -14,15 +14,14 @@ table {
 .pagination {
     margin: 20px 0;
     justify-content: center;
-    left: 50%;
+    left: 40%;
     bottom: 0;
     position: fixed;
     padding-bottom: 10px;
 }
 .pagination .page-item .page-link {
-    margin: 0 5px;
+    margin: 0 0px;
 }
-
 
 
 /* for design of table  */
@@ -40,8 +39,12 @@ table {
     background-color: #29782e;
     color: white;
 }
+#table3Container thead{
+  background-color: #326aca;
+  color: white;
+}
 
-#table2Container, #table1Container{
+#table3Container, #table2Container, #table1Container{
     background-color: #e9e9e9;
 }
 
@@ -123,7 +126,8 @@ h1{
 }
 
 .link1,
-.link2 {
+.link2,
+.link3 {
   color: #000000;
   cursor: pointer;
 }
@@ -151,5 +155,19 @@ h1{
 }
 .link2.active {
   color: #29782e;
+
+}
+
+.link3:hover {
+  color: #3969ec;
+  font-weight: bold;
+  text-decoration: none;
+}
+.link3:focus{
+  color: #3969ec;
+  font-weight: bold;
+}
+.link3.active {
+  color: #3969ec;
 
 }

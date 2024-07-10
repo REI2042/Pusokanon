@@ -51,11 +51,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
                 unlink($tempFile); // delete the temporary file
                 exit; // Ensure script stops here after download
             } else {
-                echo json_encode(['stat' => 'error', 'message' => 'Error generating document.']);
+                $stats = 'Pending';
+                $sql = "UPDATE request_doc SET stat = :stats WHERE doc_ID = :doc_ID";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':stats', $stats, PDO::PARAM_STR);
+                $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
+                $stmt->execute();
+                echo json_encode(['stat' =>'success','message' => 'Document successfully generated.']);
             }
         } else {
             echo json_encode(['stat' => 'error', 'message' => 'Resident not found.']);
         }
+    } elseif($status == 'Ready to pickup') {
+        $sql = "UPDATE request_doc SET stat = :status WHERE doc_ID = :doc_ID";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
+        $stmt->execute();
+        header('Location:../adminbejo/Barangay-Residency.php');
+        exit;
     } else {
         echo json_encode(['stat' => 'error', 'message' => 'Invalid status.']);
     }
