@@ -436,34 +436,238 @@ async function showDetails(
 //     }
 // }
 
+// async function approve_complaint(complaint_id) {
+//     const { value: date } = await Swal.fire({
+//         title: "Set Date for Hearing",
+//         input: "date",
+//         inputLabel: "Select Date",
+//         inputPlaceholder: "Select the date for the hearing",
+//         showCancelButton: true,
+//         confirmButtonColor: "#3085d6",
+//     });
+
+//     if (date) {
+//         const preMessage = `Congratulations! Your complaint has been approved.\n\nThe hearing is scheduled on ${date}.\n\n`;
+//         const { value: message } = await Swal.fire({
+//             title: "Additional Message",
+//             input: "textarea",
+//             inputLabel: "Write an additional message (optional):",
+//             inputPlaceholder: "Type your message here...",
+//             inputAttributes: {
+//                 "aria-label": "Type your message here",
+//             },
+//             showCancelButton: true,
+//             confirmButtonColor: "#3085d6",
+//         });
+
+//         const fullMessage = preMessage + (message ? message : "");
+
+//         try {
+//             // Fetch the resident email from the PHP script
+//             const response = await fetch('../adminbejo/phpConn/approve_complaint.php', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ complaint_id: complaint_id }),
+//             });
+
+//             const data = await response.json();
+
+//             if (data.success) {
+//                 const residentEmail = data.resident_email;
+
+//                 // Send the email
+//                 emailjs.send('service_e9wn0es', 'template_vr2qyso', {
+//                     to_email: residentEmail,
+//                     message: fullMessage,
+//                 }).then(
+//                     function(response) {
+//                         Swal.fire({
+//                             title: "Success!",
+//                             text: "Email sent successfully and hearing date set.",
+//                             icon: "success",
+//                             confirmButtonColor: "#3085d6",
+//                         }).then(() => {
+//                             window.location.href = "../../adminbejo/complaintsList.php";
+//                         });
+//                     },
+//                     function(error) {
+//                         Swal.fire({
+//                             title: "Error",
+//                             text: "Failed to send email: " + error.text,
+//                             icon: "error",
+//                             confirmButtonColor: "#3085d6",
+//                         });
+//                     }
+//                 );
+
+//                 // Update the complaint status
+//                 await $.ajax({
+//                     url: "../../adminbejo/db/Dbconn_complaints.php",
+//                     type: "POST",
+//                     data: { complaint_id: complaint_id },
+//                 });
+//             } else {
+//                 Swal.fire({
+//                     title: "Error",
+//                     text: data.message,
+//                     icon: "error",
+//                     confirmButtonColor: "#3085d6",
+//                 });
+//             }
+//         } catch (error) {
+//             Swal.fire({
+//                 title: "Error",
+//                 text: "Failed to send email: " + error.message,
+//                 icon: "error",
+//                 confirmButtonColor: "#3085d6",
+//             });
+//         }
+//     } else {
+//         Swal.fire({
+//             title: "Cancelled",
+//             text: "Your action has been cancelled",
+//             icon: "error",
+//             confirmButtonColor: "#3085d6",
+//         });
+//     }
+// }
+
+
+// async function approve_complaint(complaint_id) {
+//     // Step 1: Admin sets the hearing date
+//     const { value: date } = await Swal.fire({
+//         title: "Set Date for Hearing",
+//         input: "date",
+//         inputLabel: "Select Date",
+//         inputPlaceholder: "Select the date for the hearing",
+//         showCancelButton: true,
+//         confirmButtonColor: "#3085d6",
+//     });
+
+//     if (date) {
+//         const preMessage = `Congratulations! Your complaint has been approved.\n\nThe hearing is scheduled on ${date}.\n\n`;
+//         const { value: message } = await Swal.fire({
+//             title: "Additional Message",
+//             input: "textarea",
+//             inputLabel: "Write an additional message (optional):",
+//             inputPlaceholder: "Type your message here...",
+//             inputAttributes: {
+//                 "aria-label": "Type your message here",
+//             },
+//             showCancelButton: true,
+//             confirmButtonColor: "#3085d6",
+//         });
+
+//         const fullMessage = preMessage + (message ? message : "");
+
+//         try {
+//             // Step 2: Fetch the resident email from the PHP script and update the complaint status
+//             const response = await fetch('../adminbejo/phpConn/approve_complaint.php', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ complaint_id: complaint_id }),
+//             });
+
+//             const data = await response.json();
+
+//             if (data.success) {
+//                 const decryptedEmail = data.resident_email;
+                
+//                 // Log the fetched email address
+//                 console.log("Fetched decrypted resident email: ", decryptedEmail);
+
+//                 // Validate the email format
+//                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//                 if (!emailPattern.test(decryptedEmail)) {
+//                     Swal.fire({
+//                         title: "Error",
+//                         text: "The fetched email address is invalid: " + decryptedEmail,
+//                         icon: "error",
+//                         confirmButtonColor: "#3085d6",
+//                     });
+//                     return;
+//                 }
+
+//                 // Step 3: Send the email
+//                 emailjs.send('service_e9wn0es', 'template_vr2qyso', {
+//                     to_email: decryptedEmail,
+//                     message: fullMessage,
+//                     date: date  // Include the date separately
+//                 }).then(
+//                     function(response) {
+//                         Swal.fire({
+//                             title: "Success!",
+//                             text: "Email sent successfully and hearing date set.",
+//                             icon: "success",
+//                             confirmButtonColor: "#3085d6",
+//                         }).then(() => {
+//                             location.reload(); // Reload the page
+//                         });
+//                     },
+//                     function(error) {
+//                         Swal.fire({
+//                             title: "Error",
+//                             text: "Failed to send email: " + error.text,
+//                             icon: "error",
+//                             confirmButtonColor: "#3085d6",
+//                         });
+//                     }
+//                 );
+
+//             } else {
+//                 Swal.fire({
+//                     title: "Error",
+//                     text: data.message,
+//                     icon: "error",
+//                     confirmButtonColor: "#3085d6",
+//                 });
+//             }
+//         } catch (error) {
+//             Swal.fire({
+//                 title: "Error",
+//                 text: "Failed to send email: " + error.message,
+//                 icon: "error",
+//                 confirmButtonColor: "#3085d6",
+//             });
+//         }
+//     } else {
+//         Swal.fire({
+//             title: "Cancelled",
+//             text: "Your action has been cancelled",
+//             icon: "error",
+//             confirmButtonColor: "#3085d6",
+//         });
+//     }
+// }
+
 async function approve_complaint(complaint_id) {
-    const { value: date } = await Swal.fire({
-        title: "Set Date for Hearing",
-        input: "date",
-        inputLabel: "Select Date",
-        inputPlaceholder: "Select the date for the hearing",
+    // Step 1: Admin sets the hearing date and time
+    const { value: dateTime } = await Swal.fire({
+        title: "Set Date and Time for Hearing",
+        html:
+            '<input type="date" id="swal-input-date" class="swal2-input">' +
+            '<input type="time" id="swal-input-time" class="swal2-input">',
+        focusConfirm: false,
+        preConfirm: () => {
+            return {
+                date: document.getElementById('swal-input-date').value,
+                time: document.getElementById('swal-input-time').value
+            }
+        },
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
     });
 
-    if (date) {
-        const preMessage = `Congratulations! Your complaint has been approved.\n\nThe hearing is scheduled on ${date}.\n\n`;
-        const { value: message } = await Swal.fire({
-            title: "Additional Message",
-            input: "textarea",
-            inputLabel: "Write an additional message (optional):",
-            inputPlaceholder: "Type your message here...",
-            inputAttributes: {
-                "aria-label": "Type your message here",
-            },
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-        });
-
-        const fullMessage = preMessage + (message ? message : "");
+    if (dateTime && dateTime.date && dateTime.time) {
+        const hearingDate = dateTime.date;
+        const hearingTime = dateTime.time;
 
         try {
-            // Fetch the resident email from the PHP script
+            // Step 2: Fetch the resident email from the PHP script and update the complaint status
             const response = await fetch('../adminbejo/phpConn/approve_complaint.php', {
                 method: 'POST',
                 headers: {
@@ -475,24 +679,42 @@ async function approve_complaint(complaint_id) {
             const data = await response.json();
 
             if (data.success) {
-                const residentEmail = data.resident_email;
+                const decryptedEmail = data.resident_email;
+                
+                // Log the fetched email address
+                console.log("Fetched decrypted resident email: ", decryptedEmail);
 
-                // Send the email
+                // Validate the email format
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(decryptedEmail)) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "The fetched email address is invalid: " + decryptedEmail,
+                        icon: "error",
+                        confirmButtonColor: "#3085d6",
+                    });
+                    return;
+                }
+
+                // Step 3: Send the email
                 emailjs.send('service_e9wn0es', 'template_vr2qyso', {
-                    to_email: residentEmail,
-                    message: fullMessage,
+                    to_email: decryptedEmail,
+                    date: hearingDate,
+                    time: hearingTime
                 }).then(
                     function(response) {
+                        console.log("EmailJS Response:", response);
                         Swal.fire({
                             title: "Success!",
-                            text: "Email sent successfully and hearing date set.",
+                            text: "Email sent successfully and hearing date/time set.",
                             icon: "success",
                             confirmButtonColor: "#3085d6",
                         }).then(() => {
-                            window.location.href = "../../adminbejo/complaintsList.php";
+                            location.reload(); // Reload the page
                         });
                     },
                     function(error) {
+                        console.log("EmailJS Error:", error);
                         Swal.fire({
                             title: "Error",
                             text: "Failed to send email: " + error.text,
@@ -502,12 +724,6 @@ async function approve_complaint(complaint_id) {
                     }
                 );
 
-                // Update the complaint status
-                await $.ajax({
-                    url: "../../adminbejo/db/Dbconn_complaints.php",
-                    type: "POST",
-                    data: { complaint_id: complaint_id },
-                });
             } else {
                 Swal.fire({
                     title: "Error",
@@ -519,7 +735,7 @@ async function approve_complaint(complaint_id) {
         } catch (error) {
             Swal.fire({
                 title: "Error",
-                text: "Failed to send email: " + error.message,
+                text: "Failed to process request: " + error.message,
                 icon: "error",
                 confirmButtonColor: "#3085d6",
             });
@@ -533,6 +749,10 @@ async function approve_complaint(complaint_id) {
         });
     }
 }
+
+
+
+
 
 
 
