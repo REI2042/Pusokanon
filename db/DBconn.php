@@ -126,10 +126,10 @@ function fetchdocsRequestRemarks($pdo, $remarks ,$limit, $offset) {
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Clearance' AND stat = :status
+			WHERE dt.doc_name = 'Barangay Clearance' AND remarks = :remarks
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':status', $remarks, PDO::PARAM_STR);
+	$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 	$stmt->execute();
