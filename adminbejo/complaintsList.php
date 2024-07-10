@@ -110,5 +110,11 @@ $totalPages = ceil($totalRequests / $limit);
 
 <script src="../js/complaints_popUp.js"></script>
 <script src="../complaints_updateStatus.js"></script>
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        emailjs.init("7RJucdkATYmD5Iu8F"); // Replace with your actual EmailJS public key
+    })();
+</script>
 
 <?php require_once 'footerAdmin.php'; ?>

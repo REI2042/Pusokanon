@@ -2,10 +2,6 @@
 
     include '../../db/DBconn.php'; // Adjust the path as needed
 
-    // Enable error logging
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
 
     header('Content-Type: application/json'); // Set the header to return JSON
 
