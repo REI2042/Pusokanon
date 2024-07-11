@@ -77,6 +77,17 @@ async function approve_complaint(complaint_id) {
             '<input type="date" id="swal-input-date" class="swal2-input">' +
             '<input type="time" id="swal-input-time" class="swal2-input">',
         focusConfirm: false,
+        didOpen: () => {
+            // Get today's date
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+            var year = today.getFullYear();
+            var formattedDate = year + '-' + month + '-' + day;
+
+            // Set the min attribute of the date input
+            document.getElementById('swal-input-date').setAttribute('min', formattedDate);
+        },
         preConfirm: () => {
             return {
                 date: document.getElementById('swal-input-date').value,
@@ -132,13 +143,15 @@ async function approve_complaint(complaint_id) {
                 // Step 3: Send the email
                 emailjs.send('service_e9wn0es', 'template_vr2qyso', {
                     to_email: decryptedEmail,
-                    day: data.hearing_day,
-                    month: data.hearing_month,
-                    year: data.hearing_year,
-                    time: data.hearing_time,
+                    date: hearingDate,
+                    time: hearingTime,
                     name: data.resident_name,
                     complaint_id: data.complaint_id,
-                    complaint: data.complaint
+                    respondent: data.respondent_name,
+                    complaint: data.complaint,
+                    month: data.hearing_month,
+                    day: data.hearing_day,
+                    year: data.hearing_year
                 }).then(
                     function(response) {
                         console.log("EmailJS Response:", response);
@@ -161,6 +174,7 @@ async function approve_complaint(complaint_id) {
                         });
                     }
                 );
+                
 
             } else {
                 Swal.fire({
@@ -187,6 +201,7 @@ async function approve_complaint(complaint_id) {
         });
     }
 }
+
 
 async function disapprove_complaint(complaint_id) {
     // Step 1: Admin provides reason for disapproval
@@ -244,10 +259,11 @@ async function disapprove_complaint(complaint_id) {
                 emailjs.send('service_e9wn0es', 'template_kpcbfsq', {
                     to_email: decryptedEmail,
                     name: residentName,
-                    complaint_id: data.complaint_id,  // Changed to use data.complaint_id for consistency
+                    complaint_id: data.complaint_id, 
+                    respondent: data.respondent_name,
                     date_filed: dateFiled,
-                    case_type: caseType,              // Corrected to use caseType
-                    reason: data.reason               // Added reason from the PHP response
+                    case_type: caseType,              
+                    reason: data.reason               
                 }).then(
                     function(response) {
                         console.log("EmailJS Response:", response);

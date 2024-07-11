@@ -17,30 +17,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Parse the date
             $date_parts = explode('-', $hearing_date);
             $year = $date_parts[0];
-            $month_num = $date_parts[1]; // Changed variable name to $month_num
+            $month_num = $date_parts[1];
             $day = $date_parts[2];
 
             $dateObj = DateTime::createFromFormat('!m', $month_num);
             $month = $dateObj->format('F'); 
 
             $timeObj = DateTime::createFromFormat('H:i', $hearing_time);
-            $formatted_time = $timeObj->format('g:i A'); // This will give time in 12-hour format with AM/PM
-            // $am_pm = $timeObj->format('A');
+            $formatted_time = $timeObj->format('g:i A');
             
-            // Fetch resident email based on complaint_id
-            $fetch_email_sql = "
-                SELECT ru.res_email AS resident_email,
-                    ru.res_fname,
-                    ct.complaint_id,
-                    ct.case_type
-                FROM resident_users ru 
-                JOIN complaints_tbl ct ON ct.res_id = ru.res_ID
-                WHERE ct.complaint_id = :complaint_id
-            ";
-            $fetch_email_stmt = $pdo->prepare($fetch_email_sql);
-            $fetch_email_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
-            $fetch_email_stmt->execute();
-            $result = $fetch_email_stmt->fetch(PDO::FETCH_ASSOC);
+            // Fetch resident email, respondent name, and other details based on complaint_id
+            $fetch_details_sql = "
+            SELECT ru.res_email AS resident_email,
+                ru.res_fname,
+                ct.complaint_id,
+                ct.case_type,
+                CONCAT(ct.respondent_fname, ' ', ct.respondent_mname, ' ', ct.respondent_lname, ' ', ct.respondent_suffix) AS respondent_name
+            FROM resident_users ru 
+            JOIN complaints_tbl ct ON ct.res_id = ru.res_ID
+            WHERE ct.complaint_id = :complaint_id
+             ";
+
+            $fetch_details_stmt = $pdo->prepare($fetch_details_sql);
+            $fetch_details_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
+            $fetch_details_stmt->execute();
+            $result = $fetch_details_stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$result) {
                 $response['message'] = 'No resident found for the given complaint ID.';
@@ -53,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $resident_name = $result['res_fname'];
             $complaint_id = $result['complaint_id'];
             $complaint = $result['case_type'];
+            $respondent_name = $result['respondent_name'];
             
             // Decrypt the email using the existing function
             $decrypted_email = decryptData($encrypted_email);
@@ -78,11 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response['resident_name'] = $resident_name;
             $response['complaint'] = $complaint;
             $response['complaint_id'] = $complaint_id;
+            $response['respondent_name'] = $respondent_name;
             $response['hearing_day'] = $day;
             $response['hearing_month'] = $month;
             $response['hearing_year'] = $year;
             $response['hearing_time'] = $formatted_time;
-            // $response['hearing_am_pm'] = $am_pm;
             error_log("Complaint ID $complaint_id approved successfully");
         } catch (Exception $e) {
             $response['message'] = $e->getMessage();

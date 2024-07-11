@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 SELECT ru.res_email AS resident_email, 
                        ru.res_fname, 
                        ct.date_filed,
-                       ct.case_type
+                       ct.case_type,
+                       CONCAT(ct.respondent_fname, ' ', ct.respondent_mname, ' ', ct.respondent_lname, ' ', ct.respondent_suffix) AS respondent_name
                 FROM resident_users ru 
                 JOIN complaints_tbl ct ON ct.res_id = ru.res_ID
                 WHERE ct.complaint_id = :complaint_id
@@ -39,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $resident_name = $result['res_fname'];
             $date_filed = $result['date_filed'];
             $case_type = $result['case_type'];
+            $respondent_name = $result['respondent_name'];
             
             // Format the date_filed
             $date_obj = new DateTime($date_filed);
@@ -65,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response['to_email'] = $decrypted_email;
             $response['name'] = $resident_name;
             $response['complaint_id'] = $complaint_id;
+            $response['respondent_name'] = $respondent_name;
             $response['date_filed'] = $formatted_date;
             $response['case_type'] = $case_type;
             $response['reason'] = $reason;

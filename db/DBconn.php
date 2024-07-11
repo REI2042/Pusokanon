@@ -182,6 +182,7 @@ function fetchdocsRequestRemarks($pdo, $remarks ,$limit, $offset) {
 					ct.remarks AS remarks,
 					ct.narrative AS narrative,
 					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+					ru.res_email AS encrypted_email,
 					ct.respondent_age AS respondent_age,
 					ct.respondent_gender AS respondent_gender
 				FROM complaints_tbl ct 
@@ -192,7 +193,16 @@ function fetchdocsRequestRemarks($pdo, $remarks ,$limit, $offset) {
 		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+		foreach ($results as &$row) {
+			if (isset($row['encrypted_email'])) {
+				$row['resident_email'] = decryptData($row['encrypted_email']);
+				unset($row['encrypted_email']); 
+			}
+		}
+	
+		return $results;
 	}
 	
 	
