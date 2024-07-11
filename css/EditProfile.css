@@ -45,7 +45,7 @@
     position: absolute;
     height: 30px;
     width: 30px;
-    padding: 3px 6px 8px 7px;
+    padding: 3px 6px 6px 6px;
     border-radius: 50%;
     cursor: pointer;
     transform: translateX(-40px);
@@ -53,6 +53,15 @@
     color: #F9F8FD;
     background-color: rgb(173, 172, 172, 0.801);
     box-shadow: 2px 4px 4px rgb(0, 0, 0, 0.644);
+    text-align: center;
+}
+
+#upload_button.remove-mode {
+    background-color: #FF0000;
+}
+
+#remove-icon {
+    display: none;
 }
 
 .back-button {
@@ -84,6 +93,6 @@
     }
     
     #upload_button {
-        padding: 6px 6px 6px 8px;
+        padding: 6px 6px 6px 6px;
     }
 }

@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const updateProfileBtn = document.getElementById('updateProfileBtn');
+    const fileInput = document.getElementById('file');
+    const profilePreview = document.getElementById('profile-preview');
+    const uploadButton = document.getElementById('upload_button');
+    const cameraIcon = document.getElementById('camera-icon');
+    const removeIcon = document.getElementById('remove-icon');
+    let originalSrc = profilePreview.src;
 
     updateProfileBtn.addEventListener('click', function(event) {
         event.preventDefault();
@@ -33,16 +39,34 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
 
-function previewImage(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function(e) {
-            document.getElementById('profile-preview').src = e.target.result;
+    fileInput.addEventListener('change', function() {
+        handleFileSelect(this);
+    });
+
+    uploadButton.addEventListener('click', function(event) {
+        if (uploadButton.classList.contains('remove-mode')) {
+            event.preventDefault();
+            profilePreview.src = originalSrc;
+            fileInput.value = '';
+            uploadButton.classList.remove('remove-mode');
+            cameraIcon.style.display = 'inline';
+            removeIcon.style.display = 'none';
         }
-        
-        reader.readAsDataURL(input.files[0]);
+    });
+
+    function handleFileSelect(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                profilePreview.src = e.target.result;
+                uploadButton.classList.add('remove-mode');
+                cameraIcon.style.display = 'none';
+                removeIcon.style.display = 'inline';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-}
+});

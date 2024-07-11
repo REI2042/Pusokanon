@@ -18,8 +18,11 @@
 		<div class="col-12 mt-2 d-flex justify-content-center align-items-center">
 			<div class="user-profile">
 				<img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" id="profile-preview" alt="Profile Picture">
-				<input type="file" id="file" name="profile_picture" accept="image/*" onchange="previewImage(this);">
-				<label for="file" id="upload_button"><i class="fas fa-camera"></i></label>
+				<input type="file" id="file" name="profile_picture" accept="image/*" onchange="handleFileSelect(this);">
+				<label for="file" id="upload_button" title="Select Picture">
+					<i class="fas fa-camera" id="camera-icon"></i>
+					<i class="fa-solid fa-x" id="remove-icon" style="display: none;" title="Remove Picture"></i>
+        		</label>
 			</div>
 		</div>
 		<div class="col-12 col-sm-6 px-1 mt-2">
