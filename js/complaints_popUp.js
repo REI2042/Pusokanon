@@ -39,6 +39,7 @@ document.getElementById('complaintForm').addEventListener('submit', function(eve
 
 
 async function showDetails(
+    complaint_id,
     resident_name,
     resident_email,
     respondent_name,
@@ -49,24 +50,58 @@ async function showDetails(
     incident_place,
     narrative
 ) {
-    Swal.fire({
-        title: 'Complaint Details',
-        html: `<div style="text-align: left;">
-                    <p><strong>Complainant:</strong> ${resident_name}</p>
-                    <p><strong>Email address:</strong> ${resident_email}</p>
-                    <p><strong>Details of the Respondent:</strong></p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Name:</strong> ${respondent_name}</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Age:</strong> ${respondent_age}</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Gender:</strong> ${respondent_gender}</p>
-                    <p><strong>Details of the Incident:</strong></p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Date of Incident:</strong> ${incident_date}</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Time of Incident:</strong> ${incident_time}</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Place of Incident:</strong> ${incident_place}</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Narrative:</strong> ${narrative}</p>
-               </div>`,
-        confirmButtonColor: "#3085d6",
-    });
+    // Fetch evidence image URL based on complaint ID
+    const fetchURL = `db/DBconn_complaints.php?complaint_id=${complaint_id}`;
+
+    // Fetching evidence image URL dynamically
+    const response = await fetch(fetchURL);
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+        const evidenceURL = data.evidence_url;
+
+        Swal.fire({
+            title: 'Complaint Details',
+            html: `<div style="text-align: left;">
+                        <p><strong>Complainant:</strong> ${resident_name}</p>
+                        <p><strong>Email address:</strong> ${resident_email}</p>
+                        <p><strong>Details of the Respondent:</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Name:</strong> ${respondent_name}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Age:</strong> ${respondent_age}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Gender:</strong> ${respondent_gender}</p>
+                        <p><strong>Details of the Incident:</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Date of Incident:</strong> ${incident_date}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Time of Incident:</strong> ${incident_time}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Place of Incident:</strong> ${incident_place}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Narrative:</strong> ${narrative}</p>
+                        <p><strong>Evidence:</strong></p>
+                        <img src="${evidenceURL}" alt="Evidence Image" style="max-width: 100%; height: auto;">
+                   </div>`,
+            confirmButtonColor: "#3085d6",
+        });
+    } else {
+        Swal.fire({
+            title: 'Complaint Details',
+            html: `<div style="text-align: left;">
+                        <p><strong>Complainant:</strong> ${resident_name}</p>
+                        <p><strong>Email address:</strong> ${resident_email}</p>
+                        <p><strong>Details of the Respondent:</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Name:</strong> ${respondent_name}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Age:</strong> ${respondent_age}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Gender:</strong> ${respondent_gender}</p>
+                        <p><strong>Details of the Incident:</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Date of Incident:</strong> ${incident_date}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Time of Incident:</strong> ${incident_time}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Place of Incident:</strong> ${incident_place}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Narrative:</strong> ${narrative}</p>
+                        <p><strong>Evidence:</strong> No evidence uploaded yet.</p>
+                   </div>`,
+            confirmButtonColor: "#3085d6",
+        });
+    }
 }
+
+
   
 
 async function approve_complaint(complaint_id) {

@@ -181,6 +181,7 @@ function fetchdocsRequestRemarks($pdo, $remarks ,$limit, $offset) {
 					ct.status AS status,
 					ct.remarks AS remarks,
 					ct.narrative AS narrative,
+					ct.evidence AS evidence,
 					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
 					ru.res_email AS encrypted_email,
 					ct.respondent_age AS respondent_age,
