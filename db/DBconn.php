@@ -121,6 +121,7 @@ function fetchdocsRequestRemarks($pdo, $remarks ,$limit, $offset) {
 				dt.doc_name AS document_name, 
 				rd.purpose_name AS purpose_name, 
 				rd.date_req, 
+				rd.date_processed,
 				rd.remarks 
 			FROM request_doc rd
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id

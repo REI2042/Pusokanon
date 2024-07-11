@@ -57,15 +57,19 @@ $completed = fetchdocsRequestRemarks($pdo, 'Released', $results_per_page, $compl
             <h1 class="title">BARANGAY RESIDENCY</h1>
         </div>
     </div>
-    <div class="row d-flex justify-content-end m-2">
-            <div class="col-12 col-md-4 d-flex justify-content-end p-0">
-                <a href="Admin-Document.php" class="back-button">
-                    <i class="fa-solid fa-circle-chevron-left fa-2x"></i>
-                    <span>Back</span>
-                </a>
-            </div>
+
+    <div class="d-flex justify-content-between align-items-center m-2">
+        <a href="Admin-Document.php" class="back-button d-flex align-items-center">
+            <i class="fa-solid fa-circle-chevron-left fa-2x"></i>
+            <span class="text-black">Back</span>
+        </a>
+        <div class="input-group mb-0 custom-search">
+            <input type="search" class="form-control custom-search" placeholder="Search" aria-label="Search">
+            <button class="btn search-btn"  type="submit">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
-    
+    </div>
 
     <div class="table-content">
         <div class="controls text-center mt-3">
@@ -173,7 +177,7 @@ $completed = fetchdocsRequestRemarks($pdo, 'Released', $results_per_page, $compl
                                     <form class="status-form" action="../db/updateStatus.php" method="POST">
                                         <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
                                         <input type="hidden" name="resident_id" value="<?= htmlspecialchars($processings['res_id']); ?>">
-                                        <button type="submit" name="status" value="download" class="btn btn-sm <?= $processings['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                        <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                     </form>
                                 </div>
                             </td>
@@ -220,8 +224,8 @@ $completed = fetchdocsRequestRemarks($pdo, 'Released', $results_per_page, $compl
                         <th>Name</th>
                         <th>Document Requested</th>
                         <th>Purpose</th>
-                        <th>Status</th>
                         <th>Date & Time Requested</th>
+                        <th>Date & Time Released</th>
                         <th>Remarks</th>
                         <th>Tools</th>
                     </tr>
@@ -233,18 +237,14 @@ $completed = fetchdocsRequestRemarks($pdo, 'Released', $results_per_page, $compl
                             <td><?= htmlspecialchars($completeds['resident_name']); ?></td>
                             <td><?= htmlspecialchars($completeds['document_name']); ?></td>
                             <td><?= htmlspecialchars($completeds['purpose_name']); ?></td>
-                            <td><?= htmlspecialchars($completeds['stat']); ?></td>
                             <td><?= htmlspecialchars($completeds['date_req']); ?></td>
+                            <td><?= htmlspecialchars($completeds['date_processed']); ?></td>
                             <td><?= htmlspecialchars($completeds['remarks']); ?></td>
                             <td>
                                 <div class="inline-tools">
                                     <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
-                                    <form class="status-form" action="../db/updateStatus.php" method="POST">
-                                        <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completeds['doc_ID']); ?>">
-                                        <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completeds['res_id']); ?>">
-                                        <button type="submit" name="status" value="download" class="btn btn-sm <?= $completeds['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
-                                    </form>
-                                </div>
+                                    <div class="btn btn-primary btn-sm btn-1"><i class="bi bi-eye"></i></div>
+                                </div>   
                             </td>
                         </tr>
                     <?php endforeach; ?>

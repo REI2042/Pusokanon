@@ -11,7 +11,7 @@
             </div>
             <div class="row d-flex justify-content-end m-2">
                 <div class="col-12 col-md-4 d-flex justify-content-center p-0">
-                    <a href="ScanQR.php" class="scanBtn">Scan Document QR Code</a>
+                    <a href="ScanQR.php" class="scanBtn "><i class="bi bi-camera-fill "></i>&nbsp;Scan QR</a>
                 </div>
             </div>
             <div class="ctn row m-2 d-flex justify-content-center">

@@ -128,7 +128,7 @@ h1{
 .link1,
 .link2,
 .link3 {
-  color: #000000;
+  color: #ffffff;
   cursor: pointer;
 }
 .link1:hover{
@@ -178,17 +178,30 @@ h1{
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #2260a7;
-  color: white;
   padding: 5px 10px;
   border: none;
   border-radius: 30px;
   font-size: 13px;
   cursor: pointer;
-  border: 1px solid black;
+  color: #2260a7;
+
 }
 
 .back-button:hover {
   color: rgb(198, 208, 235);
   text-decoration: none;
+}
+
+/* search button */
+.custom-search {
+  width: 300px; 
+  border-radius: 30px !important; 
+  font-size: 13px;
+}
+
+.search-btn{
+  border-radius: 30px;
+}
+.back-button {
+  margin-right: 10px; 
 }
