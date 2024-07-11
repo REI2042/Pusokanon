@@ -15,6 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $pdo->prepare($sql);
         $result = $stmt->execute([$doc_ID,  $request_id, $resident_id]);
 
+        $sql = "UPDATE request_doc SET stat = 'Done' WHERE doc_ID = ? AND request_id = ? AND res_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $result = $stmt->execute([$doc_ID,  $request_id, $resident_id]);
+
         if ($result) {
             echo json_encode(['stat' => 'success']);
         } else {

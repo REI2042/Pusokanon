@@ -120,7 +120,7 @@ domReady(function () {
 
     htmlscanner = new Html5QrcodeScanner(
         "my-qr-reader",
-        { fps: 10, qrbox: 250 }
+        { fps: 60, qrbox: 250 }
     );
 
     htmlscanner.render(onScanSuccess);

@@ -89,10 +89,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                                     </div>
                                     <div class="col">
                                         <?php if ($profilePicture): ?>
-                                            <img src="db/ProfilePictures/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" style="border: 1px solid #F9F8FD;
-                                            width: 30px;
-                                            height: 30px;
-                                            border-radius: 50%;">
+                                            <img src="db/ProfilePictures/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" style="border: 1px solid #F9F8FD; width: 30px; height: 30px; border-radius: 50%;">
                                         <?php else: ?>
                                             <i class="bi bi-person-circle"></i>
                                         <?php endif; ?>
@@ -102,7 +99,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                             <div class="dropdown-menu" aria-labelledby="loginDropdown">
                                 <a class="dropdown-item" href="Profile.php">View Account</a>
                                 <a class="dropdown-item" href="include/logout.php">Logout</a>
-                                
                             </div>
                         </div>
                     </li>

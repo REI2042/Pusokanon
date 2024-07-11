@@ -18,6 +18,19 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  margin-left: 15px; /* Adjust the spacing as needed */
 }
 
 .navbar-brand img {
@@ -37,6 +50,7 @@ body {
 .bi-person-circle {
   font-size: 30px;
 }
+
 .nav-link {
   color: #ffffff;
   margin-right: 20px;
@@ -106,4 +120,13 @@ footer {
   /* .navbar-nav {
     align-items: start !important;
   } */
+}
+
+.login-text {
+  display: inline-block;
+  max-width: 100px; /* Adjust the width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
 }

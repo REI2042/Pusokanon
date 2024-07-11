@@ -114,7 +114,7 @@ function fetchdocsRequest($pdo, $status, $limit, $offset) {
 	return $stmt->fetchAll();  
 }
 
-function fetchdocsRequestRemarks($pdo, $remarks ,$limit, $offset) {
+function fetchdocsRequestRemarks($pdo, $status, $remarks ,$limit, $offset) {
 	$sql = "SELECT 
 				ru.res_id, doc_ID, stat,
 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
@@ -127,9 +127,10 @@ function fetchdocsRequestRemarks($pdo, $remarks ,$limit, $offset) {
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Clearance' AND remarks = :remarks
+			WHERE dt.doc_name = 'Barangay Clearance' AND stat = :status AND remarks = :remarks
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
 	$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
