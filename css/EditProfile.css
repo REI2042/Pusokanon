@@ -8,6 +8,17 @@
     margin: 0px 50px;
     border-radius: 5px;
     padding: 10px;
+    position: relative;
+}
+
+#updateProfileBtn {
+    background-color: #005BB5;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#updateProfileBtn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .profile-picture {
@@ -42,6 +53,22 @@
     color: #F9F8FD;
     background-color: rgb(173, 172, 172, 0.801);
     box-shadow: 2px 4px 4px rgb(0, 0, 0, 0.644);
+}
+
+.back-button {
+    position: absolute;
+    width: auto;
+    z-index: 1;
+}
+
+.back-button:hover {
+    text-decoration: none;
+}
+
+.custom-swal {
+    background-color: #1D4E89;
+    color: #F9F8FD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px), (min-height: 768px) {

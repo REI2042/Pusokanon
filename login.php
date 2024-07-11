@@ -40,10 +40,10 @@ include 'db/check_user_login.php';
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mt-2 pt-1">
+                    <li class="nav-item">
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
-                    <li class="nav-item dropdown mt-2 pt-1">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Services
                         </a>
@@ -52,10 +52,10 @@ include 'db/check_user_login.php';
                             <a class="dropdown-item" href="#">File Complaint</a>
                         </div>
                     </li>
-                    <li class="nav-item mt-2 pt-1">
+                    <li class="nav-item1">
                         <a class="nav-link" href="#">Updates</a>
                     </li>
-                    <li class="nav-item dropdown mt-2 pt-1">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="aboutUsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             About Us
                         </a>
@@ -65,13 +65,13 @@ include 'db/check_user_login.php';
                             <a class="dropdown-item" href="barangayMap.php">Barangay Map</a>
                         </div>
                     </li>
-                    <li class="nav-item mt-2 pt-1 me-3">
+                    <li class="nav-item">
                         <a class="nav-link" href="emergency-hotlines.php">Hotlines</a>
                     </li>   
-                    <li class="nav-item mt-1">
+                    <li class="nav-item">
                         <a class="nav-link" href="login.php">
-                        <div class="row">
-                            <div class="col px-1 mt-1 pt-1"><span class="login-text">Login</span></div>
+                        <div class="row align-items-center">
+                            <div class="col"><span class="login-text">Login</span></div>
                             <div class="col"><i class="bi-person-circle"></i></div>
                         </div>
                     </a>

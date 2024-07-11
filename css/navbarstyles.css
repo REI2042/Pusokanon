@@ -19,7 +19,6 @@ body {
   right: 0;
   z-index: 1000;
   display: flex;
-  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -54,6 +53,15 @@ body {
 .nav-link {
   color: #ffffff;
   margin-right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#servicesDropdown,
+#aboutUsDropdown {
+  display: flex;
+  justify-content: center;
 }
 
 .nav-link:hover {

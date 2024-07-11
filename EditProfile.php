@@ -11,6 +11,10 @@
 <div class="container fluid d-flex justify-content-center">
 <section class="main">
 	<form class="form row text-white" action="db/update_profile.php" method="POST" enctype="multipart/form-data">
+		<a href="Profile.php" class="back-button d-flex align-items-center text-white gap-2">
+			<i class="fas fa-circle-chevron-left fa-2x"></i>
+			<span>Back</span>
+		</a>
 		<div class="col-12 mt-2 d-flex justify-content-center align-items-center">
 			<div class="user-profile">
 				<img src="<?php echo $profilePicture ? 'db/ProfilePictures/' . htmlspecialchars($profilePicture) : 'PicturesNeeded/blank_profile.png'; ?>" class="profile-picture" id="profile-preview" alt="Profile Picture">
@@ -137,7 +141,7 @@
             <input type="email" class="form-control" name="accemail" id="email" placeholder="<?= htmlspecialchars($_SESSION['res_email']); ?>" value="<?= htmlspecialchars($_SESSION['res_email']); ?>" required>
         </div>
 		<div class="text-center col-12 mt-3 d-flex justify-content-center">
-            <button type="submit" id="updateProfileBtn" name="update_account" class="btn btn-primary" style="background-color: #4CAF50; border: none;">Update Profile</button>
+            <button type="submit" id="updateProfileBtn" name="update_account" class="btn btn-primary">Update Profile</button>
         </div>
 	</form>
 </section>

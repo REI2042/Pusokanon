@@ -11,13 +11,22 @@ document.addEventListener('DOMContentLoaded', function() {
             showCancelButton: true,
             confirmButtonText: 'Yes, update it!',
             cancelButtonText: 'No, cancel!',
+            confirmButtonColor: '#3D7CC4',
+            cancelButtonColor: '#d33',
+            customClass: {
+                popup: 'custom-swal'
+            }
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
                     title: 'Updated!',
                     text: 'Profile has been updated successfully.',
                     icon: 'success',
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#3D7CC4',
+                    customClass: {
+                        popup: 'custom-swal'
+                    }
                 }).then(() => {
                     document.querySelector('form').submit();
                 });
