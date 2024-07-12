@@ -71,8 +71,8 @@ include 'db/check_user_login.php';
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">
                         <div class="row align-items-center">
-                            <div class="col"><span class="login-text">Login</span></div>
-                            <div class="col"><i class="bi-person-circle"></i></div>
+                            <div class="col-6 pr-0"><span class="login-text">Login</span></div>
+                            <div class="col-6"><i class="bi-person-circle"></i></div>
                         </div>
                     </a>
                     </li>

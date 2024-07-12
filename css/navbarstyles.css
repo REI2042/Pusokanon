@@ -59,7 +59,8 @@ body {
 }
 
 #servicesDropdown,
-#aboutUsDropdown {
+#aboutUsDropdown,
+#loginDropdown {
   display: flex;
   justify-content: center;
 }
