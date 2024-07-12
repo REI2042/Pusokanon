@@ -363,7 +363,8 @@ async function handleStatusUpdate(resID, newStatus) {
 }
 
 //connection from updateStatus.php for adding time to update status 
-async function showSweetAlert(docID, residentID) {
+async function showSweetAlert(res_email, resident_name, document_name ,docID, residentID) {
+  let hours;
   Swal.fire({
       title: 'Enter number of hours needed',
       input: 'number',
@@ -375,36 +376,56 @@ async function showSweetAlert(docID, residentID) {
       inputLabel: 'Hours',
       showCancelButton: true,
       confirmButtonText: 'OK',
-      preConfirm: (hours) => {
+      preConfirm: (value) => {
+          hours = value; // Store the input value in the hours variable
           if (!hours) {
               Swal.showValidationMessage('Please enter a valid number of hours');
+              return false; // Prevent the popup from closing
           } else {
-              // Create a form and submit it
-              let form = document.createElement('form');
-              form.action = '../db/updateStatus.php';
-              form.method = 'POST';
-              form.innerHTML = `
-                  <input type="hidden" name="doc_ID" value="${docID}">
-                  <input type="hidden" name="resident_id" value="${residentID}">
-                  <input type="hidden" name="status" value="Ready to pickup">
-                  <input type="hidden" name="hours" value="${hours}">
-              `;
-              document.body.appendChild(form);
-              form.submit();
-              return true; // Resolve preConfirm with true to trigger then block
+              return true; // Allow the popup to close
           }
       }
-      }).then((result) => {
+  }).then((result) => {
       if (result.isConfirmed) {
-          Swal.fire({
-              title: 'Status Updated',
-              text: 'Status has been updated',
-              icon:'success',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK'
+          // Create a form and submit it
+          let form = document.createElement('form');
+          form.action = '../db/updateStatus.php';
+          form.method = 'POST';
+          form.innerHTML = `
+              <input type="hidden" name="doc_ID" value="${docID}">
+              <input type="hidden" name="resident_id" value="${residentID}">
+              <input type="hidden" name="status" value="Ready to pickup">
+              <input type="hidden" name="hours" value="${hours}">
+          `;
+          document.body.appendChild(form);
+          form.submit();
+
+          // Send email
+          emailjs.send('service_uhvx5cl', 'template_tv4l19k', {
+              to_email: res_email,
+              name: resident_name,
+              hours: hours,
+              doc_name: document_name
           }).then(() => {
-              window.location.href = '../adminbejo/Barangay-Residency.php';
-          })
+              Swal.fire({
+                  title: 'Status Updated',
+                  text: 'Status has been updated and an email has been sent',
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK'
+              }).then(() => {
+                  window.location.href = '../adminbejo/Barangay-Residency.php';
+              });
+          }, (error) => {
+              console.error('Failed to send email:', error);
+              Swal.fire({
+                  title: 'Error',
+                  text: 'Failed to send email',
+                  icon: 'error',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK'
+              });
+          });
       }
-  })
+  });
 }

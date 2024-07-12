@@ -46,10 +46,15 @@ $completed_offset = ($completed_page - 1) * $results_per_page;
 $pending = fetchdocsRequest($pdo, 'Pending', $results_per_page, $pending_offset);
 $Processing = fetchdocsRequest($pdo, 'Processing', $results_per_page, $processing_offset);
 $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $completed_offset);
+
+
 ?>
 
 </div>
 <link rel="stylesheet" href="css/slidingtableResidency.css">
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
 
 <main>
     <div class="row">
@@ -113,10 +118,13 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
                                     <div class="inline-tools">
                                         <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
                                         <form class="status-form" action="../db/updateStatus.php" method="POST">
+                                            <?php $dataDecrypt = decryptData($pendings['res_email']); ?>
+                                            <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
+                                            <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
                                             <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($pendings['doc_ID']); ?>">
                                             <input type="hidden" name="resident_id" value="<?= htmlspecialchars($pendings['res_id']); ?>">
                                             <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
-                                            <button type="button" class="btn btn-sm <?= $pendings['stat'] == 'Ready to pickup' ? 'btn-success' : 'btn-success'; ?>" onclick="showSweetAlert('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['res_id']); ?>')"><i class="fa-solid fa-check"></i></button>
+                                            <button type="button" class="btn btn-sm <?= $pendings['stat'] == 'Ready to pickup' ? 'btn-success' : 'btn-success'; ?>" onclick="showSweetAlert('<?= htmlspecialchars($dataDecrypt); ?>', '<?= htmlspecialchars($pendings['resident_name']); ?>', '<?= htmlspecialchars($pendings['document_name']); ?>','<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['res_id']); ?>')"><i class="fa-solid fa-check"></i></button>
                                         </form>
                                     </div>
                                 </td>
@@ -186,7 +194,7 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
                                 <td>
                                     <div class="inline-tools">
                                         <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
-                                        <form class="status-form" action="../db/updateStatus.php" method="POST">
+                                        <form class="status-form" action="../db/updateStatus.php" method="POST">                                            
                                             <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
                                             <input type="hidden" name="resident_id" value="<?= htmlspecialchars($processings['res_id']); ?>">
                                             <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
@@ -300,7 +308,13 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
     </div>
 </main>
 <script src="../js/sweetAlert.js"></script>
-
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "-eg-XfJjgYaCKpd3Q",
+      });
+   })();
+</script>
 <script>
     // function showTable(tableId, paginationId) {
     //     document.getElementById('table1Container').classList.add('hidden');

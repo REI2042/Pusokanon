@@ -94,7 +94,7 @@
 
 function fetchdocsRequest($pdo, $status, $limit, $offset) {
 	$sql = "SELECT 
-				ru.res_id, doc_ID, stat,
+				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
 				dt.doc_name AS document_name, 
 				rd.purpose_name AS purpose_name, 
