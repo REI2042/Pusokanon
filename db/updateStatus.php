@@ -49,9 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
                 header('Content-Length: ' . filesize($tempFile));
                 readfile($tempFile);
                 unlink($tempFile); // delete the temporary file
-                if (file_exists($tempFile)) {
-                    
-                }
+
+                // Update status to 'Processing'
+                
+
+                exit; // Ensure the script ends here
             } else {
                 $stats = 'Pending';
                 $sql = "UPDATE request_doc SET stat = :stats WHERE doc_ID = :doc_ID";
@@ -66,12 +68,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
             echo json_encode(['stat' => 'error', 'message' => 'Resident not found.']);
         }
     } elseif($status == 'Ready to pickup') {
+
+        if (!isset($_POST['hours']) || !is_numeric($_POST['hours'])) {
+            echo json_encode(['stat' => 'error', 'message' => 'Invalid number of hours.']);
+            exit;
+        }
+
+        // $hours = (int) $_POST['hours'];
+        // $seconds = $hours * 3600; // Convert hours to seconds
+        $seconds = (int) $_POST['hours'];
+
+
+        $sql = "UPDATE request_doc SET stat = 'Processing' WHERE doc_ID = :doc_ID";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        ignore_user_abort(true);
+        set_time_limit(0);
+        
+        // Sleep for the specified number of seconds
+        sleep($seconds);
+
         $sql = "UPDATE request_doc SET stat = :status WHERE doc_ID = :doc_ID";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':doc_ID', $doc_ID, PDO::PARAM_INT);
         $stmt->execute();
-        header('Location:../adminbejo/Barangay-Residency.php');
+        
         exit;
     } else {
         echo json_encode(['stat' => 'error', 'message' => 'Invalid status.']);

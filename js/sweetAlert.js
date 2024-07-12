@@ -361,3 +361,50 @@ async function handleStatusUpdate(resID, newStatus) {
   };
   xhr.send(`resID=${resID}&newStatus=${newStatus}`);
 }
+
+//connection from updateStatus.php for adding time to update status 
+async function showSweetAlert(docID, residentID) {
+  Swal.fire({
+      title: 'Enter number of hours needed',
+      input: 'number',
+      inputAttributes: {
+          min: 1,
+          max: 24,
+          step: 1
+      },
+      inputLabel: 'Hours',
+      showCancelButton: true,
+      confirmButtonText: 'OK',
+      preConfirm: (hours) => {
+          if (!hours) {
+              Swal.showValidationMessage('Please enter a valid number of hours');
+          } else {
+              // Create a form and submit it
+              let form = document.createElement('form');
+              form.action = '../db/updateStatus.php';
+              form.method = 'POST';
+              form.innerHTML = `
+                  <input type="hidden" name="doc_ID" value="${docID}">
+                  <input type="hidden" name="resident_id" value="${residentID}">
+                  <input type="hidden" name="status" value="Ready to pickup">
+                  <input type="hidden" name="hours" value="${hours}">
+              `;
+              document.body.appendChild(form);
+              form.submit();
+              return true; // Resolve preConfirm with true to trigger then block
+          }
+      }
+      }).then((result) => {
+      if (result.isConfirmed) {
+          Swal.fire({
+              title: 'Status Updated',
+              text: 'Status has been updated',
+              icon:'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+          }).then(() => {
+              window.location.href = '../adminbejo/Barangay-Residency.php';
+          })
+      }
+  })
+}

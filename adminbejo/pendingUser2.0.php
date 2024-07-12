@@ -102,7 +102,7 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
                                                                                 '<?= htmlspecialchars($user['citizenship'])?>')">View details</a>
                                         </td>
                                         <td class="tools">
-                                            <div class="btn btn-danger btn-sm" res_email="<?= htmlspecialchars($user['res_email']) ?>" 
+                                            <div class="btn btn-danger btn-sm" res_email="<?= htmlspecialchars($decryptedEmail) ?>" 
                                                                              res_ID="<?= htmlspecialchars($user['res_ID']) ?>" id="cancelButton" 
                                                                              onclick="handleCancelClick(this.getAttribute('res_email'), this.getAttribute('res_ID'))">
                                                 <span class="btn-text">Cancel</span><i class="bi bi-person-x-fill"></i>

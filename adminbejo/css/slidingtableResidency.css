@@ -1,8 +1,10 @@
+html{
+  transition: smooth 0.3s;
+}
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-
 }
 
 .hidden {
