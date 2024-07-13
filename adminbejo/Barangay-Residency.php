@@ -83,9 +83,9 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
 
     <div class="table-content">
         <div class="controls text-center mt-3">
-            <a id="showTable1" class="link1">-- Pending Documents -- </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a id="showTable2" class="link2">-- Processing Documents --</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a id="showTable3" class="link3">-- Ready to Pickup Documents -- </a>
+            <a id="showTable1" class="link1">-- Pending  -- </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="showTable2" class="link2">-- Processing  --</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="showTable3" class="link3">-- Ready to Pickup -- </a>
         </div>
         <div id="table1Container">
             <table id="table1">
