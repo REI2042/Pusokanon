@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const penIcons = document.querySelectorAll('.pen-icon');
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            placement: 'left'
+        })
+    })
     
     penIcons.forEach(function(penIcon) {
         penIcon.addEventListener('click', function() {

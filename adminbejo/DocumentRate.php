@@ -14,7 +14,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="1">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
@@ -25,7 +25,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="2">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
@@ -36,7 +36,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="3">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
@@ -47,7 +47,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="4">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
@@ -58,7 +58,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="5">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
@@ -69,7 +69,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="6">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
@@ -80,7 +80,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="7">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
@@ -91,7 +91,7 @@
             <div class="col-12 col-sm-4">
                 <div class="document-box m-1 p-3 text-light rounded-4 text-center" id="8">
                     <div class="d-flex justify-content-end">
-                        <button class="pen-icon" title="Edit Price">
+                        <button class="pen-icon" title="Edit Price" data-bs-toggle="tooltip" data-bs-placement="right">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                     </div>
