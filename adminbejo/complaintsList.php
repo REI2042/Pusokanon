@@ -3,64 +3,69 @@ include 'headerAdmin.php';
 include '../db/DBconn.php';
 
 $caseType = isset($_GET['case_type']) ? $_GET['case_type'] : '';
+$incidentPlace = isset($_GET['incident_place']) ? $_GET['incident_place'] : '';
 
-// Fetch the total number of complaints based on the case type
-$totalRequests = countTotalComplaints($pdo, $caseType);
+// Fetch all complaints
+$allRequests = fetchListofComplaints($pdo, 0, null, $caseType, $incidentPlace);
+
+$totalRequests = count($allRequests);
 $limit = 5;  // Number of complaints per page
 $totalPages = ceil($totalRequests / $limit);
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Fetch the complaints for the current page based on the case type
-$requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
-
-
+// Get the complaints for the current page
+$requests = array_slice($allRequests, $offset, $limit);
 ?>
 <link rel="stylesheet" href="css/list.css">
 
 <div class="container-fluid">
     <h1>List of Complaints</h1>
     <div class="mu-ds row d-flex justify-content-end">
-            <div class="col-12 col-md-5 d-flex justify-content-center align-items-center">
-                <a class="btn dropdown-toggle" role="button" id="sitioDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sitio
-                </a>
-                <div class="dropdown-menu" aria-labelledby="sitioDropdown">
-                    <a class="dropdown-item" value="Arca">Arca</a>
-                    <a class="dropdown-item" value="Cemento">Cemento</a>
-                    <a class="dropdown-item" value="Chumba-Chumba">Chumba-Chumba</a>
-                    <a class="dropdown-item" value="Ibabao">Ibabao</a>
-                    <a class="dropdown-item" value="Lawis">Lawis</a>
-                    <a class="dropdown-item" value="Matumbo">Matumbo</a>
-                    <a class="dropdown-item" value="Mustang">Mustang</a>
-                    <a class="dropdown-item" value="New Lipata">New Lipata</a>
-                    <a class="dropdown-item" value="San Roque">San Roque</a>
-                    <a class="dropdown-item" value="Seabreeze">Seabreeze</a>
-                    <a class="dropdown-item" value="Seaside">Seaside</a>
-                    <a class="dropdown-item" value="Sewage">Sewage</a>
-					<a class="dropdown-item" value="Sta. Maria">Sta. Maria</a>
+        <div class="col-12 col-md-5 d-flex justify-content-center align-items-center">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="incidentPlaceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Incident Place
+                </button>
+                <div class="dropdown-menu" aria-labelledby="incidentPlaceDropdown">
+                    <a class="dropdown-item" data-incident-place="" href="#">Show All</a>
+                    <a class="dropdown-item" data-incident-place="Arca" href="#">Arca</a>
+                    <a class="dropdown-item" data-incident-place="Cemento" href="#">Cemento</a>
+                    <a class="dropdown-item" data-incident-place="Chumba-Chumba" href="#">Chumba-Chumba</a>
+                    <a class="dropdown-item" data-incident-place="Ibabao" href="#">Ibabao</a>
+                    <a class="dropdown-item" data-incident-place="Lawis" href="#">Lawis</a>
+                    <a class="dropdown-item" data-incident-place="Matumbo" href="#">Matumbo</a>
+                    <a class="dropdown-item" data-incident-place="Mustang" href="#">Mustang</a>
+                    <a class="dropdown-item" data-incident-place="New Lipata" href="#">New Lipata</a>
+                    <a class="dropdown-item" data-incident-place="San Roque" href="#">San Roque</a>
+                    <a class="dropdown-item" data-incident-place="Seabreeze" href="#">Seabreeze</a>
+                    <a class="dropdown-item" data-incident-place="Seaside" href="#">Seaside</a>
+                    <a class="dropdown-item" data-incident-place="Sewage" href="#">Sewage</a>
+                    <a class="dropdown-item" data-incident-place="Sta. Maria" href="#">Sta. Maria</a>
                 </div>
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="caseTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Case Type
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="caseTypeDropdown">
-                        <a class="dropdown-item" data-case-type="" href="?case_type=">Show All</a>
-                        <a class="dropdown-item" data-case-type="Bullying" href="?case_type=Bullying">Bullying</a>
-                        <a class="dropdown-item" data-case-type="Damaging Properties" href="?case_type=Damaging Properties">Damaging Properties</a>
-                        <a class="dropdown-item" data-case-type="Libel" href="?case_type=Libel">Libel</a>
-                        <a class="dropdown-item" data-case-type="Physical Abuse" href="?case_type=Physical Abuse">Physical Abuse</a>
-                        <a class="dropdown-item" data-case-type="Threat" href="?case_type=Threat">Threat</a>
-                        <a class="dropdown-item" data-case-type="Trespassing" href="?case_type=Trespassing">Trespassing</a>
-                        <a class="dropdown-item" data-case-type="Theft" href="?case_type=Theft">Theft</a>
-                    </div>
-                </div>  
-                <input class="form-control" type="input" placeholder="Search Name" aria-label="Search">
-                <button class="btn my-2 my-sm-0" type="submit">Search</button>
             </div>
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="caseTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Case Type
+                </button>
+                <div class="dropdown-menu" aria-labelledby="caseTypeDropdown">
+                    <a class="dropdown-item" data-case-type="" href="#">Show All</a>
+                    <a class="dropdown-item" data-case-type="Bullying" href="#">Bullying</a>
+                    <a class="dropdown-item" data-case-type="Damaging Properties" href="#">Damaging Properties</a>
+                    <a class="dropdown-item" data-case-type="Libel" href="#">Libel</a>
+                    <a class="dropdown-item" data-case-type="Physical Abuse" href="#">Physical Abuse</a>
+                    <a class="dropdown-item" data-case-type="Threat" href="#">Threat</a>
+                    <a class="dropdown-item" data-case-type="Trespassing" href="#">Trespassing</a>
+                    <a class="dropdown-item" data-case-type="Theft" href="#">Theft</a>
+                </div>
+            </div>
+            <input class="form-control" type="input" placeholder="Search Name" aria-label="Search">
+            <button class="btn my-2 my-sm-0" type="submit">Search</button>
         </div>
-    <div class="card-body">
-        <div class="table-responsive">
+    </div>
+    <div class="card d-flex flex-column">
+    <div class="card-body flex-grow-1 d-flex flex-column">
+        <div class="table-responsive flex-grow-1">
             <table class="table mx-auto" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
@@ -77,7 +82,6 @@ $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
                         <?php foreach ($requests as $request): ?>
                             <tr>
                                 <?php
-
                                     $imagePath = "../../db/complaints_evidence/{$request['evidence']}";
                                     if (file_exists($imagePath)) {
                                         $imageData = base64_encode(file_get_contents($imagePath));
@@ -86,7 +90,6 @@ $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
                                     } else {
                                         $imageSrc = ''; 
                                     }
-
                                     $decryptedEmail = decryptData($request['resident_email']);
                                 ?>
                                 <td><?php echo htmlspecialchars($request['complaint_id']); ?></td>
@@ -109,14 +112,13 @@ $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
                                                                 '<?= htmlspecialchars($request['incident_place'])?>',
                                                                 '<?= htmlspecialchars($request['narrative'])?>',
                                                                 '<?= $imageSrc ?>')">
-                                                    <i class="fas fa-eye"></i> </a>
+                                            <i class="fas fa-eye"></i> </a>
                                         <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                             <i class="fas fa-check"></i>
                                         </button>
                                         <button class="btn btn-danger btn-sm me-2" onclick="disapprove_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                             <i class="fas fa-times"></i> 
                                         </button>
-                                        
                                     </div>
                                 </td>
                             </tr>
@@ -129,8 +131,8 @@ $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
                 </tbody>
             </table>
         </div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center mb-5">
+        <nav aria-label="Page navigation" class="mt-auto">
+            <ul class="pagination justify-content-center">
                 <?php
                 $startPage = max(1, $page - 1);
                 $endPage = min($startPage + 2, $totalPages);
@@ -139,7 +141,7 @@ $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
 
                 <?php if($page > 1): ?>
                     <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $page-1; ?>&case_type=<?php echo urlencode($caseType); ?>" aria-label="Previous">
+                        <a class="page-link" href="?page=<?php echo $page-1; ?>&case_type=<?php echo urlencode($caseType); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Previous">
                             <span aria-hidden="true">Prev</span>
                         </a>
                     </li>
@@ -147,13 +149,13 @@ $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
 
                 <?php for($i = $startPage; $i <= $endPage; $i++): ?>
                     <li class="page-item <?php if($i == $page) echo 'active'; ?>">
-                        <a class="page-link" href="?page=<?php echo $i; ?>&case_type=<?php echo urlencode($caseType); ?>"><?php echo $i; ?></a>
+                        <a class="page-link" href="?page=<?php echo $i; ?>&case_type=<?php echo urlencode($caseType); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>"><?php echo $i; ?></a>
                     </li>
                 <?php endfor; ?>
 
                 <?php if($page < $totalPages): ?>
                     <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $page+1; ?>&case_type=<?php echo urlencode($caseType); ?>" aria-label="Next">
+                        <a class="page-link" href="?page=<?php echo $page+1; ?>&case_type=<?php echo urlencode($caseType); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Next">
                             <span aria-hidden="true">Next</span>
                         </a>
                     </li>
@@ -163,6 +165,7 @@ $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType);
     </div>
 </div>
 
+</div>
 
 <script src="../js/complaints_popUp.js"></script>
 <script src="../js/sort_complaints.js"></script>
