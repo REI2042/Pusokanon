@@ -5,21 +5,28 @@ document.addEventListener('DOMContentLoaded', function() {
             const docId = this.dataset.docId;
             const docName = this.dataset.docName;
             const status = this.dataset.status;
-            const dateReq = this.dataset.dateReq;
+            const dateReq = new Date(this.dataset.dateReq);
             const remarks = this.dataset.remarks;
             const purpose = this.dataset.purpose;
             const qrCode = this.dataset.qrCode;
+            const price = this.dataset.price;
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDateReq = dateReq.toLocaleDateString('en-PH', options);
     
             Swal.fire({
                 title: 'Document Details',
                 html: `
                     <img src="db/QRCODES/${qrCode}" alt="QR Code" style="width: 200px; height: 200px;">
-                    <p><strong>Document ID:</strong> ${docId}</p>
-                    <p><strong>Document Name:</strong> ${docName}</p>
-                    <p><strong>Purpose:</strong> ${purpose}</p>
-                    <p><strong>Status:</strong> ${status}</p>
-                    <p><strong>Request Date:</strong> ${dateReq}</p>
-                    <p><strong>Remarks:</strong> ${remarks}</p>
+                    <div class="data-box">
+                        <p><strong class="doc-id">Document ID:</strong> ${docId}</p>
+                        <p><strong class="doc-name">Document Name:</strong> ${docName}</p>
+                        <p><strong class="doc-purpose">Purpose:</strong> ${purpose}</p>
+                        <p><strong class="doc-status">Status:</strong> ${status}</p>
+                        <p><strong class="doc-price">Price:</strong> ₱${price}</p>
+                        <p><strong class="doc-rd">Date Requested:</strong> ${formattedDateReq}</p>
+                        <p><strong class="doc-remarks">Remarks:</strong> ${remarks}</p>
+                    </div>
                 `,
                 showCloseButton: true,
                 confirmButtonText: 'Download QR Code',

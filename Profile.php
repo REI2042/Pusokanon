@@ -13,7 +13,7 @@
     $age = $currentDate->diff($birthdate)->y;
 
     $status = isset($_GET['status']) ? $_GET['status'] : 'pending';
-    $perPage = 1;
+    $perPage = 5;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     
     $offset = ($page - 1) * $perPage;
@@ -102,27 +102,33 @@
                                     <th scope="col">Document ID</th>
                                     <th scope="col">Document Name</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Date & Time Requested</th>
+                                    <th scope="col">Date Requested</th>
                                     <th scope="col">Purpose</th>
+                                    <th scope="col">Price</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if (empty($requests)): ?>
-                                    <tr><td colspan="5" class="text-center">No records found.</td></tr>
+                                    <tr><td colspan="6" class="text-center">No records found.</td></tr>
                                 <?php else: ?>
-                                    <?php foreach ($requests as $request): ?>
+                                    <?php foreach ($requests as $request): 
+                                        $dateRequested = DateTime::createFromFormat('Y-m-d H:i:s', $request['date_req']);
+                                        $formattedDateRequested = $dateRequested ? $dateRequested->format('F j, Y') : 'N/A';
+                                    ?>
                                         <tr class="clickable-row" data-doc-id="<?php echo htmlspecialchars($request['doc_ID']); ?>"
                                             data-doc-name="<?php echo htmlspecialchars($request['document_name']); ?>"
                                             data-status="<?php echo htmlspecialchars($request['stat']); ?>"
                                             data-date-req="<?php echo htmlspecialchars($request['date_req']); ?>"
                                             data-remarks="<?php echo htmlspecialchars($request['remarks']); ?>"
                                             data-purpose="<?php echo htmlspecialchars($request['purpose_name']); ?>"
-                                            data-qr-code="<?php echo htmlspecialchars($request['qrCode_image']); ?>">
+                                            data-qr-code="<?php echo htmlspecialchars($request['qrCode_image']); ?>"
+                                            data-price="<?php echo htmlspecialchars($request['document_price']); ?>">
                                             <td><?php echo htmlspecialchars($request['doc_ID']); ?></td>
                                             <td><?php echo htmlspecialchars($request['document_name']); ?></td>
                                             <td><?php echo htmlspecialchars($request['stat']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['date_req']); ?></td>
+                                            <td><?php echo htmlspecialchars($formattedDateRequested); ?></td>
                                             <td><?php echo htmlspecialchars($request['purpose_name']); ?></td>
+                                            <td>₱ <?php echo htmlspecialchars($request['document_price']); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>

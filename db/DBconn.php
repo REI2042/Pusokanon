@@ -394,7 +394,8 @@ function fetchdocsRequestRemarks($pdo, $status, $remarks ,$limit, $offset) {
 	function fetchResdocsRequest($pdo, $userId, $status, $limit, $offset) {
 		$sql = "SELECT 
 				rd.doc_ID, dt.doc_name AS document_name, rd.stat, 
-				rd.date_req, rd.remarks, rd.purpose_name, rd.qrCode_image
+				rd.date_req, rd.remarks, rd.purpose_name, rd.qrCode_image,
+				dt.doc_amount AS document_price
 			FROM request_doc rd
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			WHERE rd.res_id = :userId AND rd.stat = :status

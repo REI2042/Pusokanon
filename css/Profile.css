@@ -181,6 +181,42 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.data-box {
+    text-align: left;
+    margin-top: 15px;
+    font-size: 16px;
+    gap: 10px;
+    display: grid;
+}
+
+.doc-id {
+    margin-left: 44px;
+}
+
+.doc-name {
+    margin-left: 15px;
+}
+
+.doc-purpose {
+    margin-left: 80px;
+}
+
+.doc-status {
+    margin-left: 95px;
+}
+
+.doc-rd {
+    margin-left: 25px;
+}
+
+.doc-remarks{
+    margin-left: 78px;
+}
+
+.doc-price {
+    margin-left: 105px;
+}
+
 @media (max-width: 768px), (min-height: 768px) {
 
     .main {
@@ -202,6 +238,46 @@ footer {
 
     table thead th {
         font-size: small;
+    }
+
+    .table {
+        width: 600px;
+    }
+
+    .table-responsive .table td, th {
+        font-size: smaller;
+    }
+
+    .data-box {
+        font-size: small;
+    }
+
+    .doc-id {
+        margin-left: 40px;
+    }
+    
+    .doc-name {
+        margin-left: 13px;
+    }
+    
+    .doc-purpose {
+        margin-left: 62px;
+    }
+    
+    .doc-status {
+        margin-left: 74px;
+    }
+    
+    .doc-rd {
+        margin-left: 20px;
+    }
+    
+    .doc-remarks{
+        margin-left: 62px;
+    }
+
+    .doc-price {
+        margin-left: 80px;
     }
     
 }
