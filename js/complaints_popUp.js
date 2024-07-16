@@ -39,7 +39,7 @@ document.getElementById('complaintForm').addEventListener('submit', function(eve
 
 
 async function showDetails(
-    complaint_id,
+    // complaint_id,
     resident_name,
     resident_email,
     respondent_name,
@@ -48,61 +48,36 @@ async function showDetails(
     incident_date,
     incident_time,
     incident_place,
-    narrative
+    narrative,
+    imageSrc
 ) {
-    // Fetch evidence image URL based on complaint ID
-    const fetchURL = `db/DBconn_complaints.php?complaint_id=${complaint_id}`;
 
-    // Fetching evidence image URL dynamically
-    const response = await fetch(fetchURL);
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-        const evidenceURL = data.evidence_url;
-
-        Swal.fire({
-            title: 'Complaint Details',
-            html: `<div style="text-align: left;">
-                        <p><strong>Complainant:</strong> ${resident_name}</p>
-                        <p><strong>Email address:</strong> ${resident_email}</p>
-                        <p><strong>Details of the Respondent:</strong></p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Name:</strong> ${respondent_name}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Age:</strong> ${respondent_age}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Gender:</strong> ${respondent_gender}</p>
-                        <p><strong>Details of the Incident:</strong></p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Date of Incident:</strong> ${incident_date}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Time of Incident:</strong> ${incident_time}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Place of Incident:</strong> ${incident_place}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Narrative:</strong> ${narrative}</p>
-                        <p><strong>Evidence:</strong></p>
-                        <img src="${evidenceURL}" alt="Evidence Image" style="max-width: 100%; height: auto;">
-                   </div>`,
-            confirmButtonColor: "#3085d6",
-        });
-    } else {
-        Swal.fire({
-            title: 'Complaint Details',
-            html: `<div style="text-align: left;">
-                        <p><strong>Complainant:</strong> ${resident_name}</p>
-                        <p><strong>Email address:</strong> ${resident_email}</p>
-                        <p><strong>Details of the Respondent:</strong></p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Name:</strong> ${respondent_name}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Age:</strong> ${respondent_age}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Gender:</strong> ${respondent_gender}</p>
-                        <p><strong>Details of the Incident:</strong></p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Date of Incident:</strong> ${incident_date}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Time of Incident:</strong> ${incident_time}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Place of Incident:</strong> ${incident_place}</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Narrative:</strong> ${narrative}</p>
-                        <p><strong>Evidence:</strong> No evidence uploaded yet.</p>
-                   </div>`,
-            confirmButtonColor: "#3085d6",
-        });
-    }
-}
+    Swal.fire({
+        title: 'Complaint Details',
+        html: `<div style="text-align: left;">
+                    <p><strong>Complainant:</strong> ${resident_name}</p>
+                    <p><strong>Email address:</strong> ${resident_email}</p>
+                    <p><strong>Details of the Respondent:</strong></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Name:</strong> ${respondent_name}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Age:</strong> ${respondent_age}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Gender:</strong> ${respondent_gender}</p>
+                    <p><strong>Details of the Incident:</strong></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Date of Incident:</strong> ${incident_date}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Time of Incident:</strong> ${incident_time}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Place of Incident:</strong> ${incident_place}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Narrative:</strong> ${narrative}</p>
+                    <p><strong>Evidence:</strong></p>
+                </div>`,
+        imageUrl: imageSrc,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        confirmButtonColor: "#3085d6",
+    });
+} 
 
 
-  
+
 
 async function approve_complaint(complaint_id) {
     // Step 1: Admin sets the hearing date and time
@@ -347,6 +322,118 @@ async function disapprove_complaint(complaint_id) {
         });
     }
 }
+
+// async function disapprove_complaint(complaint_id) {
+//     // Step 1: Admin provides reason for disapproval
+//     const { value: reason } = await Swal.fire({
+//         title: "Reason for Disapproval",
+//         input: 'textarea',
+//         inputLabel: 'Please provide a reason for disapproval',
+//         inputPlaceholder: 'Enter your reason here...',
+//         showCancelButton: true,
+//         confirmButtonColor: "#d33",
+//         confirmButtonText: 'Okay',
+//         cancelButtonText: 'Cancel',
+//         inputValidator: (value) => {
+//             if (!value) {
+//                 return 'You need to provide a reason for disapproval!'
+//             }
+//         }
+//     });
+
+//     if (reason) {
+//         try {
+//             // Step 2: Update the complaint status and fetch the resident email and other details
+//             const response = await fetch('../adminbejo/phpConn/decline_complaint.php', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ 
+//                     complaint_id: complaint_id,
+//                     reason: reason
+//                 }),
+//             });
+
+//             const data = await response.json();
+
+//             if (data.success) {
+//                 const decryptedEmail = data.to_email;  // Changed from data.resident_email to match PHP response
+//                 const residentName = data.name;        // Changed from data.resident_name to match PHP response
+//                 const dateFiled = data.date_filed;
+//                 const caseType = data.case_type;
+            
+//                 // Validate the email format
+//                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//                 if (!emailPattern.test(decryptedEmail)) {
+//                     Swal.fire({
+//                         title: "Error",
+//                         text: "The fetched email address is invalid: " + decryptedEmail,
+//                         icon: "error",
+//                         confirmButtonColor: "#d33",
+//                     });
+//                     return;
+//                 }
+            
+//                 // Step 3: Send the email
+//                 emailjs.send('service_e9wn0es', 'template_kpcbfsq', {
+//                     to_email: decryptedEmail,
+//                     name: residentName,
+//                     complaint_id: data.complaint_id, 
+//                     respondent: data.respondent_name,
+//                     date_filed: dateFiled,
+//                     case_type: caseType,              
+//                     reason: data.reason               
+//                 }).then(
+//                     function(response) {
+//                         console.log("EmailJS Response:", response);
+//                         Swal.fire({
+//                             title: "Success!",
+//                             text: "Email sent successfully and complaint disapproved.",
+//                             icon: "success",
+//                             confirmButtonColor: "#d33",
+//                         }).then(() => {
+//                             location.reload(); // Reload the page
+//                         });
+//                     },
+//                     function(error) {
+//                         console.log("EmailJS Error:", error);
+//                         Swal.fire({
+//                             title: "Error",
+//                             text: "Failed to send email: " + error.text,
+//                             icon: "error",
+//                             confirmButtonColor: "#d33",
+//                         });
+//                     }
+//                 );
+
+//             } else {
+//                 Swal.fire({
+//                     title: "Error",
+//                     text: data.message,
+//                     icon: "error",
+//                     confirmButtonColor: "#d33",
+//                 });
+//             }
+//         } catch (error) {
+//             Swal.fire({
+//                 title: "Error",
+//                 text: "Failed to process request: " + error.message,
+//                 icon: "error",
+//                 confirmButtonColor: "#d33",
+//             });
+//         }
+//     } else {
+//         Swal.fire({
+//             title: "Cancelled",
+//             text: "Your action has been cancelled",
+//             icon: "error",
+//             confirmButtonColor: "#d33",
+//         });
+//     }
+// }
+    
+
 
 
 

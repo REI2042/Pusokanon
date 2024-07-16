@@ -171,7 +171,7 @@ function fetchdocsRequestRemarks($pdo, $status, $remarks ,$limit, $offset) {
 	// 	return $result ? $result['doc_amount'] : null; // Return the doc_amount or null if no result
 	// }
 
-	function fetchListofComplaints($pdo, $offset, $limit) {
+	function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = null) {
 		$sql = "SELECT 
 					ct.complaint_id AS complaint_id,
 					CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
@@ -185,37 +185,84 @@ function fetchdocsRequestRemarks($pdo, $status, $remarks ,$limit, $offset) {
 					ct.narrative AS narrative,
 					ct.evidence AS evidence,
 					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
-					ru.res_email AS encrypted_email,
+					ru.res_email AS resident_email,
 					ct.respondent_age AS respondent_age,
 					ct.respondent_gender AS respondent_gender
 				FROM complaints_tbl ct 
-				INNER JOIN resident_users ru ON ct.res_id = ru.res_id
-				ORDER BY ct.date_filed DESC
-				LIMIT :offset, :limit";
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-		$stmt->execute();
-		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				INNER JOIN resident_users ru ON ct.res_id = ru.res_id";
 	
-		foreach ($results as &$row) {
-			if (isset($row['encrypted_email'])) {
-				$row['resident_email'] = decryptData($row['encrypted_email']);
-				unset($row['encrypted_email']); 
-			}
+		if ($caseType !== null && $caseType !== '') {
+			$sql .= " WHERE ct.case_type = :caseType";
 		}
 	
-		return $results;
+		$sql .= " ORDER BY ct.date_filed DESC";
+	
+		if ($limit !== null) {
+			$sql .= " LIMIT :offset, :limit";
+		}
+	
+		$stmt = $pdo->prepare($sql);
+	
+		if ($limit !== null) {
+			$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+			$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+		}
+	
+		if ($caseType !== null && $caseType !== '') {
+			$stmt->bindParam(':caseType', $caseType, PDO::PARAM_STR);
+		}
+	
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
-	
-	function fetchTotalComplaints($pdo) {
-		$sql = "SELECT COUNT(*) FROM complaints_tbl";
+	function countTotalComplaints($pdo, $caseType = null) {
+		$sql = "SELECT COUNT(*) FROM complaints_tbl ct";
+		if ($caseType !== null && $caseType !== '') {
+			$sql .= " WHERE ct.case_type = :caseType";
+		}
 		$stmt = $pdo->prepare($sql);
+		if ($caseType !== null && $caseType !== '') {
+			$stmt->bindParam(':caseType', $caseType, PDO::PARAM_STR);
+		}
 		$stmt->execute();
 		return $stmt->fetchColumn();
 	}
 	
+
+	
+
+	// function fetchHistoricalComplaints($pdo,$offset, $limit) {
+	// 	$sql = "SELECT 
+	// 				ct.complaint_id AS complaint_id,
+	// 				CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+	// 				ct.case_type AS case_type, 
+	// 				ct.incident_date AS incident_date, 
+	// 				ct.incident_time AS incident_time, 
+	// 				ct.incident_place AS incident_place, 
+	// 				ct.date_filed AS date_filed, 
+	// 				ct.status AS status,
+	// 				ct.remarks AS remarks,
+	// 				ct.narrative AS narrative,
+	// 				ct.evidence AS evidence,
+	// 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+	// 				ru.res_email AS resident_email,
+	// 				ct.respondent_age AS respondent_age,
+	// 				ct.respondent_gender AS respondent_gender
+	// 			FROM complaints_tbl ct 
+	// 			INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+	// 			ORDER BY date_filed DESC";
+	// 	$stmt = $pdo->prepare($sql);
+	// 	$stmt->execute();
+	// 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	// }
+	
+	// function fetchTotalComplaints($pdo) {
+	// 	$sql = "SELECT COUNT(*) FROM complaints_tbl";
+	// 	$stmt = $pdo->prepare($sql);
+	// 	$stmt->execute();
+	// 	return $stmt->fetchColumn();
+	// }
 
 	function fetchTotalMales($pdo) {
 		$sql = "SELECT COUNT(*) FROM resident_users WHERE gender = 'Male'";

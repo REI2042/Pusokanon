@@ -111,6 +111,9 @@
                             <li class="sidebar-item">
                                 <a href="complaintsList.php" class="sidebar-link">Complaints List </a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="complaints_history.php" class="sidebar-link">Complaints History </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-item">
