@@ -316,50 +316,7 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
    })();
 </script>
 <script>
-    // function showTable(tableId, paginationId) {
-    //     document.getElementById('table1Container').classList.add('hidden');
-    //     document.getElementById('table2Container').classList.add('hidden');
-    //     document.getElementById('pendingPagination').classList.add('hidden');
-    //     document.getElementById('processingPagination').classList.add('hidden');
-    //     document.getElementById(tableId).classList.remove('hidden');
-    //     document.getElementById(paginationId).classList.remove('hidden');
-    // }
 
-    // document.getElementById('showTable1').addEventListener('click', function() {
-    //     showTable('table1Container', 'pendingPagination');
-    //     document.getElementById('showTable1').classList.add('active');
-    //     document.getElementById('showTable2').classList.remove('active');
-    // });
-
-    // document.getElementById('showTable2').addEventListener('click', function() {
-    //     showTable('table2Container', 'processingPagination');
-    //     document.getElementById('showTable2').classList.add('active');
-    //     document.getElementById('showTable1').classList.remove('active');
-
-    // });
-
-
-    // // Set initial visibility based on session storage
-    // let activeTable = sessionStorage.getItem('activeTable') || 'table1Container';
-    // let activePagination = sessionStorage.getItem('activePagination') || 'pendingPagination';
-    // let activeLink = sessionStorage.getItem('activeLink') || 'showTable1';
-    
-    // showTable(activeTable, activePagination);
-    // document.getElementById(activeLink).classList.add('active');
-    
-
-    // // Store the active table in session storage on click
-    // document.getElementById('showTable1').addEventListener('click', function() {
-    //     sessionStorage.setItem('activeTable', 'table1Container');
-    //     sessionStorage.setItem('activePagination', 'pendingPagination');
-    //     sessionStorage.setItem('activeLink', 'showTable1');
-    // });
-
-    // document.getElementById('showTable2').addEventListener('click', function() {
-    //     sessionStorage.setItem('activeTable', 'table2Container');
-    //     sessionStorage.setItem('activePagination', 'processingPagination');
-    //     sessionStorage.setItem('activeLink', 'showTable2');
-    // });
     function showTable(tableId, paginationId) {
         document.getElementById('table1Container').classList.add('hidden');
         document.getElementById('table2Container').classList.add('hidden');

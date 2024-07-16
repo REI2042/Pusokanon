@@ -28,7 +28,9 @@
             </div>
         </div>
     </div>
-    <div id="searchresult" class="table-content"></div>
+    <div id="searchresult" class="table-content" style="min-width: 92vw; width: 92vw; max-width: 95vw;">
+       
+    </div>
 </main>
 
 <script>
@@ -44,7 +46,11 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Trigger search when the page loads to display all data
+    $('#search_name').trigger('keyup');
 });
+
 </script>
 
 <?php include 'footerAdmin.php';?>
