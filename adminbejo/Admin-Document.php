@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div class="docs col-3">
-                    <a href="#" class="document-bx">
+                    <a href="Barangay-Indigency.php" class="document-bx">
                         <i class="fa-solid fa-file fa-2x"></i>
                         <div class="document-data">
                             <span class="data1">Barangay Indigency</span>

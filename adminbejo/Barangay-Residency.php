@@ -101,7 +101,7 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
                     </thead>
                     <tbody>
                         <?php if (empty($pending)): ?>
-                            <tr><td colspan="8">No user registered</td></tr>
+                            <tr><td colspan="8">No Pending Documents</td></tr>
                         <?php else: ?>    
                             <?php foreach ($pending as $pendings): ?>
                                 <tr>
@@ -178,7 +178,7 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
                     </thead>
                     <tbody>
                         <?php if (empty($Processing)): ?>
-                            <tr><td colspan="8">No user registered</td></tr>
+                            <tr><td colspan="8">No Processing Documents</td></tr>
                         <?php else: ?>    
                             <?php foreach ($Processing as $processings): ?>
                                 <tr>
@@ -250,27 +250,31 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($completed as $completeds): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($completeds['res_id']); ?></td>
-                                <td><?= htmlspecialchars($completeds['resident_name']); ?></td>
-                                <td><?= htmlspecialchars($completeds['document_name']); ?></td>
-                                <td><?= htmlspecialchars($completeds['purpose_name']); ?></td>
-                                <td><?= htmlspecialchars($completeds['stat']); ?></td>
-                                <td><?= htmlspecialchars($completeds['date_req']); ?></td>
-                                <td><?= htmlspecialchars($completeds['remarks']); ?></td>
-                                <td>
-                                    <div class="inline-tools">
-                                        <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
-                                        <form class="status-form" action="../db/updateStatus.php" method="POST">
-                                            <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completeds['doc_ID']); ?>">
-                                            <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completeds['res_id']); ?>">
-                                            <button type="submit" name="status" value="download" class="btn btn-sm <?= $completeds['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                         <?php if (empty($completed)): ?>
+                            <tr><td colspan="8">No Ready to Pick up Documents</td></tr>
+                        <?php else: ?>    
+                            <?php foreach ($completed as $completedS): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($completeds['res_id']); ?></td>
+                                    <td><?= htmlspecialchars($completeds['resident_name']); ?></td>
+                                    <td><?= htmlspecialchars($completeds['document_name']); ?></td>
+                                    <td><?= htmlspecialchars($completeds['purpose_name']); ?></td>
+                                    <td><?= htmlspecialchars($completeds['stat']); ?></td>
+                                    <td><?= htmlspecialchars($completeds['date_req']); ?></td>
+                                    <td><?= htmlspecialchars($completeds['remarks']); ?></td>
+                                    <td>
+                                        <div class="inline-tools">
+                                            <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
+                                            <form class="status-form" action="../db/updateStatus.php" method="POST">
+                                                <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completeds['doc_ID']); ?>">
+                                                <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completeds['res_id']); ?>">
+                                                <button type="submit" name="status" value="download" class="btn btn-sm <?= $completeds['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
                 <nav id="completedPagination" aria-label="Completed Page navigation">

@@ -41,9 +41,9 @@
     $completed_offset = ($completed_page - 1) * $results_per_page;
 
 
-    $pending = fetchdocsRequest($pdo, 'Pending', $results_per_page, $pending_offset);
-    $Processing = fetchdocsRequest($pdo, 'Processing', $results_per_page, $processing_offset);
-    $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $completed_offset);
+    $pending = fetchdocsRequestIndigency($pdo, 'Pending', $results_per_page, $pending_offset);
+    $Processing = fetchdocsRequestIndigency($pdo, 'Processing', $results_per_page, $processing_offset);
+    $completed = fetchdocsRequestIndigency($pdo, 'Ready to pickup', $results_per_page, $completed_offset);
 
 ?>
 
@@ -53,7 +53,7 @@
 <main>
     <div class="row">
         <div class="col-12 pt-3 d-flex justify-content-center">
-            <h1 class="title">BARANGAY RESIDENCY</h1>
+            <h1 class="title">BARANGAY INDIGENCY</h1>
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center m-2">
