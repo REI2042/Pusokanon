@@ -180,17 +180,27 @@ hr{
 
 #sidebar:not(.expand) .sidebar-logo a,
 #sidebar:not(.expand) .sidebar-link .span-word {
-    transition: all .25s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
     display: none;
     transform: translateX(-20px);
 }
 
 #sidebar.expand .sidebar-logo a,
-#sidebar.expand .sidebar-link span {
-    transition: all .25s ease-in-out .15s;
+#sidebar.expand .sidebar-link .span-word {
+    opacity: 0;
+    display: inline;
+    transition: opacity 0.25s ease-in-out 0.2s, transform 0.25s ease-in-out 0.2s;
+    transform: translateX(-20px);
+}
+
+#sidebar.expand.show-text .sidebar-logo a,
+#sidebar.expand.show-text .sidebar-link .span-word {
     opacity: 1;
     transform: translateX(0);
 }
+
+
 
 .sidebar-nav {
     padding: 1rem 0;
