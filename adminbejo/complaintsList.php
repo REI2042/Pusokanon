@@ -119,6 +119,9 @@ $requests = array_slice($allRequests, $offset, $limit);
                                         <button class="btn btn-danger btn-sm me-2" onclick="disapprove_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                             <i class="fas fa-times"></i> 
                                         </button>
+                                        <button class="btn btn-warning btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
