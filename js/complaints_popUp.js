@@ -76,9 +76,6 @@ async function showDetails(
     });
 } 
 
-
-
-
 async function approve_complaint(complaint_id) {
     // Step 1: Admin sets the hearing date and time
     const { value: dateTime } = await Swal.fire({
@@ -323,46 +320,184 @@ async function disapprove_complaint(complaint_id) {
     }
 }
 
-// async function disapprove_complaint(complaint_id) {
-//     // Step 1: Admin provides reason for disapproval
-//     const { value: reason } = await Swal.fire({
-//         title: "Reason for Disapproval",
-//         input: 'textarea',
-//         inputLabel: 'Please provide a reason for disapproval',
-//         inputPlaceholder: 'Enter your reason here...',
+
+
+
+
+// function removeComplaintRow(complaint_id) {
+//     $('#row-' + complaint_id).fadeOut('slow', function() {
+//         $(this).remove();
+//     });
+// }
+
+// // Function to move complaint to complaints history table
+// function moveComplaintToHistory(data) {
+//     const { complaint_id, case_type, incident_place, date_filed, status } = data;
+//     const remarks = ''; // Adjust as needed
+
+//     const rowHtml = '<tr>' +
+//         '<td>' + complaint_id + '</td>' +
+//         '<td>' + case_type + '</td>' +
+//         '<td>' + incident_place + '</td>' +
+//         '<td>' + date_filed + '</td>' +
+//         '<td>' + status + '</td>' +
+//         '<td>' + remarks + '</td>' +
+//         '<td>Tools (if needed)</td>' +
+//         '</tr>';
+
+//     $('#complaints-history-table tbody').append(rowHtml);
+// }
+
+// function approve_complaint(complaint_id) {
+//     Swal.fire({
+//         title: 'Are you sure?',
+//         text: "You are about to approve this complaint.",
+//         icon: 'warning',
 //         showCancelButton: true,
-//         confirmButtonColor: "#d33",
-//         confirmButtonText: 'Okay',
-//         cancelButtonText: 'Cancel',
-//         inputValidator: (value) => {
-//             if (!value) {
-//                 return 'You need to provide a reason for disapproval!'
-//             }
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, approve it!'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             // Make AJAX call to approve the complaint
+//             $.ajax({
+//                 url: '../adminbejo/phpConn/approve_complaint.php', // Replace with your actual endpoint
+//                 method: 'POST',
+//                 data: { complaint_id: complaint_id },
+//                 success: function(response) {
+//                     console.log('Complaint approved:', response);
+//                     // Check if the row is being correctly targeted
+//                     let row = document.querySelector(`tr[data-complaint-id="${complaint_id}"]`);
+//                     console.log('Row targeted for removal:', row);
+//                     if (row) {
+//                         row.remove();
+//                     }
+//                     Swal.fire(
+//                         'Approved!',
+//                         'The complaint has been approved.',
+//                         'success'
+//                     );
+//                 },
+//                 error: function(error) {
+//                     console.log('Error approving complaint:', error);
+//                     Swal.fire(
+//                         'Error!',
+//                         'There was an error approving the complaint.',
+//                         'error'
+//                     );
+//                 }
+//             });
 //         }
 //     });
+// }
 
-//     if (reason) {
+// function disapprove_complaint(complaint_id) {
+//     Swal.fire({
+//         title: 'Are you sure?',
+//         text: "You are about to disapprove this complaint.",
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, disapprove it!'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             // Make AJAX call to disapprove the complaint
+//             $.ajax({
+//                 url: '../adminbejo/phpConn/decline_complaint.php', // Replace with your actual endpoint
+//                 method: 'POST',
+//                 data: { complaint_id: complaint_id },
+//                 success: function(response) {
+//                     console.log('Complaint disapproved:', response);
+//                     // Check if the row is being correctly targeted
+//                     let row = document.querySelector(`tr[data-complaint-id="${complaint_id}"]`);
+//                     console.log('Row targeted for removal:', row);
+//                     if (row) {
+//                         row.remove();
+//                     }
+//                     Swal.fire(
+//                         'Disapproved!',
+//                         'The complaint has been disapproved.',
+//                         'success'
+//                     );
+//                 },
+//                 error: function(error) {
+//                     console.log('Error disapproving complaint:', error);
+//                     Swal.fire(
+//                         'Error!',
+//                         'There was an error disapproving the complaint.',
+//                         'error'
+//                     );
+//                 }
+//             });
+//         }
+//     });
+// }
+
+
+
+
+
+
+// async function approve_complaint(complaint_id) {
+//     // Step 1: Admin sets the hearing date and time
+//     const { value: dateTime } = await Swal.fire({
+//         title: "Set Date and Time for Hearing",
+//         html:
+//             '<input type="date" id="swal-input-date" class="swal2-input">' +
+//             '<input type="time" id="swal-input-time" class="swal2-input">',
+//         focusConfirm: false,
+//         didOpen: () => {
+//             // Get today's date
+//             var today = new Date();
+//             var day = String(today.getDate()).padStart(2, '0');
+//             var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+//             var year = today.getFullYear();
+//             var formattedDate = year + '-' + month + '-' + day;
+
+//             // Set the min attribute of the date input
+//             document.getElementById('swal-input-date').setAttribute('min', formattedDate);
+//         },
+//         preConfirm: () => {
+//             return {
+//                 date: document.getElementById('swal-input-date').value,
+//                 time: document.getElementById('swal-input-time').value
+//             }
+//         },
+//         showCancelButton: true,
+//         confirmButtonColor: "#3085d6",
+//     });
+
+//     if (dateTime && dateTime.date && dateTime.time) {
+//         const hearingDate = dateTime.date;
+//         const hearingTime = dateTime.time;
+
 //         try {
-//             // Step 2: Update the complaint status and fetch the resident email and other details
-//             const response = await fetch('../adminbejo/phpConn/decline_complaint.php', {
+//             // Step 2: Fetch the resident email, name, and complaint ID from the PHP script and update the complaint status
+//             const response = await fetch('../adminbejo/phpConn/approve_complaint.php', {
 //                 method: 'POST',
 //                 headers: {
 //                     'Content-Type': 'application/json',
 //                 },
 //                 body: JSON.stringify({ 
 //                     complaint_id: complaint_id,
-//                     reason: reason
+//                     hearing_date: hearingDate,
+//                     hearing_time: hearingTime 
 //                 }),
 //             });
 
 //             const data = await response.json();
 
 //             if (data.success) {
-//                 const decryptedEmail = data.to_email;  // Changed from data.resident_email to match PHP response
-//                 const residentName = data.name;        // Changed from data.resident_name to match PHP response
-//                 const dateFiled = data.date_filed;
-//                 const caseType = data.case_type;
-            
+//                 const decryptedEmail = data.resident_email;
+//                 const residentName = data.resident_name;
+//                 const complaintId = data.complaint_id;
+
+//                 // Log the fetched information
+//                 console.log("Fetched decrypted resident email: ", decryptedEmail);
+//                 console.log("Fetched resident name: ", residentName);
+//                 console.log("Fetched complaint ID: ", complaintId);
+
 //                 // Validate the email format
 //                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 //                 if (!emailPattern.test(decryptedEmail)) {
@@ -370,28 +505,31 @@ async function disapprove_complaint(complaint_id) {
 //                         title: "Error",
 //                         text: "The fetched email address is invalid: " + decryptedEmail,
 //                         icon: "error",
-//                         confirmButtonColor: "#d33",
+//                         confirmButtonColor: "#3085d6",
 //                     });
 //                     return;
 //                 }
-            
+
 //                 // Step 3: Send the email
-//                 emailjs.send('service_e9wn0es', 'template_kpcbfsq', {
+//                 emailjs.send('service_e9wn0es', 'template_vr2qyso', {
 //                     to_email: decryptedEmail,
-//                     name: residentName,
-//                     complaint_id: data.complaint_id, 
+//                     date: hearingDate,
+//                     time: hearingTime,
+//                     name: data.resident_name,
+//                     complaint_id: data.complaint_id,
 //                     respondent: data.respondent_name,
-//                     date_filed: dateFiled,
-//                     case_type: caseType,              
-//                     reason: data.reason               
+//                     complaint: data.complaint,
+//                     month: data.hearing_month,
+//                     day: data.hearing_day,
+//                     year: data.hearing_year
 //                 }).then(
 //                     function(response) {
 //                         console.log("EmailJS Response:", response);
 //                         Swal.fire({
 //                             title: "Success!",
-//                             text: "Email sent successfully and complaint disapproved.",
+//                             text: "Email sent successfully and hearing date/time set.",
 //                             icon: "success",
-//                             confirmButtonColor: "#d33",
+//                             confirmButtonColor: "#3085d6",
 //                         }).then(() => {
 //                             location.reload(); // Reload the page
 //                         });
@@ -402,17 +540,18 @@ async function disapprove_complaint(complaint_id) {
 //                             title: "Error",
 //                             text: "Failed to send email: " + error.text,
 //                             icon: "error",
-//                             confirmButtonColor: "#d33",
+//                             confirmButtonColor: "#3085d6",
 //                         });
 //                     }
 //                 );
+                
 
 //             } else {
 //                 Swal.fire({
 //                     title: "Error",
 //                     text: data.message,
 //                     icon: "error",
-//                     confirmButtonColor: "#d33",
+//                     confirmButtonColor: "#3085d6",
 //                 });
 //             }
 //         } catch (error) {
@@ -420,7 +559,7 @@ async function disapprove_complaint(complaint_id) {
 //                 title: "Error",
 //                 text: "Failed to process request: " + error.message,
 //                 icon: "error",
-//                 confirmButtonColor: "#d33",
+//                 confirmButtonColor: "#3085d6",
 //             });
 //         }
 //     } else {
@@ -428,10 +567,15 @@ async function disapprove_complaint(complaint_id) {
 //             title: "Cancelled",
 //             text: "Your action has been cancelled",
 //             icon: "error",
-//             confirmButtonColor: "#d33",
+//             confirmButtonColor: "#3085d6",
 //         });
 //     }
 // }
+
+
+
+
+
     
 
 

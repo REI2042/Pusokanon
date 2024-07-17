@@ -13,7 +13,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $complaint_id = $data['complaint_id'];
             $reason = $data['reason'];  // This is the decline reason from JavaScript
 
-            // Fetch resident email, name, date filed, and case type based on complaint_id
+            // Begin a transaction to ensure atomicity
+            $pdo->beginTransaction();
+
+            // Update the complaints_tbl to set status to 'Declined', store the reason in 'comment',
+            // update 'remarks' to 'CASE CLOSED', and set 'date_closed' to current timestamp
+            $update_sql = "
+                UPDATE complaints_tbl 
+                SET status = 'Declined',
+                    comment = :comment,
+                    remarks = 'CASE CLOSED',
+                    date_closed = NOW()
+                WHERE complaint_id = :complaint_id
+            ";
+            $update_stmt = $pdo->prepare($update_sql);
+            $update_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
+            $update_stmt->bindParam(':comment', $reason, PDO::PARAM_STR);
+            $update_stmt->execute();
+
+            // Commit the transaction
+            $pdo->commit();
+
+            // Fetch resident details for response
             $fetch_details_sql = "
                 SELECT ru.res_email AS resident_email, 
                        ru.res_fname, 
@@ -36,49 +57,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit;
             }
 
-            $encrypted_email = $result['resident_email'];
-            $resident_name = $result['res_fname'];
-            $date_filed = $result['date_filed'];
-            $case_type = $result['case_type'];
-            $respondent_name = $result['respondent_name'];
-            
-            // Format the date_filed
-            $date_obj = new DateTime($date_filed);
+            // Format date_filed
+            $date_obj = new DateTime($result['date_filed']);
             $formatted_date = $date_obj->format('F j, Y'); // e.g., "July 12, 2023"
 
             // Decrypt the email using the existing function
-            $decrypted_email = decryptData($encrypted_email);
-            
-            error_log("Fetched and decrypted email for complaint ID $complaint_id: $decrypted_email");
+            $decrypted_email = decryptData($result['resident_email']);
 
-            // Update the complaint status and store the reason in the remarks column
-            $update_sql = "
-                UPDATE complaints_tbl 
-                SET status = 'Declined', remarks = :remarks
-                WHERE complaint_id = :complaint_id
-            ";
-            $update_stmt = $pdo->prepare($update_sql);
-            $update_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
-            $update_stmt->bindParam(':remarks', $reason, PDO::PARAM_STR);  // Store reason as remarks
-            $update_stmt->execute();
-
+            // Prepare response
             $response['success'] = true;
             $response['message'] = 'Complaint declined successfully.';
             $response['to_email'] = $decrypted_email;
-            $response['name'] = $resident_name;
+            $response['name'] = $result['res_fname'];
             $response['complaint_id'] = $complaint_id;
-            $response['respondent_name'] = $respondent_name;
+            $response['respondent_name'] = $result['respondent_name'];
             $response['date_filed'] = $formatted_date;
-            $response['case_type'] = $case_type;
+            $response['case_type'] = $result['case_type'];
             $response['reason'] = $reason;
-            error_log("Complaint ID $complaint_id declined successfully");
+
+            echo json_encode($response);
+            exit;
+
         } catch (Exception $e) {
+            // Rollback the transaction on error
+            $pdo->rollBack();
+
             $response['message'] = 'An error occurred: ' . $e->getMessage();
             error_log("Error in decline_complaint.php: " . $e->getMessage());
         }
-
-        echo json_encode($response);
-        exit;
     }
 }
 

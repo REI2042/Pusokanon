@@ -22,7 +22,7 @@ if (isset($_SESSION['res_ID'])) {
 
         $status = 'Pending'; 
         $staff_id = 2; 
-        $remarks = '--'; // Default value for remarks
+        $comment = '--'; // Default value for comment
 
         // Handle file upload
         $evidence = NULL;
@@ -52,8 +52,8 @@ if (isset($_SESSION['res_ID'])) {
             }
         }
 
-        $sql = "INSERT INTO complaints_tbl (res_id, staff_id, respondent_fname, respondent_mname, respondent_lname, respondent_suffix, respondent_gender, respondent_age, incident_date, incident_time, incident_place, date_filed, case_type, narrative, evidence, status, remarks) 
-                VALUES (:res_id, :staff_id, :fname, :mname, :lname, :sufname, :gender, :age, :incident_date, :incident_time, :addsitio, :date_filed, :case_type, :narrative, :evidence, :status, :remarks)";
+        $sql = "INSERT INTO complaints_tbl (res_id, staff_id, respondent_fname, respondent_mname, respondent_lname, respondent_suffix, respondent_gender, respondent_age, incident_date, incident_time, incident_place, date_filed, case_type, narrative, evidence, status, comment) 
+                VALUES (:res_id, :staff_id, :fname, :mname, :lname, :sufname, :gender, :age, :incident_date, :incident_time, :addsitio, :date_filed, :case_type, :narrative, :evidence, :status, :comment)";
 
         if (isset($pdo)) {
             $stmt = $pdo->prepare($sql);
@@ -74,7 +74,7 @@ if (isset($_SESSION['res_ID'])) {
             $stmt->bindParam(':narrative', $narrative);
             $stmt->bindParam(':evidence', $evidence);
             $stmt->bindParam(':status', $status);
-            $stmt->bindParam(':remarks', $remarks);
+            $stmt->bindParam(':comment', $comment);
 
             try {
                 if ($stmt->execute()) {
