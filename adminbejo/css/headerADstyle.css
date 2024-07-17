@@ -190,7 +190,7 @@ hr{
 #sidebar.expand .sidebar-link .span-word {
     opacity: 0;
     display: inline;
-    transition: opacity 0.25s ease-in-out 0.2s, transform 0.25s ease-in-out 0.2s;
+    transition: opacity 0.10s ease-in-out 0.2s, transform 0.10s ease-in-out 0.2s;
     transform: translateX(-20px);
 }
 

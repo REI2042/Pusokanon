@@ -12,4 +12,4 @@ hamBurger.addEventListener("click", function () {
     } else {
         sidebar.classList.remove("show-text");
     }
-});
+}); 
