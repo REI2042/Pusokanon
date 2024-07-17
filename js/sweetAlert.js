@@ -362,6 +362,8 @@ async function handleStatusUpdate(resID, newStatus) {
   xhr.send(`resID=${resID}&newStatus=${newStatus}`);
 }
 
+
+
 //connection from updateStatus.php for adding time to update status 
 async function showSweetAlert(res_email, resident_name, document_name ,docID, residentID) {
   let hours;
@@ -414,7 +416,7 @@ async function showSweetAlert(res_email, resident_name, document_name ,docID, re
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK'
               }).then(() => {
-                  window.location.href = '../adminbejo/Barangay-Residency.php';
+                  location.reload();
               });
           }, (error) => {
               console.error('Failed to send email:', error);
@@ -429,3 +431,4 @@ async function showSweetAlert(res_email, resident_name, document_name ,docID, re
       }
   });
 }
+
