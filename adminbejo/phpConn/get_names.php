@@ -50,7 +50,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <table id="table1">
-            <thead>
+            <thead style="background-color: #3969ec; color: #ffffff;">
                 <tr>
                     <th>Account No.</th>
                     <th>Name</th>

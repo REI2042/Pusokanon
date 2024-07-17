@@ -42,7 +42,7 @@ table {
     color: white;
 }
 #table3Container thead{
-  background-color: #326aca;
+  background-color: #7F00FF;
   color: white;
 }
 
@@ -188,7 +188,7 @@ h1{
 
 /* Styles for link3 */
 #showTable3:hover, #showTable3:focus, #showTable3.active {
-  color: #3969ec;
+  color: #7F00FF;
   font-weight: bold;
   text-decoration: none;
 }

@@ -151,7 +151,9 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
 			WHERE dt.doc_name = 'Barangay Clearance'
-			AND ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%'
+			AND ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
+			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
+			OR ru.res_id LIKE '{$search}%'
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
