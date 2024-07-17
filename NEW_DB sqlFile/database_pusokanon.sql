@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2024 at 03:47 PM
+-- Generation Time: Jul 17, 2024 at 04:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -94,6 +94,7 @@ CREATE TABLE `complaints_tbl` (
   `incident_place` varchar(50) NOT NULL,
   `case_type` varchar(50) NOT NULL,
   `narrative` text DEFAULT NULL,
+  `evidence` varchar(200) DEFAULT NULL,
   `staff_id` int(11) NOT NULL,
   `hearing_date` date DEFAULT NULL,
   `hearing_time` time DEFAULT NULL,
@@ -105,15 +106,20 @@ CREATE TABLE `complaints_tbl` (
 -- Dumping data for table `complaints_tbl`
 --
 
-INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `remarks`) VALUES
-(1, 25, 'Nino Rey', 'Yonson', 'Cabunilas', ' ', 'Male', 22, '2024-06-01', '18:30:00', '2024-07-08 06:33:52', 'Matumbo', 'Physical Abuse', 'choke me to death', 2, NULL, NULL, 'Approved', NULL),
-(2, 25, 'Dwight', '', 'Callahan', 'Jr', 'Male', 26, '2024-06-12', '20:00:00', '2024-07-08 06:34:59', 'Cemento', 'Trespassing', 'Ni sulod bisan wala gi invite', 2, NULL, NULL, 'Approved', NULL),
-(3, 28, 'Demi', 'The', 'Great', ' ', 'Female', 26, '2024-03-21', '10:30:00', '2024-07-08 06:48:38', 'Ibabao', 'Theft', 'gikawat amoa sud-an', 2, NULL, NULL, 'Pending', NULL),
-(4, 28, 'Rejie', '', 'Cotoner', ' ', 'Male', 32, '2024-05-25', '11:00:00', '2024-07-08 06:50:10', 'Sta. Maria', 'Damaging Properties', 'this bijj broke my ballpen', 2, NULL, NULL, 'Approved', NULL),
-(5, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 27, '2024-03-15', '16:30:00', '2024-07-08 06:51:07', 'Mustang', 'Bullying', '', 2, '2024-07-24', '17:36:00', 'Approved', NULL),
-(6, 28, 'Wensly', '', 'Sacay', ' ', 'Male', 23, '2024-05-13', '13:20:00', '2024-07-08 14:41:17', 'Lawis', 'Threat', 'shiwewojdoi', 2, NULL, NULL, 'Declined', 'dwdewsf'),
-(7, 28, 'Luhan', '', 'Doggy', 'III', 'Male', 56, '2024-05-15', '11:30:00', '2024-07-10 10:04:19', 'New Lipata', 'Bullying', 'nang gukod og manok', 2, NULL, NULL, 'Declined', 'dwdwd'),
-(8, 28, 'Reii', '', 'Siko', ' ', 'Male', 25, '2024-07-01', '14:30:00', '2024-07-10 10:08:09', 'Arca', 'Theft', 'gikawat amo iring', 2, '2024-07-24', '18:34:00', 'Approved', NULL);
+INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `remarks`) VALUES
+(1, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 23, '2024-07-01', '10:30:00', '2024-07-11 07:50:07', 'Arca', 'Bullying', 'tryyy', NULL, 2, '2024-08-01', '08:00:00', 'Accepted', '--'),
+(2, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 23, '2024-07-01', '10:30:00', '2024-07-11 07:50:47', 'Arca', 'Bullying', 'tryyy', NULL, 2, NULL, NULL, 'Declined', 'can be solved by talking to each other'),
+(3, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 23, '2024-07-01', '10:00:00', '2024-07-11 07:51:17', 'Arca', 'Bullying', 'tryy', NULL, 2, NULL, NULL, 'Declined', 'ambot. gisapot nakooooooooooooooo'),
+(4, 28, 'Demi', '', 'Great', ' ', 'Male', 23, '2024-07-01', '10:30:00', '2024-07-11 08:02:54', 'Arca', 'Damaging Properties', 'try', 'uploads/668f91aeb8d97.jpg', 2, NULL, NULL, 'Pending', '--'),
+(5, 28, 'Dwight', '', 'Callahan', ' ', 'Male', 54, '2023-12-03', '10:30:00', '2024-07-11 08:04:40', 'Arca', 'Bullying', 'tryy', NULL, 2, NULL, NULL, 'Declined', 'testing 102'),
+(6, 28, 'Dwight', '', 'Callahan', ' ', 'Male', 54, '2023-12-03', '10:30:00', '2024-07-11 08:10:12', 'Arca', 'Bullying', 'tryy', 'uploads/668f93648f193.jpg', 2, '2024-07-31', '14:22:00', 'Accepted', '--'),
+(7, 28, 'waltq', '', 'bejo', ' ', 'Male', 32, '2024-02-05', '11:12:00', '2024-07-11 08:15:48', 'Arca', 'Bullying', 'heiwoi', 'complaints_evidence/668f94b48154c.jpg', 2, '2024-07-30', '09:30:00', 'Accepted', '--'),
+(8, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 26, '2024-06-30', '11:30:00', '2024-07-11 14:33:43', 'Arca', 'Bullying', 'hahayss', 'complaints_evidence/668fed47e5605.jpg', 2, '2024-07-30', '10:17:00', 'Accepted', '--'),
+(12, 28, 'cawfwcawfw', '', 'cef', ' ', 'Male', 78, '2024-06-30', '11:30:00', '2024-07-12 01:57:56', 'Arca', 'Physical Abuse', 'cawde', 'complaints_evidence/66908da4ec08b.jpg', 2, '2024-07-23', '12:30:00', 'Accepted', '--'),
+(13, 28, 'ndkwewo', '', 'masmdow', ' ', 'Male', 23, '2024-06-30', '10:30:00', '2024-07-12 02:32:08', 'Arca', 'Trespassing', 'okp', 'complaints_evidence/669095a80da60.jpg', 2, '2024-08-08', '09:30:00', 'Accepted', '--'),
+(14, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 23, '2024-06-03', '15:30:00', '2024-07-15 05:26:30', 'Arca', 'Trespassing', 'bkjopi', NULL, 2, '2024-08-09', '09:30:00', 'Declined', 'testing 103'),
+(15, 28, 'Demi', '', 'Cotoner', ' ', 'Male', 25, '2024-07-01', '10:30:00', '2024-07-15 05:28:35', 'Arca', 'Bullying', 'mkotasdfghjk', 'complaints_evidence/6694b3839701d.jpg', 2, '2024-07-30', '09:30:00', 'Declined', 'di daw tinood'),
+(16, 28, 'Rejie', '', 'Callahan', ' ', 'Male', 32, '2024-07-01', '23:15:00', '2024-07-16 13:13:04', 'Mustang', 'Libel', 'dwightyyyy mylabss', 'complaints_evidence/669671e05e59a.png', 2, '2024-08-01', '21:53:00', 'Accepted', 'testing for transfer');
 
 -- --------------------------------------------------------
 
@@ -362,7 +368,7 @@ ALTER TABLE `barangay_staff`
 -- AUTO_INCREMENT for table `complaints_tbl`
 --
 ALTER TABLE `complaints_tbl`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `docs_purpose`
