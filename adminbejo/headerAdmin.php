@@ -57,7 +57,9 @@
                         <i class="bi bi-columns-gap"></i>
                     </button>
                     <div class="sidebar-logo">
-                        <a href="Dashboard.php">DASHBOARD</a>
+                        <a href="Dashboard.php" id="span-word">
+                            <span class="span-word">Dashboard</span>
+                        </a>
                     </div>
                 </div>
                     <hr class=" bg-white m-2">    
@@ -65,20 +67,20 @@
                     <li class="sidebar-item">
                         <a href="Manage-Users.php" class="sidebar-link">
                             <i class="fa-solid fa-users"></i>
-                            <span id="span-word">Resident User</span>
+                            <span class="span-word">Resident User</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-building-user"></i>
-                            <span>Staff</span>
+                            <span class="span-word">Staff</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                             data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                             <i class="fa-solid fa-file-lines ms-1"></i>
-                            <span> &nbsp;Document&nbsp;</span>
+                            <span class="span-word"> &nbsp;Document&nbsp;</span>
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
@@ -95,14 +97,14 @@
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-bullhorn"></i>
-                            <span>&nbsp;Post Announcement</span>
+                            <span class="span-word">&nbsp;Post Announcement</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                             data-bs-target="#blotter" aria-expanded="false" aria-controls="blotter">
                             <i class="bi bi-headset"></i>
-                            <span> &nbsp;Blotter&Complaints&nbsp;</span>
+                            <span class="span-word"> &nbsp;Blotter&Complaints&nbsp;</span>
                         </a>
                         <ul id="blotter" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
@@ -119,19 +121,19 @@
                     <li class="sidebar-item">
                         <a href="pendingUser2.0.php" class="sidebar-link">
                             <i class="fa-solid fa-user-clock"></i>
-                            <span>Pending User</span>
+                            <span class="span-word">Pending User</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="DocumentRate.php" class="sidebar-link">
                             <i class="fa-solid fa-chart-column"></i>
-                            <span>Set Document Rate</span>
+                            <span class="span-word">Set Document Rate</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-file-pen"></i>
-                            <span>Publication</span>
+                            <span class="span-word">Publication</span>
                         </a>
                     </li>
                     

@@ -179,9 +179,9 @@ hr{
 
 
 #sidebar:not(.expand) .sidebar-logo a,
-#sidebar:not(.expand) .sidebar-link span {
+#sidebar:not(.expand) .sidebar-link .span-word {
     transition: all .25s ease-in-out;
-    opacity: 0;
+    display: none;
     transform: translateX(-20px);
 }
 
@@ -218,7 +218,7 @@ a.sidebar-link:hover {
 
 .sidebar-item {
     position: relative;
-}
+}   
 
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
     position: absolute;
