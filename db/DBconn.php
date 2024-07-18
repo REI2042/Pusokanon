@@ -114,28 +114,6 @@ function fetchdocsRequest($pdo, $status, $limit, $offset) {
 	return $stmt->fetchAll();  
 }
 
-function fetchdocsRequestIndigency($pdo, $status, $limit, $offset) {
-	$sql = "SELECT 
-				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
-				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Indigency' AND stat = :status
-			LIMIT :limit OFFSET :offset";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	return $stmt->fetchAll();  
-}
-
 function fetchdocsRequestRemarks($pdo, $status, $remarks ,$limit, $offset) {
 	$sql = "SELECT 
 				ru.res_id, doc_ID, stat,
@@ -172,7 +150,8 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
+			WHERE dt.doc_name = 'Barangay Clearance'
+			AND ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
 			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
 			OR ru.res_id LIKE '{$search}%'
 			LIMIT :limit OFFSET :offset";
@@ -274,65 +253,271 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 	// 	$stmt->execute();
 	// 	return $stmt->fetchColumn();
 	// }
-	
-	function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null) {
-		$sql = "SELECT 
-					ct.complaint_id AS complaint_id,
-					CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
-					ct.case_type AS case_type, 
-					ct.incident_date AS incident_date, 
-					ct.incident_time AS incident_time, 
-					ct.incident_place AS incident_place, 
-					ct.date_filed AS date_filed, 
-					ct.status AS status,
-					ct.comment AS comment,
-					ct.narrative AS narrative,
-					ct.evidence AS evidence,
-					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
-					ru.res_email AS resident_email,
-					ct.respondent_age AS respondent_age,
-					ct.respondent_gender AS respondent_gender
-				FROM complaints_tbl ct 
-				INNER JOIN resident_users ru ON ct.res_id = ru.res_id";
+
+	function fetchListofComplaints($pdo, $offset = null, $limit = null, $caseType = '', $incidentPlace = '', $searchName = '') {
+        $sql = "SELECT 
+                    ct.complaint_id AS complaint_id,
+                    CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+                    ct.case_type AS case_type, 
+                    ct.incident_date AS incident_date, 
+                    ct.incident_time AS incident_time, 
+                    ct.incident_place AS incident_place, 
+                    ct.date_filed AS date_filed, 
+                    ct.status AS status,
+                    ct.comment AS comment,
+                    ct.narrative AS narrative,
+                    ct.evidence AS evidence,
+                    CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+                    ru.res_email AS resident_email,
+                    ct.respondent_age AS respondent_age,
+                    ct.respondent_gender AS respondent_gender
+                FROM complaints_tbl ct 
+                INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+                WHERE 1=1";
+
+        $params = array();
+
+        if (!empty($caseType)) {
+            $sql .= " AND ct.case_type = :caseType";
+            $params[':caseType'] = $caseType;
+        }
+
+        if (!empty($incidentPlace)) {
+            $sql .= " AND ct.incident_place = :incidentPlace";
+            $params[':incidentPlace'] = $incidentPlace;
+        }
+
+        if (!empty($searchName)) {
+            // Split the search name into first name and last name
+            $searchTerms = explode(' ', $searchName);
+            $sql .= " AND (";
+
+            // Iterate through search terms and add conditions
+            foreach ($searchTerms as $key => $term) {
+                if ($key > 0) {
+                    $sql .= " OR ";
+                }
+                $sql .= "ru.res_fname LIKE :searchTerm{$key} OR ru.res_lname LIKE :searchTerm{$key}";
+                $params[":searchTerm{$key}"] = "%{$term}%";
+            }
+
+            $sql .= ")";
+        }
+
+        $sql .= " ORDER BY ct.date_filed DESC";
+
+        if ($offset !== null && $limit !== null) {
+            $sql .= " LIMIT " . intval($offset) . ", " . intval($limit);
+        }
+
+        $stmt = $pdo->prepare($sql);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+	// function fetchListofComplaints($pdo, $offset = null, $limit = null, $caseType = '', $incidentPlace = '') {
+	// 	$sql = "SELECT 
+	// 				ct.complaint_id AS complaint_id,
+	// 				CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+	// 				ct.case_type AS case_type, 
+	// 				ct.incident_date AS incident_date, 
+	// 				ct.incident_time AS incident_time, 
+	// 				ct.incident_place AS incident_place, 
+	// 				ct.date_filed AS date_filed, 
+	// 				ct.status AS status,
+	// 				ct.comment AS comment,
+	// 				ct.narrative AS narrative,
+	// 				ct.evidence AS evidence,
+	// 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+	// 				ru.res_email AS resident_email,
+	// 				ct.respondent_age AS respondent_age,
+	// 				ct.respondent_gender AS respondent_gender
+	// 			FROM complaints_tbl ct 
+	// 			INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+	// 			WHERE 1=1";
 		
-		$conditions = [];
-		$params = [];
-	
-		if ($caseType !== null && $caseType !== '') {
-			$conditions[] = "ct.case_type = :caseType";
-			$params[':caseType'] = $caseType;
-		}
-	
-		if ($incidentPlace !== null && $incidentPlace !== '') {
-			$conditions[] = "ct.incident_place = :incidentPlace";
-			$params[':incidentPlace'] = $incidentPlace;
-		}
-	
-		if (count($conditions) > 0) {
-			$sql .= " WHERE " . implode(" AND ", $conditions);
-		}
-	
-		$sql .= " ORDER BY ct.date_filed DESC";
+	// 	$params = array();
 		
-		if ($limit !== null) {
-			$sql .= " LIMIT :offset, :limit";
-			$params[':offset'] = $offset;
-			$params[':limit'] = $limit;
-		}
+	// 	if (!empty($caseType)) {
+	// 		$sql .= " AND ct.case_type = :caseType";
+	// 		$params[':caseType'] = $caseType;
+	// 	}
 		
-		$stmt = $pdo->prepare($sql);
+	// 	if (!empty($incidentPlace)) {
+	// 		$sql .= " AND ct.incident_place = :incidentPlace";
+	// 		$params[':incidentPlace'] = $incidentPlace;
+	// 	}
 		
-		foreach ($params as $key => $value) {
-			if ($key == ':offset' || $key == ':limit') {
-				$stmt->bindValue($key, $value, PDO::PARAM_INT);
-			} else {
-				$stmt->bindValue($key, $value, PDO::PARAM_STR);
-			}
-		}
 		
-		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-	}
+	// 	$sql .= " ORDER BY ct.date_filed DESC";
+		
+	// 	if ($offset !== null && $limit !== null) {
+	// 		$sql .= " LIMIT :offset, :limit";
+	// 		$params[':offset'] = (int)$offset;
+	// 		$params[':limit'] = (int)$limit;
+	// 	}
+		
+	// 	$stmt = $pdo->prepare($sql);
+	// 	foreach ($params as $key => &$val) {
+	// 		$stmt->bindValue($key, $val);
+	// 	}
+	// 	$stmt->execute();
+		
+	// 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	// }
+	
+	// function searchComplaints($pdo, $searchTerm, $limit, $offset) {
+	// 	$sql = "SELECT 
+	// 				ct.complaint_id AS complaint_id,
+	// 				CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+	// 				ct.case_type AS case_type, 
+	// 				ct.incident_date AS incident_date, 
+	// 				ct.incident_time AS incident_time, 
+	// 				ct.incident_place AS incident_place, 
+	// 				ct.date_filed AS date_filed, 
+	// 				ct.status AS status,
+	// 				ct.comment AS comment,
+	// 				ct.narrative AS narrative,
+	// 				ct.evidence AS evidence,
+	// 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+	// 				ru.res_email AS resident_email,
+	// 				ct.respondent_age AS respondent_age,
+	// 				ct.respondent_gender AS respondent_gender
+	// 			FROM complaints_tbl ct 
+	// 			INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+	// 			WHERE (ct.respondent_fname LIKE :searchTerm
+	// 				OR ct.respondent_lname LIKE :searchTerm
+	// 				OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE :searchTerm
+	// 				OR ru.res_fname LIKE :searchTerm
+	// 				OR ru.res_lname LIKE :searchTerm
+	// 				OR CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE :searchTerm)
+	// 			ORDER BY ct.date_filed DESC
+	// 			LIMIT :limit OFFSET :offset";
+		
+	// 	$stmt = $pdo->prepare($sql);
+	// 	$searchParam = "%{$searchTerm}%";
+	// 	$stmt->bindValue(':searchTerm', $searchParam, PDO::PARAM_STR);
+	// 	$stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+	// 	$stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+	// 	$stmt->execute();
+		
+	// 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	// }
+	
+	
+	// function getTotalSearchResults($pdo, $searchTerm) {
+	// 	$sql = "SELECT COUNT(*) as total
+	// 			FROM complaints_tbl ct 
+	// 			INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+	// 			WHERE (ct.respondent_fname LIKE :searchTerm
+	// 				OR ct.respondent_lname LIKE :searchTerm
+	// 				OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE :searchTerm
+	// 				OR ru.res_fname LIKE :searchTerm
+	// 				OR ru.res_lname LIKE :searchTerm
+	// 				OR CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE :searchTerm)";
+		
+	// 	$stmt = $pdo->prepare($sql);
+	// 	$searchParam = "%{$searchTerm}%";
+	// 	$stmt->bindValue(':searchTerm', $searchParam, PDO::PARAM_STR);
+	// 	$stmt->execute();
+		
+	// 	return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+	// }
+	
+	
+	
+	
+	// function fetchListofComplaints($pdo, $offset = null, $limit = null, $caseType = '', $incidentPlace = '') {
+	//     $sql = "SELECT 
+	//                 ct.complaint_id AS complaint_id,
+	//                 CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+	//                 ct.case_type AS case_type, 
+	//                 ct.incident_date AS incident_date, 
+	//                 ct.incident_time AS incident_time, 
+	//                 ct.incident_place AS incident_place, 
+	//                 ct.date_filed AS date_filed, 
+	//                 ct.status AS status,
+	//                 ct.comment AS comment,
+	//                 ct.narrative AS narrative,
+	//                 ct.evidence AS evidence,
+	//                 CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+	//                 ru.res_email AS resident_email,
+	//                 ct.respondent_age AS respondent_age,
+	//                 ct.respondent_gender AS respondent_gender
+	//             FROM complaints_tbl ct 
+	//             INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+	//             WHERE 1=1";
+		
+	//     $params = array();
+		
+	//     if (!empty($caseType)) {
+	//         $sql .= " AND ct.case_type = :caseType";
+	//         $params[':caseType'] = $caseType;
+	//     }
+		
+	//     if (!empty($incidentPlace)) {
+	//         $sql .= " AND ct.incident_place = :incidentPlace";
+	//         $params[':incidentPlace'] = $incidentPlace;
+	//     }
+		
+		
+	//     $sql .= " ORDER BY ct.date_filed DESC";
+		
+	//     if ($offset !== null && $limit !== null) {
+	//         $sql .= " LIMIT " . intval($offset) . ", " . intval($limit);
+	//     }
+
+	//     $stmt = $pdo->prepare($sql);
+
+	//     foreach ($params as $key => &$val) {
+	//         $stmt->bindParam($key, $val);
+	//     }
+
+	//     $stmt->execute();
+	//     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	// }
+
+
+
+	// function searchComplaints($pdo, $searchTerm) {
+	// 	$sql = "SELECT 
+	// 				ct.complaint_id AS complaint_id,
+	// 				CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+	// 				ct.case_type AS case_type, 
+	// 				ct.incident_date AS incident_date, 
+	// 				ct.incident_time AS incident_time, 
+	// 				ct.incident_place AS incident_place, 
+	// 				ct.date_filed AS date_filed, 
+	// 				ct.status AS status,
+	// 				ct.comment AS comment,
+	// 				ct.narrative AS narrative,
+	// 				ct.evidence AS evidence,
+	// 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+	// 				ru.res_email AS resident_email,
+	// 				ct.respondent_age AS respondent_age,
+	// 				ct.respondent_gender AS respondent_gender
+	// 			FROM complaints_tbl ct 
+	// 			INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+	// 			WHERE (ct.respondent_fname LIKE :searchTerm
+	// 				OR ct.respondent_lname LIKE :searchTerm
+	// 				OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE :searchTerm
+	// 				OR ru.res_fname LIKE :searchTerm
+	// 				OR ru.res_lname LIKE :searchTerm
+	// 				OR CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE :searchTerm)
+	// 			ORDER BY ct.date_filed DESC";
+		
+	// 	$stmt = $pdo->prepare($sql);
+	// 	$searchParam = "%{$searchTerm}%";
+	// 	$stmt->bindParam(':searchTerm', $searchParam, PDO::PARAM_STR);
+	// 	$stmt->execute();
+		
+	// 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	// }
 	
 	
 
