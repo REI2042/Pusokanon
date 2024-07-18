@@ -67,13 +67,13 @@
                     <li class="sidebar-item">
                         <a href="Manage-Users.php" class="sidebar-link">
                             <i class="fa-solid fa-users"></i>
-                            <span class="span-word">Resident User</span>
+                            <span class="span-word">Resident Users</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-building-user"></i>
-                            <span class="span-word">Staff</span>
+                            <span class="span-word">Staffs</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -129,14 +129,7 @@
                             <i class="fa-solid fa-chart-column"></i>
                             <span class="span-word">Set Document Rate</span>
                         </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fa-solid fa-file-pen"></i>
-                            <span class="span-word">Publication</span>
-                        </a>
-                    </li>
-                    
+                    </li> 
                 </ul>
             </aside>
             

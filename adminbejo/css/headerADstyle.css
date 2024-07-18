@@ -255,7 +255,7 @@ a.sidebar-link:hover {
     padding: 2px;
     position: absolute;
     right: 1.5rem;
-    top: 1.4rem;
+    top: 20px;
     transform: rotate(-135deg);
     transition: all .25s ease-out;
 }
