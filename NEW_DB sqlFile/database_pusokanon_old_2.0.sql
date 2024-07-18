@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 19, 2024 at 12:45 AM
+-- Host: 127.0.0.1:3307
+-- Generation Time: Jul 18, 2024 at 10:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -94,29 +94,26 @@ CREATE TABLE `complaints_tbl` (
   `incident_place` varchar(50) NOT NULL,
   `case_type` varchar(50) NOT NULL,
   `narrative` text DEFAULT NULL,
-  `evidence` varchar(200) DEFAULT NULL,
   `staff_id` int(11) NOT NULL,
   `hearing_date` date DEFAULT NULL,
   `hearing_time` time DEFAULT NULL,
   `status` varchar(10) NOT NULL,
-  `comment` text DEFAULT NULL,
-  `remarks` varchar(200) NOT NULL,
-  `date_closed` date DEFAULT NULL
+  `remarks` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `complaints_tbl`
 --
 
-INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `comment`, `remarks`, `date_closed`) VALUES
-(1, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 26, '2024-07-01', '10:30:00', '2024-07-17 16:19:22', 'Lawis', 'Libel', 'testingg', 'complaints_evidence/6697ef0a4e3d6.png', 2, NULL, NULL, 'Declined', 'vb jhbi', '', '2024-07-18'),
-(2, 28, 'Demitria', 'The', 'Great', ' ', 'Female', 23, '2024-05-14', '11:30:00', '2024-07-17 16:29:20', 'Sewage', 'Physical Abuse', 'nangamras sako nawng', 'complaints_evidence/6697f160c76dd.png', 2, NULL, NULL, 'Declined', 'lack of evidence', 'CASE CLOSED', '2024-07-18'),
-(3, 28, 'Rejie', '', 'Callahan', 'Sr.', 'Male', 35, '2024-07-02', '15:30:00', '2024-07-17 16:30:16', 'New Lipata', 'Bullying', 'sig pacute2', 'complaints_evidence/6697f19888165.png', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
-(4, 28, 'Maria Irenea', '', 'Bebanco', ' ', 'Female', 23, '2024-06-22', '16:30:00', '2024-07-17 16:31:10', 'Mustang', 'Theft', 'gikuha akong sudlay', 'complaints_evidence/6697f1cece17f.png', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
-(5, 28, 'Demi', '', 'Mabulay', ' ', 'Female', 25, '2024-03-22', '20:30:00', '2024-07-17 16:31:57', 'Sewage', 'Theft', 'nangawat og sud an', 'complaints_evidence/6697f1fdb4490.png', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
-(6, 28, 'Nino', '', 'Cabunilas', ' ', 'Male', 25, '2024-04-26', '13:00:00', '2024-07-17 17:42:42', 'Sewage', 'Threat', 'isumbong tikang mama imo ko gi away', 'complaints_evidence/66980292ac7f7.png', 2, NULL, NULL, 'Declined', 'sumbongera ngee', 'CASE CLOSED', '2024-07-18'),
-(7, 28, 'Demitria', '', 'Mabulay', ' ', 'Female', 22, '2024-07-03', '06:47:00', '2024-07-17 17:44:38', 'Sta. Maria', 'Damaging Properties', 'tryy', 'complaints_evidence/669803069051c.jpg', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
-(8, 28, 'Renee', '', 'Descartez', ' ', 'Female', 26, '2024-07-01', '06:46:00', '2024-07-17 17:46:22', 'Sewage', 'Trespassing', 'hello world', 'complaints_evidence/6698036ec284d.jpg', 2, NULL, NULL, 'Declined', 'hihi', 'CASE CLOSED', '2024-07-18');
+INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `remarks`) VALUES
+(1, 25, 'Nino Rey', 'Yonson', 'Cabunilas', ' ', 'Male', 22, '2024-06-01', '18:30:00', '2024-07-08 06:33:52', 'Matumbo', 'Physical Abuse', 'choke me to death', 2, NULL, NULL, 'Approved', NULL),
+(2, 25, 'Dwight', '', 'Callahan', 'Jr', 'Male', 26, '2024-06-12', '20:00:00', '2024-07-08 06:34:59', 'Cemento', 'Trespassing', 'Ni sulod bisan wala gi invite', 2, NULL, NULL, 'Approved', NULL),
+(3, 28, 'Demi', 'The', 'Great', ' ', 'Female', 26, '2024-03-21', '10:30:00', '2024-07-08 06:48:38', 'Ibabao', 'Theft', 'gikawat amoa sud-an', 2, NULL, NULL, 'Pending', NULL),
+(4, 28, 'Rejie', '', 'Cotoner', ' ', 'Male', 32, '2024-05-25', '11:00:00', '2024-07-08 06:50:10', 'Sta. Maria', 'Damaging Properties', 'this bijj broke my ballpen', 2, NULL, NULL, 'Approved', NULL),
+(5, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 27, '2024-03-15', '16:30:00', '2024-07-08 06:51:07', 'Mustang', 'Bullying', '', 2, '2024-07-24', '17:36:00', 'Approved', NULL),
+(6, 28, 'Wensly', '', 'Sacay', ' ', 'Male', 23, '2024-05-13', '13:20:00', '2024-07-08 14:41:17', 'Lawis', 'Threat', 'shiwewojdoi', 2, NULL, NULL, 'Declined', 'dwdewsf'),
+(7, 28, 'Luhan', '', 'Doggy', 'III', 'Male', 56, '2024-05-15', '11:30:00', '2024-07-10 10:04:19', 'New Lipata', 'Bullying', 'nang gukod og manok', 2, NULL, NULL, 'Declined', 'dwdwd'),
+(8, 28, 'Reii', '', 'Siko', ' ', 'Male', 25, '2024-07-01', '14:30:00', '2024-07-10 10:08:09', 'Arca', 'Theft', 'gikawat amo iring', 2, '2024-07-24', '18:34:00', 'Approved', NULL);
 
 -- --------------------------------------------------------
 
