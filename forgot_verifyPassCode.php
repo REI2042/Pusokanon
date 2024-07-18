@@ -24,10 +24,9 @@ include 'db/check_user_login.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="css/navbarstyles.css">
-    <link rel="stylesheet" href="css/forgotpass.css">
+    <link rel="stylesheet" href="css/stylesLogin.css">
     <title>Login to Pusokanon</title>
 </head>
 <body>
@@ -81,97 +80,53 @@ include 'db/check_user_login.php';
             </div>
         </nav>
     </header>
-    
-        <div class="container mt-5">
-            <h3>Forgot Password</h3>
-            <p>Please enter your email for the verification process. A 4-digit code will be sent to your email.</p>
-            <form id="emailForm">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Verification Code</button>
-            </form>
-        </div>
+	<link rel="stylesheet" href="css/enterVerify.css">
+    <div class="container mt-5 ">
+        <h3>Enter Verification Code</h3>
+        <p>Please enter the 4-digit verification code sent to your email.</p>
+        <form id="codeForm ">
+            <div class="mb-3 row gap-1 ">
+                <label for="code" class="form-label">Verification Code</label>
+                <input type="text col" class="form-control" id="code1" required>
+                <input type="text col" class="form-control" id="code2" required>
+                <input type="text col" class="form-control" id="code3" required>
+                <input type="text col" class="form-control" id="code4" required>
+                <input type="text col" class="form-control" id="code5" required>
+                <input type="text col" class="form-control" id="code6" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Verify Code</button>
+        </form>
+    </div>
 
-   
-</body>
-</html>
-<script>
-    (function () {
-        emailjs.init('-eg-XfJjgYaCKpd3Q');
-    })();
+    <script>
+        document.getElementById('codeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const code1 = document.getElementById('code1').value;
+            const code2 = document.getElementById('code2').value;
+            const code3 = document.getElementById('code3').value;
+            const code4 = document.getElementById('code4').value;
+            const code5 = document.getElementById('code5').value;
+            const code6 = document.getElementById('code6').value;
 
-    document.getElementById('emailForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const code = Math.floor(100000 + Math.random() * 900000); // 6-digit code
-
-        fetch('db/send_forgotCode.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, code: code })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                emailjs.send('service_uhvx5cl', 'template_50i4ter', {
-                    to_email: email,
-                    code: code
-                }).then(() => {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        }
-                    });
-                    Toast.fire({
-                        icon: "success",
-                        title: "Code sent to your email!"
-                    });
-                    setTimeout(() => {
-                        window.location.href = 'forgot_verifyPassCode.php';
-                    }, 3000);
-                }).catch(error => {
-                    console.error('EmailJS Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Failed to send email: ' + error,
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Fetch Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An unexpected error occurred. Please try again.',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000
+            const code = code1 + code2 + code3 + code4 + code5 + code6;
+            fetch('db/verify_forgotCode.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Code verified successfully!');
+                    window.location.href = 'Forgot_changePass.php';
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error);
             });
         });
-    });
-</script>
+    </script>
+</body>
+</html>

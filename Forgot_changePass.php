@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+// Check if user is logged in
+if (isset($_SESSION['loggedin'])) {
+
+    header("Location: resident_landingPage.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +28,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <link rel="stylesheet" href="css/navbarstyles.css">
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
+
 
     <title>Pusokanon</title>
 </head>
@@ -80,8 +88,7 @@
             </div>
         </nav>
     </header>
-    
-<link rel="stylesheet" href="css/forgotpass.css">
+<link rel="stylesheet" href="css/changepass.css">
 	<div class="content-wrapper mx-3">
 		<div class="container">
 			<div class="text-header row px-0">
@@ -91,33 +98,35 @@
 				</div>
 				</a>
 				<div class="text-h1 col">
-					<h3 class="header-text text-light">Enter Verification Code</h3>
+					<h3 class="header-text text-light">Change Password</h3>
 				</div>
 			</div>
 			<hr>
 			<div class="form-container">
-				
-				<div class="row mb-3">
-					<span class="text-center p-3 mt-5 mb-5">Please enter your Verification code, a 4 digit code was sent to your email.</span>
-					<form class="forgot-pass" action="verify_code.php" method="POST">
+				<form class="forgot-pass" method="POST" autocomplete="off">
+					<div class="row mb-3">
 						<div class="col">
-							<label for="code" class="form-label">Enter Email Address:</label>
-							<input type="text" id="code" name="code" required class="form-control text-center" placeholder="Enter your email" required>
+							<label for="text" class="form-label">New Password:</label>
+                        	<input type="text" class="form-control" name="username" name="useremail" placeholder="Enter your email" required>
+						</div><div class="w-100"></div>
+						<div class="col mt-3">
+							<label for="text" class="form-label">Confirm Password:</label>
+                        	<input type="text" class="form-control" name="username" name="useremail" placeholder="Enter your email" required>
 						</div>
 						<div class="w-100"></div>
 						<div class="col text-center">
-								<button type="submit" class="btn text-light bg-success" id="submit" value="Verify Code">Enter Code</button>
+							<button type="submit" class="btn text-light bg-success" id="submit">Change Password</button>
 						</div>
-					</form>
-                </div>
+                    </div>
+				</form>
 			</div>
 		</div>
+		
 	</div>
-    
-</body>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

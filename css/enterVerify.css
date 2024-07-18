@@ -13,6 +13,11 @@ body {
     flex-direction: column;
 }
 
+.col-auto{
+    width: 16% !important;
+    
+}
+
 .content-wrapper{
     margin-top: 80px;
 }

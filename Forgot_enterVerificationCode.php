@@ -24,10 +24,9 @@ include 'db/check_user_login.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="css/navbarstyles.css">
-    <link rel="stylesheet" href="css/forgotpass.css">
+    <link rel="stylesheet" href="css/stylesLogin.css">
     <title>Login to Pusokanon</title>
 </head>
 <body>
@@ -81,97 +80,60 @@ include 'db/check_user_login.php';
             </div>
         </nav>
     </header>
-    
-        <div class="container mt-5">
-            <h3>Forgot Password</h3>
-            <p>Please enter your email for the verification process. A 4-digit code will be sent to your email.</p>
-            <form id="emailForm">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Verification Code</button>
-            </form>
-        </div>
-
-   
+	<link rel="stylesheet" href="css/enterVerify.css">
+	<div class="content-wrapper mx-3">
+		<div class="container">
+			<div class="text-header row px-0">
+				<a class="text-light" href="forgotpass.php">
+				<div class="icon col-sm-1">
+					<i class="fa-solid fa-chevron-left"></i>
+				</div>
+				</a>
+				<div class="text-h1 col">
+					<h3 class="header-text text-light">Forgot Password</h3>
+				</div>
+			</div>
+			<hr>
+			<div class="form-container">
+				<form class="forgot-pass" method="POST" autocomplete="off">
+					<div class="row mb-3">
+						<span class="text-center p-3 mt-3 mb-5">Enter the 6 digits code that <br>you received on your email.</span>
+						<div class="col">
+							<div class="form-holder row">
+								<div class="col-auto px-1">
+									<input type="text" class="form-control" name="digit1" id="digit1" name="useremail" required>
+								</div>
+								<div class="col-auto px-1">
+									<input type="text" class="form-control" name="digit2" id="digit2" name="useremail"  required>
+								</div>
+								<div class="col-auto px-1">
+									<input type="text" class="form-control" name="digit2" id="digit3" name="useremail"  required>
+								</div>
+								<div class="col-auto px-1">
+									<input type="text" class="form-control" name="digit2" id="digit4" name="useremail"  required>
+								</div>
+                                <div class="col-auto px-1">
+									<input type="text" class="form-control" name="digit2" id="digit5" name="useremail"  required>
+								</div>
+                                <div class="col-auto px-1">
+									<input type="text" class="form-control" name="digit2" id="digit6" name="useremail"  required>
+								</div>
+							</div>
+						</div><div class="w-100"></div>
+						<div class="text-link col text-center mt-3"><a href="#" class="text-warning">Send Verification Again</a></div>
+						<div class="w-100"></div>
+						<div class="col text-center">
+							<button type="submit" class="btn text-light bg-success" id="submit">Proceed</button>
+						</div>
+                    </div>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-<script>
-    (function () {
-        emailjs.init('-eg-XfJjgYaCKpd3Q');
-    })();
-
-    document.getElementById('emailForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const code = Math.floor(100000 + Math.random() * 900000); // 6-digit code
-
-        fetch('db/send_forgotCode.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, code: code })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                emailjs.send('service_uhvx5cl', 'template_50i4ter', {
-                    to_email: email,
-                    code: code
-                }).then(() => {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        }
-                    });
-                    Toast.fire({
-                        icon: "success",
-                        title: "Code sent to your email!"
-                    });
-                    setTimeout(() => {
-                        window.location.href = 'forgot_verifyPassCode.php';
-                    }, 3000);
-                }).catch(error => {
-                    console.error('EmailJS Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Failed to send email: ' + error,
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Fetch Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An unexpected error occurred. Please try again.',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        });
-    });
-</script>
