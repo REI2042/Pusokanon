@@ -133,24 +133,29 @@ if (isset($_SESSION['loggedin'])) {
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
         const passwordMatchError = document.getElementById('passwordMatchError');
-        const registerButton = document.getElementById('registerButton');
+        const submitButton = document.getElementById('submit');
         const forgotForm = document.getElementById("forgotForm");
 
         function validatePassword() {
-            const isMatch = confirmPasswordInput.value === "" || passwordInput.value === confirmPasswordInput.value;
+            const isMatch = passwordInput.value === confirmPasswordInput.value;
             passwordMatchError.style.display = isMatch ? 'none' : 'block';
-            registerButton.disabled = !isMatch;
+            submitButton.disabled = !isMatch;
         }
 
+        passwordInput.addEventListener('input', validatePassword);
         confirmPasswordInput.addEventListener('input', validatePassword);
 
         forgotForm.addEventListener("submit", function(event) {
             event.preventDefault();
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                passwordMatchError.style.display = 'block';
+                return;
+            }
             fetch('db/forget_create_newpass.php', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    email: '<?php echo $_SESSION["email"]; ?>', // Add this line
+                    email: '<?php echo $_SESSION["email"]; ?>',
                     password: passwordInput.value
                 })
             })
