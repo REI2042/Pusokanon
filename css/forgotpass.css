@@ -17,7 +17,7 @@ body {
 }
 
 .container{
-    background-color: #48BF91;
+    background-color: hsla(215, 82%, 58%, 0.923);
     border-radius: 5px;
     max-width: 400px;
     color: white;
@@ -60,7 +60,6 @@ body {
 }
 
 .form-container{
-    background-color: #48BF91;
     max-height: 900px;
     justify-content: center;
 }

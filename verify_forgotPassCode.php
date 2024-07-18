@@ -1,14 +1,3 @@
-<?php
-
-session_start();
-
-
-if (isset($_SESSION['loggedin'])) {
-
-    header("Location: resident_landingPage.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,71 +86,38 @@ if (isset($_SESSION['loggedin'])) {
 		<div class="container">
 			<div class="text-header row px-0">
 				<a class="text-light" href="login.php">
-                    <div class="icon col-sm-1">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </div>
+				<div class="icon col-sm-1">
+					<i class="fa-solid fa-chevron-left"></i>
+				</div>
 				</a>
 				<div class="text-h1 col">
-					<h3 class="header-text text-light">Forgot Password</h3>
+					<h3 class="header-text text-light">Enter Verification Code</h3>
 				</div>
 			</div>
 			<hr>
 			<div class="form-container">
 				
 				<div class="row mb-3">
-					<span class="text-center p-3 mt-5 mb-5">Please enter your email for the verication process, a 4 digit code will be sent to your email.</span>
-					<form  id="emailForm" class="forgot-pass" method="POST" onsubmit="event.preventDefault(); sendCode();">
+					<span class="text-center p-3 mt-5 mb-5">Please enter your Verification code, a 4 digit code was sent to your email.</span>
+					<form class="forgot-pass" action="verify_code.php" method="POST">
 						<div class="col">
-							<label for="email" class="form-label">Enter Email Address:</label>
-							<input type="email" class="form-control text-center" id="email" placeholder="Enter your email" required autocomplete="off">						</div>
+							<label for="code" class="form-label">Enter Email Address:</label>
+							<input type="text" id="code" name="code" required class="form-control text-center" placeholder="Enter your email" required>
+						</div>
 						<div class="w-100"></div>
 						<div class="col text-center">
-								<button type="submit" class="btn text-light bg-success" id="submit" value="Send Code">Send Verification Code</button>
+								<button type="submit" class="btn text-light bg-success" id="submit" value="Verify Code">Enter Code</button>
 						</div>
 					</form>
                 </div>
 			</div>
 		</div>
-    </div>
-</body>  
-<script type="text/javascript">
-      (function () {
-          emailjs.init('-eg-XfJjgYaCKpd3Q');
-      })();
-
-      async function sendCode() {
-          const email = document.getElementById('email').value;
-          const code = Math.floor(100000 + Math.random() * 900000);
-          const expiryTime = Date.now() + 30 * 60 * 1000; // 30 minutes from now
-
-          fetch('db/send_forgotCode.php', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email, code, expiryTime })
-          })
-          .then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  emailjs.send('service_uhvx5cl', 'template_50i4ter', {
-                      to_email: email,
-                      code: code
-                  })
-                  .then(() => {
-                      alert('Code sent successfully!');
-                      window.location.href = 'verify_forgotPassCode.php';
-                  }, (error) => {
-                      alert('Failed to send code: ' + error);
-                  });
-              } else {
-                  alert('Failed to store code.');
-              }
-          });
-      }
-    </script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	</div>
+    
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </html>
