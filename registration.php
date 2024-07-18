@@ -232,7 +232,7 @@
                         </div>
                         <div class="col-12 px-1">
 						<label for="confirmPassword" class="form-label">Confirm Password</label>
-							<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+							<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
 							<div id="passwordMatchError" style="color: red; display: none;">Passwords do not match</div>
 						</div>	
 						<div class="text-center">

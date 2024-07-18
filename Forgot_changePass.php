@@ -26,7 +26,7 @@ if (isset($_SESSION['loggedin'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/navbarstyles.css">
 
 
@@ -103,15 +103,16 @@ if (isset($_SESSION['loggedin'])) {
 			</div>
 			<hr>
 			<div class="form-container">
-				<form class="forgot-pass" method="POST" autocomplete="off">
+				<form class="forgot-pass" id="forgotForm" method="POST" autocomplete="off">
 					<div class="row mb-3">
 						<div class="col">
-							<label for="text" class="form-label">New Password:</label>
-                        	<input type="text" class="form-control" name="username" name="useremail" placeholder="Enter your email" required>
+							<label for="password" class="form-label">New Password:</label>
+                        	<input type="password" class="form-control" id="password" name="password" placeholder="New Password" required autocomplete="off">
 						</div><div class="w-100"></div>
 						<div class="col mt-3">
-							<label for="text" class="form-label">Confirm Password:</label>
-                        	<input type="text" class="form-control" name="username" name="useremail" placeholder="Enter your email" required>
+							<label for="password" class="form-label">Confirm Password:</label>
+                        	<input type="password" class="form-control" id="confirmPassword" placeholder="Comfirm Password" required autocomplete="off">
+                            <div id="passwordMatchError" style="color: red; display: none;">Passwords do not match</div>
 						</div>
 						<div class="w-100"></div>
 						<div class="col text-center">
@@ -121,12 +122,50 @@ if (isset($_SESSION['loggedin'])) {
 				</form>
 			</div>
 		</div>
-		
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    <script>
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordMatchError = document.getElementById('passwordMatchError');
+        const registerButton = document.getElementById('registerButton');
+        const forgotForm = document.getElementById("forgotForm");
+
+        function validatePassword() {
+            const isMatch = confirmPasswordInput.value === "" || passwordInput.value === confirmPasswordInput.value;
+            passwordMatchError.style.display = isMatch ? 'none' : 'block';
+            registerButton.disabled = !isMatch;
+        }
+
+        confirmPasswordInput.addEventListener('input', validatePassword);
+
+        forgotForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            fetch('db/forget_create_newpass.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: '<?php echo $_SESSION["email"]; ?>', // Add this line
+                    password: passwordInput.value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    icon: data.success ? 'success' : 'error',
+                    title: data.success ? 'Success' : 'Error',
+                    text: data.success ? 'Password changed successfully.' : 'Password change failed.',
+                    confirmButtonText: 'Ok'
+                }).then(() => {
+                    if (data.success) window.location.href = "login.php";
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </html>

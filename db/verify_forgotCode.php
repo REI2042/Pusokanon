@@ -14,13 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $code = $input['code'];
     $email = $_SESSION['email'];
     $encryptedEmail = encryptData($email);
+    
 
     try {
         $stmt = $pdo->prepare("SELECT reset_token_hash, reset_token_expires_at FROM resident_users WHERE res_email = ?");
         $stmt->execute([$encryptedEmail]);
         $user = $stmt->fetch();
-
-        if ($user && $user['reset_token_hash'] == $code && strtotime($user['reset_token_expires_at']) > time()) {
+        $decryptedcode = decryptData($user['reset_token_hash']);
+        if ($user &&  $decryptedcode == $code && strtotime($user['reset_token_expires_at']) > time()) {
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Invalid or expired code.']);

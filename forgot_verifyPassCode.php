@@ -81,34 +81,59 @@ include 'db/check_user_login.php';
         </nav>
     </header>
 	<link rel="stylesheet" href="css/enterVerify.css">
-    <div class="container mt-5 ">
+        <div class="container mt-5">
         <h3>Enter Verification Code</h3>
-        <p>Please enter the 4-digit verification code sent to your email.</p>
-        <form id="codeForm ">
+        <p>Please enter the 6-digit verification code sent to your email.</p>
+        <form id="codeForm" >
             <div class="mb-3 row gap-1 ">
                 <label for="code" class="form-label">Verification Code</label>
-                <input type="text col" class="form-control" id="code1" required>
-                <input type="text col" class="form-control" id="code2" required>
-                <input type="text col" class="form-control" id="code3" required>
-                <input type="text col" class="form-control" id="code4" required>
-                <input type="text col" class="form-control" id="code5" required>
-                <input type="text col" class="form-control" id="code6" required>
+                <input type="text" class="form-control" id="code1" required maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="text" class="form-control" id="code2" required maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="text" class="form-control" id="code3" required maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="text" class="form-control" id="code4" required maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="text" class="form-control" id="code5" required maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="text" class="form-control" id="code6" required maxlength="1" inputmode="numeric" autocomplete="off">
             </div>
             <button type="submit" class="btn btn-primary">Verify Code</button>
         </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
         document.getElementById('codeForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const code1 = document.getElementById('code1').value;
-            const code2 = document.getElementById('code2').value;
-            const code3 = document.getElementById('code3').value;
-            const code4 = document.getElementById('code4').value;
-            const code5 = document.getElementById('code5').value;
-            const code6 = document.getElementById('code6').value;
+            const inputs = [
+                document.getElementById('code1'),
+                document.getElementById('code2'),
+                document.getElementById('code3'),
+                document.getElementById('code4'),
+                document.getElementById('code5'),
+                document.getElementById('code6')
+            ];
 
-            const code = code1 + code2 + code3 + code4 + code5 + code6;
+            const code = inputs.map(input => input.value).join('');
+
+            if (!/^\d{6}$/.test(code)) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Invalid Input',
+                    text: 'Please enter 6 digits only.',
+                });
+                return;
+            }
+
             fetch('db/verify_forgotCode.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -117,14 +142,37 @@ include 'db/check_user_login.php';
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Code verified successfully!');
-                    window.location.href = 'Forgot_changePass.php';
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Code verified successfully!',
+                    }).then(() => {
+                        window.location.href = 'Forgot_changePass.php';
+                    });
                 } else {
-                    alert('Error: ' + data.message);
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message,
+                    });
                 }
             })
             .catch(error => {
-                alert('Error: ' + error);
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message,
+                });
+            });
+        });
+
+        // Add input validation for each input field
+        const inputs = document.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', function(e) {
+                if (!/^\d*$/.test(e.target.value)) {
+                    e.target.value = e.target.value.replace(/[^\d]/g, '');
+                }
             });
         });
     </script>

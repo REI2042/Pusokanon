@@ -18,13 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Encrypt email before storing in the database
     $encryptedEmail = encryptData($email);
 
+    // Encrypt code before storing in the database
+    $encryptedCode = encryptData($code);
 
     try {
         $stmt = $pdo->prepare("SELECT res_email FROM resident_users WHERE res_email = ?");
         $stmt->execute([$encryptedEmail]);
         if ($stmt->rowCount() > 0) {
             $updateStmt = $pdo->prepare("UPDATE resident_users SET reset_token_hash = ?, reset_token_expires_at = ? WHERE res_email = ?");
-            $updateStmt->execute([$code, $expiryTime, $encryptedEmail]);
+            $updateStmt->execute([$encryptedCode, $expiryTime, $encryptedEmail]);
             $_SESSION['email'] = $email;
             echo json_encode(['success' => true]);
         } else {
