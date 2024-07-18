@@ -2,144 +2,209 @@
 include 'headerAdmin.php';
 include '../db/DBconn.php'; 
 
-// Determine the current page and set the number of records per page
-$records_per_page = 5;
-$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$offset = ($current_page - 1) * $records_per_page;
+    $total_users = fetchTotalResidents($pdo);
+    $total_males = fetchTotalMales($pdo);
+    $total_females = fetchTotalFemales($pdo);
+    $registered_voters = fetchRegisteredVoters($pdo);
+    $non_registered_voters = fetchNonRegisteredVoters($pdo);
 
-// Fetch the total number of records
-$total_records = fetchTotalResidents($pdo);
-$total_pages = ceil($total_records / $records_per_page);
+        // Determine the current page and set the number of records per page
+    $records_per_page = 5;
+    $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($current_page - 1) * $records_per_page;
 
-// Fetch the paginated records
-$users = fetchResident($pdo, $records_per_page, $offset);
+    // Fetch the total number of records
+    $total_records = fetchTotalResidents($pdo);
+    $total_pages = ceil($total_records / $records_per_page);
+
+    // Fetch the paginated records
+    $users = fetchResident($pdo, $records_per_page, $offset);
+
 ?>  
 <link rel="stylesheet" href="css/Manage-Users.css">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center text-center">
-            <h1 class="mu-title">Manage Resident Users</h1>
-        </div>
-    </div>
-    <div class="row d-flex justify-content-center" style="gap: 10px;">
-        <div class="mudash col-10 col-md-2">
-            <h3 class="mu-data1">Total Registered Residents</h3>
-            <h4 class="mu-data2">100</h4>
-        </div>
-        <div class="mudash col-5 col-md-2">
-            <h3 class="mu-data1">Male</h3>
-            <h4 class="mu-data2">100</h4>
-        </div>
-        <div class="mudash col-5 col-md-2">
-            <h3 class="mu-data1">Female</h3>
-            <h4 class="mu-data2">100</h4>
-        </div>
-        <div class="mudash col-5 col-md-2">
-            <h3 class="mu-data1">Voters</h3>
-            <h4 class="mu-data2">100</h4>
-        </div>
-        <div class="mudash col-5 col-md-2">
-            <h3 class="mu-data1">Non-Voters</h3>
-            <h4 class="mu-data2">100</h4>
-        </div>
-    </div>
-    <div class="mu-ds row d-flex justify-content-end">
-        <div class="cont col-12 col-md-5 d-flex justify-content-center align-items-center">
-            <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Gender
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item">Male</a>
-                <a class="dropdown-item">Female</a>
-            </div>
-            <input class="form-control" type="number" placeholder="Search by Account ID" aria-label="Search">
-            <button class="btn my-2 my-sm-0" type="submit">Search</button>
-        </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Name</th>
-                                <th>Account No.</th>
-                                <th>Gender</th>
-                                <th>Age</th>
-                                <th>Sitio</th>
-                                <th>Email / Contact No.</th>
-                                <th>Tools</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (empty($users)): ?>
-                                <tr><td colspan="8">No user registered</td></tr>
-                            <?php else: ?>    
-                                <?php foreach ($users as $index => $user): ?>
-                                    <tr>
-                                        <?php 
-                                            $decryptedEmail = decryptData($user['res_email']); 
-                                        ?>
-                                        <td><?= htmlspecialchars($offset + $index + 1) ?></td>
-                                        <td><?= htmlspecialchars(ucfirst($user['res_fname']) . ' ' . ucfirst(substr($user['res_midname'], 0, 1)) . '. ' . ucfirst($user['res_lname'])) ?></td>
-                                        <td><?= htmlspecialchars($user['res_ID']) ?></td>
-                                        <td><?= htmlspecialchars($user['gender']) ?></td>
-                                        <?php
-                                            $birthdate = new DateTime($user['birth_date']);
-                                            $currentDate = new DateTime();
-                                            $age = $currentDate->diff($birthdate)->y;
-                                        ?>
-                                        <td><?= htmlspecialchars($age) ?></td>
-                                        <td><?= htmlspecialchars($user['addr_sitio']) ?></td>
-                                        <td><?= htmlspecialchars($decryptedEmail) ?>, <?= htmlspecialchars($user['contact_no']) ?></td>
-                                        <td class="tools">
-                                            <div class="btn btn-secondary btn-sm">View</div>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+<section class="main">
+    <div class="row mx-0">
+        <h1 class="title text-center">Manage Resident Users</h1>
+        <div class="col-12">
+            <div class="record-container row g-1">
+                <div class="record-box col-12 col-sm">
+                    <div class="text-center">
+                        <h1 class="record-title">Total Registered Residents</h1>
+                        <p class="record-count"><?php echo "$total_users"; ?></p>
+                    </div>
                 </div>
-                
+                <div class="record-box col-6 col-sm">
+                    <div class="text-center">
+                        <h1 class="record-title" style="color: #00BFFF">Number of Males</h1>
+                        <p class="record-count"><?php echo "$total_males"; ?></p>
+                    </div>
+                </div>
+                <div class="record-box col-6 col-sm">
+                    <div class=" text-center">
+                        <h1 class="record-title" style="color: #FF69B4">Number of Females</h1>
+                        <p class="record-count"><?php echo "$total_females"; ?></p>
+                    </div>
+                </div>
+                <div class="record-box col-6 col-sm">
+                    <div class="text-center">
+                        <h1 class="record-title" style="color: #28A745">Total Registered Voters</h1>
+                        <p class="record-count"><?php echo "$registered_voters"; ?></p>
+                    </div>
+                </div>
+                <div class="record-box col-6 col-sm">
+                    <div class="text-center align-items-center">
+                        <h1 class="record-title" style="color: #FF3131">Total Non-Voters</h1>
+                        <p class="record-count"><?php echo "$non_registered_voters"; ?></p>
+                    </div>
+                </div>
             </div>
-            <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <?php if ($current_page > 1): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?page=1" aria-label="First">
-                                    <span aria-hidden="true">&laquo;&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="?page=<?= $current_page - 1 ?>" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                            <li class="page-item <?= ($i == $current_page) ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                            </li>
-                        <?php endfor; ?>
-                        <?php if ($current_page < $total_pages): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?page=<?= $current_page + 1 ?>" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="?page=<?= $total_pages ?>" aria-label="Last">
-                                    <span aria-hidden="true">&raquo;&raquo;</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
-        </div>  
+        </div>
     </div>
-</div>
+    <div class="row my-3 justify-content-end">
+        <div class="dropdown-container col-12 col-sm-6">
+            <div class="row mx-0">
+                <div class="col-6 col-sm d-flex justify-content-center">
+                    <div class="dropdown">
+                        <button class="gender btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account Status
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Active</a>
+                            <a class="dropdown-item" href="#">Deactivated</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm d-flex justify-content-center">
+                    <div class="dropdown">
+                        <button class="gender btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gender
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">All</a>
+                            <a class="dropdown-item" href="#">Male</a>
+                            <a class="dropdown-item" href="#">Female</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0">
+                    <div class="dropdown">
+                        <button class="age btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Age
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Under 18</a>
+                            <a class="dropdown-item" href="#">Young Adults (18-24)</a>
+                            <a class="dropdown-item" href="#">Adults (25-39)</a>
+                            <a class="dropdown-item" href="#">Middle-Aged (40-59)</a>
+                            <a class="dropdown-item" href="#">Seniors (60 and Over)</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0">
+                    <div class="dropdown">
+                        <button class="sitio btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sitio
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Under 18</a>
+                            <a class="dropdown-item" href="#">Young Adults (18-24)</a>
+                            <a class="dropdown-item" href="#">Adults (25-39)</a>
+                            <a class="dropdown-item" href="#">Middle-Aged (40-59)</a>
+                            <a class="dropdown-item" href="#">Seniors (60 and Over)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-3 my-1 my-sm-0">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Enter User's ID Number" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="button">Search</button>
+                </div>
+            </div>
+        </div>
+    </div> <!--end of div row -->
+    <div class="row mx-0">
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">User ID No.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Sitio</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Contact No.</th>
+                            <th scope="col">Tools</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($users)): ?>
+                            <tr><td colspan="12" class="text-center">No records found.</td></tr>
+                        <?php else: ?>
+                            <?php foreach ($users as $index => $user): 
+                                $decryptedEmail = decryptData($user['res_email']);
+                                $birthdate = new DateTime($user['birth_date']);
+                                $currentDate = new DateTime();
+                                $age = $currentDate->diff($birthdate)->y;
+                            ?>
+                                <tr class="clickable-row" data-doc-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
+                                    <td><?php echo htmlspecialchars($user['res_ID']) ?></td>
+                                    <td><?php echo htmlspecialchars(ucfirst($user['res_fname']) . ' ' . ucfirst(substr($user['res_midname'], 0, 1)) . '. ' . ucfirst($user['res_lname'])) ?></td>
+                                    <td><?php echo htmlspecialchars($user['gender']) ?></td>
+                                    <td><?php echo htmlspecialchars($age) ?></td>
+                                    <td><?php echo htmlspecialchars($user['addr_sitio']) ?></td>
+                                    <td><?php echo htmlspecialchars($decryptedEmail) ?></td>
+                                    <td><?php echo htmlspecialchars($user['contact_no']) ?></td>
+                                    <td class="tools">
+                                        <div class="btn btn-secondary btn-sm">View</div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="Users page navigation">
+                <ul class="pagination justify-content-center">
+                    <?php if ($current_page > 1): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $current_page - 1; ?>" aria-label="Previous">
+                                <span aria-hidden="true">Previous</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php for ($i = max(1, $current_page - 1); $i <= min($total_pages, $current_page + 1); $i++): ?>
+                        <li class="page-item <?php echo $i === $current_page ? 'active' : ''; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>&active_tab=document-requests">
+                            <?php echo $i; ?>
+                        </a>
+                        </li>
+                    <?php endfor; ?>
+                    <?php if ($current_page < $total_pages): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $current_page + 1; ?>" aria-label="Next">
+                                <span aria-hidden="true">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?&page=<?php echo $total_pages; ?>" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
 
 <?php include 'footerAdmin.php'; ?>
