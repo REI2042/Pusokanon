@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // update 'remarks' to 'CASE CLOSED', and set 'date_closed' to current timestamp
             $update_sql = "
                 UPDATE complaints_tbl 
-                SET status = 'Declined',
+                SET status = 'Rejected',
                     comment = :comment,
                     remarks = 'CASE CLOSED',
                     date_closed = NOW()

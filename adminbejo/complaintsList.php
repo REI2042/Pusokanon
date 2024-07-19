@@ -11,28 +11,36 @@
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $limit;
 
-    // Get the total count of complaints
-    $totalRequests = getTotalComplaints($pdo, $caseType, $incidentPlace);
-    $totalPages = ceil($totalRequests / $limit);
+    // Get total counts for each status
+    $totalPending = getTotalComplaints($pdo, $caseType, $incidentPlace, $searchName, 'Pending');
+    $totalApproved = getTotalComplaints($pdo, $caseType, $incidentPlace, $searchName, 'Approved');
+    $totalRejected = getTotalComplaints($pdo, $caseType, $incidentPlace, $searchName, 'Rejected');
+
+    // Calculate total pages for each status
+    $totalPagesPending = ceil($totalPending / $limit);
+    $totalPagesApproved = ceil($totalApproved / $limit);
+    $totalPagesRejected = ceil($totalRejected / $limit);
 
     // Ensure the page number is within the valid range
-    if ($page > $totalPages) {
-        $page = $totalPages;
+    if ($page > $totalPagesPending) {
+        $page = $totalPagesPending;
         $offset = ($page - 1) * $limit;
     }
 
-    // Get the complaints for the current page
-    $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace);
+    // Get complaints for the current page for each status
+    $requestsPending = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, $searchName, 'Pending');
+    $requestsApproved = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, $searchName, 'Approved');
+    $requestsRejected = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, $searchName, 'Rejected');
 
     // Separate requests by status
     $pendingRequests = array_filter($requests, function($request) {
         return $request['status'] == 'Pending';
     });
-    $acceptedRequests = array_filter($requests, function($request) {
-        return $request['status'] == 'Accepted';
+    $approvedRequests = array_filter($requests, function($request) {
+        return $request['status'] == 'Approved';
     });
-    $declinedRequests = array_filter($requests, function($request) {
-        return $request['status'] == 'Declined';
+    $rejectedRequests = array_filter($requests, function($request) {
+        return $request['status'] == 'Rejected';
     });
 ?>
 
@@ -43,8 +51,8 @@
         <div class="mu-ds row d-flex justify-content-between align-items-center mt-5 mb-3">
             <div class="col-12 col-md-3 mb-2 mb-md-0">
                 <button id="pendingBtn" class="btn btn-warning status-button me-2 active" type="button" onclick="showTable('pending')">Pending</button>
-                <button id="acceptedBtn" class="btn btn-success status-button me-2" type="button" onclick="showTable('accepted')">Accepted</button>
-                <button id="declinedBtn" class="btn btn-danger status-button" type="button" onclick="showTable('declined')">Declined</button>
+                <button id="approvedBtn" class="btn btn-success status-button me-2" type="button" onclick="showTable('approved')">Approved</button>
+                <button id="rejectedBtn" class="btn btn-danger status-button" type="button" onclick="showTable('rejected')">Rejected</button>
             </div>
             <div class="col-12 col-md-9 d-flex justify-content-end align-items-center flex-wrap">
                 <div class="dropdown me-2 mb-2 mb-md-0">
@@ -143,7 +151,7 @@
                                             <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                                 <i class="fas fa-check"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm me-2" onclick="disapprove_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
+                                            <button class="btn btn-danger btn-sm me-2" onclick="reject_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                                 <i class="fas fa-times"></i> 
                                             </button>
                                             <button class="btn btn-secondary btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
@@ -161,7 +169,7 @@
                         </tbody>
                     </table>
                     
-                    <table id="acceptedTable" class="table mx-auto hidden" cellspacing="0" cellpadding="0">
+                    <table id="approvedTable" class="table mx-auto hidden" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
                                 <th>Case ID</th>
@@ -173,8 +181,8 @@
                             </tr>
                         </thead>
                         <tbody class="scrollable-table-body">
-                        <?php if (!empty($acceptedRequests)): ?>
-                            <?php foreach ($acceptedRequests as $request): ?>
+                        <?php if (!empty($approvedRequests)): ?>
+                            <?php foreach ($approvedRequests as $request): ?>
                                 <tr>
                                     <?php
                                         $imagePath = "../../db/complaints_evidence/{$request['evidence']}";
@@ -217,13 +225,13 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="8">No accepted complaints found.</td>
+                                <td colspan="8">No approved complaints found.</td>
                             </tr>
                         <?php endif; ?>
                         </tbody>
                     </table>
                     
-                    <table id="declinedTable" class="table mx-auto hidden" cellspacing="0" cellpadding="0">
+                    <table id="rejectedTable" class="table mx-auto hidden" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
                                 <th>Case ID</th>
@@ -235,8 +243,8 @@
                             </tr>
                         </thead>
                         <tbody class="scrollable-table-body">
-                        <?php if (!empty($declinedRequests)): ?>
-                            <?php foreach ($declinedRequests as $request): ?>
+                        <?php if (!empty($rejectedRequests)): ?>
+                            <?php foreach ($rejectedRequests as $request): ?>
                                 <tr>
                                     <?php
                                         $imagePath = "../../db/complaints_evidence/{$request['evidence']}";
@@ -276,43 +284,36 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="8">No declined complaints found.</td>
+                                <td colspan="8">No rejected complaints found.</td>
                             </tr>
                         <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
                 <nav aria-label="Page navigation" class="mt-auto">
-                    <ul class="pagination justify-content-center">
-                        <?php
-                        $startPage = max(1, $page - 1);
-                        $endPage = min($startPage + 2, $totalPages);
-                        $startPage = max(1, $endPage - 2);
-                        ?>
+                <ul class="pagination justify-content-center">
+                    <?php if ($page > 1): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $page - 1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Previous">
+                                <span aria-hidden="true">Prev</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
 
-                        <?php if ($page > 1): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?page=<?php echo $page - 1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Previous">
-                                    <span aria-hidden="true">Prev</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
+                    <?php for ($i = 1; $i <= $totalPagesPending; $i++): ?>
+                        <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+                            <a class="page-link" href="?page=<?php echo $i; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endfor; ?>
 
-                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                            <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
-                                <a class="page-link" href="?page=<?php echo $i; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>"><?php echo $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
-
-                        <?php if ($page < $totalPages): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?page=<?php echo $page + 1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Next">
-                                    <span aria-hidden="true">Next</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
+                    <?php if ($page < $totalPagesPending): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $page + 1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Next">
+                                <span aria-hidden="true">Next</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
     </div>

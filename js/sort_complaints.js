@@ -1,22 +1,61 @@
 // Function to switch between tables
 function showTable(status) {
-    const tables = ['pendingTable', 'acceptedTable', 'declinedTable'];
-    const buttons = ['pendingBtn', 'acceptedBtn', 'declinedBtn'];
+    const tables = ['pendingTable', 'approvedTable', 'rejectedTable'];
+    const buttons = ['pendingBtn', 'approvedBtn', 'rejectedBtn'];
+    const paginations = ['pendingPagination', 'approvedPagination', 'rejectedPagination'];
 
     tables.forEach((table) => {
-        console.log(`Hiding table: ${table}`); // Debugging line
         document.getElementById(table).classList.add('hidden');
     });
 
     buttons.forEach((button) => {
-        console.log(`Deactivating button: ${button}`); // Debugging line
         document.getElementById(button).classList.remove('active');
     });
 
-    console.log(`Showing table: ${status}Table`); // Debugging line
+    paginations.forEach((pagination) => {
+        const paginationElement = document.getElementById(pagination);
+        if (paginationElement) {
+            paginationElement.classList.add('hidden');
+        }
+    });
+
     document.getElementById(`${status}Table`).classList.remove('hidden');
     document.getElementById(`${status}Btn`).classList.add('active');
+
+    const currentPagination = document.getElementById(`${status}Pagination`);
+    if (currentPagination) {
+        currentPagination.classList.remove('hidden');
+    }
 }
+
+// Add this function to handle pagination clicks
+function handlePaginationClick(event, status) {
+    event.preventDefault();
+    const url = new URL(event.target.href);
+    const page = url.searchParams.get(`${status}Page`);
+    const caseType = url.searchParams.get('case_type');
+    const searchTerm = url.searchParams.get('searchTerm');
+    const incidentPlace = url.searchParams.get('incident_place');
+
+    // Here you would typically make an AJAX call to fetch the new page data
+    // For now, we'll just reload the page with the new parameters
+    window.location.href = `?${status}Page=${page}&case_type=${caseType}&searchTerm=${searchTerm}&incident_place=${incidentPlace}`;
+}
+
+// Add event listeners for pagination links
+document.addEventListener('DOMContentLoaded', function() {
+    const statuses = ['pending', 'approved', 'rejected'];
+    statuses.forEach(status => {
+        const pagination = document.getElementById(`${status}Pagination`);
+        if (pagination) {
+            pagination.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                    handlePaginationClick(event, status);
+                }
+            });
+        }
+    });
+});
 
 // Event listeners for incident place dropdown
 document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(function(item) {

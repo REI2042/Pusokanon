@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Update the complaint status and hearing date/time
             $update_sql = "
                 UPDATE complaints_tbl 
-                SET status = 'Accepted', 
+                SET status = 'Approved', 
                     hearing_date = :hearing_date, 
                     hearing_time = :hearing_time 
                 WHERE complaint_id = :complaint_id

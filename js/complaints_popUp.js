@@ -210,12 +210,12 @@ async function approve_complaint(complaint_id) {
 }
 
 
-async function disapprove_complaint(complaint_id) {
+async function reject_complaint(complaint_id) {
     // Step 1: Admin provides reason for disapproval
     const { value: reason } = await Swal.fire({
-        title: "Reason for Disapproval",
+        title: "Reason for Rejecting",
         input: 'textarea',
-        inputLabel: 'Please provide a reason for disapproval',
+        inputLabel: 'Please provide a reason for rejecting the complaint',
         inputPlaceholder: 'Enter your reason here...',
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -223,7 +223,7 @@ async function disapprove_complaint(complaint_id) {
         cancelButtonText: 'Cancel',
         inputValidator: (value) => {
             if (!value) {
-                return 'You need to provide a reason for disapproval!'
+                return 'You need to provide a reason for rejecting!'
             }
         }
     });
@@ -231,7 +231,7 @@ async function disapprove_complaint(complaint_id) {
     if (reason) {
         try {
             // Step 2: Update the complaint status and fetch the resident email and other details
-            const response = await fetch('../adminbejo/phpConn/decline_complaint.php', {
+            const response = await fetch('../adminbejo/phpConn/reject_complaint.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -276,7 +276,7 @@ async function disapprove_complaint(complaint_id) {
                         console.log("EmailJS Response:", response);
                         Swal.fire({
                             title: "Success!",
-                            text: "Email sent successfully and complaint disapproved.",
+                            text: "Email sent successfully.",
                             icon: "success",
                             confirmButtonColor: "#d33",
                         }).then(() => {
@@ -320,6 +320,59 @@ async function disapprove_complaint(complaint_id) {
     }
 }
 
+
+async function updateComplaintsTable() {
+    try {
+        const response = await fetch('../adminbejo/phpConn/get_complaints.php', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const table = document.getElementById('complaints-table');
+            table.innerHTML = ''; // Clear existing table content
+
+            data.complaints.forEach(complaint => {
+                const row = document.createElement('tr');
+                
+                // Adjust these cells according to your table structure
+                row.innerHTML = `
+                    <td>${complaint.id}</td>
+                    <td>${complaint.resident_name}</td>
+                    <td>${complaint.complaint}</td>
+                    <td>${complaint.status}</td>
+                    <td>${complaint.hearing_date ? complaint.hearing_date : 'N/A'}</
+                    <td>${complaint.hearing_time ? complaint.hearing_time : 'N/A'}</td>
+                    <td>
+                        <!-- Add buttons for actions if needed -->
+                        <button onclick="approve_complaint(${complaint.id})">Approve</button>
+                        <button onclick="reject_complaint(${complaint.id})">Reject</button>
+                    </td>
+                `;
+
+                table.appendChild(row);
+            });
+        } else {
+            Swal.fire({
+                title: "Error",
+                text: "Failed to fetch complaints: " + data.message,
+                icon: "error",
+                confirmButtonColor: "#d33",
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            title: "Error",
+            text: "Failed to update complaints table: " + error.message,
+            icon: "error",
+            confirmButtonColor: "#d33",
+        });
+    }
+}
 
 
 
