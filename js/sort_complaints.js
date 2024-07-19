@@ -28,33 +28,14 @@ function showTable(status) {
     }
 }
 
-// Add this function to handle pagination clicks
-function handlePaginationClick(event, status) {
-    event.preventDefault();
-    const url = new URL(event.target.href);
-    const page = url.searchParams.get(`${status}Page`);
-    const caseType = url.searchParams.get('case_type');
-    const searchTerm = url.searchParams.get('searchTerm');
-    const incidentPlace = url.searchParams.get('incident_place');
 
-    // Here you would typically make an AJAX call to fetch the new page data
-    // For now, we'll just reload the page with the new parameters
-    window.location.href = `?${status}Page=${page}&case_type=${caseType}&searchTerm=${searchTerm}&incident_place=${incidentPlace}`;
-}
-
-// Add event listeners for pagination links
+// Call this function on page load to set the initial pagination
 document.addEventListener('DOMContentLoaded', function() {
-    const statuses = ['pending', 'approved', 'rejected'];
-    statuses.forEach(status => {
-        const pagination = document.getElementById(`${status}Pagination`);
-        if (pagination) {
-            pagination.addEventListener('click', function(event) {
-                if (event.target.tagName === 'A') {
-                    handlePaginationClick(event, status);
-                }
-            });
-        }
-    });
+    const activeButton = document.querySelector('.status-button.active');
+    if (activeButton) {
+        const status = activeButton.id.replace('Btn', '').toLowerCase();
+        updatePagination(status);
+    }
 });
 
 // Event listeners for incident place dropdown
