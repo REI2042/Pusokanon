@@ -298,11 +298,8 @@ a.sidebar-link:hover {
         display: flex;
         position: fixed;
         flex-direction: column;
-        height: 89%;
     }
-     #sidebar.expand ~ .main {
-        margin-left: 0; /* Adjust this value according to the expanded sidebar width */
-    }
+    
     .navbar-brand img {
         height: 45px;
         margin-left: 0px; /* Increased margin for desktop and laptop */
