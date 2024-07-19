@@ -2,19 +2,27 @@
     include 'headerAdmin.php';
     include '../db/DBconn.php';
 
-
+    
     $caseType = isset($_GET['case_type']) ? $_GET['case_type'] : '';
     $incidentPlace = isset($_GET['incident_place']) ? $_GET['incident_place'] : '';
     $searchName = isset($_GET['searchTerm']) ? trim($_GET['searchTerm']) : '';
-    $allRequests = fetchListofComplaints($pdo, 0, null, $caseType, $incidentPlace, $searchName);
-    $totalRequests = count($allRequests);
-    $limit = 5;  // Number of complaints per page
-    $totalPages = ceil($totalRequests / $limit);
+
+    $limit = 5; // Number of complaints per page
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $limit;
 
+    // Get the total count of complaints
+    $totalRequests = getTotalComplaints($pdo, $caseType, $incidentPlace);
+    $totalPages = ceil($totalRequests / $limit);
+
+    // Ensure the page number is within the valid range
+    if ($page > $totalPages) {
+        $page = $totalPages;
+        $offset = ($page - 1) * $limit;
+    }
+
     // Get the complaints for the current page
-    $requests = array_slice($allRequests, $offset, $limit);
+    $requests = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace);
 
     // Separate requests by status
     $pendingRequests = array_filter($requests, function($request) {
@@ -138,7 +146,7 @@
                                             <button class="btn btn-danger btn-sm me-2" onclick="disapprove_complaint('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                                 <i class="fas fa-times"></i> 
                                             </button>
-                                            <button class="btn btn-warning btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
+                                            <button class="btn btn-secondary btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </button>
                                         </div>
@@ -167,7 +175,45 @@
                         <tbody class="scrollable-table-body">
                         <?php if (!empty($acceptedRequests)): ?>
                             <?php foreach ($acceptedRequests as $request): ?>
-                                <!-- Same structure as pending table -->
+                                <tr>
+                                    <?php
+                                        $imagePath = "../../db/complaints_evidence/{$request['evidence']}";
+                                        if (file_exists($imagePath)) {
+                                            $imageData = base64_encode(file_get_contents($imagePath));
+                                            $imageMimeType = mime_content_type($imagePath);
+                                            $imageSrc = "data:$imageMimeType;base64,$imageData";
+                                        } else {
+                                            $imageSrc = ''; 
+                                        }
+                                        $decryptedEmail = decryptData($request['resident_email']);
+                                    ?>
+                                    <td><?php echo htmlspecialchars($request['complaint_id']); ?></td>
+                                    <td><?php echo htmlspecialchars($request['case_type']); ?></td>
+                                    <td><?php echo htmlspecialchars($request['incident_place']); ?></td>
+                                    <td><?php echo htmlspecialchars($request['date_filed']); ?></td>
+                                    <td id="status-<?php echo htmlspecialchars($request['complaint_id']); ?>">
+                                        <?php echo htmlspecialchars($request['status']); ?>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-start align-items-center">
+                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
+                                                                    '<?= htmlspecialchars($request['resident_name'])?>',
+                                                                    '<?= htmlspecialchars($decryptedEmail)?>',
+                                                                    '<?= htmlspecialchars($request['respondent_name'])?>',
+                                                                    '<?= htmlspecialchars($request['respondent_age'])?>',
+                                                                    '<?= htmlspecialchars($request['respondent_gender'])?>',
+                                                                    '<?= htmlspecialchars($request['incident_date'])?>',
+                                                                    '<?= htmlspecialchars($request['incident_time'])?>',
+                                                                    '<?= htmlspecialchars($request['incident_place'])?>',
+                                                                    '<?= htmlspecialchars($request['narrative'])?>',
+                                                                    '<?= $imageSrc ?>')">
+                                                <i class="fas fa-eye"></i> </a>
+                                            <button class="btn btn-secondary btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
@@ -191,7 +237,42 @@
                         <tbody class="scrollable-table-body">
                         <?php if (!empty($declinedRequests)): ?>
                             <?php foreach ($declinedRequests as $request): ?>
-                                <!-- Same structure as pending table -->
+                                <tr>
+                                    <?php
+                                        $imagePath = "../../db/complaints_evidence/{$request['evidence']}";
+                                        if (file_exists($imagePath)) {
+                                            $imageData = base64_encode(file_get_contents($imagePath));
+                                            $imageMimeType = mime_content_type($imagePath);
+                                            $imageSrc = "data:$imageMimeType;base64,$imageData";
+                                        } else {
+                                            $imageSrc = ''; 
+                                        }
+                                        $decryptedEmail = decryptData($request['resident_email']);
+                                    ?>
+                                    <td><?php echo htmlspecialchars($request['complaint_id']); ?></td>
+                                    <td><?php echo htmlspecialchars($request['case_type']); ?></td>
+                                    <td><?php echo htmlspecialchars($request['incident_place']); ?></td>
+                                    <td><?php echo htmlspecialchars($request['date_filed']); ?></td>
+                                    <td id="status-<?php echo htmlspecialchars($request['complaint_id']); ?>">
+                                        <?php echo htmlspecialchars($request['status']); ?>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-start align-items-center">
+                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
+                                                                    '<?= htmlspecialchars($request['resident_name'])?>',
+                                                                    '<?= htmlspecialchars($decryptedEmail)?>',
+                                                                    '<?= htmlspecialchars($request['respondent_name'])?>',
+                                                                    '<?= htmlspecialchars($request['respondent_age'])?>',
+                                                                    '<?= htmlspecialchars($request['respondent_gender'])?>',
+                                                                    '<?= htmlspecialchars($request['incident_date'])?>',
+                                                                    '<?= htmlspecialchars($request['incident_time'])?>',
+                                                                    '<?= htmlspecialchars($request['incident_place'])?>',
+                                                                    '<?= htmlspecialchars($request['narrative'])?>',
+                                                                    '<?= $imageSrc ?>')">
+                                                <i class="fas fa-eye"></i> </a>
+                                        </div>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
@@ -209,23 +290,23 @@
                         $startPage = max(1, $endPage - 2);
                         ?>
 
-                        <?php if($page > 1): ?>
+                        <?php if ($page > 1): ?>
                             <li class="page-item">
-                                <a class="page-link" href="?page=<?php echo $page-1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Previous">
+                                <a class="page-link" href="?page=<?php echo $page - 1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Previous">
                                     <span aria-hidden="true">Prev</span>
                                 </a>
                             </li>
                         <?php endif; ?>
 
-                        <?php for($i = $startPage; $i <= $endPage; $i++): ?>
-                            <li class="page-item <?php if($i == $page) echo 'active'; ?>">
+                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                            <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
                                 <a class="page-link" href="?page=<?php echo $i; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>"><?php echo $i; ?></a>
                             </li>
                         <?php endfor; ?>
 
-                        <?php if($page < $totalPages): ?>
+                        <?php if ($page < $totalPages): ?>
                             <li class="page-item">
-                                <a class="page-link" href="?page=<?php echo $page+1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Next">
+                                <a class="page-link" href="?page=<?php echo $page + 1; ?>&case_type=<?php echo urlencode($caseType); ?>&searchTerm=<?php echo urlencode($searchName); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>" aria-label="Next">
                                     <span aria-hidden="true">Next</span>
                                 </a>
                             </li>
@@ -245,3 +326,4 @@
             emailjs.init("7RJucdkATYmD5Iu8F"); // Replace with your actual EmailJS public key
         })();
     </script>
+   <?php include 'footerAdmin.php'; ?>

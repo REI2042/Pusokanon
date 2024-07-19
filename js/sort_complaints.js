@@ -1,3 +1,24 @@
+// Function to switch between tables
+function showTable(status) {
+    const tables = ['pendingTable', 'acceptedTable', 'declinedTable'];
+    const buttons = ['pendingBtn', 'acceptedBtn', 'declinedBtn'];
+
+    tables.forEach((table) => {
+        console.log(`Hiding table: ${table}`); // Debugging line
+        document.getElementById(table).classList.add('hidden');
+    });
+
+    buttons.forEach((button) => {
+        console.log(`Deactivating button: ${button}`); // Debugging line
+        document.getElementById(button).classList.remove('active');
+    });
+
+    console.log(`Showing table: ${status}Table`); // Debugging line
+    document.getElementById(`${status}Table`).classList.remove('hidden');
+    document.getElementById(`${status}Btn`).classList.add('active');
+}
+
+// Event listeners for incident place dropdown
 document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(function(item) {
     item.addEventListener('click', function() {
         const incidentPlace = this.getAttribute('data-incident-place');
@@ -9,6 +30,7 @@ document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(functio
     });
 });
 
+// Event listeners for case type dropdown
 document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
     item.addEventListener('click', function() {
         const caseType = this.getAttribute('data-case-type');
@@ -20,6 +42,7 @@ document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(ite
     });
 });
 
+// Event listener for search form submission
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
     const searchInput = document.getElementById('searchInput');
