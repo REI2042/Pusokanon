@@ -12,9 +12,9 @@
     $offset = ($page - 1) * $limit;
 
     // Get total counts for each status
-    $totalPending = getTotalComplaints($pdo, $caseType, $incidentPlace, $searchName, 'Pending');
-    $totalApproved = getTotalComplaints($pdo, $caseType, $incidentPlace, $searchName, 'Approved');
-    $totalRejected = getTotalComplaints($pdo, $caseType, $incidentPlace, $searchName, 'Rejected');
+    $totalPending = getTotalComplaints($pdo, $caseType, $incidentPlace, 'Pending');
+    $totalApproved = getTotalComplaints($pdo, $caseType, $incidentPlace, 'Approved');
+    $totalRejected = getTotalComplaints($pdo, $caseType, $incidentPlace, 'Rejected');
 
     // Calculate total pages for each status
     $totalPagesPending = ceil($totalPending / $limit);
@@ -28,9 +28,9 @@
     }
 
     // Get complaints for the current page for each status
-    $requestsPending = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, $searchName, 'Pending');
-    $requestsApproved = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, $searchName, 'Approved');
-    $requestsRejected = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, $searchName, 'Rejected');
+    $requestsPending = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, 'Pending');
+    $requestsApproved = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, 'Approved');
+    $requestsRejected = fetchListofComplaints($pdo, $offset, $limit, $caseType, $incidentPlace, 'Rejected');
 
     // Separate requests by status
     $pendingRequests = array_filter($requests, function($request) {

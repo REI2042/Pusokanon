@@ -431,7 +431,7 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 	// 	return $stmt->fetchColumn();
 	// }
 
-	function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $searchName = null $status = null) {
+	function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null) {
 		$sql = "SELECT 
 					ct.complaint_id AS complaint_id,
 					CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
@@ -496,7 +496,7 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 	}
 	
 	
-	function getTotalComplaints($pdo, $caseType = null, $incidentPlace = null, $searchName = null, $status = null) {
+	function getTotalComplaints($pdo, $caseType = null, $incidentPlace = null, $status = null) {
 		$sql = "SELECT COUNT(*) FROM complaints_tbl ct 
 				INNER JOIN resident_users ru ON ct.res_id = ru.res_id";
 		
@@ -513,10 +513,10 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 			$params[':incidentPlace'] = $incidentPlace;
 		}
 		
-		if ($searchName !== null && $searchName !== '') {
-			$conditions[] = "(ru.res_fname LIKE :searchName OR ru.res_lname LIKE :searchName)";
-			$params[':searchName'] = "%$searchName%";
-		}
+		// if ($searchName !== null && $searchName !== '') {
+		// 	$conditions[] = "(ru.res_fname LIKE :searchName OR ru.res_lname LIKE :searchName)";
+		// 	$params[':searchName'] = "%$searchName%";
+		// }
 	
 		if ($status !== null && $status !== '') {
 			$conditions[] = "ct.status = :status";
