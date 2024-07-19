@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Jul 19, 2024 at 02:40 PM
+-- Host: 127.0.0.1
+-- Generation Time: Jul 19, 2024 at 12:45 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -257,27 +257,25 @@ CREATE TABLE `resident_users` (
   `registered_voter` varchar(15) NOT NULL,
   `userRole_id` int(11) NOT NULL,
   `reset_token_hash` varchar(64) DEFAULT NULL,
-  `reset_token_expires_at` datetime DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT 1
+  `reset_token_expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `resident_users`
 --
 
-INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `addr_purok`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `reset_token_hash`, `reset_token_expires_at`, `is_active`) VALUES
-(10, 'nino rey', 'cabunilas', 'yonson', ' ', 'Male', '2002-05-24', 'Single', 'Filipino', 'sewage, pusok, llc', '09682027920', 'cabunilasninorey@gmail.com', 'sewage', '', '2402', NULL, 'Registered', 2, NULL, NULL, 1),
-(11, 'airene marie', 'mabulay', 'banajos', ' ', 'Female', '2003-01-05', 'Single', 'Korean', 'sewage, pusok, llc', '09876571324', 'airene@gmail.com', 'sta. losia', '', '2402', NULL, 'Registered', 2, NULL, NULL, 1),
-(13, 'yuna', 'cabunilas', 'mabulay', ' ', 'Female', '2003-03-08', 'Single', 'Filipino', 'sewage', '09682027920', 'yuna@gmail.com', 'sewage', 'blck 6', '2402', NULL, 'Not-registered', 2, NULL, NULL, 1),
-(18, 'rei', 'cabunilas', 'yonson', 'Jr', 'Female', '2006-11-03', 'Married', 'filipino', 'sewage', '092374823243', 'rei@gmail.com', 'sewage', '', '2402', NULL, 'Registered', 2, NULL, NULL, 1),
-(21, 'Maria Irenea', 'Bebanco', 'Asne', ' ', 'Female', '2003-01-05', 'Single', 'Spanish', 'Cebu City', '09954702461', 'renmarie153@gmail.com', 'Sewage', '4', 'indayamm153', NULL, 'Registered', 2, NULL, NULL, 1),
-(24, 'ninis', 'cabus', 'Yalall', 'Jr', 'Male', '2003-02-23', 'Married', 'Filipino', 'Pusok, sewage', '09682027910', 'myname@gmail.com', 'Sewage', '', '2402', NULL, 'Registered', 2, NULL, NULL, 1),
-(25, 'Walter', 'Bejo', 'Ologuinsan', 'Jr', 'Male', '2002-09-28', 'Single', 'Filipino', 'Cebu', '09329464', 'PJ6J915x8o9TOAacnxoyYeBgMb+kOu5rhxPo4s+u8J0=', 'San Roque', '', '$2y$10$5Di9MKY337fGDf3iT4i5fOUBfLuHQxlHotnHfNw0Yeh6/1ILJMQx2', 'Walter.png', 'Not-registered', 2, '493298', '2024-07-18 21:32:46', 1),
-(26, 'Test', 'Test', 'Test', ' ', 'Female', '1997-01-01', 'Single', 'Filipino', 'Cebu', '09329465', '0N2y6dgHJtA+EGEpfGDHyQ==', 'Seaside', '', '$2y$10$E3z70iGSNNUry..guP4rwem3xw578vhK1r7gKdTLF54M7gX6G8chy', NULL, 'Registered', 2, NULL, NULL, 1),
-(27, 'Test2', 'Test2', 'Test2', ' ', 'Female', '2007-01-15', 'Single', 'Filipino', 'Cebu', '12346579810', 'BLMOeJFhqAS/+uo5FHGcrQ==', 'Arca', '', '$2y$10$tJU/gJGvD05EZWUJiiLMUOMlal5Pr3QKyv4VJ30UAYi670DugZC/q', NULL, 'Not-registered', 2, NULL, NULL, 1),
-(28, 'Renee', 'Descartez', '', ' ', 'Female', '2003-10-15', 'Single', 'Filipino', 'Cebu City', '09433930847', 'Ym4cQe4NxD4QWMQz7zFwQBvTR++2kIzfhEAVy/6AK8U=', 'Sewage', '', '$2y$10$xHiGNL3QgFtAc0UkrmYkg.uqJSOpgSNo.wbtEA2M.Tn23FPbT14H6', NULL, 'Registered', 2, NULL, NULL, 1),
-(29, 'Suki', 'Edwards', 'Chantale Buckley', 'III', 'Male', '1991-03-17', 'Married', 'filipino', 'A occaecat aut eos e', '09873452342', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '', '$2y$10$2TP4r7zelxwFo4nacwLGCu5yMQh/SQojFUgpRsKLHzrKSqVUHsjnm', NULL, 'Registered', 2, '202669', '2024-07-18 21:34:15', 1),
-(31, 'Milenia', 'Blade', 'Ella', ' ', 'Female', '2001-01-24', 'Single', 'Filipino', 'Mandaue', '12345678910', 'v1SpLVQwr1zmURk9o7e4jsDzT9SKlFUTmG+13H8ARms=', 'Mustang', '', '$2y$10$t9xhXXhxvQSzo9Jfcdc/u.JGRg05fv6Xx3yHO2ZWIoreemn5m9vhm', 'image_2024-07-19_203400685.png', 'Not-registered', 2, NULL, NULL, 1);
+INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `addr_purok`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `reset_token_hash`, `reset_token_expires_at`) VALUES
+(10, 'nino rey', 'cabunilas', 'yonson', ' ', 'Male', '2002-05-24', 'Single', 'Filipino', 'sewage, pusok, llc', '09682027920', 'cabunilasninorey@gmail.com', 'sewage', '', '2402', NULL, 'Registered', 2, NULL, NULL),
+(11, 'airene marie', 'mabulay', 'banajos', ' ', 'Female', '2003-01-05', 'Single', 'Korean', 'sewage, pusok, llc', '09876571324', 'airene@gmail.com', 'sta. losia', '', '2402', NULL, 'Registered', 2, NULL, NULL),
+(13, 'yuna', 'cabunilas', 'mabulay', ' ', 'Female', '2003-03-08', 'Single', 'Filipino', 'sewage', '09682027920', 'yuna@gmail.com', 'sewage', 'blck 6', '2402', NULL, 'Not-registered', 2, NULL, NULL),
+(18, 'rei', 'cabunilas', 'yonson', 'Jr', 'Female', '2006-11-03', 'Married', 'filipino', 'sewage', '092374823243', 'rei@gmail.com', 'sewage', '', '2402', NULL, 'Registered', 2, NULL, NULL),
+(21, 'Maria Irenea', 'Bebanco', 'Asne', ' ', 'Female', '2003-01-05', 'Single', 'Spanish', 'Cebu City', '09954702461', 'renmarie153@gmail.com', 'Sewage', '4', 'indayamm153', NULL, 'Registered', 2, NULL, NULL),
+(24, 'ninis', 'cabus', 'Yalall', 'Jr', 'Male', '2003-02-23', 'Married', 'Filipino', 'Pusok, sewage', '09682027910', 'myname@gmail.com', 'Sewage', '', '2402', NULL, 'Registered', 2, NULL, NULL),
+(25, 'Walter', 'Bejo', 'Ologuinsan', 'Jr', 'Male', '2002-09-28', 'Single', 'Filipino', 'Cebu', '09329464', 'PJ6J915x8o9TOAacnxoyYeBgMb+kOu5rhxPo4s+u8J0=', 'San Roque', '', '$2y$10$5Di9MKY337fGDf3iT4i5fOUBfLuHQxlHotnHfNw0Yeh6/1ILJMQx2', 'Walter.png', 'Not-registered', 2, '493298', '2024-07-18 21:32:46'),
+(26, 'Test', 'Test', 'Test', ' ', 'Female', '1997-01-01', 'Single', 'Filipino', 'Cebu', '09329465', '0N2y6dgHJtA+EGEpfGDHyQ==', 'Seaside', '', '$2y$10$E3z70iGSNNUry..guP4rwem3xw578vhK1r7gKdTLF54M7gX6G8chy', NULL, 'Registered', 2, NULL, NULL),
+(27, 'Test2', 'Test2', 'Test2', ' ', 'Female', '2007-01-15', 'Single', 'Filipino', 'Cebu', '12346579810', 'BLMOeJFhqAS/+uo5FHGcrQ==', 'Arca', '', '$2y$10$tJU/gJGvD05EZWUJiiLMUOMlal5Pr3QKyv4VJ30UAYi670DugZC/q', NULL, 'Not-registered', 2, NULL, NULL),
+(28, 'Renee', 'Descartez', '', ' ', 'Female', '2003-10-15', 'Single', 'Filipino', 'Cebu City', '09433930847', 'Ym4cQe4NxD4QWMQz7zFwQBvTR++2kIzfhEAVy/6AK8U=', 'Sewage', '', '$2y$10$xHiGNL3QgFtAc0UkrmYkg.uqJSOpgSNo.wbtEA2M.Tn23FPbT14H6', NULL, 'Registered', 2, NULL, NULL),
+(29, 'Suki', 'Edwards', 'Chantale Buckley', 'III', 'Male', '1991-03-17', 'Married', 'filipino', 'A occaecat aut eos e', '09873452342', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '', '$2y$10$2TP4r7zelxwFo4nacwLGCu5yMQh/SQojFUgpRsKLHzrKSqVUHsjnm', NULL, 'Registered', 2, '202669', '2024-07-18 21:34:15');
 
 --
 -- Indexes for dumped tables
@@ -377,7 +375,7 @@ ALTER TABLE `doc_type`
 -- AUTO_INCREMENT for table `registration_tbl`
 --
 ALTER TABLE `registration_tbl`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `request_doc`
@@ -389,7 +387,7 @@ ALTER TABLE `request_doc`
 -- AUTO_INCREMENT for table `resident_users`
 --
 ALTER TABLE `resident_users`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables

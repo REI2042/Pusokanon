@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $staff = $stmtStaff->fetch();
 
     // Query to check resident user table
-    $sqlResident = "SELECT * FROM resident_users WHERE res_email = :res_email";
+    $sqlResident = "SELECT * FROM resident_users WHERE res_email = :res_email AND is_active = TRUE"; // my changes
     $stmtResident = $pdo->prepare($sqlResident);
     $stmtResident->execute(['res_email' => encryptData($email)]);
     $resident = $stmtResident->fetch();
