@@ -85,4 +85,8 @@
     table thead th {
         font-size: small;
     }
+
+    .pagination {
+        overflow: scroll;
+    }
 }

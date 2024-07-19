@@ -8,7 +8,7 @@ include '../db/DBconn.php';
     $registered_voters = fetchRegisteredVoters($pdo);
     $non_registered_voters = fetchNonRegisteredVoters($pdo);
 
-        // Determine the current page and set the number of records per page
+    // Determine the current page and set the number of records per page
     $records_per_page = 5;
     $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($current_page - 1) * $records_per_page;
@@ -65,7 +65,7 @@ include '../db/DBconn.php';
             <div class="row mx-0">
                 <div class="col-6 col-sm d-flex justify-content-center">
                     <div class="dropdown">
-                        <button class="gender btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="account-status btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Account Status
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -76,7 +76,7 @@ include '../db/DBconn.php';
                 </div>
                 <div class="col-6 col-sm d-flex justify-content-center">
                     <div class="dropdown">
-                        <button class="gender btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="gender btn btn-secondary dropdown-toggle" type="button" id="genderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gender
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -92,6 +92,7 @@ include '../db/DBconn.php';
                             Age
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">All</a>
                             <a class="dropdown-item" href="#">Under 18</a>
                             <a class="dropdown-item" href="#">Young Adults (18-24)</a>
                             <a class="dropdown-item" href="#">Adults (25-39)</a>
@@ -102,15 +103,24 @@ include '../db/DBconn.php';
                 </div>
                 <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0">
                     <div class="dropdown">
-                        <button class="sitio btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="sitio btn btn-secondary dropdown-toggle" type="button" id="sitioDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Sitio
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Under 18</a>
-                            <a class="dropdown-item" href="#">Young Adults (18-24)</a>
-                            <a class="dropdown-item" href="#">Adults (25-39)</a>
-                            <a class="dropdown-item" href="#">Middle-Aged (40-59)</a>
-                            <a class="dropdown-item" href="#">Seniors (60 and Over)</a>
+                            <a class="dropdown-item" href="#">All</a>
+                            <a class="dropdown-item" href="#">Arca</a>
+                            <a class="dropdown-item" href="#">Cemento</a>
+                            <a class="dropdown-item" href="#">Chumba-Chumba</a>
+                            <a class="dropdown-item" href="#">Ibabao</a>
+                            <a class="dropdown-item" href="#">Lawis</a>
+                            <a class="dropdown-item" href="#">Matumbo</a>
+                            <a class="dropdown-item" href="#">Mustang</a>
+                            <a class="dropdown-item" href="#">New Lipata</a>
+                            <a class="dropdown-item" href="#">San Roque</a>
+                            <a class="dropdown-item" href="#">Seabreeze</a>
+                            <a class="dropdown-item" href="#">Seaside</a>
+                            <a class="dropdown-item" href="#">Sewage</a>
+                            <a class="dropdown-item" href="#">Sta. Maria</a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +128,7 @@ include '../db/DBconn.php';
         </div>
         <div class="col-12 col-sm-3 my-1 my-sm-0">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Enter User's ID Number" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" placeholder="Enter User's ID Number" aria-label="User's ID number" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="button">Search</button>
                 </div>
@@ -138,6 +148,7 @@ include '../db/DBconn.php';
                             <th scope="col">Sitio</th>
                             <th scope="col">Email</th>
                             <th scope="col">Contact No.</th>
+                            <th scope="col">Account Status</th>
                             <th scope="col">Tools</th>
                         </tr>
                     </thead>
@@ -159,6 +170,7 @@ include '../db/DBconn.php';
                                     <td><?php echo htmlspecialchars($user['addr_sitio']) ?></td>
                                     <td><?php echo htmlspecialchars($decryptedEmail) ?></td>
                                     <td><?php echo htmlspecialchars($user['contact_no']) ?></td>
+                                    <td><?php echo htmlspecialchars($user['is_active'] ? 'Active' : 'Deactivated'); ?></td>
                                     <td class="tools">
                                         <div class="btn btn-secondary btn-sm">View</div>
                                     </td>
