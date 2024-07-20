@@ -151,6 +151,7 @@ include '../db/DBconn.php';
                             Account Status
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="?account_status=All<?php echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">All</a>
                             <a class="dropdown-item" href="?account_status=Active<?php echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Active</a>
                             <a class="dropdown-item" href="?account_status=Deactivated<?php echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Deactivated</a>
                         </div>
@@ -279,7 +280,7 @@ include '../db/DBconn.php';
                     <?php endif; ?>
                     <?php for ($i = max(1, $current_page - 1); $i <= min($total_pages, $current_page + 1); $i++): ?>
                         <li class="page-item <?php echo $i === $current_page ? 'active' : ''; ?>">
-                        <a class="page-link" href="?page=<?php echo $i; ?>&active_tab=document-requests">
+                        <a class="page-link" href="?page=<?php echo $i ; echo isset($sitio) ? "&sitio=$sitio" : "";  echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">
                             <?php echo $i; ?>
                         </a>
                         </li>
