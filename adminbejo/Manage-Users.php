@@ -1,6 +1,11 @@
 <?php
 include 'headerAdmin.php';
-include '../db/DBconn.php'; 
+include '../db/DBconn.php';
+
+    $gender = isset($_GET['gender']) ? $_GET['gender'] : null;
+    $ageRange = isset($_GET['age_range']) ? $_GET['age_range'] : null;
+    $sitio = isset($_GET['sitio']) ? $_GET['sitio'] : null;
+    $accountStatus = isset($_GET['account_status']) ? $_GET['account_status'] : null;
 
     $total_users = fetchTotalResidents($pdo);
     $total_males = fetchTotalMales($pdo);
@@ -14,11 +19,13 @@ include '../db/DBconn.php';
     $offset = ($current_page - 1) * $records_per_page;
 
     // Fetch the total number of records
-    $total_records = fetchTotalResidents($pdo);
+    $total_records = fetchTotalResidentsWithFilters($pdo, $gender, $ageRange, $sitio, $accountStatus);
     $total_pages = ceil($total_records / $records_per_page);
 
     // Fetch the paginated records
-    $users = fetchResident($pdo, $records_per_page, $offset);
+    // $users = fetchResident($pdo, $records_per_page, $offset);
+    $users = fetchResident($pdo, $records_per_page, $offset, $gender, $ageRange, $sitio, $accountStatus);
+
 
 ?>  
 <link rel="stylesheet" href="css/Manage-Users.css">
@@ -60,10 +67,10 @@ include '../db/DBconn.php';
             </div>
         </div>
     </div>
-    <div class="row my-3 justify-content-end">
+    <!-- <div class="row my-1 justify-content-end">
         <div class="dropdown-container col-12 col-sm-6">
             <div class="row mx-0">
-                <div class="col-6 col-sm d-flex justify-content-center">
+                <div class="col-6 col-sm d-flex justify-content-center align-self-center">
                     <div class="dropdown">
                         <button class="account-status btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Account Status
@@ -74,7 +81,7 @@ include '../db/DBconn.php';
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-sm d-flex justify-content-center">
+                <div class="col-6 col-sm d-flex justify-content-center align-self-center">
                     <div class="dropdown">
                         <button class="gender btn btn-secondary dropdown-toggle" type="button" id="genderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gender
@@ -86,7 +93,7 @@ include '../db/DBconn.php';
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0">
+                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0 align-self-center">
                     <div class="dropdown">
                         <button class="age btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Age
@@ -101,7 +108,7 @@ include '../db/DBconn.php';
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0">
+                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0 align-self-center">
                     <div class="dropdown">
                         <button class="sitio btn btn-secondary dropdown-toggle" type="button" id="sitioDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Sitio
@@ -127,15 +134,91 @@ include '../db/DBconn.php';
             </div>
         </div>
         <div class="col-12 col-sm-3 my-1 my-sm-0">
-            <div class="input-group mb-3">
+            <div class="input-group d-flex align-self-center">
                 <input type="text" class="form-control" placeholder="Enter User's ID Number" aria-label="User's ID number" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="button">Search</button>
                 </div>
             </div>
         </div>
-    </div> <!--end of div row -->
-    <div class="row mx-0">
+    </div> end of div row -->
+    <div class="row my-1 justify-content-end">
+        <div class="dropdown-container col-12 col-sm-6">
+            <div class="row mx-0">
+                <div class="col-6 col-sm d-flex justify-content-center align-self-center">
+                    <div class="dropdown">
+                        <button class="account-status btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account Status
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="?account_status=Active<?php echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Active</a>
+                            <a class="dropdown-item" href="?account_status=Deactivated<?php echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Deactivated</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm d-flex justify-content-center align-self-center">
+                    <div class="dropdown">
+                        <button class="gender btn btn-secondary dropdown-toggle" type="button" id="genderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gender
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="?gender=All<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">All</a>
+                            <a class="dropdown-item" href="?gender=Male<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Male</a>
+                            <a class="dropdown-item" href="?gender=Female<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Female</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0 align-self-center">
+                    <div class="dropdown">
+                        <button class="age btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Age
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="?age_range=All<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">All</a>
+                            <a class="dropdown-item" href="?age_range=Under 18<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Under 18</a>
+                            <a class="dropdown-item" href="?age_range=Young Adults (18-24)<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Young Adults (18-24)</a>
+                            <a class="dropdown-item" href="?age_range=Adults (25-39)<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Adults (25-39)</a>
+                            <a class="dropdown-item" href="?age_range=Middle-Aged (40-59)<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Middle-Aged (40-59)</a>
+                            <a class="dropdown-item" href="?age_range=Seniors (60 and Over)<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($sitio) ? "&sitio=$sitio" : ""; ?>">Seniors (60 and Over)</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0 align-self-center">
+                    <div class="dropdown">
+                        <button class="sitio btn btn-secondary dropdown-toggle" type="button" id="sitioDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sitio
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="?sitio=All<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">All</a>
+                            <a class="dropdown-item" href="?sitio=Arca<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Arca</a>
+                            <a class="dropdown-item" href="?sitio=All<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">All</a>
+                            <a class="dropdown-item" href="?sitio=Cemento<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Cemento</a>
+                            <a class="dropdown-item" href="?sitio=Chumba-Chumba<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Chumba-Chumba</a>
+                            <a class="dropdown-item" href="?sitio=Ibabao<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Ibabao</a>
+                            <a class="dropdown-item" href="?sitio=Lawis<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Lawis</a>
+                            <a class="dropdown-item" href="?sitio=Matumbo<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Matumbo</a>
+                            <a class="dropdown-item" href="?sitio=Mustang<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Mustang</a>
+                            <a class="dropdown-item" href="?sitio=New Lipata<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">New Lipata</a>
+                            <a class="dropdown-item" href="?sitio=San Roque<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">San Roque</a>
+                            <a class="dropdown-item" href="?sitio=Seabreeze<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Seabreeze</a>
+                            <a class="dropdown-item" href="?sitio=Seaside<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Seaside</a>
+                            <a class="dropdown-item" href="?sitio=Sewage<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Sewage</a>
+                            <a class="dropdown-item" href="?sitio=Sta. Maria<?php echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; ?>">Sta. Maria</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-3 my-1 my-sm-0">
+            <div class="input-group d-flex align-self-center">
+                <input type="text" class="form-control" placeholder="Enter User's ID Number" aria-label="User's ID number" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="button">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-0 my-2">
         <div class="table-container">
             <div class="table-responsive">
                 <table class="table table-hover">

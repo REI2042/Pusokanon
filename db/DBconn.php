@@ -82,13 +82,113 @@
 	}
 
 
-	function fetchResident($pdo, $limit, $offset) {
-		$sql = "SELECT * FROM resident_users LIMIT :limit OFFSET :offset";  
+	// function fetchResident($pdo, $limit, $offset) {
+	// 	$sql = "SELECT * FROM resident_users LIMIT :limit OFFSET :offset";  
+	// 	$stmt = $pdo->prepare($sql);
+	// 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	// 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	// 	$stmt->execute();
+	// 	return $stmt->fetchAll();  
+	// }
+
+	function fetchResident($pdo, $limit, $offset, $gender = null, $ageRange = null, $sitio = null, $accountStatus = null) {
+		$sql = "SELECT * FROM resident_users WHERE 1=1";
+		$params = [];
+	
+		if ($gender !== null && $gender !== 'All') {
+			$sql .= " AND gender = :gender";
+			$params[':gender'] = $gender;
+		}
+	
+		if ($ageRange !== null && $ageRange !== 'All') {
+			
+			switch ($ageRange) {
+				case 'Under 18':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) < 18";
+					break;
+				case 'Young Adults (18-24)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 24";
+					break;
+				case 'Adults (25-39)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 25 AND 39";
+					break;
+				case 'Middle-Aged (40-59)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 40 AND 59";
+					break;
+				case 'Seniors (60 and Over)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) >= 60";
+					break;
+			}
+		}
+	
+		if ($sitio !== null && $sitio !== 'All') {
+			$sql .= " AND addr_sitio = :sitio";
+			$params[':sitio'] = $sitio;
+		}
+	
+		if ($accountStatus !== null && $accountStatus !== 'All') {
+			$sql .= " AND is_active = :accountStatus";
+			$params[':accountStatus'] = ($accountStatus == 'Active') ? 1 : 0;
+		}
+	
+		$sql .= " ORDER BY res_id DESC LIMIT :limit OFFSET :offset";
+		$params[':limit'] = $limit;
+		$params[':offset'] = $offset;
+
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-		$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+		foreach ($params as $key => &$val) {
+			$stmt->bindParam($key, $val);
+		}
 		$stmt->execute();
-		return $stmt->fetchAll();  
+		return $stmt->fetchAll();
+	}
+
+	function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, $sitio = null, $accountStatus = null) {
+		$sql = "SELECT COUNT(*) FROM resident_users WHERE 1=1";
+		$params = [];
+	
+		if ($gender !== null && $gender !== 'All') {
+			$sql .= " AND gender = :gender";
+			$params[':gender'] = $gender;
+		}
+	
+		if ($ageRange !== null && $ageRange !== 'All') {
+			
+			switch ($ageRange) {
+				case 'Under 18':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) < 18";
+					break;
+				case 'Young Adults (18-24)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 24";
+					break;
+				case 'Adults (25-39)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 25 AND 39";
+					break;
+				case 'Middle-Aged (40-59)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 40 AND 59";
+					break;
+				case 'Seniors (60 and Over)':
+					$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) >= 60";
+					break;
+			}
+		}
+	
+		if ($sitio !== null && $sitio !== 'All') {
+			$sql .= " AND addr_sitio = :sitio";
+			$params[':sitio'] = $sitio;
+		}
+	
+		if ($accountStatus !== null && $accountStatus !== 'All') {
+			$sql .= " AND is_active = :accountStatus";
+			$params[':accountStatus'] = ($accountStatus == 'Active') ? 1 : 0;
+		}
+	
+		$stmt = $pdo->prepare($sql);
+		foreach ($params as $key => &$val) {
+			$stmt->bindParam($key, $val);
+		}
+		$stmt->execute();
+		return $stmt->fetchColumn();
 	}
 
 
