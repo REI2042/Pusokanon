@@ -190,6 +190,14 @@
 		$stmt->execute();
 		return $stmt->fetchColumn();
 	}
+	
+	function fetchResidentById($pdo, $id) {
+		$sql = "SELECT * FROM resident_users WHERE res_ID = :id";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
 
 
 function fetchdocsRequest($pdo, $status, $limit, $offset) {
