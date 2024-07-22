@@ -82,7 +82,7 @@ include 'db/check_user_login.php';
         </nav>
     </header>
     
-        <div class="container mt-5">
+        <div class="container">
             <h3>Forgot Password</h3>
             <p>Please enter your email for the verification process. A 4-digit code will be sent to your email.</p>
             <form id="emailForm">

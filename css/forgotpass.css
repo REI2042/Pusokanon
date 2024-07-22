@@ -22,6 +22,25 @@ body {
     max-width: 400px;
     color: white;
     padding: 20px;
+    margin-top: 100px;
+    backdrop-filter: blur( 3.5px );
+    box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.423),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+        0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+p{
+    margin-bottom: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: rgb(124, 163, 199);
+    border: 1px solid rgb(72, 129, 194) ;
+    border-radius: 5px;
+    padding: 10px;
 }
 .text-h1{
     width: 80%;
@@ -39,7 +58,7 @@ body {
     font-family: "Poppins", cursive;
     text-align: center;
     padding-top: 7px;
-    padding-right: 40px;
+    
 }
 .text-header a{
     width: 40px;
@@ -74,7 +93,7 @@ body {
     font-weight: 500;
 }
 .btn:hover{
-    background-color: #399773;
+    background-color: #394a97;
 }
 
 @media (max-width: 767px) {

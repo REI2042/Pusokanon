@@ -253,22 +253,22 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
                          <?php if (empty($completed)): ?>
                             <tr><td colspan="8">No Ready to Pick up Documents</td></tr>
                         <?php else: ?>    
-                            <?php foreach ($completed as $completedS): ?>
+                            <?php foreach ($completed as $completed): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($completeds['res_id']); ?></td>
-                                    <td><?= htmlspecialchars($completeds['resident_name']); ?></td>
-                                    <td><?= htmlspecialchars($completeds['document_name']); ?></td>
-                                    <td><?= htmlspecialchars($completeds['purpose_name']); ?></td>
-                                    <td><?= htmlspecialchars($completeds['stat']); ?></td>
-                                    <td><?= htmlspecialchars($completeds['date_req']); ?></td>
-                                    <td><?= htmlspecialchars($completeds['remarks']); ?></td>
+                                    <td><?= htmlspecialchars($completed['res_id']); ?></td>
+                                    <td><?= htmlspecialchars($completed['resident_name']); ?></td>
+                                    <td><?= htmlspecialchars($completed['document_name']); ?></td>
+                                    <td><?= htmlspecialchars($completed['purpose_name']); ?></td>
+                                    <td><?= htmlspecialchars($completed['stat']); ?></td>
+                                    <td><?= htmlspecialchars($completed['date_req']); ?></td>
+                                    <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
                                             <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
-                                                <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completeds['doc_ID']); ?>">
-                                                <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completeds['res_id']); ?>">
-                                                <button type="submit" name="status" value="download" class="btn btn-sm <?= $completeds['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                                <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
+                                                <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
+                                                <button type="submit" name="status" value="download" class="btn btn-sm <?= $completed['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>
