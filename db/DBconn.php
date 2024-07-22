@@ -131,7 +131,7 @@
 			$params[':accountStatus'] = ($accountStatus == 'Active') ? 1 : 0;
 		}
 	
-		$sql .= " ORDER BY res_id DESC LIMIT :limit OFFSET :offset";
+		$sql .= " ORDER BY is_active DESC, res_id ASC LIMIT :limit OFFSET :offset";
 		$params[':limit'] = $limit;
 		$params[':offset'] = $offset;
 
