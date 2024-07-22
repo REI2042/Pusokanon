@@ -6,7 +6,7 @@ include '../db/DBconn.php';
     $ageRange = isset($_GET['age_range']) ? $_GET['age_range'] : null;
     $sitio = isset($_GET['sitio']) ? $_GET['sitio'] : null;
     $accountStatus = isset($_GET['account_status']) ? $_GET['account_status'] : null;
-    $search_id = isset($_GET['search_id']) ? $_GET['search_id'] : null;
+    $search = isset($_GET['search']) ? $_GET['search'] : null;
 
     $total_users = fetchTotalResidents($pdo);
     $total_males = fetchTotalMales($pdo);
@@ -18,8 +18,8 @@ include '../db/DBconn.php';
     $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($current_page - 1) * $records_per_page;
 
-    if ($search_id) {
-        $users = fetchResidentById($pdo, $search_id);
+    if ($search) {
+        $users = fetchResidentById($pdo, $search);
         $total_records = count($users);
     } else {
         $users = fetchResident($pdo, $records_per_page, $offset, $gender, $ageRange, $sitio, $accountStatus);
@@ -138,7 +138,7 @@ include '../db/DBconn.php';
         </div>
         <div class="col-12 col-sm-3 my-1 my-sm-0">
             <form action="" method="GET" class="input-group d-flex align-self-center">
-                <input type="text" class="form-control" name="search_id" placeholder="Enter User's ID Number" aria-label="User's ID number" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" name="search" placeholder="Enter User's ID or Name" aria-label="User's ID or Name" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit">Search</button>
                 </div>
@@ -171,10 +171,13 @@ include '../db/DBconn.php';
                                 $birthdate = new DateTime($user['birth_date']);
                                 $currentDate = new DateTime();
                                 $age = $currentDate->diff($birthdate)->y;
+
+                                $middleInitial = !empty($user['res_midname']) ? ucfirst(substr($user['res_midname'], 0, 1)) . '. ' : '';
+                                $suffix = !empty($user['res_suffix']) ? ' ' . ucfirst($user['res_suffix']) : '';
                             ?>
                                 <tr class="clickable-row" data-doc-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
                                     <td><?php echo htmlspecialchars($user['res_ID']) ?></td>
-                                    <td><?php echo htmlspecialchars(ucfirst($user['res_fname']) . ' ' . ucfirst(substr($user['res_midname'], 0, 1)) . '. ' . ucfirst($user['res_lname'])) ?></td>
+                                    <td><?php echo htmlspecialchars(ucfirst($user['res_fname']) . ' ' . $middleInitial . ucfirst($user['res_lname']) . $suffix) ?></td>
                                     <td><?php echo htmlspecialchars($user['gender']) ?></td>
                                     <td><?php echo htmlspecialchars($age) ?></td>
                                     <td><?php echo htmlspecialchars($user['addr_sitio']) ?></td>
@@ -206,7 +209,7 @@ include '../db/DBconn.php';
                     <?php endif; ?>
                     <?php for ($i = max(1, $current_page - 1); $i <= min($total_pages, $current_page + 1); $i++): ?>
                         <li class="page-item <?php echo $i === $current_page ? 'active' : ''; ?>">
-                        <a class="page-link" href="?page=<?php echo $i; echo isset($sitio) ? "&sitio=$sitio" : ""; echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($search_id) ? "&search_id=$search_id" : ""; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; echo isset($sitio) ? "&sitio=$sitio" : ""; echo isset($accountStatus) ? "&account_status=$accountStatus" : ""; echo isset($gender) ? "&gender=$gender" : ""; echo isset($ageRange) ? "&age_range=$ageRange" : ""; echo isset($search) ? "&search=$search" : ""; ?>">
                             <?php echo $i; ?>
                         </a>
                         </li>

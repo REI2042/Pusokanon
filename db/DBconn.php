@@ -191,11 +191,15 @@
 		return $stmt->fetchColumn();
 	}
 	
-	function fetchResidentById($pdo, $id) {
-		$sql = "SELECT * FROM resident_users WHERE res_ID = :id";
+	function fetchResidentById($pdo, $search) {
+		$sql = "SELECT * FROM resident_users WHERE 
+				res_ID = ? OR 
+				res_fname LIKE ? OR 
+				res_lname LIKE ? OR 
+				CONCAT(res_fname, ' ', res_lname) LIKE ?";
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
-		$stmt->execute();
+		$searchLike = "%$search%";
+		$stmt->execute([$search, $searchLike, $searchLike, $searchLike]);
 		return $stmt->fetchAll();
 	}
 
