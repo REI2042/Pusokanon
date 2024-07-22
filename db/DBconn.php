@@ -585,9 +585,10 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 		
 		if ($limit !== null) {
 			$sql .= " LIMIT :offset, :limit";
-			$params[':offset'] = $offset;
-			$params[':limit'] = $limit;
+			$params[':offset'] = (int)$offset; // Ensure integer value
+			$params[':limit'] = (int)$limit;   // Ensure integer value
 		}
+		
 		
 		$stmt = $pdo->prepare($sql);
 		
@@ -604,7 +605,9 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 	}
 	
 	
-	function getTotalComplaints($pdo, $caseType = null, $incidentPlace = null, $status = null) {
+	
+	
+	function getTotalComplaints($pdo, $caseType = null, $incidentPlace = null, $status = null, $searchTerm = null) {
 		$sql = "SELECT COUNT(*) FROM complaints_tbl ct 
 				INNER JOIN resident_users ru ON ct.res_id = ru.res_id";
 		
@@ -621,14 +624,15 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 			$params[':incidentPlace'] = $incidentPlace;
 		}
 		
-		// if ($searchName !== null && $searchName !== '') {
-		// 	$conditions[] = "(ru.res_fname LIKE :searchName OR ru.res_lname LIKE :searchName)";
-		// 	$params[':searchName'] = "%$searchName%";
-		// }
-	
 		if ($status !== null && $status !== '') {
 			$conditions[] = "ct.status = :status";
 			$params[':status'] = $status;
+		}
+		
+		if ($searchTerm !== null && $searchTerm !== '') {
+			$conditions[] = "(CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE :searchTerm 
+							 OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE :searchTerm)";
+			$params[':searchTerm'] = "%$searchTerm%";
 		}
 		
 		if (count($conditions) > 0) {
@@ -638,15 +642,90 @@ function fetchdocSearchNames($pdo, $limit, $offset,$search) {
 		$stmt = $pdo->prepare($sql);
 		
 		foreach ($params as $key => $value) {
-			if ($key == ':status') {
-				$stmt->bindValue($key, $value, PDO::PARAM_STR);
+			$stmt->bindValue($key, $value, PDO::PARAM_STR);
+		}
+		
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	}
+	
+	
+	function searchComplaints($pdo, $searchTerm, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null) {
+		$sql = "SELECT 
+					ct.complaint_id AS complaint_id,
+					CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+					ct.case_type AS case_type, 
+					ct.incident_date AS incident_date, 
+					ct.incident_time AS incident_time, 
+					ct.incident_place AS incident_place, 
+					ct.date_filed AS date_filed, 
+					ct.status AS status,
+					ct.comment AS comment,
+					ct.narrative AS narrative,
+					ct.evidence AS evidence,
+					CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+					ru.res_email AS resident_email,
+					ct.respondent_age AS respondent_age,
+					ct.respondent_gender AS respondent_gender
+				FROM complaints_tbl ct 
+				INNER JOIN resident_users ru ON ct.res_id = ru.res_id";
+		
+		$conditions = [];
+		$params = [];
+		
+		if ($searchTerm !== null && $searchTerm !== '') {
+			$searchConditions = [
+				"CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE :searchTerm",
+				"ct.case_type LIKE :searchTerm",
+				"ct.incident_place LIKE :searchTerm",
+				"ct.comment LIKE :searchTerm",
+				"ct.narrative LIKE :searchTerm",
+				"CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE :searchTerm",
+				"ru.res_email LIKE :searchTerm"
+			];
+			$conditions[] = "(" . implode(" OR ", $searchConditions) . ")";
+			$params[':searchTerm'] = "%$searchTerm%";
+		}
+		
+		if ($caseType !== null && $caseType !== '') {
+			$conditions[] = "ct.case_type = :caseType";
+			$params[':caseType'] = $caseType;
+		}
+		
+		if ($incidentPlace !== null && $incidentPlace !== '') {
+			$conditions[] = "ct.incident_place = :incidentPlace";
+			$params[':incidentPlace'] = $incidentPlace;
+		}
+		
+		if ($status !== null && $status !== '') {
+			$conditions[] = "ct.status = :status";
+			$params[':status'] = $status;
+		}
+		
+		if (count($conditions) > 0) {
+			$sql .= " WHERE " . implode(" AND ", $conditions);
+		}
+		
+		$sql .= " ORDER BY ct.date_filed DESC";
+		
+		if ($limit !== null) {
+			$sql .= " LIMIT :offset, :limit";
+			$params[':offset'] = $offset;
+			$params[':limit'] = $limit;
+		}
+		
+		$stmt = $pdo->prepare($sql);
+		
+		foreach ($params as $key => $value) {
+			if ($key == ':offset' || $key == ':limit') {
+				$stmt->bindValue($key, $value, PDO::PARAM_INT);
 			} else {
 				$stmt->bindValue($key, $value, PDO::PARAM_STR);
 			}
 		}
 		
 		$stmt->execute();
-		return $stmt->fetchColumn();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
 	

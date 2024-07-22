@@ -1,42 +1,50 @@
 // Function to switch between tables
 function showTable(status) {
-    const tables = ['pendingTable', 'approvedTable', 'rejectedTable'];
-    const buttons = ['pendingBtn', 'approvedBtn', 'rejectedBtn'];
-    const paginations = ['pendingPagination', 'approvedPagination', 'rejectedPagination'];
+    var tables = {
+        pending: document.getElementById('pendingContainer'),
+        approved: document.getElementById('approvedContainer'),
+        rejected: document.getElementById('rejectedContainer')
+    };
+    var pagination = {
+        pending: document.getElementById('pendingPagination'),
+        approved: document.getElementById('approvedPagination'),
+        rejected: document.getElementById('rejectedPagination')
+    };
 
-    tables.forEach((table) => {
-        document.getElementById(table).classList.add('hidden');
-    });
-
-    buttons.forEach((button) => {
-        document.getElementById(button).classList.remove('active');
-    });
-
-    paginations.forEach((pagination) => {
-        const paginationElement = document.getElementById(pagination);
-        if (paginationElement) {
-            paginationElement.classList.add('hidden');
+    // Hide all tables and pagination
+    for (var key in tables) {
+        if (tables.hasOwnProperty(key)) {
+            tables[key].style.display = 'none';
+            pagination[key].style.display = 'none';
         }
-    });
+    }
 
-    document.getElementById(`${status}Table`).classList.remove('hidden');
-    document.getElementById(`${status}Btn`).classList.add('active');
-
-    const currentPagination = document.getElementById(`${status}Pagination`);
-    if (currentPagination) {
-        currentPagination.classList.remove('hidden');
+    // Show the selected table and pagination
+    if (tables[status]) {
+        tables[status].style.display = 'block';
+        pagination[status].style.display = 'block';
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    var status = 'pending'; // Default status
+    var queryString = new URLSearchParams(window.location.search);
+    if (queryString.has('status')) {
+        status = queryString.get('status');
+    }
+    showTable(status);
+});
+
+
 
 // Call this function on page load to set the initial pagination
-document.addEventListener('DOMContentLoaded', function() {
-    const activeButton = document.querySelector('.status-button.active');
-    if (activeButton) {
-        const status = activeButton.id.replace('Btn', '').toLowerCase();
-        updatePagination(status);
-    }
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     const activeButton = document.querySelector('.status-button.active');
+//     if (activeButton) {
+//         const status = activeButton.id.replace('Btn', '').toLowerCase();
+//         updatePagination(status);
+//     }
+// });
 
 // Event listeners for incident place dropdown
 document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(function(item) {
