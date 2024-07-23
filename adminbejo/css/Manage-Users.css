@@ -65,6 +65,13 @@
     transform: translate3d(0px, 0px, 0px) !important;
 }
 
+.swal-deactivate-btn {
+    background-color: red !important;
+}
+.swal-activate-btn {
+    background-color: green !important;
+}
+
 @media (max-width: 991px) {
 
     .record-box {

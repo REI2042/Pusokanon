@@ -184,7 +184,7 @@ include '../db/DBconn.php';
                                     <td><?php echo htmlspecialchars($user['contact_no']) ?></td>
                                     <td><?php echo htmlspecialchars($user['is_active'] ? 'Active' : 'Deactivated'); ?></td>
                                     <td class="tools">
-                                        <div class="btn btn-secondary btn-sm">View</div>
+                                        <button class="btn btn-secondary btn-sm view-btn" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">View</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -230,5 +230,5 @@ include '../db/DBconn.php';
         </div>
     </div>
 </section>
-
+<script src="manage-user.js"></script>
 <?php include 'footerAdmin.php'; ?>
