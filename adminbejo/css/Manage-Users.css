@@ -40,6 +40,8 @@
 .table-container {
     background: linear-gradient(45deg, #2260A7, #4A90E2, #6AAFE6);
     border-radius: 20px;
+    height: 400px;
+    position: relative;
 }
 
 .page-link {
@@ -48,11 +50,19 @@
 
 .pagination {
     gap: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
 }
 
 .table-responsive .table th,
 .table-responsive .table td {
     color: #ffffff;
+}
+
+.dropdown-menu.show {
+    transform: translate3d(0px, 0px, 0px) !important;
 }
 
 @media (max-width: 991px) {
