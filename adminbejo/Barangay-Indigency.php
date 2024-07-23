@@ -128,7 +128,7 @@
                         </tbody>
                     </table>
                     <nav id="pendingPagination" aria-label="Pending Page navigation">
-                        <ul class="pagination ">
+                        <ul class="pagination pagination-sm">
                             <li class="page-item">
                                 <a class="page-link" href="?pending_page=1" aria-label="First">
                                     <span aria-hidden="true">&laquo;</span>
@@ -201,7 +201,7 @@
                         </tbody>
                     </table>
                     <nav id="processingPagination" aria-label="Processing Page navigation">
-                        <ul class="pagination">
+                        <ul class="pagination pagination-sm">
                             <li class="page-item">
                                 <a class="page-link" href="?processing_page=1" aria-label="First">
                                     <span aria-hidden="true">&laquo;</span>
@@ -274,7 +274,7 @@
                         </tbody>
                     </table>
                     <nav id="completedPagination" aria-label="Completed Page navigation">
-                        <ul class="pagination">
+                        <ul class="pagination pagination-sm">
                             <li class="page-item">
                                 <a class="page-link" href="?completed_page=1" aria-label="First">
                                     <span aria-hidden="true">&laquo;</span>

@@ -16,10 +16,11 @@ table {
 .pagination {
     margin: 20px 0;
     justify-content: center;
-    left: 40%;
+    right: 5%;
     bottom: 0;
     position: fixed;
     padding-bottom: 10px;
+    
 }
 .pagination .page-item .page-link {
     margin: 0 0px;
