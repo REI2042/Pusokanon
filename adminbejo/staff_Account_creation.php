@@ -1,4 +1,9 @@
-<?php include 'headerAdmin.php'; ?>
+<?php include 'headerAdmin.php'; 
+    include '../db/DBconn.php';
+
+    
+    $accountRole = accountRole($pdo);
+?>
 <link rel="stylesheet" href="css/staff_creation.css">
 </div>
 <section class="gradient-custom">
@@ -98,10 +103,11 @@
                                 <div class="col-12">
 
                                     <select class="select form-control-sm">
-                                        <option value="1" disabled>Choose option</option>
-                                        <option value="2">Subject 1</option>
-                                        <option value="3">Subject 2</option>
-                                        <option value="4">Subject 3</option>
+                                        <option value="" disabled>Choose option</option>
+                                        <?php foreach ($accountRole as $accountRoles): ?>
+                                            <option value="<?= htmlspecialchars($accountRoles['userRole_id']);?>"><?= htmlspecialchars($accountRoles['role_definition']);?></option>
+                                            
+                                        <?php endforeach; ?>
                                     </select>
                                     <label class="form-label select-label" style="font-size: 0.9rem;">Choose option</label>
 

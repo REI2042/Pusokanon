@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="staff_Account_creation.php" class="sidebar-link">
                             <i class="fa-solid fa-building-user"></i>
                             <span class="span-word">Staffs</span>
                         </a>
