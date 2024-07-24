@@ -1,18 +1,69 @@
-.profile-box {
-    display: flex;
+.main {
+    /* width: 100%; */
+    margin-left: 70px;
     justify-content: center;
-    align-items: center;
-    background-color: #2260A7;
-    border-radius: 5px;
-    margin: 10vh 5vw;
+    position: relative;
 }
 
-.profile {
+.title {
+    margin: 12px 0px;
+    font-size: 24px;
+    color: #FAF9F6;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    border: 5px solid white;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin: 5px;
-    width: 100px;
-    height: 100px;
+    border: 5px solid #111010;
+}
+
+.profile-information {
+    position: relative;
+    background: linear-gradient(45deg, #2c7bd5, #4a90e2, #6aafe6);
+    margin: 0px 295px;
+    border-radius: 1%;
+    color: #FAF9F6;
+}
+
+.edit-button {
+    background-color: #005BB5;
+    color: #FAF9F6;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edit-button:hover {
+    color: #FAF9F6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.back-button {
+    top: 10px;
+    left: 10px;
+    width: auto;
+    position: absolute;
+    z-index: 1;
+}
+
+.back-button:hover {
+    text-decoration: none;
+}
+
+@media (max-width: 1204px), (min-height: 768px) {
+    .profile-information {
+        margin: 0px 150px;
+        font-size: 12px
+    }
+}
+
+
+@media (max-width: 768px), (min-height: 768px) {
+    .profile-information {
+        margin: 0px;
+        font-size: 12px
+    }
+
+    .back-button {
+        position: inherit;
+    }
 }

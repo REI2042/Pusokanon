@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const resId = this.getAttribute('data-res-id');
             const currentStatus = this.textContent.trim();
-            const newStatus = currentStatus === 'Active' ? 'Deactivate' : 'Active';
+            const newStatus = currentStatus === 'Deactivate' ? 'Deactivate' : 'Activate';
             Swal.fire({
                 title: `Are you sure you want to ${newStatus} this account?`,
                         text: "This action can be undone later.",
