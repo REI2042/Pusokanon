@@ -13,30 +13,30 @@
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                     <div class="card-body p-3 p-md-4">
                         <h4 class="mb-3 pb-2 pb-md-0 mb-md-4 text-center">Create Staff Account</h4>
-                        <form>
+                        <form id="staffAccountForm" method="POST">
 
                             <div class="row">
                                 <div class="col-md-3 mb-3 ps-3 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="firstName" class="form-control form-control-sm" />
+                                        <input type="text" id="firstName" name="firstName" class="form-control form-control-sm" />
                                         <label class="form-label" for="firstName">First Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="middleName" class="form-control form-control-sm" />
-                                        <label class="form-label" for="middleName">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" class="form-control form-control-sm" />
+                                        <label class="form-label" for="lastName">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="lastName" class="form-control form-control-sm" />
-                                        <label class="form-label" for="lastName"> Middle Name</label>
+                                        <input type="text" id="middleName" name="middleName" class="form-control form-control-sm" />
+                                        <label class="form-label" for="middleName">Middle Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <select id="suffix" class="form-control form-control-sm">
+                                        <select id="suffix" name="suffix" class="form-control form-control-sm">
                                             <option value="">Select Suffix</option>
                                             <option value="Jr.">Jr.</option>
                                             <option value="Sr.">Sr.</option>
@@ -51,29 +51,28 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3 d-flex align-items-center">
-
-                                    <div data-mdb-input-init class="form-outline datepicker w-100">
-                                        <input type="text" class="form-control form-control-sm" id="birthdayDate" />
+                                    <div class="form-outline w-100">
+                                        <input type="date" name="birthdayDate" class="form-control form-control-sm" id="birthdayDate" max="<?php echo date('Y-m-d'); ?>" />
                                         <label for="birthdayDate" class="form-label">Birthday</label>
                                     </div>
-
                                 </div>
+
                                 <div class="col-md-6 mb-3 ps-0">
 
                                     <h6 class="mb-2 pb-1 ps-1" style="font-size: 0.9rem;">Gender: </h6>
 
                                     <div class="form-check form-check-inline ">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="option1" checked />
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="Male" checked />
                                         <label class="form-check-label" for="femaleGender" style="font-size: 0.9rem;">Female</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="option2" />
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="Female" />
                                         <label class="form-check-label" for="maleGender" style="font-size: 0.9rem;">Male</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="option3" />
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="Other" />
                                         <label class="form-check-label" for="otherGender" style="font-size: 0.9rem;">Other</label>
                                     </div>
 
@@ -81,45 +80,68 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6 mb-3 pb-2">
-
+                                <div class="col-md-4 mb-3 pb-2 pe-0">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="email" id="emailAddress" class="form-control form-control-sm" />
+                                        <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-sm" />
                                         <label class="form-label" for="emailAddress">Email</label>
                                     </div>
-
                                 </div>
-                                <div class="col-md-6 mb-3 pb-2 ps-0">
-
+                                <div class="col-md-4 mb-3 pb-2 ps-2 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="tel" id="phoneNumber" class="form-control form-control-sm" />
+                                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" />
                                         <label class="form-label" for="phoneNumber">Phone Number</label>
                                     </div>
-
+                                </div>
+                                <div class="col-md-4 mb-3 pb-2 ps-1 pe-0">
+                                    <select class="select form-control-sm" name="accountType">
+                                        <option value="" disabled>Choose option</option>
+                                        <?php foreach ($accountRole as $accountRoles): ?>
+                                            <option value="<?= htmlspecialchars($accountRoles['userRole_id']);?>"><?= htmlspecialchars($accountRoles['role_definition']);?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <label class="form-label select-label" style="font-size: 0.9rem;">Choose Account Type</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="username" name="username" class="form-control mt-4" id="username" placeholder="Username" />
+                                    <label class="form-label" for="username">Username</label>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-12">
-
-                                    <select class="select form-control-sm">
-                                        <option value="" disabled>Choose option</option>
-                                        <?php foreach ($accountRole as $accountRoles): ?>
-                                            <option value="<?= htmlspecialchars($accountRoles['userRole_id']);?>"><?= htmlspecialchars($accountRoles['role_definition']);?></option>
-                                            
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <label class="form-label select-label" style="font-size: 0.9rem;">Choose option</label>
-
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="password" id="password" name="password" class="form-control" required />
+                                        <label class="form-label" for="password">Password</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
+                                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                    </div>
                                 </div>
                             </div>
-
+                            <script>
+                                document.getElementById('confirmPassword').addEventListener('input', function() {
+                                    var password = document.getElementById('password').value;
+                                    var confirmPassword = this.value;
+                                    
+                                    if (password !== confirmPassword) {
+                                        this.classList.add('is-invalid');
+                                    } else {
+                                        this.classList.remove('is-invalid');
+                                    }
+                                });
+                            </script>
                             <div class="mt-3 pt-2">
                                 <input data-mdb-ripple-init class="btn btn-primary btn-sm" type="submit" value="Create Account" />
                             </div>
 
                         </form>
-                    </div>
+
+                     </div>
                 </div>
             </div>
         </div>
@@ -127,4 +149,51 @@
 </section>
 <div>
 
-    <?php include 'footerAdmin.php'; ?>
+<?php include 'footerAdmin.php'; ?>
+<script>
+   document.getElementById('staffAccountForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch('phpConn/process_staff_account.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(text => {
+        try {
+            return JSON.parse(text);
+        } catch (error) {
+            throw new Error('Invalid JSON response: ' + text);
+        }
+    })
+    .then(data => {
+        if (data.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.error
+            });
+        } else if (data.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: data.success
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An unexpected error occurred. Please try again.'
+        });
+    });
+});
+      
+</script>   

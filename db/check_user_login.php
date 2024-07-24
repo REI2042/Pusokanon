@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['userPassword'];
 
     // Query to check barangay staff table
-    $sqlStaff = "SELECT * FROM barangay_staff WHERE staff_email = :staff_email AND staff_password = :staff_password";
+    $sqlStaff = "SELECT * FROM barangay_staff WHERE user_name = :user_name AND staff_password = :staff_password";
     $stmtStaff = $pdo->prepare($sqlStaff);
-    $stmtStaff->execute(['staff_email' => $email, 'staff_password' => $password]);
+    $stmtStaff->execute(['user_name' => $email, 'staff_password' => $password]);
     $staff = $stmtStaff->fetch();
 
     // Query to check resident user table
