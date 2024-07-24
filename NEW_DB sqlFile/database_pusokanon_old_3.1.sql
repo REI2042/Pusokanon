@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 24, 2024 at 05:38 AM
+-- Generation Time: Jul 19, 2024 at 02:40 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,9 +39,7 @@ CREATE TABLE `account_role` (
 INSERT INTO `account_role` (`userRole_id`, `role_definition`) VALUES
 (1, 'Captain'),
 (2, 'Resident'),
-(3, 'secretary'),
-(4, 'officials'),
-(5, 'document processing');
+(3, 'secretary');
 
 -- --------------------------------------------------------
 
@@ -57,10 +55,13 @@ CREATE TABLE `barangay_staff` (
   `staff_suffix` varchar(20) DEFAULT NULL,
   `birth_date` date NOT NULL,
   `gender` varchar(20) NOT NULL,
+  `year_of_service` date NOT NULL,
   `contact_no` varchar(13) NOT NULL,
   `userRole_id` int(11) NOT NULL,
+  `registered_voters` varchar(10) NOT NULL,
+  `addr_sitio` text NOT NULL,
+  `addr_purok` text NOT NULL,
   `staff_email` varchar(100) NOT NULL,
-  `user_name` varchar(30) NOT NULL,
   `staff_password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -68,10 +69,9 @@ CREATE TABLE `barangay_staff` (
 -- Dumping data for table `barangay_staff`
 --
 
-INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `contact_no`, `userRole_id`, `staff_email`, `user_name`, `staff_password`) VALUES
-(14, 'y6uepI9zt4ZrJ9xmLmSsjw==', '+MFss/zNRoJECy4hrlzhXw==', 'ecq8+4XRxyX+47+406+RHA==', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', '/E6zUxtovr16bzf1hwX8', 'ZFdRdXN6phKHg', 1, '0P1kRNo3yJAG64fgWjSxPoH8uQl1+qDaXx7uaeIuW3w=', 'administrator', '$2y$10$BfdBmc07XyEbG7R8b0YrBeGWPRwjuRXkhurNUtMT8u45iBW7lH7ji'),
-(17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', 'aSoXP6qGxdcVAIvtlLiF', '0000-00-00', '7GppKkCbhvktizXpUSh8', '7EmYfvxuEWHbV', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'admin', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172'),
-(18, 'slMIwOL0Ac7TZlgUoWCibg==', '8IYqHYelARTZzYfZo+lqig==', 'RoAS9dOqf118NORNXd1X3w==', '8ftK2n94Fv7Ym/bhA9JC', '0000-00-00', '/E6zUxtovr16bzf1hwX8', 'CNaMzHs8uuS1o', 3, 'M1UgoWz+nWh05sZtodnuQ8PnFi8qTDXMbncq05Q/ydY=', 'airene', '$2y$10$ndRBn8Q7dG4IMdWEnWv9D.ZPZ385uYnLb7b9Tq/KmDO8fiZV3uPM6');
+INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `year_of_service`, `contact_no`, `userRole_id`, `registered_voters`, `addr_sitio`, `addr_purok`, `staff_email`, `staff_password`) VALUES
+(2, 'Ranie', 'Godinez', 'EMPERIO', NULL, '0000-00-00', '', '0000-00-00', '', 1, '', '', '', 'Admin', '2402'),
+(3, 'airene', 'mabulay', 'cabunilas', NULL, '0000-00-00', '', '0000-00-00', '', 3, '', '', '', 'secretary', '2402');
 
 -- --------------------------------------------------------
 
@@ -103,6 +103,20 @@ CREATE TABLE `complaints_tbl` (
   `remarks` varchar(200) NOT NULL,
   `date_closed` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaints_tbl`
+--
+
+INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `comment`, `remarks`, `date_closed`) VALUES
+(1, 28, 'Nino Rey', '', 'Cabunilas', ' ', 'Male', 26, '2024-07-01', '10:30:00', '2024-07-17 16:19:22', 'Lawis', 'Libel', 'testingg', 'complaints_evidence/6697ef0a4e3d6.png', 2, NULL, NULL, 'Declined', 'vb jhbi', '', '2024-07-18'),
+(2, 28, 'Demitria', 'The', 'Great', ' ', 'Female', 23, '2024-05-14', '11:30:00', '2024-07-17 16:29:20', 'Sewage', 'Physical Abuse', 'nangamras sako nawng', 'complaints_evidence/6697f160c76dd.png', 2, NULL, NULL, 'Declined', 'lack of evidence', 'CASE CLOSED', '2024-07-18'),
+(3, 28, 'Rejie', '', 'Callahan', 'Sr.', 'Male', 35, '2024-07-02', '15:30:00', '2024-07-17 16:30:16', 'New Lipata', 'Bullying', 'sig pacute2', 'complaints_evidence/6697f19888165.png', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
+(4, 28, 'Maria Irenea', '', 'Bebanco', ' ', 'Female', 23, '2024-06-22', '16:30:00', '2024-07-17 16:31:10', 'Mustang', 'Theft', 'gikuha akong sudlay', 'complaints_evidence/6697f1cece17f.png', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
+(5, 28, 'Demi', '', 'Mabulay', ' ', 'Female', 25, '2024-03-22', '20:30:00', '2024-07-17 16:31:57', 'Sewage', 'Theft', 'nangawat og sud an', 'complaints_evidence/6697f1fdb4490.png', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
+(6, 28, 'Nino', '', 'Cabunilas', ' ', 'Male', 25, '2024-04-26', '13:00:00', '2024-07-17 17:42:42', 'Sewage', 'Threat', 'isumbong tikang mama imo ko gi away', 'complaints_evidence/66980292ac7f7.png', 2, NULL, NULL, 'Declined', 'sumbongera ngee', 'CASE CLOSED', '2024-07-18'),
+(7, 28, 'Demitria', '', 'Mabulay', ' ', 'Female', 22, '2024-07-03', '06:47:00', '2024-07-17 17:44:38', 'Sta. Maria', 'Damaging Properties', 'tryy', 'complaints_evidence/669803069051c.jpg', 2, NULL, NULL, 'Pending', '--', '', '2024-07-18'),
+(8, 28, 'Renee', '', 'Descartez', ' ', 'Female', 26, '2024-07-01', '06:46:00', '2024-07-17 17:46:22', 'Sewage', 'Trespassing', 'hello world', 'complaints_evidence/6698036ec284d.jpg', 2, NULL, NULL, 'Declined', 'hihi', 'CASE CLOSED', '2024-07-18');
 
 -- --------------------------------------------------------
 
@@ -214,11 +228,8 @@ CREATE TABLE `request_doc` (
 --
 
 INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`) VALUES
-(1, 29, 1, 5, 'damnnn', 'Ready to pickup', '2024-07-17 18:09:27', '2024-07-22 11:45:19', 'Not released', '!>W$PYst#s}', '1721239768.png'),
-(2, 29, 2, 5, 'For scholarship', 'pending', '2024-07-17 18:12:25', '2024-07-17 18:12:26', 'Not released', '|50{md?ciQ[8b', '1721239946.png'),
-(3, 29, 1, 4, 'Senior Citizen Assistance', 'Done', '2024-07-20 05:26:56', '2024-07-20 05:33:39', 'Released', '@vn(r>@#N8ksO', '1721453216.png'),
-(4, 29, 1, 5, 'TRAVEL', 'Ready to pickup', '2024-07-22 11:43:44', '2024-07-22 23:12:32', 'Not released', 'Pt.i?qOaY9', '1721648624.png'),
-(5, 29, 2, 4, 'Senior Citizen Assistance', 'Ready to pickup', '2024-07-22 12:35:07', '2024-07-22 12:35:35', 'Not released', ';b.D1.j8?*8jW', '1721651707.png');
+(1, 29, 1, 5, 'damnnn', 'pending', '2024-07-17 18:09:27', '2024-07-17 18:09:28', 'Not released', '!>W$PYst#s}', '1721239768.png'),
+(2, 29, 2, 5, 'For scholarship', 'pending', '2024-07-17 18:12:25', '2024-07-17 18:12:26', 'Not released', '|50{md?ciQ[8b', '1721239946.png');
 
 -- --------------------------------------------------------
 
@@ -336,19 +347,19 @@ ALTER TABLE `resident_users`
 -- AUTO_INCREMENT for table `account_role`
 --
 ALTER TABLE `account_role`
-  MODIFY `userRole_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userRole_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `barangay_staff`
 --
 ALTER TABLE `barangay_staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `complaints_tbl`
 --
 ALTER TABLE `complaints_tbl`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `docs_purpose`
@@ -372,7 +383,7 @@ ALTER TABLE `registration_tbl`
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
