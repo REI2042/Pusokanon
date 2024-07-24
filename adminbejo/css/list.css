@@ -75,7 +75,6 @@ h1 {
 .table tr th {
   font-size: 13px;
   width: 20px;
-  background-color: #2260a7;
   color: white;
 }
 
@@ -91,9 +90,15 @@ h1 {
   flex-grow: 1;
 }
 
-.pagination {
-  margin-top: auto;
+
+.pagination-container {
+  position: absolute;
+  bottom: 5px; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
 }
+
 
 .table-responsive table {
   border-collapse: collapse;
@@ -118,7 +123,6 @@ h1 {
     border-bottom: 1px solid blue;
     position: sticky;
     top: 0;
-    background-color: #2260A7;
     padding-bottom: 20px;
     color: white;
 }

@@ -98,10 +98,19 @@
                         <a class="dropdown-item" data-case-type="Theft" href="#">Theft</a>
                     </div>
                 </div>
-                <form method="GET" class="d-flex">
-                    <input name="searchTerm" class="form-control me-2" type="input" placeholder="Search name" aria-label="Search name" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                <form method="GET" class="d-flex" id="searchForm">
+                    <input id="searchInput" name="searchTerm" class="form-control me-2" type="input" placeholder="Search name" aria-label="Search name" value="<?php echo htmlspecialchars($searchTerm); ?>">
                     <button class="btn this-button" type="submit">Search</button>
                 </form>
+
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        if (this.value === '') {
+            document.getElementById('searchForm').submit();
+        }
+    });
+</script>
+
             </div>
         </div>
 
@@ -111,7 +120,7 @@
                     <!-- Pending Complaints Table -->
                     <div id="pendingContainer">
                         <table id="pendingTable" class="table mx-auto" cellspacing="0" cellpadding="0">
-                            <thead>
+                            <thead style="background-color: #FE9705;">
                                 <tr>
                                     <th>Case ID</th>
                                     <th>Case Type</th>
@@ -178,23 +187,25 @@
                             </tbody>
                         </table>
                         <!-- Pending Complaints Pagination -->
-                        <nav id="pendingPagination" aria-label="Pending complaints pagination">
-                            <ul class="pagination justify-content-center">
-                                <?php if ($pendingPage > 1): ?>
-                                    <li class="page-item"><a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage - 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Prev</a></li>                            <?php endif; ?>
-                                <?php for ($i = 1; $i <= $num_pendingPage; $i++): ?>
-                                    <li class="page-item<?php if ($i == $pendingPage) echo ' active'; ?>"><a class="page-link" href="?status=pending&pendingPage=<?php echo $i; ?>; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><?php echo $i; ?></a></li>
-                                <?php endfor; ?>
-                                <?php if ($pendingPage < $num_pendingPage): ?>
-                                    <li class="page-item"><a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage + 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Next</a></li>                            <?php endif; ?>
-                            </ul>
-                        </nav>
+                        <div class="pagination-container">
+                            <nav id="pendingPagination" aria-label="Pending complaints pagination">
+                                <ul class="pagination justify-content-center">
+                                    <?php if ($pendingPage > 1): ?>
+                                        <li class="page-item"><a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage - 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Prev</a></li>                            <?php endif; ?>
+                                    <?php for ($i = 1; $i <= $num_pendingPage; $i++): ?>
+                                        <li class="page-item<?php if ($i == $pendingPage) echo ' active'; ?>"><a class="page-link" href="?status=pending&pendingPage=<?php echo $i; ?>; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><?php echo $i; ?></a></li>
+                                    <?php endfor; ?>
+                                    <?php if ($pendingPage < $num_pendingPage): ?>
+                                        <li class="page-item"><a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage + 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Next</a></li>                            <?php endif; ?>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
 
                     <!-- Approved Complaints Table -->
                     <div id="approvedContainer" style="display: none;">
                         <table id="approvedTable" class="table mx-auto" cellspacing="0" cellpadding="0">
-                            <thead>
+                            <thead style="background-color: #3AC430;">
                                 <tr>
                                     <th>Case ID</th>
                                     <th>Case Type</th>
@@ -240,7 +251,7 @@
                                                                             '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                             '<?= $imageSrc ?>')">
                                                         <i class="fas fa-eye"></i> </a>
-                                                    <button class="btn btn-warning btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
+                                                    <button class="btn btn-secondary btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
                                                 </div>
@@ -255,25 +266,27 @@
                             </tbody>
                         </table>
                         <!-- Approved Complaints Pagination -->
-                        <nav id="approvedPagination" aria-label="Approved complaints pagination">
-                            <ul class="pagination justify-content-center">
-                                <?php if ($approvedPage > 1): ?>
-                                    <li class="page-item"><a class="page-link" href="?status=approved&approvedPage=<?php echo $approvedPage - 1; ?>">Previous</a></li>
-                                <?php endif; ?>
-                                <?php for ($i = 1; $i <= $num_approvedPage; $i++): ?>
-                                    <li class="page-item<?php if ($i == $approvedPage) echo ' active'; ?>"><a class="page-link" href="?status=approved&approvedPage=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-                                <?php endfor; ?>
-                                <?php if ($approvedPage < $num_approvedPage): ?>
-                                    <li class="page-item"><a class="page-link" href="?status=approved&approvedPage=<?php echo $approvedPage + 1; ?>">Next</a></li>
-                                <?php endif; ?>
-                            </ul>
-                        </nav>
+                        <div class="pagination-container">
+                            <nav id="approvedPagination" aria-label="Approved complaints pagination">
+                                <ul class="pagination justify-content-center">
+                                    <?php if ($approvedPage > 1): ?>
+                                        <li class="page-item"><a class="page-link" href="?status=approved&approvedPage=<?php echo $approvedPage - 1; ?>">Previous</a></li>
+                                    <?php endif; ?>
+                                    <?php for ($i = 1; $i <= $num_approvedPage; $i++): ?>
+                                        <li class="page-item<?php if ($i == $approvedPage) echo ' active'; ?>"><a class="page-link" href="?status=approved&approvedPage=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                    <?php endfor; ?>
+                                    <?php if ($approvedPage < $num_approvedPage): ?>
+                                        <li class="page-item"><a class="page-link" href="?status=approved&approvedPage=<?php echo $approvedPage + 1; ?>">Next</a></li>
+                                    <?php endif; ?>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
 
                     <!-- Rejected Complaints Table -->
                     <div id="rejectedContainer" style="display: none;">
                         <table id="rejectedTable" class="table mx-auto" cellspacing="0" cellpadding="0">
-                            <thead>
+                            <thead style="background-color: #D11313;">
                                 <tr>
                                     <th>Case ID</th>
                                     <th>Case Type</th>
@@ -331,19 +344,21 @@
                             </tbody>
                         </table>
                         <!-- Rejected Complaints Pagination -->
-                        <nav id="rejectedPagination" aria-label="Rejected complaints pagination">
-                            <ul class="pagination justify-content-center">
-                                <?php if ($rejectedPage > 1): ?>
-                                    <li class="page-item"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $rejectedPage - 1; ?>">Previous</a></li>
-                                <?php endif; ?>
-                                <?php for ($i = 1; $i <= $num_rejectedPage; $i++): ?>
-                                    <li class="page-item<?php if ($i == $rejectedPage) echo ' active'; ?>"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-                                <?php endfor; ?>
-                                <?php if ($rejectedPage < $num_rejectedPage): ?>
-                                    <li class="page-item"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $rejectedPage + 1; ?>">Next</a></li>
-                                <?php endif; ?>
-                            </ul>
-                        </nav>
+                        <div class="pagination-container">
+                            <nav id="rejectedPagination" aria-label="Rejected complaints pagination">
+                                <ul class="pagination justify-content-center">
+                                    <?php if ($rejectedPage > 1): ?>
+                                        <li class="page-item"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $rejectedPage - 1; ?>">Previous</a></li>
+                                    <?php endif; ?>
+                                    <?php for ($i = 1; $i <= $num_rejectedPage; $i++): ?>
+                                        <li class="page-item<?php if ($i == $rejectedPage) echo ' active'; ?>"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                    <?php endfor; ?>
+                                    <?php if ($rejectedPage < $num_rejectedPage): ?>
+                                        <li class="page-item"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $rejectedPage + 1; ?>">Next</a></li>
+                                    <?php endif; ?>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

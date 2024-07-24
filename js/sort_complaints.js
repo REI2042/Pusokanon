@@ -60,4 +60,10 @@ document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(ite
     });
 });
 
+document.getElementById('searchInput').addEventListener('input', function() {
+    if (this.value === '') {
+        document.getElementById('searchForm').submit();
+    }
+});
+
 
