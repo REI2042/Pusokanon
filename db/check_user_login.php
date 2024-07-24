@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['userPassword'];
 
     // Query to check barangay staff table
-    $sqlStaff = "SELECT * FROM barangay_staff WHERE user_name = :user_name AND staff_password = :staff_password";
+    $sqlStaff = "SELECT * FROM barangay_staff WHERE user_name = :userName";
     $stmtStaff = $pdo->prepare($sqlStaff);
-    $stmtStaff->execute(['user_name' => $email, 'staff_password' => $password]);
+    $stmtStaff->execute([':userName' => $email]);
     $staff = $stmtStaff->fetch();
 
     // Query to check resident user table
@@ -19,16 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resident = $stmtResident->fetch();
 
     // Check if either staff or resident exists
-    if ($staff) {
+    if ($staff && password_verify($password, $staff['staff_password'])) {
         session_start();
         $_SESSION['loggedin'] = true;
         $_SESSION['userRole'] = $staff['userRole_id'];
 
-        if ($_SESSION['userRole'] == 1) { // Admin
+        if ($_SESSION['userRole'] == 1 ) { // Admin
             header("Location: ../adminbejo/Dashboard.php");
             exit();
-        } else {
-            header("Location: ../include/staff_restrict_pages.php");
+        } elseif ($_SESSION['userRole'] == 3){
+            header("Location: ../adminbejo/Dashboard.php");
             exit();
         }
     } elseif ($resident && password_verify($password, $resident['res_password'])) {

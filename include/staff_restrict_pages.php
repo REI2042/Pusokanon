@@ -16,17 +16,5 @@ if ($_SESSION['userRole'] == 2) {
     exit();
 }
 
-if ($_SESSION['userRole'] == 3) {
- 
-    header("Location: pendingUsers.php");
-    exit();
-}
-
-
-if ($_SESSION['userRole'] != 1) {
-  
-    
-    echo "<script>alert('You do not have access on that page');</script>";
-}
 
 ?>

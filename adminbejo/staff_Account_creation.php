@@ -18,19 +18,19 @@
                             <div class="row">
                                 <div class="col-md-3 mb-3 ps-3 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="firstName" name="firstName" class="form-control form-control-sm" />
+                                        <input type="text" id="firstName" name="firstName" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="firstName">First Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="lastName" name="lastName" class="form-control form-control-sm" />
+                                        <input type="text" id="lastName" name="lastName" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="lastName">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="middleName" name="middleName" class="form-control form-control-sm" />
+                                        <input type="text" id="middleName" name="middleName" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="middleName">Middle Name</label>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 d-flex align-items-center">
                                     <div class="form-outline w-100">
-                                        <input type="date" name="birthdayDate" class="form-control form-control-sm" id="birthdayDate" max="<?php echo date('Y-m-d'); ?>" />
+                                        <input type="date" name="birthdayDate" class="form-control form-control-sm" autocomplete="off" id="birthdayDate" max="<?php echo date('Y-m-d'); ?>" />
                                         <label for="birthdayDate" class="form-label">Birthday</label>
                                     </div>
                                 </div>
@@ -62,17 +62,17 @@
                                     <h6 class="mb-2 pb-1 ps-1" style="font-size: 0.9rem;">Gender: </h6>
 
                                     <div class="form-check form-check-inline ">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="Male" checked />
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="Male"autocomplete="off" checked />
                                         <label class="form-check-label" for="femaleGender" style="font-size: 0.9rem;">Female</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="Female" />
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="Female" autocomplete="off"  />
                                         <label class="form-check-label" for="maleGender" style="font-size: 0.9rem;">Male</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="Other" />
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="Other" autocomplete="off"/>
                                         <label class="form-check-label" for="otherGender" style="font-size: 0.9rem;">Other</label>
                                     </div>
 
@@ -82,13 +82,13 @@
                             <div class="row">
                                 <div class="col-md-4 mb-3 pb-2 pe-0">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-sm" />
+                                        <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="emailAddress">Email</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3 pb-2 ps-2 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" />
+                                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="phoneNumber">Phone Number</label>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="username" name="username" class="form-control mt-4" id="username" placeholder="Username" />
+                                    <input type="username" name="username" class="form-control mt-4" id="username" placeholder="Username" autocomplete="off"/>
                                     <label class="form-label" for="username">Username</label>
                                 </div>
                             </div>
@@ -112,13 +112,13 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="password" id="password" name="password" class="form-control" required />
+                                        <input type="password" id="password" name="password" class="form-control" required autocomplete="off"/>
                                         <label class="form-label" for="password">Password</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
+                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required autocomplete="off"/>
                                         <label class="form-label" for="confirmPassword">Confirm Password</label>
                                     </div>
                                 </div>

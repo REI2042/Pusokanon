@@ -12,10 +12,11 @@ if (isset($_POST['firstName'])) {
     $gender = encryptData($_POST['inlineRadioOptions']);
     $email = encryptData($_POST['emailAddress']);
     $phoneNumber = encryptData($_POST['phoneNumber']);
-    $username = encryptData($_POST['username']);
-    $accountType = $_POST['accountType'];    
+    $username = $_POST['username'];
+    $accountType = $_POST['accountType'];
 
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    $password = hashPassword($_POST['password']);
 
     $sql = "INSERT INTO barangay_staff (staff_fname, staff_lname, staff_midname, staff_suffix, birth_date, gender, contact_no, userRole_id, staff_email, user_name, staff_password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
