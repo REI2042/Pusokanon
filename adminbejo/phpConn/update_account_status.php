@@ -2,22 +2,24 @@
 include '../../db/DBconn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $action = $_POST['action'];
+    $resId = $_POST['resId'];
+    $newStatus = $_POST['newStatus'] === 'Active' ? 1 : 0;
 
-    $newStatus = ($action === 'activate') ? 1 : 0;
+    try {
+        $sql = "UPDATE resident_users SET is_active = :newStatus WHERE res_ID = :resId";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':newStatus', $newStatus, PDO::PARAM_INT);
+        $stmt->bindParam(':resId', $resId, PDO::PARAM_INT);
+        $result = $stmt->execute();
 
-    $sql = "UPDATE resident_users SET is_active = :status WHERE res_ID = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':status', $newStatus, PDO::PARAM_INT);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['success' => false]);
+        if ($result) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+    echo json_encode(['success' => false, 'error' => 'Invalid request method']);
 }
-?>

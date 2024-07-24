@@ -186,6 +186,9 @@ include '../db/DBconn.php';
                                     <td><?php echo htmlspecialchars($user['is_active'] ? 'Active' : 'Deactivated'); ?></td>
                                     <td class="tools">
                                         <button class="btn btn-secondary btn-sm view-btn" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">View</button>
+                                        <button class="btn btn-secondary btn-sm status-btn <?php echo $user['is_active'] ? 'deactivate-btn' : 'activate-btn'; ?>" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
+                                            <?php echo htmlspecialchars($user['is_active'] ? 'Deactivate' : 'Activate'); ?>
+                                        </button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

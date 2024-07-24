@@ -65,11 +65,11 @@
     transform: translate3d(0px, 0px, 0px) !important;
 }
 
-.swal-deactivate-btn {
-    background-color: red !important;
+.deactivate-btn {
+    background-color: red;
 }
-.swal-activate-btn {
-    background-color: green !important;
+.activate-btn {
+    background-color: green;
 }
 
 @media (max-width: 991px) {
@@ -96,7 +96,7 @@
     }
 
     .table {
-        width: 800px;
+        width: 1000px;
     }
 
     table thead th {
