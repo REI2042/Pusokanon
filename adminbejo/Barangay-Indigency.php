@@ -1,5 +1,6 @@
 
 <?php 
+    include '../include/staff_restrict_pages.php';
     include '../db/DBconn.php';
     include 'headerAdmin.php';
 

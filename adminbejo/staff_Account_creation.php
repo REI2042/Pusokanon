@@ -1,6 +1,8 @@
-<?php include 'headerAdmin.php'; 
+<?php 
+    include '../include/staff_restrict_pages.php';
+    include 'headerAdmin.php'; 
     include '../db/DBconn.php';
-
+    
     
     $accountRole = accountRole($pdo);
 ?>
@@ -112,13 +114,23 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="password" id="password" name="password" class="form-control" required autocomplete="off"/>
+                                        <div class="input-group">
+                                            <input type="password" id="password" name="password" class="form-control" required autocomplete="off"/>
+                                            <span class="input-group-text" id="togglePassword">
+                                                <i class="fas fa-eye"></i>
+                                            </span>
+                                        </div>
                                         <label class="form-label" for="password">Password</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required autocomplete="off"/>
+                                        <div class="input-group">
+                                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required autocomplete="off">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-eye" id="toggleConfirmPassword"></i>
+                                            </span>
+                                        </div>
                                         <label class="form-label" for="confirmPassword">Confirm Password</label>
                                     </div>
                                 </div>
@@ -134,6 +146,20 @@
                                         this.classList.remove('is-invalid');
                                     }
                                 });
+
+                                function togglePasswordVisibility(inputId, toggleId) {
+                                    const input = document.getElementById(inputId);
+                                    const toggle = document.getElementById(toggleId);
+                                    toggle.addEventListener('click', function() {
+                                        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                                        input.setAttribute('type', type);
+                                        this.querySelector('i').classList.toggle('fa-eye');
+                                        this.querySelector('i').classList.toggle('fa-eye-slash');
+                                    });
+                                }
+
+                                togglePasswordVisibility('password', 'togglePassword');
+                                togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword');
                             </script>
                             <div class="mt-3 pt-2">
                                 <input data-mdb-ripple-init class="btn btn-primary btn-sm" type="submit" value="Create Account" />

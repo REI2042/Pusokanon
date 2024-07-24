@@ -22,12 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($staff && password_verify($password, $staff['staff_password'])) {
         session_start();
         $_SESSION['loggedin'] = true;
-        $_SESSION['userRole'] = $staff['userRole_id'];
-
-        if ($_SESSION['userRole'] == 1 ) { // Admin
+        if ($staff['userRole_id'] == 1 ) { // Admin
+            $_SESSION['userRole'] = $staff['userRole_id'];
+            $_SESSION['username'] = $staff['user_name'];
             header("Location: ../adminbejo/Dashboard.php");
             exit();
-        } elseif ($_SESSION['userRole'] == 3){
+        } elseif ($staff['userRole_id'] == 3){            
+            $_SESSION['userRole'] = $staff['userRole_id'];
             header("Location: ../adminbejo/Dashboard.php");
             exit();
         }

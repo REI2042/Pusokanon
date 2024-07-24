@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,6 +102,7 @@
                             <span class="span-word">&nbsp;Post Announcement</span>
                         </a>
                     </li>
+                    <?php  if ($_SESSION['userRole'] != 3): ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                             data-bs-target="#blotter" aria-expanded="false" aria-controls="blotter">
@@ -130,6 +133,7 @@
                             <span class="span-word">Set Document Rate</span>
                         </a>
                     </li> 
+                    <?php endif; ?>
                 </ul>
             </aside>
             
