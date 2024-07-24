@@ -36,16 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-// Call this function on page load to set the initial pagination
-// document.addEventListener('DOMContentLoaded', function() {
-//     const activeButton = document.querySelector('.status-button.active');
-//     if (activeButton) {
-//         const status = activeButton.id.replace('Btn', '').toLowerCase();
-//         updatePagination(status);
-//     }
-// });
-
 // Event listeners for incident place dropdown
 document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(function(item) {
     item.addEventListener('click', function() {
@@ -70,18 +60,4 @@ document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(ite
     });
 });
 
-// Event listener for search form submission
-document.addEventListener('DOMContentLoaded', function() {
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
 
-    if (searchForm) {
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const searchTerm = searchInput.value.trim();
-            const currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set('search', searchTerm);
-            window.location.href = currentUrl.toString();
-        });
-    }
-});
