@@ -1,4 +1,5 @@
 <?php
+include '../include/staff_restrict_pages.php';
 include 'headerAdmin.php';
 ?>
 <link rel="stylesheet" href="css/list.css">
