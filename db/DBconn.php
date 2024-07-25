@@ -356,7 +356,7 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
                 ct.incident_place AS incident_place, 
                 ct.date_filed AS date_filed, 
                 ct.status AS status,
-                ct.comment AS comment,
+                ct.remarks AS remarks,
                 ct.narrative AS narrative,
                 ct.evidence AS evidence,
                 CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,

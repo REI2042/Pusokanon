@@ -166,15 +166,12 @@
                                                                             '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                             '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                             '<?= $imageSrc ?>')">
-                                                        <i class="fas fa-eye"></i> </a>
+                                                        <i class="fas fa-eye"></i> View</a>
                                                     <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
-                                                        <i class="fas fa-check"></i>
+                                                        <i class="bi bi-check-circle"></i> Approve
                                                     </button>
                                                     <button class="btn btn-danger btn-sm me-2" onclick="reject_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
-                                                        <i class="fas fa-times"></i> 
-                                                    </button>
-                                                    <button class="btn btn-secondary btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
-                                                        <i class="fas fa-pencil-alt"></i>
+                                                        <i class="bi bi-x-circle"></i> Reject
                                                     </button>
                                                 </div>
                                             </td>
@@ -213,6 +210,7 @@
                                     <th>Place of Incident</th>
                                     <th>Date/Time Reported</th>
                                     <th>Status</th>
+                                    <th>Remarks</th>
                                     <th>Tools</th>
                                 </tr>
                             </thead>
@@ -220,44 +218,45 @@
                             <?php if (!empty($approvedComplaints)): ?>
                                 <?php foreach ($approvedComplaints as $complaint): ?>
                                     <tr>
-                                            <?php
-                                                $imagePath = "../../db/complaints_evidence/{$complaint['evidence']}";
-                                                if (file_exists($imagePath)) {
-                                                    $imageData = base64_encode(file_get_contents($imagePath));
-                                                    $imageMimeType = mime_content_type($imagePath);
-                                                    $imageSrc = "data:$imageMimeType;base64,$imageData";
-                                                } else {
-                                                    $imageSrc = ''; 
-                                                }
-                                                $decryptedEmail = decryptData($complaint['resident_email']);
-                                            ?>
-                                            <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['date_filed']); ?></td>
-                                            <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
-                                                <?php echo htmlspecialchars($complaint['status']); ?>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-start align-items-center">
-                                                    <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
-                                                                            '<?= htmlspecialchars($complaint['resident_name'])?>',
-                                                                            '<?= htmlspecialchars($decryptedEmail)?>',
-                                                                            '<?= htmlspecialchars($complaint['respondent_name'])?>',
-                                                                            '<?= htmlspecialchars($complaint['respondent_age'])?>',
-                                                                            '<?= htmlspecialchars($complaint['respondent_gender'])?>',
-                                                                            '<?= htmlspecialchars($complaint['incident_date'])?>',
-                                                                            '<?= htmlspecialchars($complaint['incident_time'])?>',
-                                                                            '<?= htmlspecialchars($complaint['incident_place'])?>',
-                                                                            '<?= htmlspecialchars($complaint['narrative'])?>',
-                                                                            '<?= $imageSrc ?>')">
-                                                        <i class="fas fa-eye"></i> </a>
-                                                    <button class="btn btn-secondary btn-sm me-2" onclick="addRemarks('<?= htmlspecialchars($request['complaint_id']) ?>')">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                            $imagePath = "../../db/complaints_evidence/{$complaint['evidence']}";
+                                            if (file_exists($imagePath)) {
+                                                $imageData = base64_encode(file_get_contents($imagePath));
+                                                $imageMimeType = mime_content_type($imagePath);
+                                                $imageSrc = "data:$imageMimeType;base64,$imageData";
+                                            } else {
+                                                $imageSrc = ''; 
+                                            }
+                                            $decryptedEmail = decryptData($complaint['resident_email']);
+                                        ?>
+                                        <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
+                                        <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
+                                        <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
+                                        <td><?php echo htmlspecialchars($complaint['date_filed']); ?></td>
+                                        <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
+                                            <?php echo htmlspecialchars($complaint['status']); ?>
+                                        </td>
+                                        <td><?php echo htmlspecialchars($complaint['remarks']); ?></td>
+                                        <td>
+                                            <div class="d-flex justify-content-start align-items-center">
+                                                <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
+                                                                        '<?= htmlspecialchars($complaint['resident_name'])?>',
+                                                                        '<?= htmlspecialchars($decryptedEmail)?>',
+                                                                        '<?= htmlspecialchars($complaint['respondent_name'])?>',
+                                                                        '<?= htmlspecialchars($complaint['respondent_age'])?>',
+                                                                        '<?= htmlspecialchars($complaint['respondent_gender'])?>',
+                                                                        '<?= htmlspecialchars($complaint['incident_date'])?>',
+                                                                        '<?= htmlspecialchars($complaint['incident_time'])?>',
+                                                                        '<?= htmlspecialchars($complaint['incident_place'])?>',
+                                                                        '<?= htmlspecialchars($complaint['narrative'])?>',
+                                                                        '<?= $imageSrc ?>')">
+                                                    <i class="fas fa-eye"></i> View</a>
+                                                <button class="btn btn-secondary btn-sm me-2" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
+                                                    <i class="bi bi-x-octagon"></i> Close
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
@@ -332,7 +331,7 @@
                                                                             '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                             '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                             '<?= $imageSrc ?>')">
-                                                        <i class="fas fa-eye"></i> </a>
+                                                        <i class="fas fa-eye"></i> View</a>
                                                 </div>
                                             </td>
                                         </tr>

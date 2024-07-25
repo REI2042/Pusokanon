@@ -43,7 +43,7 @@ body {
 }
 
 .status-button {
-  color: white;
+  color: white !important;
   border-radius: 50px;
 }
 
