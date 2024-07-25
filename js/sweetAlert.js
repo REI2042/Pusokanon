@@ -432,3 +432,44 @@ async function showSweetAlert(res_email, resident_name, document_name ,docID, re
   });
 }
 
+
+function trashCancelDocument(doc_ID, request_id) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url: "../db/trashDocument.php",
+        type: "POST",
+        data: { 
+          doc_ID: doc_ID,
+          request_id: request_id
+        },
+        success: function (response) {
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+          setTimeout(() => {
+            location.reload();
+          }, 2500);
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            title: 'Error',
+            text: 'There was an error deleting your file: ' + error,
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+          })
+        }
+      });
+    }
+  })
+}

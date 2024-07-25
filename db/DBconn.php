@@ -639,6 +639,7 @@ function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)
 				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
 				dt.doc_name AS document_name, 
 				rd.purpose_name AS purpose_name, 
+				rd.request_id,
 				rd.date_req, 
 				rd.remarks 
 			FROM request_doc rd

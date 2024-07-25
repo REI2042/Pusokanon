@@ -130,6 +130,7 @@ if($search) {
                         <?php else: ?>    
                             <?php foreach ($pending as $pendings): ?>
                                 <tr>
+                                <?php $dataDecrypt = decryptData($pendings['res_email']); ?>
                                     <td><?= htmlspecialchars($pendings['res_id']); ?></td>
                                     <td><?= htmlspecialchars($pendings['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($pendings['document_name']); ?></td>
@@ -139,9 +140,8 @@ if($search) {
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
+                                            <div class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>                                         
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
-                                                <?php $dataDecrypt = decryptData($pendings['res_email']); ?>
                                                 <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
                                                 <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($pendings['doc_ID']); ?>">
