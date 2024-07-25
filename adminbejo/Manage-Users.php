@@ -8,6 +8,7 @@ include '../db/DBconn.php';
     $sitio = isset($_GET['sitio']) ? $_GET['sitio'] : null;
     $accountStatus = isset($_GET['account_status']) ? $_GET['account_status'] : null;
     $search = isset($_GET['search']) ? $_GET['search'] : null;
+    $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
     $total_users = fetchTotalResidents($pdo);
     $total_males = fetchTotalMales($pdo);
@@ -137,8 +138,8 @@ include '../db/DBconn.php';
             </div>
         </div>
         <div class="col-12 col-sm-3 my-1 my-sm-0">
-            <form action="" method="GET" class="input-group d-flex align-self-center">
-                <input type="text" class="form-control" name="search" placeholder="Enter User's ID or Name" aria-label="User's ID or Name" aria-describedby="basic-addon2">
+            <form action="" method="GET" class="input-group d-flex align-self-center" id="searchForm">
+                <input type="text" class="form-control" name="search" placeholder="Enter User's ID or Name" id="searchInput" aria-label="User's ID or Name" aria-describedby="basic-addon2" value="<?php echo htmlspecialchars($searchTerm); ?>">
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit">Search</button>
                 </div>
@@ -185,7 +186,9 @@ include '../db/DBconn.php';
                                     <td><?php echo htmlspecialchars($user['contact_no']) ?></td>
                                     <td><?php echo htmlspecialchars($user['is_active'] ? 'Active' : 'Deactivated'); ?></td>
                                     <td class="tools">
-                                        <button class="btn btn-secondary btn-sm view-btn" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">View</button>
+                                    <button class="btn btn-secondary btn-sm view-btn" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
                                         <button class="btn btn-secondary btn-sm status-btn <?php echo $user['is_active'] ? 'deactivate-btn' : 'activate-btn'; ?>" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
                                             <?php echo htmlspecialchars($user['is_active'] ? 'Deactivate' : 'Activate'); ?>
                                         </button>

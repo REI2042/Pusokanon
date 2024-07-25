@@ -729,3 +729,13 @@ function fetchdocsRequestRemarks($pdo, $status, $remarks, $limit, $offset)
 	$stmt->execute();
 	return $stmt->fetchAll();
 }
+
+function fetchResidentDetails($pdo, $residentId)
+{
+    $sql = "SELECT * FROM resident_users WHERE res_ID = :residentId";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':residentId', $residentId, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}

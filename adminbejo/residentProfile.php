@@ -3,7 +3,18 @@
     include 'headerAdmin.php';
     include '../db/DBconn.php';
 
-    $profilePicture = 'null';
+    $residentId = $_GET['id'];
+    
+    $resident = fetchResidentDetails($pdo, $residentId);
+    $decryptedEmail = decryptData($resident['res_email']);
+    $birthdate = new DateTime($resident['birth_date']);
+    $currentDate = new DateTime();
+    $age = $currentDate->diff($birthdate)->y;
+    $profilePicture = $resident['profile_picture'];
+    $formattedBirthdate = $birthdate->format('F j, Y');
+    $suffix = $resident['res_suffix'] !== ' ' ? htmlspecialchars($resident['res_suffix']) : 'N/A';
+    $registeredVoter = $resident['registered_voter'] === 'Registered' ? 'Yes' : 'No';
+        
 ?>  
     <link rel="stylesheet" href="css/residentProfile.css" type="text/css">
     <section class="main">
@@ -19,26 +30,26 @@
                     </div>
                     <div class="row mx-0">
                         <div class="col-12 text-center">
-                            <img src="../PicturesNeeded/blank_profile.png" class="profile-picture m-1" alt="Profile Picture"/>
-                            <p class="resident-id my-1"><strong>ID Number:</strong> [Placeholder]</p>
-                            <p class="account-status my-1"><strong>Account Status:</strong> [Placeholder]</p>
+                            <img src="<?php echo $profilePicture ? '../db/ProfilePictures/' . htmlspecialchars($profilePicture) : '../PicturesNeeded/blank_profile.png'; ?>" class="profile-picture m-1" alt="Profile Picture"/>
+                            <p class="resident-id my-1"><strong>ID Number:</strong> <?php echo htmlspecialchars($resident['res_ID']); ?></p>
+                            <p class="account-status my-1"><strong>Account Status:</strong> <?php echo $resident['is_active'] ? 'Active' : 'Deactivated'; ?></p>
                         </div>
                     </div>
                     <div class="row mx-0 mx-sm-3 my-3">
-                        <p class="first-name col-12 col-sm-6 mb-2"><strong>First Name:</strong> [Placeholder]</p>
-                        <p class="last-name col-12 col-sm-6 mb-2"><strong>Last Name:</strong> [Placeholder]</p>
-                        <p class="middle-name col-12 col-sm-6 mb-2"><strong>Middle Name:</strong> [Placeholder]</p>
-                        <p class="suffix col-12 col-sm-6 mb-2"><strong>Suffix:</strong> [Placeholder]</p>
-                        <p class="gender col-12 col-sm-6 mb-2"><strong>Gender:</strong> [Placeholder]</p>
-                        <p class="birth-date col-12 col-sm-6 mb-2"><strong>Birthdate:</strong> [Placeholder]</p>
-                        <p class="age col-12 col-sm-6 mb-2"><strong>Age:</strong> [Placeholder]</p>
-                        <p class="voter col-12 col-sm-6 mb-2"><strong>Registered Voter:</strong> [Placeholder]</p>
-                        <p class="voter col-12 col-sm-6 mb-2"><strong>Civil Status:</strong> [Placeholder]</p>
-                        <p class="voter col-12 col-sm-6 mb-2"><strong>Citizenship:</strong> [Placeholder]</p>
-                        <p class="voter col-12 mb-2"><strong>Place of Birth:</strong> [Placeholder]</p>
-                        <p class="voter col-12 mb-2"><strong>Contact Number:</strong> [Placeholder]</p>                                
-                        <p class="voter col-12 mb-2"><strong>Email Address:</strong> [Placeholder]</p>
-                        <p class="voter col-12 mb-2"><strong>Address:</strong> [Placeholder] Barangay Pusok, Lapu - Lapu City</p>
+                        <p class="first-name col-12 col-sm-6 mb-2"><strong>First Name:</strong> <?php echo htmlspecialchars($resident['res_fname']); ?></p>
+                        <p class="last-name col-12 col-sm-6 mb-2"><strong>Last Name:</strong> <?php echo htmlspecialchars($resident['res_lname']); ?></p>
+                        <p class="middle-name col-12 col-sm-6 mb-2"><strong>Middle Name:</strong> <?php echo htmlspecialchars($resident['res_midname']); ?></p>
+                        <p class="suffix col-12 col-sm-6 mb-2"><strong>Suffix:</strong> <?php echo htmlspecialchars($suffix); ?></p>
+                        <p class="gender col-12 col-sm-6 mb-2"><strong>Gender:</strong> <?php echo htmlspecialchars($resident['gender']); ?></p>
+                        <p class="birth-date col-12 col-sm-6 mb-2"><strong>Birthdate:</strong> <?php echo htmlspecialchars($formattedBirthdate); ?></p>
+                        <p class="age col-12 col-sm-6 mb-2"><strong>Age:</strong> <?php echo $age; ?></p>
+                        <p class="voter col-12 col-sm-6 mb-2"><strong>Registered Voter:</strong> <?php echo htmlspecialchars($registeredVoter); ?></p>
+                        <p class="voter col-12 col-sm-6 mb-2"><strong>Civil Status:</strong> <?php echo htmlspecialchars($resident['civil_status']); ?></p>
+                        <p class="voter col-12 col-sm-6 mb-2"><strong>Citizenship:</strong> <?php echo htmlspecialchars($resident['citizenship']); ?></p>
+                        <p class="voter col-12 mb-2"><strong>Place of Birth:</strong> <?php echo htmlspecialchars($resident['place_birth']); ?></p>
+                        <p class="voter col-12 mb-2"><strong>Contact Number:</strong> <?php echo htmlspecialchars($resident['contact_no']); ?></p>                                
+                        <p class="voter col-12 mb-2"><strong>Email Address:</strong> <?php echo htmlspecialchars($decryptedEmail); ?></p>
+                        <p class="voter col-12 mb-2"><strong>Address:</strong> <?php echo htmlspecialchars($resident['addr_sitio'] . ', ' . $resident['addr_purok']); ?> Barangay Pusok, Lapu - Lapu City</p>
                         <div class="text-center col-12 my-3 d-flex justify-content-center">
                             <button class="btn edit-button">Update Profile</button>
                         </div>

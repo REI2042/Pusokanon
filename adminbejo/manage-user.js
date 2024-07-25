@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const viewButtons = document.querySelectorAll('.status-btn');
+
+    const viewButtons = document.querySelectorAll('.view-btn');
     viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const resId = this.getAttribute('data-res-id');
+            window.location.href = `residentProfile.php?id=${resId}`;
+        });
+    });
+
+    const statusButtons = document.querySelectorAll('.status-btn');
+    statusButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             const resId = this.getAttribute('data-res-id');
@@ -44,21 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        if (this.value === '') {
+            document.getElementById('searchForm').submit();
+        }
+    });
 });
-
-// function calculateAge(birthDate) {
-//     const today = new Date();
-//     const birth = new Date(birthDate);
-//     let age = today.getFullYear() - birth.getFullYear();
-//     const monthDiff = today.getMonth() - birth.getMonth();
-//     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-//         age--;
-//     }
-//     return age;
-// }
-
-// function formatDate(dateString) {
-//     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-//     const date = new Date(dateString);
-//     return date.toLocaleDateString('en-US', options);
-// }
