@@ -7,9 +7,9 @@ include 'headerAdmin.php';
 
 // Find out the number of Pending results stored in the database
 // Get the document type from the form submission
-$search = isset($_GET['search']) ? $_GET['search'] : null;
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 $docType = isset($_POST['docType']) ? $_POST['docType'] : 'Barangay Residency';
-$_SESSION['docType'] = $docType;
+
 
 
 // Find out the number of Pending results stored in the database
@@ -86,17 +86,23 @@ if($search) {
             <a href="ScanQR.php" class="btn camera-btn">
                 <i class="bi bi-camera" style="font-size: 1.2rem;"></i>&nbsp;Scan QR
             </a>
-            <form method="GET">
+            <form method="GET" id="searchForm">
                 <div class="input-group mb-0 custom-search">
-                    <input type="search" class="form-control custom-search" name="search" placeholder="Search" aria-label="Search" id="search_name">
-                    <button class="btn search-btn" id="search_btn" type="submit">
+                    <input type="search" class="form-control custom-search" name="search" placeholder="Search" aria-label="Search" id="searchInput" value="<?php echo htmlspecialchars($search); ?>">
+                    <button class="btn search-btn" title="Search" id="search_btn" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
             </form>
         </div>
     </div>
-    
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        if (this.value === '') {
+            document.getElementById('searchForm').submit();
+        }
+    });
+</script>
     <div id="searchresult" class="table-content" style="min-width: 92vw; width: 92vw; max-width: 95vw;">
         <div id="originalTable">
             <div class="controls text-center mt-3">

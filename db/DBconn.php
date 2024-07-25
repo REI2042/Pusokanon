@@ -214,103 +214,6 @@ function fetchResidentById($pdo, $search)
 }
 
 
-function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)
-{
-	$sql = "SELECT 
-				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
-				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = :doctype AND stat = :status
-			LIMIT :limit OFFSET :offset";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	return $stmt->fetchAll();
-}
-function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
-{
-	$sql = "SELECT 
-				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
-				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = :doctype AND stat = :status AND (ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
-			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
-			OR CONCAT(ru.res_fname,' ', ru.res_lname) LIKE '{$search}%'
-			OR ru.res_id LIKE '{$search}%')
-			LIMIT :limit OFFSET :offset";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	return $stmt->fetchAll();
-}
-
-function fetchdocsRequestIndigency($pdo, $status, $limit, $offset)
-{
-	$sql = "SELECT 
-				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
-				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Indigency' AND stat = :status
-			LIMIT :limit OFFSET :offset";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	return $stmt->fetchAll();
-}
-
-function fetchdocsRequestRemarks($pdo, $status, $remarks, $limit, $offset)
-{
-	$sql = "SELECT 
-				ru.res_id, doc_ID, stat,
-				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.date_processed,
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Clearance' AND stat = :status AND remarks = :remarks
-			LIMIT :limit OFFSET :offset";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-	$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	return $stmt->fetchAll();
-}
 
 // function fetchdocSearchNames($pdo ,$limit, $offset, $search)
 // {
@@ -726,3 +629,103 @@ function accountRole($pdo)
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+
+//----------------------------------------------admin manage document request
+function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)
+{
+	$sql = "SELECT 
+				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
+				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
+				dt.doc_name AS document_name, 
+				rd.purpose_name AS purpose_name, 
+				rd.date_req, 
+				rd.remarks 
+			FROM request_doc rd
+			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+			WHERE dt.doc_name = :doctype AND stat = :status
+			LIMIT :limit OFFSET :offset";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
+	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
+{
+	$sql = "SELECT 
+				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
+				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
+				dt.doc_name AS document_name, 
+				rd.purpose_name AS purpose_name, 
+				rd.date_req, 
+				rd.remarks 
+			FROM request_doc rd
+			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+			WHERE dt.doc_name = :doctype AND stat = :status AND (ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
+			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
+			OR CONCAT(ru.res_fname,' ', ru.res_lname) LIKE '{$search}%'
+			OR ru.res_id LIKE '{$search}%')
+			LIMIT :limit OFFSET :offset";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
+	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+
+function fetchdocsRequestIndigency($pdo, $status, $limit, $offset)
+{
+	$sql = "SELECT 
+				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
+				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
+				dt.doc_name AS document_name, 
+				rd.purpose_name AS purpose_name, 
+				rd.date_req, 
+				rd.remarks 
+			FROM request_doc rd
+			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+			WHERE dt.doc_name = 'Barangay Indigency' AND stat = :status
+			LIMIT :limit OFFSET :offset";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+
+function fetchdocsRequestRemarks($pdo, $status, $remarks, $limit, $offset)
+{
+	$sql = "SELECT 
+				ru.res_id, doc_ID, stat,
+				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
+				dt.doc_name AS document_name, 
+				rd.purpose_name AS purpose_name, 
+				rd.date_req, 
+				rd.date_processed,
+				rd.remarks 
+			FROM request_doc rd
+			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+			WHERE dt.doc_name = 'Barangay Clearance' AND stat = :status AND remarks = :remarks
+			LIMIT :limit OFFSET :offset";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
+	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	$stmt->execute();
+	return $stmt->fetchAll();
+}

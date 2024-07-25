@@ -29,7 +29,7 @@ include 'headerAdmin.php';
                 </form>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
+                <form action="Barangay-Indigency.php" method="POST" class="document-bx-form">
                     <input type="hidden" name="docType" value="Barangay Indigency">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>

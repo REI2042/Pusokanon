@@ -4,20 +4,27 @@
     include '../db/DBconn.php';
     include 'headerAdmin.php';
 
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Indigency') AND stat = 'Pending'");
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $docType = 'Barangay Indigency';
+
+    
+    // Find out the number of Pending results stored in the database
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = :docType) AND stat = 'Pending'");
+    $stmt->bindParam(':docType', $docType, PDO::PARAM_STR);
     $stmt->execute();
     $number_of_pending_results = $stmt->fetchColumn();
-
+    
     // Find out the number of Processing results stored in the database
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Indigency') AND stat = 'Processing '");
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = :docType) AND stat = 'Processing'");
+    $stmt->bindParam(':docType', $docType, PDO::PARAM_STR);
     $stmt->execute();
     $number_of_processing_results = $stmt->fetchColumn();
-
+    
     // Find out the number of Completed results stored in the database
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Indigency') AND stat = 'Ready to pickup'");
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = :docType) AND stat = 'Ready to pickup'");
+    $stmt->bindParam(':docType', $docType, PDO::PARAM_STR);
     $stmt->execute();
     $number_of_completed_results = $stmt->fetchColumn();
-
 
     // Define the number of results per page
     $results_per_page = 5;
@@ -42,10 +49,16 @@
     $completed_offset = ($completed_page - 1) * $results_per_page;
 
 
-    $pending = fetchdocsRequestIndigency($pdo, 'Pending', $results_per_page, $pending_offset);
-    $Processing = fetchdocsRequestIndigency($pdo, 'Processing', $results_per_page, $processing_offset);
-    $completed = fetchdocsRequestIndigency($pdo, 'Ready to pickup', $results_per_page, $completed_offset);
-
+    if($search != null) {
+        $pending = fetchdocsRequestSearch($pdo, $docType,'Pending', $results_per_page, $pending_offset, $search);
+        $Processing = fetchdocsRequestSearch($pdo, $docType,'Processing', $results_per_page, $processing_offset, $search);
+        $completed = fetchdocsRequestSearch($pdo, $docType,'Ready to pickup', $results_per_page, $completed_offset, $search);
+    } else {
+        $pending = fetchdocsRequest($pdo, $docType,'Pending', $results_per_page, $pending_offset);
+        $Processing = fetchdocsRequest($pdo, $docType,'Processing', $results_per_page, $processing_offset);
+        $completed = fetchdocsRequest($pdo, $docType,'Ready to pickup', $results_per_page, $completed_offset);
+    }
+    
 ?>
 
 <link rel="stylesheet" href="css/slidingtableResidency.css">
@@ -64,18 +77,26 @@
         </a>
         <div class="d-flex align-items-center gap-3">
             <a href="ScanQR.php" class="btn camera-btn">
-                <i class="bi bi-camera" style="font-size: 1.2rem;"></i>&nbsp;Scan QR
+                <i class="bi bi-camera" style="font-size: 1.2rem;"></i> Scan QR
             </a>
-            <div class="input-group mb-0 custom-search">
-                <input type="search" class="form-control custom-search" placeholder="Search" aria-label="Search" id="search_name">
-                <button class="btn search-btn" id="search_btn" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+            <form method="GET" id="searchForm">
+                <div class="input-group mb-0 custom-search">
+                    <input type="search" class="form-control custom-search" name="search" placeholder="Search" aria-label="Search" id="searchInput" value="<?php echo htmlspecialchars($search); ?>">
+                    <button class="btn search-btn" title="Search" id="search_btn" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-    
-    <div id="searchresult" class="table-content" style="min-width: 92vw; width: 92vw; max-width: 95vw;">
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        if (this.value === '') {
+            document.getElementById('searchForm').submit();
+        }
+    });
+</script>
+    <div id="searchresult" class="table-content" style="min-width: 92vw; width: 92vw; max-width: 95vw; font-size: 14px;">
         <div id="originalTable">
                 <div class="controls text-center mt-3">
                     <a id="showTable1" class="link1">-- Pending  -- </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -111,15 +132,14 @@
                                         <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                         <td>
                                             <div class="inline-tools">
-                                                <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
-                                                <form class="status-form" action="../db/updateStatus.php" method="POST">
+                                                <div class="btn btn-danger btn-sm btn-1" title="Delete"><i class="bi bi-trash3-fill"></i></div>                                                <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                     <?php $dataDecrypt = decryptData($pendings['res_email']); ?>
                                                     <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
                                                     <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
                                                     <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($pendings['doc_ID']); ?>">
                                                     <input type="hidden" name="resident_id" value="<?= htmlspecialchars($pendings['res_id']); ?>">
-                                                    <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
-                                                    <button type="button" class="btn btn-sm <?= $pendings['stat'] == 'Ready to pickup' ? 'btn-success' : 'btn-success'; ?>" onclick="showSweetAlert('<?= htmlspecialchars($dataDecrypt); ?>', '<?= htmlspecialchars($pendings['resident_name']); ?>', '<?= htmlspecialchars($pendings['document_name']); ?>','<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['res_id']); ?>')"><i class="fa-solid fa-check"></i></button>
+                                                    <button type="submit" name="status" title="Download" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                                    <button type="button" title="Proceed" class="btn btn-sm  <?= $pendings['stat'] == 'Ready to pickup' ? 'btn-success' : 'btn-success'; ?>" onclick="showSweetAlert('<?= htmlspecialchars($dataDecrypt); ?>', '<?= htmlspecialchars($pendings['resident_name']); ?>', '<?= htmlspecialchars($pendings['document_name']); ?>','<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['res_id']); ?>')"><i class="fa-solid fa-check"></i></button>
                                                 </form>
                                             </div>
                                         </td>
@@ -188,11 +208,11 @@
                                         <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                         <td>
                                             <div class="inline-tools">
-                                                <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
+                                                <div class="btn btn-danger btn-sm btn-1" title="Delete"><i class="bi bi-trash3-fill"></i></div>
                                                 <form class="status-form" action="../db/updateStatus.php" method="POST">                                            
                                                     <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
                                                     <input type="hidden" name="resident_id" value="<?= htmlspecialchars($processings['res_id']); ?>">
-                                                    <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                                    <button type="submit" title="Download" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                                 </form>
                                             </div>
                                         </td>
@@ -265,7 +285,7 @@
                                                 <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                     <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
                                                     <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
-                                                    <button type="submit" name="status" value="download" class="btn btn-sm <?= $completed['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                                    <button type="submit" name="status" title="Download" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                                 </form>
                                             </div>
                                         </td>
@@ -315,6 +335,7 @@
       });
    })();
 </script>
+
 <script src="phpConn/get_tables.js"></script>
 
 <?php include 'footerAdmin.php';?>
