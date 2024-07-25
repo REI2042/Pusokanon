@@ -21,7 +21,7 @@
         <div class="row mx-0">
             <div class="col-12">
                 <div class="profile-information">
-                    <a href="Manage-Users.php" class="back-button d-flex align-items-center text-white gap-2">
+                    <a href="javascript:history.back()" class="back-button d-flex align-items-center text-white gap-2">
                         <i class="fas fa-circle-chevron-left fa-2x"></i>
                         <span>Back</span>
                     </a>
@@ -51,7 +51,7 @@
                         <p class="voter col-12 mb-2"><strong>Email Address:</strong> <?php echo htmlspecialchars($decryptedEmail); ?></p>
                         <p class="voter col-12 mb-2"><strong>Address:</strong> <?php echo htmlspecialchars($resident['addr_sitio'] . ', ' . $resident['addr_purok']); ?> Barangay Pusok, Lapu - Lapu City</p>
                         <div class="text-center col-12 my-3 d-flex justify-content-center">
-                            <button class="btn edit-button">Update Profile</button>
+                            <button class="btn edit-button" data-res-id="<?php echo htmlspecialchars($resident['res_ID']); ?>">Edit Profile</button>
                         </div>
                     </div>
                 </div>
@@ -59,3 +59,14 @@
         </div>
     </section>
 <?php include 'footerAdmin.php';?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('.edit-button');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const resId = this.getAttribute('data-res-id');
+                window.location.href = `EditResidentProfile.php?id=${resId}`;
+            });
+        });
+    });
+</script>
