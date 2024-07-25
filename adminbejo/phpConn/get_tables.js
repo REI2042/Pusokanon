@@ -1,48 +1,48 @@
-$(document).ready(function() {
+// $(document).ready(function() {
     // Store the original table content
-    var originalContent = $('#originalTable').html();
+    // var originalContent = $('#originalTable').html();
 
-    $('#search_name').keyup(function() {
-        var input = $(this).val();
-        if (input.length > 0) {
-            $.ajax({
-                url: 'phpConn/get_names.php',
-                method: 'POST',
-                data: { input: input },
-                success: function(data) {
-                    $('#searchresult').html(data);
-                }
-            });
-        } else {
-            // If the search input is empty, show the original table
-            $('#searchresult').html(originalContent);
-            // Reattach event listeners for table switching
-            attachTableSwitchListeners();
-        }
-    });
-    function attachTableSwitchListeners() {
-        $('#showTable1').click(function() {
-            showTable('table1Container', 'pendingPagination');
-            $(this).addClass('active');
-            $('#showTable2, #showTable3').removeClass('active');
-        });
+    // $('#search_name').keyup(function() {
+    //     var input = $(this).val();
+    //     if (input.length > 0) {
+    //         $.ajax({
+    //             url: 'phpConn/get_names.php',
+    //             method: 'POST',
+    //             data: { input: input },
+    //             success: function(data) {
+    //                 $('#searchresult').html(data);
+    //             }
+    //         });
+    //     } else {
+    //         // If the search input is empty, show the original table
+    //         $('#searchresult').html(originalContent);
+    //         // Reattach event listeners for table switching
+    //         attachTableSwitchListeners();
+    //     }
+    // });
+    // function attachTableSwitchListeners() {
+    //     $('#showTable1').click(function() {
+    //         showTable('table1Container', 'pendingPagination');
+    //         $(this).addClass('active');
+    //         $('#showTable2, #showTable3').removeClass('active');
+    //     });
 
-        $('#showTable2').click(function() {
-            showTable('table2Container', 'processingPagination');
-            $(this).addClass('active');
-            $('#showTable1, #showTable3').removeClass('active');
-        });
+    //     $('#showTable2').click(function() {
+    //         showTable('table2Container', 'processingPagination');
+    //         $(this).addClass('active');
+    //         $('#showTable1, #showTable3').removeClass('active');
+    //     });
 
-        $('#showTable3').click(function() {
-            showTable('table3Container', 'completedPagination');
-            $(this).addClass('active');
-            $('#showTable1, #showTable2').removeClass('active');
-        });
-    }
+    //     $('#showTable3').click(function() {
+    //         showTable('table3Container', 'completedPagination');
+    //         $(this).addClass('active');
+    //         $('#showTable1, #showTable2').removeClass('active');
+    //     });
+    // }
 
-    // Initial attachment of listeners
-    attachTableSwitchListeners();
-    });
+    // // Initial attachment of listeners
+    // attachTableSwitchListeners();
+    // });
 function showTable(tableId, paginationId) {
     document.getElementById('table1Container').classList.add('hidden');
     document.getElementById('table2Container').classList.add('hidden');

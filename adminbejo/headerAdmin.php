@@ -73,10 +73,19 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="staff_Account_creation.php" class="sidebar-link">
+                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#staff" aria-expanded="false" aria-controls="staff">   
                             <i class="fa-solid fa-building-user"></i>
                             <span class="span-word">Staffs</span>
                         </a>
+                        <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="staff_Account_creation.php" class="sidebar-link">Create Staff Account</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="manage_staff_account.php" class="sidebar-link">Manage Staff Account</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"

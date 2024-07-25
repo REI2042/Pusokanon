@@ -6,17 +6,27 @@ include 'headerAdmin.php';
 
 
 // Find out the number of Pending results stored in the database
-$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Clearance') AND stat = 'Pending'");
+// Get the document type from the form submission
+$search = isset($_GET['search']) ? $_GET['search'] : null;
+$docType = isset($_POST['docType']) ? $_POST['docType'] : 'Barangay Residency';
+$_SESSION['docType'] = $docType;
+
+
+// Find out the number of Pending results stored in the database
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = :docType) AND stat = 'Pending'");
+$stmt->bindParam(':docType', $docType, PDO::PARAM_STR);
 $stmt->execute();
 $number_of_pending_results = $stmt->fetchColumn();
 
 // Find out the number of Processing results stored in the database
-$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Clearance') AND stat = 'Processing '");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = :docType) AND stat = 'Processing'");
+$stmt->bindParam(':docType', $docType, PDO::PARAM_STR);
 $stmt->execute();
 $number_of_processing_results = $stmt->fetchColumn();
 
 // Find out the number of Completed results stored in the database
-$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = 'Barangay Clearance') AND stat = 'Ready to pickup'");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM request_doc WHERE docType_id = (SELECT docType_id FROM doc_type WHERE doc_name = :docType) AND stat = 'Ready to pickup'");
+$stmt->bindParam(':docType', $docType, PDO::PARAM_STR);
 $stmt->execute();
 $number_of_completed_results = $stmt->fetchColumn();
 
@@ -44,9 +54,15 @@ $processing_offset = ($processing_page - 1) * $results_per_page;
 $completed_offset = ($completed_page - 1) * $results_per_page;
 
 // Retrieve the data to display for the current page
-$pending = fetchdocsRequest($pdo, 'Pending', $results_per_page, $pending_offset);
-$Processing = fetchdocsRequest($pdo, 'Processing', $results_per_page, $processing_offset);
-$completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $completed_offset);
+if($search) {
+    $pending = fetchdocsRequestSearch($pdo, $docType,'Pending', $results_per_page, $pending_offset, $search);
+    $Processing = fetchdocsRequestSearch($pdo, $docType,'Processing', $results_per_page, $processing_offset, $search);
+    $completed = fetchdocsRequestSearch($pdo, $docType,'Ready to pickup', $results_per_page, $completed_offset, $search);
+} else {
+    $pending = fetchdocsRequest($pdo, $docType,'Pending', $results_per_page, $pending_offset);
+    $Processing = fetchdocsRequest($pdo, $docType,'Processing', $results_per_page, $processing_offset);
+    $completed = fetchdocsRequest($pdo, $docType,'Ready to pickup', $results_per_page, $completed_offset);
+}
 
 
 ?>
@@ -58,7 +74,7 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
 <main>
     <div class="row">
         <div class="col-12 pt-3 d-flex justify-content-center">
-            <h1 class="title">BARANGAY RESIDENCY</h1>
+            <h1 class="title"><?php echo $docType; ?></h1>
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center m-2">
@@ -70,12 +86,14 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
             <a href="ScanQR.php" class="btn camera-btn">
                 <i class="bi bi-camera" style="font-size: 1.2rem;"></i>&nbsp;Scan QR
             </a>
-            <div class="input-group mb-0 custom-search">
-                <input type="search" class="form-control custom-search" placeholder="Search" aria-label="Search" id="search_name">
-                <button class="btn search-btn" id="search_btn" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+            <form method="GET">
+                <div class="input-group mb-0 custom-search">
+                    <input type="search" class="form-control custom-search" name="search" placeholder="Search" aria-label="Search" id="search_name">
+                    <button class="btn search-btn" id="search_btn" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
     
@@ -269,7 +287,7 @@ $completed = fetchdocsRequest($pdo, 'Ready to pickup', $results_per_page, $compl
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
-                                                <button type="submit" name="status" value="download" class="btn btn-sm <?= $completed['stat'] == 'download' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                                <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $completed['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>

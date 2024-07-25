@@ -214,7 +214,7 @@ function fetchResidentById($pdo, $search)
 }
 
 
-function fetchdocsRequest($pdo, $status, $limit, $offset)
+function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)
 {
 	$sql = "SELECT 
 				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
@@ -227,10 +227,37 @@ function fetchdocsRequest($pdo, $status, $limit, $offset)
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Clearance' AND stat = :status
+			WHERE dt.doc_name = :doctype AND stat = :status
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
+	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
+{
+	$sql = "SELECT 
+				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
+				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
+				dt.doc_name AS document_name, 
+				rd.purpose_name AS purpose_name, 
+				rd.date_req, 
+				rd.remarks 
+			FROM request_doc rd
+			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+			WHERE dt.doc_name = :doctype AND stat = :status AND (ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
+			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
+			OR CONCAT(ru.res_fname,' ', ru.res_lname) LIKE '{$search}%'
+			OR ru.res_id LIKE '{$search}%')
+			LIMIT :limit OFFSET :offset";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 	$stmt->execute();
@@ -285,30 +312,30 @@ function fetchdocsRequestRemarks($pdo, $status, $remarks, $limit, $offset)
 	return $stmt->fetchAll();
 }
 
-function fetchdocSearchNames($pdo, $limit, $offset, $search)
-{
-	$sql = "SELECT 
-				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
-				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
-			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
-			OR ru.res_id LIKE '{$search}%'
-			LIMIT :limit OFFSET :offset";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	$stmt->rowCount();
-	return $stmt->fetchAll();
-}
+// function fetchdocSearchNames($pdo ,$limit, $offset, $search)
+// {
+// 	$sql = "SELECT 
+// 				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
+// 				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
+// 				dt.doc_name AS document_name, 
+// 				rd.purpose_name AS purpose_name, 
+// 				rd.date_req, 
+// 				rd.remarks 
+// 			FROM request_doc rd
+// 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+// 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+// 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+// 			WHERE stat != 'Done' AND (ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
+// 			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
+// 			OR ru.res_id LIKE '{$search}%') AND dt.doc_name = 'Barangay Residency'
+// 			LIMIT :limit OFFSET :offset";
+// 	$stmt = $pdo->prepare($sql);
+// 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+// 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+// 	$stmt->execute();
+// 	$stmt->rowCount();
+// 	return $stmt->fetchAll();
+// }
 
 function fetchLatestRequest($pdo, $userId)
 {
@@ -334,6 +361,65 @@ function fetchLatestRequest($pdo, $userId)
 	$stmt->execute();
 	return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function getTotalStaffCount($pdo, $search = '') {
+    $query = "SELECT COUNT(*) FROM barangay_staff";
+    $params = [];
+
+    if (!empty($search)) {
+        $query .= " WHERE staff_fname LIKE :search OR staff_lname LIKE :search OR staff_email LIKE :search";
+        $params[':search'] = "%$search%";
+    }
+
+    $stmt = $pdo->prepare($query);
+    $stmt->execute($params);
+    
+    return $stmt->fetchColumn();
+}
+
+function fetchStaffAccounts($pdo, $search = '', $limit = null, $offset = null) {
+    $sql = "SELECT bs.staff_id, 
+            bs.staff_fname, bs.staff_midname, bs.staff_lname,
+            bs.staff_email, bs.contact_no, bs.userRole_id, ac.role_definition
+            FROM barangay_staff bs
+            INNER JOIN account_role ac ON bs.userRole_id = ac.userRole_id";
+    
+    $params = [];
+
+    if (!empty($search)) {
+        $sql .= " WHERE bs.staff_fname LIKE :search 
+                  OR bs.staff_lname LIKE :search 
+                  OR bs.staff_email LIKE :search";
+        $params[':search'] = "%$search%";
+    }
+
+    $sql .= " ORDER BY bs.staff_id";
+
+    if ($limit !== null && $offset !== null) {
+        $sql .= " LIMIT :limit OFFSET :offset";
+        $params[':limit'] = $limit;
+        $params[':offset'] = $offset;
+    }
+
+    $stmt = $pdo->prepare($sql);
+    
+    foreach ($params as $key => &$val) {
+        $stmt->bindParam($key, $val);
+    }
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+// function fetchStaffAccounts($pdo){
+// 	$sql = "SELECT bs.staff_id, 
+// 			bs.staff_fname, bs.staff_midname, bs.staff_lname,
+// 			bs.staff_email, bs.contact_no, bs.userRole_id, ac.role_definition
+// 			FROM barangay_staff bs
+// 			INNER JOIN account_role ac ON bs.userRole_id = ac.userRole_id";
+// 	$stmt = $pdo->prepare($sql);
+// 	$stmt->execute();
+// 	return $stmt->fetchAll();
+// }
 
 // function fetchDocRateClearance($pdo, $docType_id){
 // 	$sql = "SELECT doc_amount FROM doc_type WHERE docType_id = :docType_id";
@@ -549,3 +635,4 @@ function accountRole($pdo)
 	$stmt->execute();
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
