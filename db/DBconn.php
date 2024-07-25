@@ -443,6 +443,7 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
                 ct.date_filed AS date_filed, 
                 ct.status AS status,
                 ct.remarks AS remarks,
+				ct.comment AS comment,
                 ct.narrative AS narrative,
                 ct.evidence AS evidence,
                 CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
@@ -498,8 +499,97 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
     $stmt->execute($params);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+function fetchComplaintsHistory($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null, $searchTerm = null) {
+    $sql = "SELECT 
+                ct.complaint_id AS complaint_id,
+                CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+                ct.case_type AS case_type, 
+                ct.incident_date AS incident_date, 
+                ct.incident_time AS incident_time, 
+                ct.incident_place AS incident_place, 
+                ct.date_filed AS date_filed, 
+				ct.date_closed AS date_closed, 
+                ct.status AS status,
+                ct.remarks AS remarks,
+				ct.comment AS comment,
+                ct.narrative AS narrative,
+                ct.evidence AS evidence,
+                CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+                ru.res_email AS resident_email,
+                ct.respondent_age AS respondent_age,
+                ct.respondent_gender AS respondent_gender
+            FROM complaints_tbl ct 
+            INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+            WHERE ct.remarks LIKE 'CASE CLOSED'";
+
+    $params = [];
+
+    if ($caseType !== null && $caseType !== '') {
+        $sql .= " AND ct.case_type = ?";
+        $params[] = $caseType;
+    }
+
+    if ($incidentPlace !== null && $incidentPlace !== '') {
+        $sql .= " AND ct.incident_place = ?";
+        $params[] = $incidentPlace;
+    }
+
+    if ($status !== null && $status !== '') {
+        $sql .= " AND ct.status = ?";
+        $params[] = $status;
+    }
+
+    if ($searchTerm !== null && $searchTerm !== '') {
+        $sql .= " AND (CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE ? 
+                  OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE ?
+                  OR ru.res_fname LIKE ?
+                  OR ru.res_lname LIKE ?
+                  OR ct.respondent_fname LIKE ?
+                  OR ct.respondent_lname LIKE ?)";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+    }
 
 
+    $sql .= " ORDER BY ct.date_filed DESC";
+
+    if ($limit !== null) {
+        $sql .= " LIMIT ?, ?";
+        $params[] = (int)$offset;
+        $params[] = (int)$limit;
+    }
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+function getTotalComplaints($pdo, $caseType, $incidentPlace, $status, $searchTerm) {
+    $sql = "SELECT COUNT(*) 
+			FROM complaints_tbl 
+			WHERE remarks LIKE 'CASE CLOSED'";
+    if ($caseType) $sql .= " AND case_type = :case_type";
+    if ($incidentPlace) $sql .= " AND incident_place = :incident_place";
+    if ($status) $sql .= " AND status = :status";
+    if ($searchTerm) $sql .= " AND resident_name LIKE :searchTerm";
+
+    $stmt = $pdo->prepare($sql);
+
+    if ($caseType) $stmt->bindParam(':case_type', $caseType);
+    if ($incidentPlace) $stmt->bindParam(':incident_place', $incidentPlace);
+    if ($status) $stmt->bindParam(':status', $status);
+    if ($searchTerm) $stmt->bindParam(':searchTerm', "%$searchTerm%");
+
+    $stmt->execute();
+    return $stmt->fetchColumn();
+
+}
 
 
 function fetchTotalMales($pdo)

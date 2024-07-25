@@ -76,6 +76,21 @@ async function showDetails(
     });
 } 
 
+async function viewComment (
+    comment
+) {
+
+    Swal.fire({
+        title: 'Complaint Comment',
+        html: `<div style="text-align: left;">
+                    <p><strong>Comment:</strong> <br>
+                    ${comment}</p>
+                    
+                </div>`,
+        confirmButtonColor: "#3085d6",
+    });
+}
+
 async function approve_complaint(complaint_id) {
     // Step 1: Admin sets the hearing date and time
     const { value: dateTime } = await Swal.fire({

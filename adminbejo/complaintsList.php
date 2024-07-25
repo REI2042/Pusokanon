@@ -104,13 +104,13 @@
                     <button class="btn this-button" type="submit">Search</button>
                 </form>
 
-<script>
-    document.getElementById('searchInput').addEventListener('input', function() {
-        if (this.value === '') {
-            document.getElementById('searchForm').submit();
-        }
-    });
-</script>
+                <script>
+                    document.getElementById('searchInput').addEventListener('input', function() {
+                        if (this.value === '') {
+                            document.getElementById('searchForm').submit();
+                        }
+                    });
+                </script>
 
             </div>
         </div>
@@ -166,7 +166,7 @@
                                                                             '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                             '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                             '<?= $imageSrc ?>')">
-                                                        <i class="fas fa-eye"></i> View</a>
+                                                        <i class="fas fa-eye"></i> Details</a>
                                                     <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
                                                         <i class="bi bi-check-circle"></i> Approve
                                                     </button>
@@ -250,7 +250,7 @@
                                                                         '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                         '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                         '<?= $imageSrc ?>')">
-                                                    <i class="fas fa-eye"></i> View</a>
+                                                    <i class="fas fa-eye"></i> Details</a>
                                                 <button class="btn btn-secondary btn-sm me-2" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
                                                     <i class="bi bi-x-octagon"></i> Close
                                                 </button>
@@ -331,7 +331,7 @@
                                                                             '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                             '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                             '<?= $imageSrc ?>')">
-                                                        <i class="fas fa-eye"></i> View</a>
+                                                        <i class="fas fa-eye"></i> Details</a>
                                                 </div>
                                             </td>
                                         </tr>

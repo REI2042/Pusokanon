@@ -1,4 +1,51 @@
-// Function to switch between tables
+// Event listeners for incident place dropdown
+document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(function(item) {
+    item.addEventListener('click', function() {
+        const incidentPlace = this.getAttribute('data-incident-place');
+        const caseType = new URLSearchParams(window.location.search).get('case_type') || '';
+        const status = new URLSearchParams(window.location.search).get('status') || '';
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('incident_place', incidentPlace);
+        currentUrl.searchParams.set('case_type', caseType);
+        currentUrl.searchParams.set('status', status); 
+        window.location.href = currentUrl.toString();
+    });
+});
+
+// Event listeners for case type dropdown
+document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
+    item.addEventListener('click', function() {
+        const caseType = this.getAttribute('data-case-type');
+        const incidentPlace = new URLSearchParams(window.location.search).get('incident_place') || '';
+        const status = new URLSearchParams(window.location.search).get('status') || ''; 
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('case_type', caseType);
+        currentUrl.searchParams.set('incident_place', incidentPlace);
+        currentUrl.searchParams.set('status', status); // Corrected
+        window.location.href = currentUrl.toString();
+    });
+});
+
+// Event listeners for status dropdown
+document.querySelectorAll('.dropdown-item[data-status]').forEach(function(item) {
+    item.addEventListener('click', function() {
+        const status = this.getAttribute('data-status');
+        const incidentPlace = new URLSearchParams(window.location.search).get('incident_place') || '';
+        const caseType = new URLSearchParams(window.location.search).get('case_type') || ''; 
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('case_type', caseType);
+        currentUrl.searchParams.set('incident_place', incidentPlace);
+        currentUrl.searchParams.set('status', status); // Corrected
+        window.location.href = currentUrl.toString();
+    });
+});
+
+document.getElementById('searchInput').addEventListener('input', function() {
+    if (this.value === '') {
+        document.getElementById('searchForm').submit();
+    }
+});
+
 function showTable(status) {
     var tables = {
         pending: document.getElementById('pendingContainer'),
@@ -33,37 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
         status = queryString.get('status');
     }
     showTable(status);
-});
-
-
-// Event listeners for incident place dropdown
-document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(function(item) {
-    item.addEventListener('click', function() {
-        const incidentPlace = this.getAttribute('data-incident-place');
-        const caseType = new URLSearchParams(window.location.search).get('case_type') || '';
-        const currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.set('incident_place', incidentPlace);
-        currentUrl.searchParams.set('case_type', caseType);
-        window.location.href = currentUrl.toString();
-    });
-});
-
-// Event listeners for case type dropdown
-document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
-    item.addEventListener('click', function() {
-        const caseType = this.getAttribute('data-case-type');
-        const incidentPlace = new URLSearchParams(window.location.search).get('incident_place') || '';
-        const currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.set('case_type', caseType);
-        currentUrl.searchParams.set('incident_place', incidentPlace);
-        window.location.href = currentUrl.toString();
-    });
-});
-
-document.getElementById('searchInput').addEventListener('input', function() {
-    if (this.value === '') {
-        document.getElementById('searchForm').submit();
-    }
 });
 
 
