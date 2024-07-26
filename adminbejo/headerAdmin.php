@@ -144,7 +144,7 @@
                         </a>
                     </li> 
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="Graphs_Reports.php" class="sidebar-link">
                             <i class="fa-solid fa-chart-column"></i>
                             <span class="span-word">Graphs & Reports</span>
                         </a>

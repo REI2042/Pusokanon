@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             uploadButton.classList.remove('remove-mode');
             cameraIcon.style.display = 'inline';
             removeIcon.style.display = 'none';
+            uploadButton.setAttribute('title','Select Picture');
         }
     });
 
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 uploadButton.classList.add('remove-mode');
                 cameraIcon.style.display = 'none';
                 removeIcon.style.display = 'inline';
+                uploadButton.setAttribute('title','Remove Picture');
             }
             
             reader.readAsDataURL(input.files[0]);

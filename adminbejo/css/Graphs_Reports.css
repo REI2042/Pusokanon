@@ -1,0 +1,58 @@
+.main {
+    margin-left: 70px;
+    justify-content: center;
+    position: relative;
+}
+
+.title {
+    margin: 12px 0px;
+    font-size: 2rem;
+    color: #434349;
+}
+
+#chart {
+    max-width: auto;
+    margin: 35px auto 10px;
+  }
+
+.charts-card {
+    background: linear-gradient(45deg, #2c7bd5, #4a90e2, #6aafe6);
+    padding: 10px;
+    border-radius: 5px;
+    justify-self: center;
+}
+
+
+/* Hey */
+
+.input label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #F9F8FD;
+}
+
+.input select, 
+.input input[type="number"] {
+    padding: 10px 16px;
+    font-size: small;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.input button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input button:hover {
+    background-color: #007bff;
+}

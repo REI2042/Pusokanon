@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            placement: 'left'
+        })
+    })
     const viewButtons = document.querySelectorAll('.view-btn');
     viewButtons.forEach(button => {
         button.addEventListener('click', function() {

@@ -21,7 +21,7 @@
         <div class="row mx-0">
             <div class="col-12">
                 <div class="profile-information">
-                    <a href="javascript:history.back()" class="back-button d-flex align-items-center text-white gap-2">
+                    <a href="Manage-Users.php" class="back-button d-flex align-items-center text-white gap-2">
                         <i class="fas fa-circle-chevron-left fa-2x"></i>
                         <span>Back</span>
                     </a>
