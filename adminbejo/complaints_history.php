@@ -12,6 +12,8 @@
     $limit = 5; // Number of complaints per page
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $limit;
+
+
     
     // Fetch complaints with pagination
     $complaints = fetchComplaintsHistory($pdo, $offset, $limit, $caseType, $incidentPlace, $status, $searchTerm);
@@ -28,14 +30,14 @@
         <div class="mu-ds row d-flex justify-content-end mt-5 mb-3">
             <div class="col-12 col-md-9 d-flex justify-content-end align-items-center flex-wrap">
                 <div class="dropdown me-2 mb-2 mb-md-0">
-                <button class="btn dropdown-toggle this-button" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Status
-                </button>
-                <div class="dropdown-menu" aria-labelledby="statusDropdown">
-                    <a class="dropdown-item" data-status="" href="#">Show All</a>
-                    <a class="dropdown-item" data-status="Approved" href="#">Approved</a>
-                    <a class="dropdown-item" data-status="Rejected" href="#">Rejected</a>
-                </div>
+                    <button class="btn dropdown-toggle this-button" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Status
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="statusDropdown">
+                        <a class="dropdown-item" data-status="" href="#">Show All</a>
+                        <a class="dropdown-item" data-status="Approved" href="#">Approved</a>
+                        <a class="dropdown-item" data-status="Rejected" href="#">Rejected</a>
+                    </div>
 
                 </div>
                 <div class="dropdown me-2 mb-2 mb-md-0">
@@ -64,14 +66,16 @@
                         Case Type
                     </button>
                     <div class="dropdown-menu" aria-labelledby="caseTypeDropdown">
-                        <a class="dropdown-item" data-case-type="" href="#">Show All</a>
+                    <a class="dropdown-item" data-case-type="" href="#">Show All</a>
                         <a class="dropdown-item" data-case-type="Bullying" href="#">Bullying</a>
                         <a class="dropdown-item" data-case-type="Damaging Properties" href="#">Damaging Properties</a>
+                        <a class="dropdown-item" data-case-type="Defamation" href="#">Defamation</a>
                         <a class="dropdown-item" data-case-type="Libel" href="#">Libel</a>
                         <a class="dropdown-item" data-case-type="Physical Abuse" href="#">Physical Abuse</a>
                         <a class="dropdown-item" data-case-type="Threat" href="#">Threat</a>
                         <a class="dropdown-item" data-case-type="Trespassing" href="#">Trespassing</a>
                         <a class="dropdown-item" data-case-type="Theft" href="#">Theft</a>
+                        <a class="dropdown-item" data-case-type="Vandalism" href="#">Vandalism</a>
                     </div>
                 </div>
                 <form method="GET" class="d-flex" id="searchForm">
@@ -94,7 +98,7 @@
             <div class="card-body flex-grow-1 d-flex flex-column">
                 <div class="table-responsive flex-grow-1">
                     <table class="table mx-auto" cellspacing="0" cellpadding="0">
-                        <thead style="background-color: #FE9705;">
+                        <thead style="background-color: #2260a7;">
                             <tr>
                                 <th>Case ID</th>
                                 <th>Case Type</th>
@@ -148,7 +152,7 @@
                                                                     '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                     '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                     '<?= $imageSrc ?>')">
-                                                    <i class="fas fa-eye"></i> Details</a>
+                                                    <i class="bi bi-eye"></i> </a>
                                             </div>
                                         </td>
                                     </tr>

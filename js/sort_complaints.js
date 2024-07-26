@@ -21,7 +21,7 @@ document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(ite
         const currentUrl = new URL(window.location.href);
         currentUrl.searchParams.set('case_type', caseType);
         currentUrl.searchParams.set('incident_place', incidentPlace);
-        currentUrl.searchParams.set('status', status); // Corrected
+        currentUrl.searchParams.set('status', status); 
         window.location.href = currentUrl.toString();
     });
 });
@@ -35,7 +35,7 @@ document.querySelectorAll('.dropdown-item[data-status]').forEach(function(item) 
         const currentUrl = new URL(window.location.href);
         currentUrl.searchParams.set('case_type', caseType);
         currentUrl.searchParams.set('incident_place', incidentPlace);
-        currentUrl.searchParams.set('status', status); // Corrected
+        currentUrl.searchParams.set('status', status); 
         window.location.href = currentUrl.toString();
     });
 });

@@ -37,14 +37,48 @@ body {
 }
 
 .this-button {
-  background-color: #2260a7 ;
-  color: white;
-  border-radius: 50px;
+  background-color: #2260a7; 
+  color: white; 
+  border-radius: 50px; 
 }
 
-.status-button {
-  color: white !important;
-  border-radius: 50px;
+.this-button:hover {
+  background-color: white; 
+  border: 2px solid #2260a7; 
+  color: #2260a7; 
+}
+
+.status-btn1 {
+  color: #FE9705;
+  font-weight: bold;
+}
+
+.status-btn1:hover {
+  color: #FE9705;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.status-btn2 {
+  color: #3AC430;
+  font-weight: bold;
+}
+
+.status-btn2:hover {
+  color: #3AC430;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.status-btn3 {
+  color: #D11313;
+  font-weight: bold;
+}
+
+.status-btn3:hover {
+  color: #D11313;
+  text-decoration: underline;
+  font-size: 18px;
 }
 
 

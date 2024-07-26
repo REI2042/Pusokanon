@@ -85,13 +85,11 @@
                 <select class="form-select" name="case_type" id="case_type" required>
                     <option value="Bullying">Bullying</option>
                     <option value="Damaging Properties">Damaging Properties</option>
-                    <option value="Defamation">Defamation</option>
                     <option value="Libel">Libel</option>
                     <option value="Physical Abuse">Physical Abuse</option>
                     <option value="Threat">Threat</option>
                     <option value="Trespassing">Trespassing</option>
                     <option value="Theft">Theft</option>
-                    <option value="Vandalism">Vandalism</option>
                 </select>
             </div>
             <div class="col-12 px-1">

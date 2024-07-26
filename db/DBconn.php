@@ -402,6 +402,7 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
     $stmt->execute($params);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function fetchComplaintsHistory($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null, $searchTerm = null) {
     $sql = "SELECT 
                 ct.complaint_id AS complaint_id,
@@ -475,24 +476,47 @@ function fetchComplaintsHistory($pdo, $offset = 0, $limit = null, $caseType = nu
 
 function getTotalComplaints($pdo, $caseType, $incidentPlace, $status, $searchTerm) {
     $sql = "SELECT COUNT(*) 
-			FROM complaints_tbl 
-			WHERE remarks LIKE 'CASE CLOSED'";
-    if ($caseType) $sql .= " AND case_type = :case_type";
-    if ($incidentPlace) $sql .= " AND incident_place = :incident_place";
-    if ($status) $sql .= " AND status = :status";
-    if ($searchTerm) $sql .= " AND resident_name LIKE :searchTerm";
+            FROM complaints_tbl ct
+            INNER JOIN resident_users ru ON ct.res_id = ru.res_id
+            WHERE ct.remarks LIKE 'CASE CLOSED'";
+
+    $params = [];
+
+    if ($caseType !== null && $caseType !== '') {
+        $sql .= " AND ct.case_type = ?";
+        $params[] = $caseType;
+    }
+
+    if ($incidentPlace !== null && $incidentPlace !== '') {
+        $sql .= " AND ct.incident_place = ?";
+        $params[] = $incidentPlace;
+    }
+
+    if ($status !== null && $status !== '') {
+        $sql .= " AND ct.status = ?";
+        $params[] = $status;
+    }
+
+    if ($searchTerm !== null && $searchTerm !== '') {
+        $sql .= " AND (CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE ? 
+                  OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE ?
+                  OR ru.res_fname LIKE ?
+                  OR ru.res_lname LIKE ?
+                  OR ct.respondent_fname LIKE ?
+                  OR ct.respondent_lname LIKE ?)";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+        $params[] = "%$searchTerm%";
+    }
 
     $stmt = $pdo->prepare($sql);
-
-    if ($caseType) $stmt->bindParam(':case_type', $caseType);
-    if ($incidentPlace) $stmt->bindParam(':incident_place', $incidentPlace);
-    if ($status) $stmt->bindParam(':status', $status);
-    if ($searchTerm) $stmt->bindParam(':searchTerm', "%$searchTerm%");
-
-    $stmt->execute();
+    $stmt->execute($params);
     return $stmt->fetchColumn();
-
 }
+
 
 
 function fetchTotalMales($pdo)

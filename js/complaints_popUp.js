@@ -2,6 +2,46 @@ document.getElementById('complaintForm').addEventListener('submit', function(eve
     event.preventDefault(); 
     var formData = new FormData(this);
 
+    fetch('../db/DBconn_adminComplaints.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Complaint Submitted',
+                text: data.message,
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = 'writeComplaints.php'; 
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message,
+                confirmButtonText: 'OK'
+            });
+        }
+    })
+    .catch(error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred while submitting the complaint.',
+            confirmButtonText: 'OK'
+        });
+        console.error('Error:', error);
+    });
+});
+
+
+document.getElementById('complaintForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    var formData = new FormData(this);
+
     fetch('db/DBconn_complaints.php', {
         method: 'POST',
         body: formData
@@ -36,6 +76,7 @@ document.getElementById('complaintForm').addEventListener('submit', function(eve
         console.error('Error:', error);
     });
 });
+
 
 
 async function showDetails(
@@ -335,7 +376,6 @@ async function reject_complaint(complaint_id) {
     }
 }
 
-
 async function closeCase(complaint_id) {
     const { value: reason } = await Swal.fire({
         title: "Reason for Closing",
@@ -374,7 +414,8 @@ async function closeCase(complaint_id) {
                     text: 'The case has been successfully closed.',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    location.reload();
+                    // Disable the button
+                    document.querySelector(`button[onclick="closeCase('${complaint_id}')"]`).disabled = true;
                 });
             } else {
                 Swal.fire({
@@ -395,6 +436,67 @@ async function closeCase(complaint_id) {
         }
     }
 }
+
+
+// async function closeCase(complaint_id) {
+//     const { value: reason } = await Swal.fire({
+//         title: "Reason for Closing",
+//         input: 'textarea',
+//         inputLabel: 'Please provide a reason for closing the case (optional)',
+//         inputPlaceholder: 'Enter your reason here...',
+//         showCancelButton: true,
+//         confirmButtonColor: "#d33",
+//         confirmButtonText: 'Close Case',
+//         cancelButtonText: 'Cancel'
+//     });
+
+//     console.log("Reason provided:", reason);
+
+//     if (reason !== undefined) {
+//         try {
+//             const response = await fetch('../adminbejo/phpConn/close_complaint.php', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     complaint_id: complaint_id,
+//                     remarks: 'CASE CLOSED',
+//                     comment: reason || '' // Use an empty string if no reason is provided
+//                 }),
+//             });
+
+//             const result = await response.json();
+//             console.log("Server response:", result);
+
+//             if (result.success) {
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'Case Closed',
+//                     text: 'The case has been successfully closed.',
+//                     confirmButtonText: 'OK'
+//                 }).then(() => {
+//                     location.reload();
+//                 });
+//             } else {
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Error',
+//                     text: 'There was an error closing the case. Please try again.',
+//                     confirmButtonText: 'OK'
+//                 });
+//             }
+//         } catch (error) {
+//             console.error("Error during fetch:", error);
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: 'There was an error closing the case. Please try again.',
+//                 confirmButtonText: 'OK'
+//             });
+//         }
+//     }
+// }
 
 
 

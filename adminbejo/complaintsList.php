@@ -58,9 +58,9 @@
         <h1>List of Complaints</h1>
         <div class="mu-ds row d-flex justify-content-between align-items-center mt-5 mb-3">
             <div class="col-12 col-md-3 mb-2 mb-md-0">
-                <button id="pendingBtn" class="btn btn-warning status-button me-2 active" type="button" onclick="showTable('pending')">Pending</button>
-                <button id="approvedBtn" class="btn btn-success status-button me-2" type="button" onclick="showTable('approved')">Approved</button>
-                <button id="rejectedBtn" class="btn btn-danger status-button" type="button" onclick="showTable('rejected')">Rejected</button>
+                <a id="pendingLink" class="status-link me-2 active status-btn1" href="javascript:void(0);" onclick="showTable('pending')">Pending</a>
+                <a id="approvedLink" class="status-link me-2 status-btn2" href="javascript:void(0);" onclick="showTable('approved')">Approved</a>
+                <a id="rejectedLink" class="status-link status-btn3" href="javascript:void(0);" onclick="showTable('rejected')">Rejected</a>
             </div>
             <div class="col-12 col-md-9 d-flex justify-content-end align-items-center flex-wrap">
                 <div class="dropdown me-2 mb-2 mb-md-0">
@@ -92,11 +92,13 @@
                         <a class="dropdown-item" data-case-type="" href="#">Show All</a>
                         <a class="dropdown-item" data-case-type="Bullying" href="#">Bullying</a>
                         <a class="dropdown-item" data-case-type="Damaging Properties" href="#">Damaging Properties</a>
+                        <a class="dropdown-item" data-case-type="Vandalism" href="#">Defamation</a>
                         <a class="dropdown-item" data-case-type="Libel" href="#">Libel</a>
                         <a class="dropdown-item" data-case-type="Physical Abuse" href="#">Physical Abuse</a>
                         <a class="dropdown-item" data-case-type="Threat" href="#">Threat</a>
                         <a class="dropdown-item" data-case-type="Trespassing" href="#">Trespassing</a>
                         <a class="dropdown-item" data-case-type="Theft" href="#">Theft</a>
+                        <a class="dropdown-item" data-case-type="Vandalism" href="#">Vandalism</a>
                     </div>
                 </div>
                 <form method="GET" class="d-flex" id="searchForm">
@@ -166,12 +168,12 @@
                                                                             '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                             '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                             '<?= $imageSrc ?>')">
-                                                        <i class="fas fa-eye"></i> Details</a>
+                                                        <i class="bi bi-eye"></i> </a>
                                                     <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
-                                                        <i class="bi bi-check-circle"></i> Approve
+                                                        <i class="bi bi-check-circle"></i> 
                                                     </button>
                                                     <button class="btn btn-danger btn-sm me-2" onclick="reject_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
-                                                        <i class="bi bi-x-circle"></i> Reject
+                                                        <i class="bi bi-x-circle"></i> 
                                                     </button>
                                                 </div>
                                             </td>
@@ -250,10 +252,14 @@
                                                                         '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                         '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                         '<?= $imageSrc ?>')">
-                                                    <i class="fas fa-eye"></i> Details</a>
-                                                <button class="btn btn-secondary btn-sm me-2" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
-                                                    <i class="bi bi-x-octagon"></i> Close
-                                                </button>
+                                                    <i class="bi bi-eye"></i> </a>
+                                                    <?php
+                                                        $disabled = ($complaint['remarks'] === 'CASE CLOSED') ? 'disabled' : '';
+                                                    ?>
+                                                    <button class="btn btn-danger btn-sm me-2" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>')" <?= $disabled ?>>
+                                                        <i class="bi bi-x-octagon"></i>
+                                                    </button>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -331,7 +337,7 @@
                                                                             '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                             '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                             '<?= $imageSrc ?>')">
-                                                        <i class="fas fa-eye"></i> Details</a>
+                                                        <i class="bi bi-eye"></i> </a>
                                                 </div>
                                             </td>
                                         </tr>
