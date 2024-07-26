@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 26, 2024 at 09:04 PM
+-- Generation Time: Jul 24, 2024 at 05:38 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -104,25 +104,6 @@ CREATE TABLE `complaints_tbl` (
   `date_closed` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `complaints_tbl`
---
-
-INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `comment`, `remarks`, `date_closed`) VALUES
-(1, 28, 'Dwight', '', 'Callahan', ' ', 'Male', 25, '2024-07-01', '21:30:00', '2024-07-19 08:33:51', 'Seabreeze', 'Threat', 'hi dwight', 'complaints_evidence/669a24ef0ffb2.png', 2, '2024-07-24', '09:30:00', 'Approved', '--', '', NULL),
-(2, 28, 'Nino', '', 'Cabunilas', ' ', 'Male', 25, '2024-06-13', '19:30:00', '2024-07-19 08:34:30', 'Sewage', 'Trespassing', 'hellooooo', 'complaints_evidence/669a25164b228.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(3, 28, 'Demitria', '', 'Bebanco', ' ', 'Female', 22, '2024-04-27', '11:30:00', '2024-07-19 08:35:04', 'Mustang', 'Theft', 'nangawat samo sud an', 'complaints_evidence/669a2538a5906.png', 2, NULL, NULL, 'Rejected', 'lack of evidence to support the claim', 'CASE CLOSED', '2024-07-19'),
-(4, 28, 'Marienne Lune', 'Penales', 'Bebanco', ' ', 'Female', 23, '2024-04-28', '08:00:00', '2024-07-19 08:35:46', 'Cemento', 'Bullying', 'ambott gikapoy nakog type', 'complaints_evidence/669a2562ec5cc.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(5, 28, 'Rejie', 'Rey', 'Callahan', 'III', 'Male', 39, '2024-07-01', '18:03:00', '2024-07-19 08:36:25', 'Arca', 'Bullying', 'sige pa cute2 lol', 'complaints_evidence/669a2589a3875.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(6, 28, 'Renee', '', 'Descartez', ' ', 'Female', 27, '2024-06-22', '18:30:00', '2024-07-19 08:37:10', 'Sta. Maria', 'Libel', 'ga buot2 og storya', 'complaints_evidence/669a25b644736.png', 2, '2024-08-07', '08:00:00', 'Approved', '', 'CASE CLOSED', '2024-07-25'),
-(7, 28, 'Nino', '', 'Riego', ' ', 'Male', 22, '2024-07-13', '14:30:00', '2024-07-19 08:38:16', 'Mustang', 'Damaging Properties', 'samokkk', 'complaints_evidence/669a25f8d5eba.png', 2, NULL, NULL, 'Rejected', 'ambot gasakit na akoa kamot !!!!', 'CASE CLOSED', '2024-07-19'),
-(8, 28, 'Wensly ', '', 'Sacay', ' ', 'Male', 29, '2024-06-29', '13:00:00', '2024-07-19 08:39:00', 'Matumbo', 'Threat', 'sobraan ka introvert', 'complaints_evidence/669a262494c30.png', 2, NULL, NULL, 'Rejected', 'pagination testing', 'CASE CLOSED', '2024-07-22'),
-(9, 28, 'walter', '', 'bejo', ' ', 'Male', 36, '2024-06-18', '17:26:00', '2024-07-19 08:39:44', 'Chumba-Chumba', 'Physical Abuse', 'iya gituok si dwight', 'complaints_evidence/669a2650a7f1d.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(10, 28, 'Nino Rey', 'Yunson', 'Cabunilas', ' ', 'Male', 28, '2024-07-16', '19:30:00', '2024-07-19 08:40:38', 'Seabreeze', 'Theft', 'ambot. reklamo ni nako kay ano...', 'complaints_evidence/669a268639b74.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(11, 28, 'Jaryl Jane', '', 'Baroro', ' ', 'Female', 23, '2024-07-18', '11:15:00', '2024-07-19 08:41:33', 'Seaside', 'Theft', 'sobraan ka gwapa', 'complaints_evidence/669a26bdcda63.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(12, 28, 'Demi', '', 'Bebanco', ' ', 'Female', 29, '2024-06-01', '21:30:00', '2024-07-19 08:42:16', 'San Roque', 'Theft', 'kawatan og sud an', 'complaints_evidence/669a26e8edbe5.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(13, 28, 'Demitria', '', 'Mabulay', ' ', 'Female', 23, '2024-07-06', '14:30:00', '2024-07-19 08:42:54', 'Arca', 'Trespassing', 'hilasan rko. maldita kaayo bisan wala unsaa', 'complaints_evidence/669a270ee3607.png', 2, '2024-08-09', '09:30:00', 'Approved', 'q', 'CASE CLOSED', '2024-07-25');
-
 -- --------------------------------------------------------
 
 --
@@ -171,37 +152,6 @@ INSERT INTO `doc_type` (`docType_id`, `doc_name`, `doc_amount`) VALUES
 (6, 'Barangay Construction Permit', 500),
 (7, 'Barangay Fencing Permit', 500),
 (8, 'Barangay Business Clearance', 630);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `initial_sitio_population`
---
-
-CREATE TABLE `initial_sitio_population` (
-  `sitio_id` int(11) NOT NULL,
-  `sitio_name` varchar(50) NOT NULL,
-  `total_initial_residents` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `initial_sitio_population`
---
-
-INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial_residents`) VALUES
-(1, 'Arca', 0),
-(2, 'Cemento', 0),
-(3, 'Chumba-Chumba', 0),
-(4, 'Ibabao', 0),
-(5, 'Lawis', 0),
-(6, 'Matumbo', 0),
-(7, 'Mustang', 0),
-(8, 'New Lipata', 0),
-(9, 'San Roque', 0),
-(10, 'Seabreeze', 0),
-(11, 'Seaside', 0),
-(12, 'Sewage', 0),
-(13, 'Sta. Maria', 0);
 
 -- --------------------------------------------------------
 
@@ -356,12 +306,6 @@ ALTER TABLE `doc_type`
   ADD PRIMARY KEY (`docType_id`);
 
 --
--- Indexes for table `initial_sitio_population`
---
-ALTER TABLE `initial_sitio_population`
-  ADD PRIMARY KEY (`sitio_id`);
-
---
 -- Indexes for table `registration_tbl`
 --
 ALTER TABLE `registration_tbl`
@@ -404,7 +348,7 @@ ALTER TABLE `barangay_staff`
 -- AUTO_INCREMENT for table `complaints_tbl`
 --
 ALTER TABLE `complaints_tbl`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `docs_purpose`
@@ -417,12 +361,6 @@ ALTER TABLE `docs_purpose`
 --
 ALTER TABLE `doc_type`
   MODIFY `docType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `initial_sitio_population`
---
-ALTER TABLE `initial_sitio_population`
-  MODIFY `sitio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `registration_tbl`
@@ -451,6 +389,13 @@ ALTER TABLE `resident_users`
 --
 ALTER TABLE `barangay_staff`
   ADD CONSTRAINT `barangay_staff_ibfk_1` FOREIGN KEY (`userRole_id`) REFERENCES `account_role` (`userRole_id`);
+
+--
+-- Constraints for table `complaints_tbl`
+--
+ALTER TABLE `complaints_tbl`
+  ADD CONSTRAINT `complaints_tbl_ibfk_1` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`),
+  ADD CONSTRAINT `complaints_tbl_ibfk_2` FOREIGN KEY (`staff_id`) REFERENCES `barangay_staff` (`staff_id`);
 
 --
 -- Constraints for table `request_doc`
