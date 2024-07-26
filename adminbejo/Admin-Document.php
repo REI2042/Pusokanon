@@ -41,7 +41,7 @@ include 'headerAdmin.php';
                 </form>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
+                <form action="Barangay-Certificate.php" method="POST" class="document-bx-form">
                     <input type="hidden" name="docType" value="3">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -53,7 +53,7 @@ include 'headerAdmin.php';
                 </form>
             </div>
             <div class="docs col-3 ">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
+                <form action="Barangay-Clearance.php" method="POST" class="document-bx-form">
                     <input type="hidden" name="docType" value="4">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -65,7 +65,7 @@ include 'headerAdmin.php';
                 </form>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
+                <form action="Barangay-Cedula.php" method="POST" class="document-bx-form">
                     <input type="hidden" name="docType" value="5">
                     <button type="submit" class="document-bx text-left" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>

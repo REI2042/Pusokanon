@@ -26,7 +26,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="Admin-Dashboard.php"> 
+            <a class="navbar-brand" href="Dashboard.php"> 
                 <div class="logo-holder row">
                     <div class="col px-1">
                         <img src="../PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo">
@@ -138,8 +138,15 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="DocumentRate.php" class="sidebar-link">
-                            <i class="fa-solid fa-chart-column"></i>
+                            <i class="fa-solid fa-pen-to-square"></i>
                             <span class="span-word">Set Document Rate</span>
+                            
+                        </a>
+                    </li> 
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="fa-solid fa-chart-column"></i>
+                            <span class="span-word">Graphs & Reports</span>
                         </a>
                     </li> 
                     <?php endif; ?>

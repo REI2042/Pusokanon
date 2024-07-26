@@ -5,7 +5,7 @@
     include 'headerAdmin.php';
 
     $search = isset($_GET['search']) ? $_GET['search'] : '';
-    $docType = 'Barangay Indigency';
+    $docType = 'Barangay Clearance';
 
     
     // Find out the number of Pending results stored in the database

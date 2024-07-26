@@ -216,11 +216,11 @@ if($search) {
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
+                                            <div class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">                                            
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($processings['res_id']); ?>">
-                                                <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                                <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $processings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -289,7 +289,7 @@ if($search) {
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <div class="btn btn-danger btn-sm btn-1"><i class="bi bi-trash3-fill"></i></div>
+                                            <div class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
