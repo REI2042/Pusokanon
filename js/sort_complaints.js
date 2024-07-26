@@ -1,3 +1,4 @@
+
 // Event listeners for incident place dropdown
 document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(function(item) {
     item.addEventListener('click', function() {
@@ -12,6 +13,20 @@ document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(functio
     });
 });
 
+// // Event listeners for case type dropdown
+// document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
+//     item.addEventListener('click', function() {
+//         const caseType = this.getAttribute('data-case-type');
+//         const incidentPlace = new URLSearchParams(window.location.search).get('incident_place') || '';
+//         const status = new URLSearchParams(window.location.search).get('status') || ''; 
+//         const currentUrl = new URL(window.location.href);
+//         currentUrl.searchParams.set('case_type', caseType);
+//         currentUrl.searchParams.set('incident_place', incidentPlace);
+//         currentUrl.searchParams.set('status', status); 
+//         window.location.href = currentUrl.toString();
+//     });
+// });
+
 // Event listeners for case type dropdown
 document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
     item.addEventListener('click', function() {
@@ -19,10 +34,29 @@ document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(ite
         const incidentPlace = new URLSearchParams(window.location.search).get('incident_place') || '';
         const status = new URLSearchParams(window.location.search).get('status') || ''; 
         const currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.set('case_type', caseType);
+
+        if (caseType === "Other") {
+            currentUrl.searchParams.set('case_type', 'Other');
+        } else {
+            currentUrl.searchParams.set('case_type', caseType);
+        }
+
         currentUrl.searchParams.set('incident_place', incidentPlace);
         currentUrl.searchParams.set('status', status); 
+        
+        // Store the current visible table
+        const visibleTable = document.querySelector('#results > div[style*="display: block"]');
+        const visibleTableId = visibleTable ? visibleTable.id : null;
+        
+        // Navigate to the new URL
         window.location.href = currentUrl.toString();
+        
+        // After navigation, show the previously visible table
+        if (visibleTableId) {
+            window.addEventListener('load', function() {
+                showTable(visibleTableId.replace('Container', ''));
+            });
+        }
     });
 });
 
@@ -67,18 +101,32 @@ function showTable(status) {
     }
 
     // Show the selected table and pagination
-    if (tables[status]) {
-        tables[status].style.display = 'block';
-        pagination[status].style.display = 'block';
+    if (tables[status] || tables[status + 'Container']) {
+        const tableToShow = tables[status] || tables[status + 'Container'];
+        const paginationToShow = pagination[status] || pagination[status + 'Container'];
+        tableToShow.style.display = 'block';
+        paginationToShow.style.display = 'block';
     }
 }
 
+function getCurrentStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('status') || 'pending'; // Default to 'pending' if no status is set
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-    var status = 'pending'; // Default status
-    var queryString = new URLSearchParams(window.location.search);
-    if (queryString.has('status')) {
-        status = queryString.get('status');
-    }
+    const status = getCurrentStatus();
+    showTable(status);
+
+    // Highlight the correct status link
+    document.querySelectorAll('.status-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    document.getElementById(status + 'Link').classList.add('active');
+});
+
+window.addEventListener('popstate', function() {
+    const status = getCurrentStatus();
     showTable(status);
 });
 

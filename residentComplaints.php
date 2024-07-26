@@ -92,6 +92,7 @@
                     <option value="Trespassing">Trespassing</option>
                     <option value="Theft">Theft</option>
                     <option value="Vandalism">Vandalism</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
             <div class="col-12 px-1">

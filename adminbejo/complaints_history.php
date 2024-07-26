@@ -13,14 +13,23 @@
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $limit;
 
-
-    
     // Fetch complaints with pagination
     $complaints = fetchComplaintsHistory($pdo, $offset, $limit, $caseType, $incidentPlace, $status, $searchTerm);
-    
+
     // Fetch total number of complaints for pagination calculation
     $totalComplaints = getTotalComplaints($pdo, $caseType, $incidentPlace, $status, $searchTerm);
     $totalPages = ceil($totalComplaints / $limit);
+
+    // Pagination range
+    $range = 1; // Number of pages to display around the current page
+    $startPage = max(1, $page - $range);
+    $endPage = min($totalPages, $page + $range);
+
+    // Ensure there's at least 3 pages displayed if possible
+    if ($endPage - $startPage < 2) {
+        $startPage = max(1, $endPage - 2);
+        $endPage = min($totalPages, $startPage + 2);
+    };
     ?>
     
     <link rel="stylesheet" href="css/list.css">
@@ -76,6 +85,7 @@
                         <a class="dropdown-item" data-case-type="Trespassing" href="#">Trespassing</a>
                         <a class="dropdown-item" data-case-type="Theft" href="#">Theft</a>
                         <a class="dropdown-item" data-case-type="Vandalism" href="#">Vandalism</a>
+                        <a class="dropdown-item" data-case-type="Other" href="#">Others</a>
                     </div>
                 </div>
                 <form method="GET" class="d-flex" id="searchForm">
@@ -169,23 +179,35 @@
                             <ul class="pagination justify-content-center">
                                 <?php if ($page > 1): ?>
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=<?php echo $page-1; ?>&case_type=<?php echo urlencode($caseType); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>&status=<?php echo urlencode($status); ?>" aria-label="Previous">
-                                            <span aria-hidden="true">Prev</span>
-                                        </a>
+                                        <a class="page-link" href="?page=1&caseType=<?php echo urlencode($caseType); ?>&incidentPlace=<?php echo urlencode($incidentPlace); ?>&status=<?php echo urlencode($status); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">First</a>
                                     </li>
                                 <?php endif; ?>
-        
-                                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                                    <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
-                                        <a class="page-link" href="?page=<?php echo $i; ?>&case_type=<?php echo urlencode($caseType); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>&status=<?php echo urlencode($status); ?>"><?php echo $i; ?></a>
+
+                                <!-- Previous Page Link -->
+                                <?php if ($page > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<?php echo $page - 1; ?>&caseType=<?php echo urlencode($caseType); ?>&incidentPlace=<?php echo urlencode($incidentPlace); ?>&status=<?php echo urlencode($status); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><<</a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <!-- Page Number Links -->
+                                <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                    <li class="page-item<?php if ($i == $page) echo ' active'; ?>">
+                                        <a class="page-link" href="?page=<?php echo $i; ?>&caseType=<?php echo urlencode($caseType); ?>&incidentPlace=<?php echo urlencode($incidentPlace); ?>&status=<?php echo urlencode($status); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><?php echo $i; ?></a>
                                     </li>
                                 <?php endfor; ?>
-        
+
+                                <!-- Next Page Link -->
                                 <?php if ($page < $totalPages): ?>
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=<?php echo $page+1; ?>&case_type=<?php echo urlencode($caseType); ?>&incident_place=<?php echo urlencode($incidentPlace); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>&status=<?php echo urlencode($status); ?>" aria-label="Next">
-                                            <span aria-hidden="true">Next</span>
-                                        </a>
+                                        <a class="page-link" href="?page=<?php echo $page + 1; ?>&caseType=<?php echo urlencode($caseType); ?>&incidentPlace=<?php echo urlencode($incidentPlace); ?>&status=<?php echo urlencode($status); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">>></a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <!-- Last Page Link -->
+                                <?php if ($page < $totalPages): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<?php echo $totalPages; ?>&caseType=<?php echo urlencode($caseType); ?>&incidentPlace=<?php echo urlencode($incidentPlace); ?>&status=<?php echo urlencode($status); ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Last</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>

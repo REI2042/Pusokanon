@@ -346,7 +346,7 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
                 ct.date_filed AS date_filed, 
                 ct.status AS status,
                 ct.remarks AS remarks,
-				ct.comment AS comment,
+                ct.comment AS comment,
                 ct.narrative AS narrative,
                 ct.evidence AS evidence,
                 CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
@@ -360,8 +360,16 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
     $params = [];
 
     if ($caseType !== null && $caseType !== '') {
-        $sql .= " AND ct.case_type = ?";
-        $params[] = $caseType;
+        if ($caseType === 'Other') {
+            $predefinedTypes = ["Bullying", "Damaging Properties", "Defamation", "Libel", 
+                                "Physical Abuse", "Threat", "Trespassing", "Theft", "Vandalism"];
+            $placeholders = implode(',', array_fill(0, count($predefinedTypes), '?'));
+            $sql .= " AND ct.case_type NOT IN ($placeholders)";
+            $params = array_merge($params, $predefinedTypes);
+        } else {
+            $sql .= " AND ct.case_type = ?";
+            $params[] = $caseType;
+        }
     }
 
     if ($incidentPlace !== null && $incidentPlace !== '') {
@@ -381,14 +389,8 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
                   OR ru.res_lname LIKE ?
                   OR ct.respondent_fname LIKE ?
                   OR ct.respondent_lname LIKE ?)";
-        $params[] = "%$searchTerm%";
-        $params[] = "%$searchTerm%";
-        $params[] = "%$searchTerm%";
-        $params[] = "%$searchTerm%";
-        $params[] = "%$searchTerm%";
-        $params[] = "%$searchTerm%";
+        $params = array_merge($params, array_fill(0, 6, "%$searchTerm%"));
     }
-
 
     $sql .= " ORDER BY ct.date_filed DESC";
 
@@ -429,9 +431,17 @@ function fetchComplaintsHistory($pdo, $offset = 0, $limit = null, $caseType = nu
     $params = [];
 
     if ($caseType !== null && $caseType !== '') {
-        $sql .= " AND ct.case_type = ?";
-        $params[] = $caseType;
-    }
+		if (strtolower($caseType) === 'other') {
+			$predefinedTypes = ["Bullying", "Damaging Properties", "Defamation", "Libel", 
+								"Physical Abuse", "Threat", "Trespassing", "Theft", "Vandalism"];
+			$placeholders = implode(',', array_fill(0, count($predefinedTypes), '?'));
+			$sql .= " AND ct.case_type NOT IN ($placeholders)";
+			$params = array_merge($params, $predefinedTypes);
+		} else {
+			$sql .= " AND ct.case_type = ?";
+			$params[] = $caseType;
+		}
+	}
 
     if ($incidentPlace !== null && $incidentPlace !== '') {
         $sql .= " AND ct.incident_place = ?";
@@ -459,7 +469,7 @@ function fetchComplaintsHistory($pdo, $offset = 0, $limit = null, $caseType = nu
     }
 
 
-    $sql .= " ORDER BY ct.date_filed DESC";
+    $sql .= " ORDER BY ct.date_closed DESC";
 
     if ($limit !== null) {
         $sql .= " LIMIT ?, ?";
@@ -473,7 +483,6 @@ function fetchComplaintsHistory($pdo, $offset = 0, $limit = null, $caseType = nu
 }
 
 
-
 function getTotalComplaints($pdo, $caseType, $incidentPlace, $status, $searchTerm) {
     $sql = "SELECT COUNT(*) 
             FROM complaints_tbl ct
@@ -483,9 +492,17 @@ function getTotalComplaints($pdo, $caseType, $incidentPlace, $status, $searchTer
     $params = [];
 
     if ($caseType !== null && $caseType !== '') {
-        $sql .= " AND ct.case_type = ?";
-        $params[] = $caseType;
-    }
+		if (strtolower($caseType) === 'other') {
+			$predefinedTypes = ["Bullying", "Damaging Properties", "Defamation", "Libel", 
+								"Physical Abuse", "Threat", "Trespassing", "Theft", "Vandalism"];
+			$placeholders = implode(',', array_fill(0, count($predefinedTypes), '?'));
+			$sql .= " AND ct.case_type NOT IN ($placeholders)";
+			$params = array_merge($params, $predefinedTypes);
+		} else {
+			$sql .= " AND ct.case_type = ?";
+			$params[] = $caseType;
+		}
+	}
 
     if ($incidentPlace !== null && $incidentPlace !== '') {
         $sql .= " AND ct.incident_place = ?";
@@ -517,7 +534,29 @@ function getTotalComplaints($pdo, $caseType, $incidentPlace, $status, $searchTer
     return $stmt->fetchColumn();
 }
 
+function fetchTotalPendingComp($pdo)
+{
+	$sql = "SELECT COUNT(*) FROM complaints_tbl WHERE status = 'Pending'";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute();
+	return $stmt->fetchColumn();
+}
 
+function fetchTotalApprovedComp($pdo)
+{
+	$sql = "SELECT COUNT(*) FROM complaints_tbl WHERE status = 'Approved'";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute();
+	return $stmt->fetchColumn();
+}
+
+function fetchTotalRejectedComp($pdo)
+{
+	$sql = "SELECT COUNT(*) FROM complaints_tbl WHERE status = 'Rejected'";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute();
+	return $stmt->fetchColumn();
+}
 
 function fetchTotalMales($pdo)
 {

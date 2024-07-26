@@ -1,48 +1,60 @@
-document.getElementById('complaintForm').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-    var formData = new FormData(this);
+document.addEventListener('DOMContentLoaded', function() {
+    const complaintForm = document.getElementById('complaintForm');
+    if (complaintForm) {
+        complaintForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting traditionally
 
-    fetch('../db/DBconn_adminComplaints.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Complaint Submitted',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.href = 'writeComplaints.php'; 
+            var formData = new FormData(this);
+
+            fetch('../db/DBconn_adminComplaints.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Complaint Submitted',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'writeComplaints.php'; // Redirect after success
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while submitting the complaint.',
+                    confirmButtonText: 'OK'
+                });
+                console.error('Error:', error);
             });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: data.message,
-                confirmButtonText: 'OK'
-            });
-        }
-    })
-    .catch(error => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An error occurred while submitting the complaint.',
-            confirmButtonText: 'OK'
         });
-        console.error('Error:', error);
-    });
+    }
 });
 
 
+
 document.getElementById('complaintForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
     var formData = new FormData(this);
 
-    fetch('db/DBconn_complaints.php', {
+    fetch('../db/DBconn_complaints.php', {
         method: 'POST',
         body: formData
     })
@@ -77,6 +89,93 @@ document.getElementById('complaintForm').addEventListener('submit', function(eve
     });
 });
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const caseTypeSelect = document.getElementById('case_type');
+
+    caseTypeSelect.addEventListener('change', function() {
+        if (this.value === 'Other') {
+            Swal.fire({
+                title: 'Enter Custom Case Type',
+                input: 'text',
+                inputPlaceholder: 'Enter the case type',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to enter something!';
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const customType = result.value;
+                    
+                    // Create a new option
+                    const newOption = new Option(customType, customType, true, true);
+                    
+                    // Remove the temporary "Other" option if it exists
+                    const tempOther = caseTypeSelect.querySelector('option[value="Other_temp"]');
+                    if (tempOther) {
+                        caseTypeSelect.removeChild(tempOther);
+                    }
+                    
+                    // Add the new option to the select
+                    caseTypeSelect.add(newOption);
+                    
+                    // Select the new option
+                    caseTypeSelect.value = customType;
+                } else {
+                    // If user cancels, revert to the first option
+                    caseTypeSelect.value = caseTypeSelect.options[0].value;
+                }
+            });
+
+            // Add a temporary "Other" option
+            const tempOption = new Option("Other", "Other_temp", true, true);
+            caseTypeSelect.add(tempOption);
+        }
+    });
+});
+
+document.getElementById('yourForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting normally
+
+    var formData = new FormData(this);
+    
+    fetch('DBconn_adminComplaints.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: data.message,
+                confirmButtonText: 'OK'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message,
+                confirmButtonText: 'OK'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An unexpected error occurred.',
+            confirmButtonText: 'OK'
+        });
+    });
+});
+
+  
 
 
 async function showDetails(

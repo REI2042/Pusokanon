@@ -5,50 +5,53 @@
 
         
         // Retrieve query parameters
-        $caseType = isset($_GET['case_type']) ? $_GET['case_type'] : '';
-        $incidentPlace = isset($_GET['incident_place']) ? $_GET['incident_place'] : '';
-        $searchTerm = isset($_GET['searchTerm']) ? trim($_GET['searchTerm']) : '';
-        $status = isset($_GET['status']) ? $_GET['status'] : '';
+$caseType = $_GET['case_type'] ?? '';
+$incidentPlace = $_GET['incident_place'] ?? '';
+$searchTerm = trim($_GET['searchTerm'] ?? '');
+$status = $_GET['status'] ?? '';
 
-        // Fetch counts for each status
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM complaints_tbl WHERE status = 'Pending'");
-        $stmt->execute();
-        $num_pendingComplaints = $stmt->fetchColumn();
+// Fetch counts for each status
+// $stmt = $pdo->prepare("SELECT COUNT(*) FROM complaints_tbl WHERE status = ?");
 
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM complaints_tbl WHERE status = 'Approved'");
-        $stmt->execute();
-        $num_approvedComplaints = $stmt->fetchColumn();
+// $stmt->execute(['Pending']);
+// $num_pendingComplaints = $stmt->fetchColumn();
 
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM complaints_tbl WHERE status = 'Rejected'");
-        $stmt->execute();
-        $num_rejectedComplaints = $stmt->fetchColumn();
+// $stmt->execute(['Approved']);
+// $num_approvedComplaints = $stmt->fetchColumn();
 
-        $limit = 5; // Number of complaints per page
+// $stmt->execute(['Rejected']);
+// $num_rejectedComplaints = $stmt->fetchColumn();
 
-        // Total number of pages available for Pending, Approved, and Rejected
-        $num_pendingPage = ceil($num_pendingComplaints / $limit);
-        $num_approvedPage = ceil($num_approvedComplaints / $limit);
-        $num_rejectedPage = ceil($num_rejectedComplaints / $limit);
 
-        // Determine which page number visitor is currently on
-        $pendingPage = isset($_GET['pendingPage']) ? (int)$_GET['pendingPage'] : 1;
-        $approvedPage = isset($_GET['approvedPage']) ? (int)$_GET['approvedPage'] : 1;
-        $rejectedPage = isset($_GET['rejectedPage']) ? (int)$_GET['rejectedPage'] : 1;
 
-        // Ensure the page number is within the valid range
-        $pendingPage = max(1, min($pendingPage, $num_pendingPage));
-        $approvedPage = max(1, min($approvedPage, $num_approvedPage));
-        $rejectedPage = max(1, min($rejectedPage, $num_rejectedPage));
+$limit = 5; // Number of complaints per page
 
-        // Determine the SQL LIMIT starting number for the results on the displaying page
-        $pending_offset = ($pendingPage - 1) * $limit;
-        $approved_offset = ($approvedPage - 1) * $limit;
-        $rejected_offset = ($rejectedPage - 1) * $limit;
+// Total number of pages available for Pending, Approved, and Rejected
+// Fetch total number of complaints for each status
+$total_pending = fetchTotalPendingComp($pdo);
+$total_approved = fetchTotalApprovedComp($pdo);
+$total_rejected = fetchTotalRejectedComp($pdo);
 
-        // Retrieve the data to display for the current page
-        $pendingComplaints = fetchListofComplaints($pdo, $pending_offset, $limit, $caseType, $incidentPlace, 'Pending', $searchTerm);
-        $approvedComplaints = fetchListofComplaints($pdo, $approved_offset, $limit, $caseType, $incidentPlace, 'Approved', $searchTerm);
-        $rejectedComplaints = fetchListofComplaints($pdo, $rejected_offset, $limit, $caseType, $incidentPlace, 'Rejected', $searchTerm);
+// Determine which page number visitor is currently on
+$pendingPage = max(1, min((int)($_GET['pendingPage'] ?? 1), ceil($total_pending / $limit)));
+$approvedPage = max(1, min((int)($_GET['approvedPage'] ?? 1), ceil($total_approved / $limit)));
+$rejectedPage = max(1, min((int)($_GET['rejectedPage'] ?? 1), ceil($total_rejected / $limit)));
+
+// Calculate the offset for each status
+$pending_offset = ($pendingPage - 1) * $limit;
+$approved_offset = ($approvedPage - 1) * $limit;
+$rejected_offset = ($rejectedPage - 1) * $limit;
+
+// Retrieve the data to display for the current page
+$pendingComplaints = fetchListofComplaints($pdo, $pending_offset, $limit, $caseType, $incidentPlace, 'Pending', $searchTerm);
+$approvedComplaints = fetchListofComplaints($pdo, $approved_offset, $limit, $caseType, $incidentPlace, 'Approved', $searchTerm);
+$rejectedComplaints = fetchListofComplaints($pdo, $rejected_offset, $limit, $caseType, $incidentPlace, 'Rejected', $searchTerm);
+
+// Calculate total pages for each status
+$total_pending_pages = ceil($total_pending / $limit);
+$total_approved_pages = ceil($total_approved / $limit);
+$total_rejected_pages = ceil($total_rejected / $limit);
+
 
     ?>
 
@@ -99,6 +102,7 @@
                         <a class="dropdown-item" data-case-type="Trespassing" href="#">Trespassing</a>
                         <a class="dropdown-item" data-case-type="Theft" href="#">Theft</a>
                         <a class="dropdown-item" data-case-type="Vandalism" href="#">Vandalism</a>
+                        <a class="dropdown-item" data-case-type="Other" href="#">Others</a>
                     </div>
                 </div>
                 <form method="GET" class="d-flex" id="searchForm">
@@ -186,23 +190,57 @@
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                        <!-- Pending Complaints Pagination -->
+
                         <div class="pagination-container">
                             <nav id="pendingPagination" aria-label="Pending complaints pagination">
                                 <ul class="pagination justify-content-center">
+                                    <?php
+                                        $total_pages = $total_pending_pages; 
+                                        $range = 1; 
+
+                                        $start_page = max(1, $pendingPage - $range);
+                                        $end_page = min($total_pages, $pendingPage + $range);
+
+                                        if ($end_page - $start_page < 2) {
+                                            $start_page = max(1, $end_page - 2);
+                                            $end_page = min($total_pages, $start_page + 2);
+                                        }
+                                    ?>
+
                                     <?php if ($pendingPage > 1): ?>
-                                        <li class="page-item"><a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage - 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Prev</a></li>                            <?php endif; ?>
-                                    <?php for ($i = 1; $i <= $num_pendingPage; $i++): ?>
-                                        <li class="page-item<?php if ($i == $pendingPage) echo ' active'; ?>"><a class="page-link" href="?status=pending&pendingPage=<?php echo $i; ?>; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><?php echo $i; ?></a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=pending&pendingPage=1&searchTerm=<?php echo urlencode($searchTerm); ?>">First</a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php if ($pendingPage > 1): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage - 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><<</a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
+                                        <li class="page-item<?php if ($i == $pendingPage) echo ' active'; ?>">
+                                            <a class="page-link" href="?status=pending&pendingPage=<?php echo $i; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><?php echo $i; ?></a>
+                                        </li>
                                     <?php endfor; ?>
-                                    <?php if ($pendingPage < $num_pendingPage): ?>
-                                        <li class="page-item"><a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage + 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Next</a></li>                            <?php endif; ?>
+
+                                    <?php if ($pendingPage < $total_pages): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=pending&pendingPage=<?php echo $pendingPage + 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">>></a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php if ($pendingPage < $total_pages): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=pending&pendingPage=<?php echo $total_pages; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Last</a>
+                                        </li>
+                                    <?php endif; ?>
                                 </ul>
                             </nav>
                         </div>
                     </div>
 
-                    <!-- Approved Complaints Table -->
                     <div id="approvedContainer" style="display: none;">
                         <table id="approvedTable" class="table mx-auto" cellspacing="0" cellpadding="0">
                             <thead style="background-color: #3AC430;">
@@ -271,25 +309,57 @@
                             <?php endif; ?>
                             </tbody>
                         </table>
-                        <!-- Approved Complaints Pagination -->
+
                         <div class="pagination-container">
                             <nav id="approvedPagination" aria-label="Approved complaints pagination">
                                 <ul class="pagination justify-content-center">
+                                    <?php
+                                        $total_pages = $total_approved_pages; 
+                                        $range = 1; 
+
+                                        $start_page = max(1, $approvedPage - $range);
+                                        $end_page = min($total_pages, $approvedPage + $range);
+
+                                        if ($end_page - $start_page < 2) {
+                                            $start_page = max(1, $end_page - 2);
+                                            $end_page = min($total_pages, $start_page + 2);
+                                        }
+                                    ?>
+
                                     <?php if ($approvedPage > 1): ?>
-                                        <li class="page-item"><a class="page-link" href="?status=approved&approvedPage=<?php echo $approvedPage - 1; ?>">Previous</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=approved&approvedPage=1&searchTerm=<?php echo urlencode($searchTerm); ?>">First</a>
+                                        </li>
                                     <?php endif; ?>
-                                    <?php for ($i = 1; $i <= $num_approvedPage; $i++): ?>
-                                        <li class="page-item<?php if ($i == $approvedPage) echo ' active'; ?>"><a class="page-link" href="?status=approved&approvedPage=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+
+                                    <?php if ($approvedPage > 1): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="status=approved&approvedPage=<?php echo $approvedPage - 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><<</a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
+                                        <li class="page-item<?php if ($i == $approvedPage) echo ' active'; ?>">
+                                            <a class="page-link" href="?status=approved&approvedPage=<?php echo $i; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><?php echo $i; ?></a>
+                                        </li>
                                     <?php endfor; ?>
-                                    <?php if ($approvedPage < $num_approvedPage): ?>
-                                        <li class="page-item"><a class="page-link" href="?status=approved&approvedPage=<?php echo $approvedPage + 1; ?>">Next</a></li>
+
+                                    <?php if ($approvedPage < $total_pages): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=approved&approvedPage=<?php echo $approvedPage + 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">>></a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php if ($approvedPage < $total_pages): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=approved&approvedPage=<?php echo $total_pages; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Last</a>
+                                        </li>
                                     <?php endif; ?>
                                 </ul>
                             </nav>
                         </div>
                     </div>
 
-                    <!-- Rejected Complaints Table -->
                     <div id="rejectedContainer" style="display: none;">
                         <table id="rejectedTable" class="table mx-auto" cellspacing="0" cellpadding="0">
                             <thead style="background-color: #D11313;">
@@ -349,18 +419,51 @@
                             <?php endif; ?>
                             </tbody>
                         </table>
-                        <!-- Rejected Complaints Pagination -->
+
                         <div class="pagination-container">
                             <nav id="rejectedPagination" aria-label="Rejected complaints pagination">
                                 <ul class="pagination justify-content-center">
+                                <?php
+                                        $total_pages = $total_rejected_pages; 
+                                        $range = 1; 
+
+                                        $start_page = max(1, $rejectedPage - $range);
+                                        $end_page = min($total_pages, $rejectedPage + $range);
+
+                                        if ($end_page - $start_page < 2) {
+                                            $start_page = max(1, $end_page - 2);
+                                            $end_page = min($total_pages, $start_page + 2);
+                                        }
+                                    ?>
+
                                     <?php if ($rejectedPage > 1): ?>
-                                        <li class="page-item"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $rejectedPage - 1; ?>">Previous</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=rejected&rejectedPage=1&searchTerm=<?php echo urlencode($searchTerm); ?>">First</a>
+                                        </li>
                                     <?php endif; ?>
-                                    <?php for ($i = 1; $i <= $num_rejectedPage; $i++): ?>
-                                        <li class="page-item<?php if ($i == $rejectedPage) echo ' active'; ?>"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+
+                                    <?php if ($rejectedPage > 1): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="status=rejected&rejectedPage=<?php echo $rejectedPage - 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><<</a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
+                                        <li class="page-item<?php if ($i == $rejectedPage) echo ' active'; ?>">
+                                            <a class="page-link" href="?status=rejected&rejectedPage=<?php echo $i; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>"><?php echo $i; ?></a>
+                                        </li>
                                     <?php endfor; ?>
-                                    <?php if ($rejectedPage < $num_rejectedPage): ?>
-                                        <li class="page-item"><a class="page-link" href="?status=rejected&rejectedPage=<?php echo $rejectedPage + 1; ?>">Next</a></li>
+
+                                    <?php if ($rejectedPage < $total_pages): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=rejected&rejectedPage=<?php echo $rejectedPage + 1; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">>></a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php if ($rejectedPage < $total_pages): ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?status=rejected&rejectedPage=<?php echo $total_pages; ?>&searchTerm=<?php echo urlencode($searchTerm); ?>">Last</a>
+                                        </li>
                                     <?php endif; ?>
                                 </ul>
                             </nav>

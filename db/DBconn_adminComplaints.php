@@ -22,6 +22,18 @@ if (isset($_POST['res_ID'], $_POST['fname'], $_POST['mname'], $_POST['lname'], $
     $staff_id = 18; 
     $comment = '--';
 
+    // Check if resident ID exists
+    $check_res_id_sql = "SELECT COUNT(*) FROM resident_users WHERE res_ID = :res_id";
+    $check_stmt = $pdo->prepare($check_res_id_sql);
+    $check_stmt->bindParam(':res_id', $res_id);
+    $check_stmt->execute();
+    $count = $check_stmt->fetchColumn();
+
+    if ($count == 0) {
+        echo json_encode(['success' => false, 'message' => 'Resident ID does not exist.']);
+        exit;
+    }
+
     $evidence = NULL;
     if (isset($_FILES['evidence']) && $_FILES['evidence']['error'] == 0) {
         $file_tmp = $_FILES['evidence']['tmp_name'];
