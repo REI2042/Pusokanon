@@ -803,3 +803,15 @@ function fetchResidentDetails($pdo, $residentId)
     
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function fetchChartData($pdo)
+{
+    $sql = "SELECT isp.sitio_name, isp.total_initial_residents, COUNT(ru.res_ID) as registered_residents
+            FROM initial_sitio_population isp
+            LEFT JOIN resident_users ru ON isp.sitio_name = ru.addr_sitio
+            GROUP BY isp.sitio_name, isp.total_initial_residents
+            ORDER BY isp.sitio_name";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
