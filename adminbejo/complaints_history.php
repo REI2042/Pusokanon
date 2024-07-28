@@ -124,8 +124,10 @@
                                 <?php foreach ($complaints as $complaint): ?>
                                     <tr>
                                         <?php
-                                            $imagePath = "../../db/complaints_evidence/{$complaint['evidence']}";
-                                            if (file_exists($imagePath)) {
+                                            $imageFileName = $complaint['evidence'];
+
+                                            if (!empty($imageFileName)) {
+                                                $imagePath = "../db/$imageFileName";
                                                 $imageData = base64_encode(file_get_contents($imagePath));
                                                 $imageMimeType = mime_content_type($imagePath);
                                                 $imageSrc = "data:$imageMimeType;base64,$imageData";

@@ -1,96 +1,217 @@
+
+// admin complaint form popup
 document.addEventListener('DOMContentLoaded', function() {
-    const complaintForm = document.getElementById('complaintForm');
-    if (complaintForm) {
-        complaintForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting traditionally
-
-            var formData = new FormData(this);
-
-            fetch('../db/DBconn_adminComplaints.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Complaint Submitted',
-                        text: data.message,
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'writeComplaints.php'; // Redirect after success
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data.message,
-                        confirmButtonText: 'OK'
-                    });
-                }
-            })
-            .catch(error => {
+    document.getElementById('admincomplaintForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        var formData = new FormData(this);
+    
+        fetch('../db/DBconn_adminComplaints.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Complaint Submitted',
+                    text: data.message,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'writeComplaints.php'; 
+                });
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'An error occurred while submitting the complaint.',
+                    text: data.message,
                     confirmButtonText: 'OK'
                 });
-                console.error('Error:', error);
-            });
-        });
-    }
-});
-
-
-
-document.getElementById('complaintForm').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-    var formData = new FormData(this);
-
-    fetch('../db/DBconn_complaints.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Complaint Submitted',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.href = 'residentComplaints.php'; 
-            });
-        } else {
+            }
+        })
+        .catch(error => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: data.message,
+                text: 'An error occurred while submitting the complaint.',
                 confirmButtonText: 'OK'
             });
-        }
-    })
-    .catch(error => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An error occurred while submitting the complaint.',
-            confirmButtonText: 'OK'
+            console.error('Error:', error);
         });
-        console.error('Error:', error);
     });
+
+});
+
+// resident complaint form pop up
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('complaintForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        var formData = new FormData(this);
+    
+        fetch('db/DBconn_complaints.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Complaint Submitted',
+                    text: data.message,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'residentComplaints.php'; 
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message,
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while submitting the complaint.',
+                confirmButtonText: 'OK'
+            });
+            console.error('Error:', error);
+        });
+    });
+
 });
 
 
 
+// document.getElementById('complaintForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); 
+//     var formData = new FormData(this);
+
+//     fetch('db/DBconn_complaints.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Complaint Submitted',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             }).then(() => {
+//                 window.location.href = 'residentComplaints.php'; 
+//             });
+//         } else {
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             });
+//         }
+//     })
+//     .catch(error => {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Error',
+//             text: 'An error occurred while submitting the complaint.',
+//             confirmButtonText: 'OK'
+//         });
+//         console.error('Error:', error);
+//     });
+// });
+
+
+
+
+
+// document.getElementById('complaintForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); 
+//     var formData = new FormData(this);
+
+//     fetch('db/DBconn_complaints.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Complaint Submitted',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             }).then(() => {
+//                 window.location.href = 'residentComplaints.php'; 
+//             });
+//         } else {
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             });
+//         }
+//     })
+//     .catch(error => {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Error',
+//             text: 'An error occurred while submitting the complaint.',
+//             confirmButtonText: 'OK'
+//         });
+//         console.error('Error:', error);
+//     });
+// });
+
+
+
+// document.getElementById('complaintForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); 
+//     var formData = new FormData(this);
+
+//     fetch('../db/DBconn_complaints.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Complaint Submitted',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             }).then(() => {
+//                 window.location.href = 'residentComplaints.php'; 
+//             });
+//         } else {
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             });
+//         }
+//     })
+//     .catch(error => {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Error',
+//             text: 'An error occurred while submitting the complaint.',
+//             confirmButtonText: 'OK'
+//         });
+//         console.error('Error:', error);
+//     });
+// });
+
+
+// other case typ pop up
 document.addEventListener('DOMContentLoaded', function() {
     const caseTypeSelect = document.getElementById('case_type');
 
@@ -137,49 +258,57 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.getElementById('yourForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form from submitting normally
 
-    var formData = new FormData(this);
-    
-    fetch('DBconn_adminComplaints.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: data.message,
-                confirmButtonText: 'OK'
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: data.message,
-                confirmButtonText: 'OK'
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An unexpected error occurred.',
-            confirmButtonText: 'OK'
-        });
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     var admincomplaintForm = document.getElementById('admincomplaintForm');
+//     if (admincomplaintForm) {
+//         yourForm.addEventListener('submit', function(event) {
+//             event.preventDefault(); // Prevent form from submitting normally
+
+//             var formData = new FormData(this);
+            
+//             fetch('DBconn_adminComplaints.php', {
+//                 method: 'POST',
+//                 body: formData
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data.success) {
+//                     Swal.fire({
+//                         icon: 'success',
+//                         title: 'Success',
+//                         text: data.message,
+//                         confirmButtonText: 'OK'
+//                     });
+//                 } else {
+//                     Swal.fire({
+//                         icon: 'error',
+//                         title: 'Error',
+//                         text: data.message,
+//                         confirmButtonText: 'OK'
+//                     });
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Error',
+//                     text: 'An unexpected error occurred.',
+//                     confirmButtonText: 'OK'
+//                 });
+//             });
+//         });
+//     } else {
+//         console.error('Error:', error);
+//     }
+// });
+
 
   
 
-
+// show details pop up
 async function showDetails(
-    // complaint_id,
     resident_name,
     resident_email,
     respondent_name,
@@ -191,7 +320,6 @@ async function showDetails(
     narrative,
     imageSrc
 ) {
-
     Swal.fire({
         title: 'Complaint Details',
         html: `<div style="text-align: left;">
@@ -207,15 +335,14 @@ async function showDetails(
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Place of Incident:</strong> ${incident_place}</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Narrative:</strong> ${narrative}</p>
                     <p><strong>Evidence:</strong></p>
+                    ${imageSrc ? `<div style="text-align: center;"><img src="${imageSrc}" alt="Evidence Image" style="max-width: 100%; height: auto; margin-top: 10px;"/></div>` : '<p>No attached evidence</p>'}
                 </div>`,
-        imageUrl: imageSrc,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: "Custom image",
         confirmButtonColor: "#3085d6",
     });
-} 
+}
 
+
+// comment pop up
 async function viewComment (
     comment
 ) {
@@ -231,6 +358,7 @@ async function viewComment (
     });
 }
 
+// approved complaint pop up
 async function approve_complaint(complaint_id) {
     // Step 1: Admin sets the hearing date and time
     const { value: dateTime } = await Swal.fire({
@@ -364,7 +492,7 @@ async function approve_complaint(complaint_id) {
     }
 }
 
-
+// rejected complaint pop up
 async function reject_complaint(complaint_id) {
     // Step 1: Admin provides reason for disapproval
     const { value: reason } = await Swal.fire({
@@ -475,6 +603,7 @@ async function reject_complaint(complaint_id) {
     }
 }
 
+// closing the case pop up
 async function closeCase(complaint_id) {
     const { value: reason } = await Swal.fire({
         title: "Reason for Closing",

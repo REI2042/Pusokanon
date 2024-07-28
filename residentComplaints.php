@@ -16,7 +16,7 @@
             </div>
         </div>
         <p>INFORMATION OF THE RESPONDENT:</p>
-        <form class="row gy-2 gx-3 text-white" id="complaintForm" enctype="multipart/form-data" method="POST" action="DBconn_complaints.php">
+        <form class="row gy-2 gx-3 text-white" id="complaintForm" enctype="multipart/form-data" method="POST">
             <div class="col-md-4 px-1">
                 <label for="firstname" class="form-label">First Name</label>
                 <input type="text" name="fname" class="form-control" id="firstname" placeholder="First Name" required>
@@ -96,7 +96,7 @@
                 </select>
             </div>
             <div class="col-12 px-1">
-                <label for="file" class="form-label">Upload Image or File</label>
+                <label for="evidence" class="form-label">Upload Image or File</label>
                 <div class="input-group">
                     <input type="file" class="form-control" name="evidence" id="evidence">
                     <button type="button" class="btn btn-danger" id="removeFile">Remove</button>
