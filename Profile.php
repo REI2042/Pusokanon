@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover status-<?php echo $status; ?>">
                             <thead>
                                 <tr>
                                     <th scope="col">Document ID</th>
