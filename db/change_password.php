@@ -17,12 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId]);
     $user = $stmt->fetch();
 
-    if (!password_verify($currentPassword, $user['res_password'])) {
+    if (!verifyPassword($currentPassword, $user['res_password'])) {
         echo json_encode(['success' => false, 'error' => 'current_password', 'message' => 'Current password is incorrect']);
         exit;
     }
 
-    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    $hashedPassword = hashPassword($newPassword);
 
     $stmt = $pdo->prepare("UPDATE resident_users SET res_password = ? WHERE res_ID = ?");
     if ($stmt->execute([$hashedPassword, $userId])) {

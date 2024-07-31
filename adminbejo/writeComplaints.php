@@ -8,7 +8,7 @@
 <div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="col-lg-8 col-md-10">
         <h1 class="text-center">File a Complaint</h1>
-        <form class="text-white" id="complaintForm" enctype="multipart/form-data" method="POST" action="../db/DBconn_adminComplaints.php">
+        <form class="text-white" id="admincomplaintForm" enctype="multipart/form-data" method="POST" action="db/DBconn_adminComplaints.php">
             <div class="row mt-5">
                 <div class="col-sm-12 mb-3">
                     <div class="card">
@@ -148,11 +148,17 @@
     </div>
 </div>
 
+<!-- <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('admincomplaintForm');
+    console.log('Form found:', form);
+});
+</script> -->
+<script src="../js/complaints_popUp.js"></script>
 <script>
     document.getElementById('removeFile').addEventListener('click', function() {
         document.getElementById('evidence').value = '';
     });
 </script>
-<script src="../js/complaints_popUp.js"></script>
 
 <?php include 'footerAdmin.php';?>

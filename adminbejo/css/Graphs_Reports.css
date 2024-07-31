@@ -56,3 +56,8 @@
 .input button:hover {
     background-color: #007bff;
 }
+
+.custom-swal {
+    background-color: #1D4E89;
+    color: #F9F8FD;
+}

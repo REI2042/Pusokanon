@@ -217,6 +217,21 @@ footer {
     margin-left: 105px;
 }
 
+.status-pending thead th {
+    background-color: #FAB020;
+    color: #222324;
+}
+
+.status-processing thead th {
+    background-color: #00c3ff;
+    color: #222324;
+}
+
+.status-Ready.to.Pick.Up thead th {
+    background-color: #00ff62;
+    color: #222324;
+}
+
 @media (max-width: 768px), (min-height: 768px) {
 
     .main {

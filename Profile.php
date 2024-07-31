@@ -15,6 +15,8 @@
     $status = isset($_GET['status']) ? $_GET['status'] : 'pending';
     $perPage = 5;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+    $readyToPickupCount = countResdocsRequest($pdo, $userId, 'Ready to pickup');
     
     $offset = ($page - 1) * $perPage;
 
@@ -78,7 +80,11 @@
             <div class="request-box p-3">
                 <div class="row">
                     <div class="buttons text-center mt-3">
-                        <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?>" data-target="document-requests">Your Document Request(s)</button>
+                        <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?> position-relative" data-target="document-requests">Your Document Request(s)
+                            <?php if ($readyToPickupCount > 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+                            <?php endif; ?>
+                        </button>
                         <button class="btn complaints-button <?php echo $activeTab === 'complaints' ? 'active' : ''; ?>" data-target="complaints">Your Complaint(s)</button>
                     </div>
                 </div>
@@ -92,11 +98,14 @@
                             <a href="?status=processing" class="processing-button <?php echo $status === 'processing' ? 'active' : ''; ?>">Processing</a>
                         </div>
                         <div class="col-12 col-sm-4">
-                            <a href="?status=Ready to Pick Up" class="ready-button <?php echo $status === 'Ready to Pick Up' ? 'active' : ''; ?>">Ready to Pick-up</a>
+                            <a href="?status=Ready to pickup" class="ready-button <?php echo $status === 'Ready to pickup' ? 'active' : ''; ?>">Ready to Pick-up</a>
+                            <?php if ($readyToPickupCount > 0): ?>
+                                <span class="badge text-bg-danger" style="transform: translateX(-25px);"><?php echo htmlspecialchars($readyToPickupCount); ?></span>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover status-<?php echo $status; ?>">
                             <thead>
                                 <tr>
                                     <th scope="col">Document ID</th>
