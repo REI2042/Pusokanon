@@ -64,3 +64,22 @@
     background-color: #1D4E89;
     color: #F9F8FD;
 }
+
+
+@media (max-width: 768px), (min-height: 768px) {
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    .chart {
+        overflow-x: scroll;
+    }
+
+    #SvgjsText1009 {
+        font-size: 8px;
+    }
+}
