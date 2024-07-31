@@ -120,4 +120,11 @@
     .pagination {
         overflow: scroll;
     }
+    .custom-swal {
+        width: 400px !important;
+    }
+
+    .infos {
+        font-size: x-small
+    }
 }

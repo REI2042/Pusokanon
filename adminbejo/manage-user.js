@@ -1,10 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl, {
-            placement: 'left'
-        })
-    })
     const viewButtons = document.querySelectorAll('.view-btn');
     viewButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -27,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <p class="account-status my-1"><strong>Account Status:</strong>  ${data.is_active ? 'Active' : 'Deactivated'}</p>
                                     </div>
                                 </div>
-                                <div class="row mx-0 mx-sm-3 my-3 text-start">
+                                <div class="row infos mx-0 mx-sm-3 my-3 text-start">
                                     <p class="first-name col-12 col-sm-6 mb-2"><strong>First Name:</strong> ${data.res_fname}</p>
                                     <p class="last-name col-12 col-sm-6 mb-2"><strong>Last Name:</strong> ${data.res_lname}</p>
                                     <p class="middle-name col-12 col-sm-6 mb-2"><strong>Middle Name:</strong> ${data.res_midname}</p>
