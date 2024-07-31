@@ -17,7 +17,6 @@
 		<h1>Request Document</h1>
 		<hr class="bg-dark">
 		<div class="docs row">
-			
 			<div class="holder col-12 col-md-6 mb-2">
 				<button class="btn btn-success text-left w-100 btn-2" value="2" name="indigency" data-value="2">
 					<div class="div-holder row">
@@ -53,7 +52,7 @@
 	        </div>
 
 			<div class="holder col-12 col-md-6 mb-2 ">
-            	<button class="btn btn-success text-left  w-100 btn-3 " value="3" name="cedula" data-value="3">
+            	<button class="btn btn-success text-left  w-100 btn-3 " value="3" name="Cedula" data-value="3">
             		<div class="div-holder row ">
             			<div class="img-holder col">
             				<img src="PicturesNeeded/SampleDocument.jpg" class="" alt="pic">

@@ -21,13 +21,7 @@ async function initDocumentSelection() {
         title: "Select Purpose for requesting document",
         html: "<p>Para sa pag kuha ug Barangay Certificate, kinahanglan namong mahibalo kung para asa gamitun ang documento nga Barangay certificate.</p>",
         input: "select",
-        inputOptions: {
-          1: "Employment",
-          2: "Students Scholarship",
-          3: "Person With Disability Assistance",
-          4: "Senior Citizen Assistance",
-          5: "Other",
-        },
+        inputOptions: purposeMap,
         inputPlaceholder: "Select purpose",
         showCancelButton: true,
         inputValidator: (value) => {
@@ -36,11 +30,8 @@ async function initDocumentSelection() {
               Swal.fire({
                 title: "Purpose",
                 input: "textarea",
-                inputLabel: "For other purpose please fill Up.",
+                inputLabel: "For other purpose please fill up.",
                 inputPlaceholder: "Type your purpose here...",
-                inputAttributes: {
-                  "aria-label": "Type your purpose here",
-                },
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
               }).then(({ value: otherPurpose }) => {
@@ -105,7 +96,6 @@ async function initDocumentSelection() {
     });
   });
 
-  // Add event listener for btn-3 (Cedula)
   buttons3.forEach((button) => {
     button.addEventListener("click", async (event) => {
       event.preventDefault();
@@ -116,9 +106,6 @@ async function initDocumentSelection() {
         input: "textarea",
         inputLabel: "Please enter the purpose for requesting Cedula.",
         inputPlaceholder: "Type your purpose here...",
-        inputAttributes: {
-          "aria-label": "Type your purpose here",
-        },
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
       });
@@ -145,8 +132,8 @@ async function initDocumentSelection() {
             if (result.isConfirmed) {
               const formData = new FormData();
               formData.append("purpose", purpose);
-              formData.append("file", file);
               formData.append("docTypeId", buttonValue);
+              formData.append("file", file);
 
               fetch("db/insert_request.php", {
                 method: "POST",
@@ -159,10 +146,19 @@ async function initDocumentSelection() {
             }
           });
         } else {
-          Swal.fire("Error", "You need to upload an image file", "error");
+          Swal.fire({
+            icon: "error",
+            title: "File Upload Error",
+            text: "You need to upload a file to proceed.",
+          });
         }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Purpose Error",
+          text: "You need to provide a purpose to proceed.",
+        });
       }
     });
   });
 }
-  
