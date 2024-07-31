@@ -76,9 +76,23 @@ include 'headerAdmin.php';
                     </button>
                 </form>
             </div>
+
             <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
+                <form action="Barangay-Electrical_Permit.php" method="POST" class="document-bx-form">
                     <input type="hidden" name="docType" value="6">
+                    <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
+                        <i class="fa-solid fa-file fa-2x"></i>
+                        <div class="document-data text-left">
+                            <span class="data1">Barangay Electrical Permit</span>
+                            <span class="data2">100</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
+
+            <div class="docs col-3">
+                <form action="Barangay-Fencing_Permit.php" method="POST" class="document-bx-form">
+                    <input type="hidden" name="docType" value="7">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
                         <div class="document-data text-left">
@@ -89,8 +103,8 @@ include 'headerAdmin.php';
                 </form>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
-                    <input type="hidden" name="docType" value="7">
+                <form action="Barangay-Business_Clearance.php" method="POST" class="document-bx-form">
+                    <input type="hidden" name="docType" value="8">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
                         <div class="document-data text-left">
@@ -101,8 +115,8 @@ include 'headerAdmin.php';
                 </form>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
-                    <input type="hidden" name="docType" value="8">
+                <form action="Barangay-Construction_Permit.php" method="POST" class="document-bx-form">
+                    <input type="hidden" name="docType" value="9">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
                         <div class="document-data text-left">
@@ -112,18 +126,7 @@ include 'headerAdmin.php';
                     </button>
                 </form>
             </div>
-            <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
-                    <input type="hidden" name="docType" value="9">
-                    <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
-                        <i class="fa-solid fa-file fa-2x"></i>
-                        <div class="document-data text-left">
-                            <span class="data1">Barangay Business Clearance</span>
-                            <span class="data2">100</span>
-                        </div>
-                    </button>
-                </form>
-            </div>
+
         </div>
         <div class="ftr row d-flex justify-content-center">
             <div class="d-dash col-3">

@@ -10,6 +10,7 @@
     $constructionPermit = fetchDocumentRates($pdo, 6);
     $fencingPermit = fetchDocumentRates($pdo, 7);
     $businessClearance = fetchDocumentRates($pdo, 8);
+	$certificate = fetchDocumentRates($pdo, 9);
 ?>
 <link rel="stylesheet" href="css/requestDocs.css">
 <form method="POST">
@@ -52,6 +53,23 @@
 	        </div>
 
 			<div class="holder col-12 col-md-6 mb-2 ">
+            	<button class="btn btn-success text-left  w-100 btn-9 " value="9" name="certificate" data-value="9">
+            		<div class="div-holder row ">
+            			<div class="img-holder col">
+            				<img src="PicturesNeeded/SampleDocument.jpg" class="" alt="pic">
+            			</div>
+            			<div class="h3-holder col"><h3>Barangay Certificate</h3>
+            				<span>Description of what is the barangay certificate is Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span><br>
+						<div class="price text-right">
+					        <i class="fa-solid fa-peso-sign"> <?= htmlspecialchars($certificate) ?></i>
+					    </div>
+            			</div>
+					
+            		</div>
+            	</button>
+	        </div>
+
+			<div class="holder col-12 col-md-6 mb-2 ">
             	<button class="btn btn-success text-left  w-100 btn-3 " value="3" name="Cedula" data-value="3">
             		<div class="div-holder row ">
             			<div class="img-holder col">
@@ -85,7 +103,7 @@
 	        </div>
 	        
 	        <div class="holder col-12 col-md-6 mb-2">
-	            <button class="btn btn-success text-left  w-100 btn-5" name="residency" value="5" data-value="5">
+	            <button class="btn btn-success text-left  w-100 btn-5" name="electricalPermit" value="5" data-value="5">
             		<div class="div-holder row ">
             			<div class="img-holder col">
             				<img src="PicturesNeeded/SampleDocument.jpg" class="" alt="pic">

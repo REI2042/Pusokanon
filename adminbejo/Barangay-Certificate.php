@@ -5,7 +5,7 @@
     include 'headerAdmin.php';
 
     $search = isset($_GET['search']) ? $_GET['search'] : '';
-    $docType = 'Barangay Cetificate';
+    $docType = 'Barangay Certificate';
 
     
     // Find out the number of Pending results stored in the database
@@ -103,7 +103,7 @@
                 <a id="showTable2" class="link2">-- Processing  --</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a id="showTable3" class="link3">-- Ready to Pickup -- </a>
             </div>
-            <div id="table1Container">
+            <div id="table1Container" class="small-font">
                 <table id="table1">
                     <thead>
                         <tr>
@@ -180,7 +180,7 @@
                 </nav>
             </div>
 
-            <div id="table2Container" class="hidden">
+            <div id="table2Container" class="hidden small-font">
                 <table id="table2">
                     <thead>
                         <tr>
@@ -253,7 +253,7 @@
                 </nav>
             </div>
 
-            <div id="table3Container" class="hidden">
+            <div id="table3Container" class="hidden small-font ">
                 <table id="table3">
                     <thead>
                         <tr>

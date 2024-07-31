@@ -245,3 +245,15 @@ h1{
   background-color: #2260a7;
   color: white;
 }
+
+.small-font {
+  font-size: 0.8rem; 
+}
+
+.small-font table {
+  font-size: inherit;
+}
+
+.small-font .pagination {
+  font-size: 0.8rem;
+}

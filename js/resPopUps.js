@@ -1,9 +1,13 @@
 document.addEventListener("DOMContentLoaded", initDocumentSelection);
 
 async function initDocumentSelection() {
-  const buttons124 = document.querySelectorAll(".btn-1, .btn-2, .btn-4");
+  const button249 = document.querySelectorAll(" .btn-2, .btn-4, .btn-9");
   const buttons3 = document.querySelectorAll(".btn-3");
-
+  const buttons1 = document.querySelectorAll(".btn-1");
+  const buttons5 = document.querySelectorAll(".btn-5");
+  const buttons6 = document.querySelectorAll(".btn-6");
+  const buttons7 = document.querySelectorAll(".btn-7");
+  const buttons8 = document.querySelectorAll(".btn-8");
   const purposeMap = {
     1: "Employment",
     2: "Students Scholarship",
@@ -12,7 +16,7 @@ async function initDocumentSelection() {
     5: "Other",
   };
 
-  buttons124.forEach((button) => {
+  button249.forEach((button) => {
     button.addEventListener("click", async (event) => {
       event.preventDefault();
       const buttonValue = event.currentTarget.dataset.value;
@@ -96,6 +100,74 @@ async function initDocumentSelection() {
     });
   });
 
+  //button for barangay clearance
+  buttons1.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const buttonValue = event.currentTarget.dataset.value;
+
+      const { value: purpose } = await Swal.fire({
+        title: "Purpose",
+        input: "textarea",
+        inputLabel: "Please enter the purpose for requesting Barangay Clearance.",
+        inputPlaceholder: "Type your purpose here...",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+      });
+
+      if (purpose) {
+        const { value: file } = await Swal.fire({
+          title: "Upload Image Requirement",
+          input: "file",
+          inputAttributes: {
+            accept: "image/*",
+            "aria-label": "Upload your requirement Picture",
+          },
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+        });
+
+        if (file) {
+          Swal.fire({
+            title: "Success!",
+            html: `Your Document Request for the Purpose of <strong>${purpose}</strong> with the uploaded file is in Process.`,
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const formData = new FormData();
+              formData.append("purpose", purpose);
+              formData.append("docTypeId", buttonValue);
+              formData.append("file", file);
+
+              fetch("db/insert_request.php", {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => response.text())
+                .then((data) => {
+                  window.location.href = "db/generateQR.php";
+                });
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "File Upload Error",
+            text: "You need to upload a file to proceed.",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Purpose Error",
+          text: "You need to provide a purpose to proceed.",
+        });
+      }
+    });
+  });
+
+  //button cedula 
   buttons3.forEach((button) => {
     button.addEventListener("click", async (event) => {
       event.preventDefault();
@@ -105,6 +177,274 @@ async function initDocumentSelection() {
         title: "Purpose",
         input: "textarea",
         inputLabel: "Please enter the purpose for requesting Cedula.",
+        inputPlaceholder: "Type your purpose here...",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+      });
+
+      if (purpose) {
+        const { value: file } = await Swal.fire({
+          title: "Upload Requirement",
+          input: "file",
+          inputAttributes: {
+            accept: "image/*",
+            "aria-label": "Upload your requirement",
+          },
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+        });
+
+        if (file) {
+          Swal.fire({
+            title: "Success!",
+            html: `Your Document Request for the Purpose of <strong>${purpose}</strong> with the uploaded file is in Process.`,
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const formData = new FormData();
+              formData.append("purpose", purpose);
+              formData.append("docTypeId", buttonValue);
+              formData.append("file", file);
+
+              fetch("db/insert_request.php", {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => response.text())
+                .then((data) => {
+                  window.location.href = "db/generateQR.php";
+                });
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "File Upload Error",
+            text: "You need to upload a file to proceed.",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Purpose Error",
+          text: "You need to provide a purpose to proceed.",
+        });
+      }
+    });
+  });
+
+  //button for electrical permit
+  buttons5.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const buttonValue = event.currentTarget.dataset.value;
+
+      const { value: purpose } = await Swal.fire({
+        title: "Location",
+        input: "textarea",
+        inputLabel: "Please enter the purpose for requesting Electrical Permit.",
+        inputPlaceholder: "Type your purpose here...",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+      });
+
+      if (purpose) {
+        const { value: file } = await Swal.fire({
+          title: "Upload Requirement",
+          input: "file",
+          inputAttributes: {
+            accept: "image/*",
+            "aria-label": "Upload your requirement",
+          },
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+        });
+
+        if (file) {
+          Swal.fire({
+            title: "Success!",
+            html: `Your Document Request for the Purpose of <strong>${purpose}</strong> with the uploaded file is in Process.`,
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const formData = new FormData();
+              formData.append("purpose", purpose);
+              formData.append("docTypeId", buttonValue);
+              formData.append("file", file);
+
+              fetch("db/insert_request.php", {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => response.text())
+                .then((data) => {
+                  window.location.href = "db/generateQR.php";
+                });
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "File Upload Error",
+            text: "You need to upload a file to proceed.",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Purpose Error",
+          text: "You need to provide a purpose to proceed.",
+        });
+      }
+    });
+  });
+
+  //button for construction permit
+  buttons6.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const buttonValue = event.currentTarget.dataset.value;
+
+      const { value: purpose } = await Swal.fire({
+        title: "Location",
+        input: "textarea",
+        inputLabel: "Please enter the purpose for requesting Construction Permit.",
+        inputPlaceholder: "Type your purpose here...",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+      });
+
+      if (purpose) {
+        const { value: file } = await Swal.fire({
+          title: "Upload Requirement",
+          input: "file",
+          inputAttributes: {
+            accept: "image/*",
+            "aria-label": "Upload your requirement",
+          },
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+        });
+
+        if (file) {
+          Swal.fire({
+            title: "Success!",
+            html: `Your Document Request for the Purpose of <strong>${purpose}</strong> with the uploaded file is in Process.`,
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const formData = new FormData();
+              formData.append("purpose", purpose);
+              formData.append("docTypeId", buttonValue);
+              formData.append("file", file);
+
+              fetch("db/insert_request.php", {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => response.text())
+                .then((data) => {
+                  window.location.href = "db/generateQR.php";
+                });
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "File Upload Error",
+            text: "You need to upload a file to proceed.",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Purpose Error",
+          text: "You need to provide a purpose to proceed.",
+        });
+      }
+    });
+  });
+
+  //button for fencing permit
+  buttons7.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const buttonValue = event.currentTarget.dataset.value;
+
+      const { value: purpose } = await Swal.fire({
+        title: "Location",
+        input: "textarea",
+        inputLabel: "Please enter the purpose for requesting Fencing Permit.",
+        inputPlaceholder: "Type your purpose here...",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+      });
+
+      if (purpose) {
+        const { value: file } = await Swal.fire({
+          title: "Upload Requirement",
+          input: "file",
+          inputAttributes: {
+            accept: "image/*",
+            "aria-label": "Upload your requirement",
+          },
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+        });
+
+        if (file) {
+          Swal.fire({
+            title: "Success!",
+            html: `Your Document Request for the Purpose of <strong>${purpose}</strong> with the uploaded file is in Process.`,
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const formData = new FormData();
+              formData.append("purpose", purpose);
+              formData.append("docTypeId", buttonValue);
+              formData.append("file", file);
+
+              fetch("db/insert_request.php", {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => response.text())
+                .then((data) => {
+                  window.location.href = "db/generateQR.php";
+                });
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "File Upload Error",
+            text: "You need to upload a file to proceed.",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Purpose Error",
+          text: "You need to provide a purpose to proceed.",
+        });
+      }
+    });
+  });
+
+    //button for Bussiness Clearance
+  buttons8.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const buttonValue = event.currentTarget.dataset.value;
+
+      const { value: purpose } = await Swal.fire({
+        title: "Business' Name",
+        input: "textarea",
+        inputLabel: "Please enter the purpose for requesting Business Clearance.",
         inputPlaceholder: "Type your purpose here...",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
