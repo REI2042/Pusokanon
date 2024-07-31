@@ -4,7 +4,7 @@ include 'headerAdmin.php';
 include '../db/DBconn.php';
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = 2; // Number of records per page
+$limit = 5; // Number of records per page
 $offset = ($page - 1) * $limit;
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
