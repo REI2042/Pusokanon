@@ -21,7 +21,7 @@
 
 	<link rel="stylesheet" href="css/headerADstyle.css">
     <!-- <link rel="stylesheet" href="css/sweetAlertStyle.css"> -->
-	<title>Pusokanon</title>
+	<title>Pusokanon Admin</title>
 </head>
 <body>
     <header>
