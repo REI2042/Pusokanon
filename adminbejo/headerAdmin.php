@@ -112,7 +112,6 @@
                         </a>
                     </li>
                     <?php  if ($_SESSION['userRole'] != 3): ?>
-<<<<<<< Updated upstream
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                             data-bs-target="#blotter" aria-expanded="false" aria-controls="blotter">
@@ -150,45 +149,6 @@
                             <span class="span-word">Graphs & Reports</span>
                         </a>
                     </li> 
-=======
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                                data-bs-target="#blotter" aria-expanded="false" aria-controls="blotter">
-                                <i class="bi bi-headset"></i>
-                                <span class="span-word"> &nbsp;Blotter&Complaints&nbsp;</span>
-                            </a>
-                            <ul id="blotter" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                                <li class="sidebar-item">
-                                    <a href="writeComplaints.php" class="sidebar-link">Write Complaints</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="complaintsList.php" class="sidebar-link">Complaints List </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="complaints_history.php" class="sidebar-link">Complaints History </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="pendingUser2.0.php" class="sidebar-link">
-                                <i class="fa-solid fa-user-clock"></i>
-                                <span class="span-word">Pending User</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="DocumentRate.php" class="sidebar-link">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <span class="span-word">Set Document Rate</span>
-                                
-                            </a>
-                        </li> 
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <i class="fa-solid fa-chart-column"></i>
-                                <span class="span-word">Graphs & Reports</span>
-                            </a>
-                        </li> 
->>>>>>> Stashed changes
                     <?php endif; ?>
                 </ul>
             </aside>
