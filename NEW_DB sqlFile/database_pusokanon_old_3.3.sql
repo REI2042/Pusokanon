@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 31, 2024 at 08:38 AM
+-- Generation Time: Jul 26, 2024 at 09:04 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -170,8 +170,7 @@ INSERT INTO `doc_type` (`docType_id`, `doc_name`, `doc_amount`) VALUES
 (5, 'Barangay Electrical Permit', 500),
 (6, 'Barangay Construction Permit', 500),
 (7, 'Barangay Fencing Permit', 500),
-(8, 'Barangay Business Clearance', 630),
-(9, 'Barangay Certificate', 50);
+(8, 'Barangay Business Clearance', 630);
 
 -- --------------------------------------------------------
 
@@ -190,7 +189,7 @@ CREATE TABLE `initial_sitio_population` (
 --
 
 INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial_residents`) VALUES
-(1, 'Arca', 234),
+(1, 'Arca', 0),
 (2, 'Cemento', 0),
 (3, 'Chumba-Chumba', 0),
 (4, 'Ibabao', 0),
@@ -201,7 +200,7 @@ INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial
 (9, 'San Roque', 0),
 (10, 'Seabreeze', 0),
 (11, 'Seaside', 0),
-(12, 'Sewage', 234),
+(12, 'Sewage', 0),
 (13, 'Sta. Maria', 0);
 
 -- --------------------------------------------------------
@@ -252,34 +251,24 @@ CREATE TABLE `request_doc` (
   `docType_id` int(11) NOT NULL,
   `purpose_id` int(11) NOT NULL,
   `purpose_name` varchar(255) DEFAULT NULL,
-  `stat` varchar(50) NOT NULL DEFAULT 'Pending',
+  `stat` varchar(50) NOT NULL DEFAULT 'pending',
   `date_req` timestamp NOT NULL DEFAULT current_timestamp(),
   `date_processed` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `remarks` varchar(100) DEFAULT 'Not released',
   `request_id` varchar(20) NOT NULL,
-  `qrCode_image` varchar(200) NOT NULL,
-  `document_requirements` varchar(64) NOT NULL
+  `qrCode_image` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request_doc`
 --
 
-INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`, `document_requirements`) VALUES
-(1, 29, 1, 5, 'damnnn', 'pending', '2024-07-17 18:09:27', '2024-07-31 04:16:44', 'Not released', '!>W$PYst#s}', '1721239768.png', ''),
-(2, 29, 2, 5, 'For scholarship', 'pending', '2024-07-17 18:12:25', '2024-07-17 18:12:26', 'Not released', '|50{md?ciQ[8b', '1721239946.png', ''),
-(3, 29, 1, 4, 'Senior Citizen Assistance', 'pending\n', '2024-07-20 05:26:56', '2024-07-31 04:16:51', 'Released', '@vn(r>@#N8ksO', '1721453216.png', ''),
-(4, 29, 1, 5, 'TRAVEL', 'pending\n', '2024-07-22 11:43:44', '2024-07-31 04:16:55', 'Not released', 'Pt.i?qOaY9', '1721648624.png', ''),
-(5, 29, 2, 4, 'Senior Citizen Assistance', 'pending\n', '2024-07-22 12:35:07', '2024-07-31 04:16:59', 'Not released', ';b.D1.j8?*8jW', '1721651707.png', ''),
-(6, 25, 3, 5, 'traveelwerr', 'pending', '2024-07-31 03:55:05', '2024-07-31 04:09:46', 'Not released', 'oH3*.;TMhg,XU', '1722398986.png', 'ee3996499b4db9e0e4c36549b9fa54ee.jpg'),
-(8, 25, 9, 5, 'am,ndvbajkcsvia', 'pending', '2024-07-31 04:11:11', '2024-07-31 04:11:11', 'Not released', 'EfZ@hxO;+', '1722399071.png', ''),
-(9, 25, 9, 5, 'asdasdqw234434', 'pending', '2024-07-31 04:19:45', '2024-07-31 04:19:45', 'Not released', '=F<Wnn7X,o', '1722399585.png', ''),
-(10, 25, 4, 3, 'Person With Disability Assistance', 'Pending', '2024-07-31 05:09:34', '2024-07-31 05:09:34', 'Not released', 'Ha71_S;pL@:', '1722402574.png', ''),
-(11, 25, 1, 5, 'asdadse3453', 'Pending', '2024-07-31 05:52:27', '2024-07-31 05:52:27', 'Not released', 'fRxGpKkH0', '1722405147.png', '996e5760d976176dfae187a6a8d82b3f.jpg'),
-(12, 25, 5, 5, 'seawge', 'Pending', '2024-07-31 06:26:08', '2024-07-31 06:26:08', 'Not released', '*Az(v=%8D9]G', '1722407168.png', 'a31f3a8a09a8a60a183e033e29680501.jpg'),
-(13, 25, 6, 5, 'looc', 'Pending', '2024-07-31 06:27:35', '2024-07-31 06:27:35', 'Not released', 'BWSPL<xospdr', '1722407255.png', 'c509ad0c22bed603cfe079b76e6a6023.jpg'),
-(14, 25, 7, 5, 'adiahdfushiasdf67856', 'Pending', '2024-07-31 06:28:19', '2024-07-31 06:28:19', 'Not released', 'I[$ni0s{<5$CG', '1722407299.png', '00165f9b0f09c0166b216adc7e103d79.png'),
-(15, 25, 8, 5, 'mn sddkjhzx43as', 'Pending', '2024-07-31 06:29:17', '2024-07-31 06:29:18', 'Not released', '6l@s1I[lgWd<m', '1722407358.png', '885060bce4fd96c6179b0ed6840ef609.png');
+INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`) VALUES
+(1, 29, 1, 5, 'damnnn', 'Ready to pickup', '2024-07-17 18:09:27', '2024-07-22 11:45:19', 'Not released', '!>W$PYst#s}', '1721239768.png'),
+(2, 29, 2, 5, 'For scholarship', 'pending', '2024-07-17 18:12:25', '2024-07-17 18:12:26', 'Not released', '|50{md?ciQ[8b', '1721239946.png'),
+(3, 29, 1, 4, 'Senior Citizen Assistance', 'Done', '2024-07-20 05:26:56', '2024-07-20 05:33:39', 'Released', '@vn(r>@#N8ksO', '1721453216.png'),
+(4, 29, 1, 5, 'TRAVEL', 'Ready to pickup', '2024-07-22 11:43:44', '2024-07-22 23:12:32', 'Not released', 'Pt.i?qOaY9', '1721648624.png'),
+(5, 29, 2, 4, 'Senior Citizen Assistance', 'Ready to pickup', '2024-07-22 12:35:07', '2024-07-22 12:35:35', 'Not released', ';b.D1.j8?*8jW', '1721651707.png');
 
 -- --------------------------------------------------------
 
@@ -427,7 +416,7 @@ ALTER TABLE `docs_purpose`
 -- AUTO_INCREMENT for table `doc_type`
 --
 ALTER TABLE `doc_type`
-  MODIFY `docType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `docType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `initial_sitio_population`
@@ -445,7 +434,7 @@ ALTER TABLE `registration_tbl`
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
