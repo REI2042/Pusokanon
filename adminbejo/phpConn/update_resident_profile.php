@@ -75,8 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':email' => encryptData($email)
     ]);
 
-    // Redirect to the profile page
-    header("Location: ../residentProfile.php?id=" . $residentId);
+    if (isset($_POST['return_url'])) {
+        $returnUrl = $_POST['return_url'];
+        header("Location: " . $returnUrl);
+    } else {
+        header("Location: ../Manage-Users.php");
+    }
     exit();
 }
 ?>

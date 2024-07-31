@@ -4,6 +4,7 @@
     include '../db/DBconn.php';
 
     $residentId = $_GET['id'];
+    $returnUrl = isset($_GET['return_url']) ? $_GET['return_url'] : 'Manage-Users.php';
     
     $resident = fetchResidentDetails($pdo, $residentId);
     $decryptedEmail = decryptData($resident['res_email']);
@@ -22,10 +23,11 @@
         <form class="form row text-white" action="phpConn/update_resident_profile.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="res_ID" value="<?php echo $residentId; ?>">
             <input type="hidden" name="old_profile_picture" value="<?php echo htmlspecialchars($profilePicture); ?>">
+            <input type="hidden" name="return_url" value="<?= htmlspecialchars($returnUrl) ?>">
             <div class="col-12 mt-5 mt-sm-2 d-flex justify-content-center align-items-center">
                 <h1 class="title">Update Resident Profile</h1>
             </div>
-            <a href="residentProfile.php?id=<?= $residentId?>" class="back-button d-flex align-items-center text-white gap-2">
+            <a href="<?= htmlspecialchars(urldecode($returnUrl))?>" class="back-button d-flex align-items-center text-white gap-2">
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>

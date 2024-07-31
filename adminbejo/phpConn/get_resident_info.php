@@ -13,6 +13,18 @@
         
         if ($user) {
             $user['res_email'] = decryptData($user['res_email']);
+
+            $birthDate = new DateTime($user['birth_date']);
+            $user['formatted_birth_date'] = $birthDate->format('F j, Y');
+
+            $birthDate = new DateTime($user['birth_date']);
+            $user['formatted_birth_date'] = $birthDate->format('F j, Y');
+
+            $today = new DateTime();
+            $age = $today->diff($birthDate)->y;
+            $user['age'] = $age;
+
+            $user['formatted_voter_status'] = ($user['registered_voter'] === 'Registered') ? 'Yes' : 'No';
             
             echo json_encode($user);
         } else {

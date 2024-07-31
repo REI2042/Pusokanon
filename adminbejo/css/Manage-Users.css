@@ -72,6 +72,20 @@
     background-color: green;
 }
 
+.custom-swal {
+    width: 800px !important;
+    background-color: #1D4E89;
+    color: #F9F8FD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #111010;
+}
+
 @media (max-width: 991px) {
 
     .record-box {
