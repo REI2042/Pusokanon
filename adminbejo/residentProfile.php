@@ -14,6 +14,19 @@
     $formattedBirthdate = $birthdate->format('F j, Y');
     $suffix = $resident['res_suffix'] !== ' ' ? htmlspecialchars($resident['res_suffix']) : 'N/A';
     $registeredVoter = $resident['registered_voter'] === 'Registered' ? 'Yes' : 'No';
+
+    $backUrl = 'Manage-Users.php';
+    $queryParams = [];
+
+    foreach ($_GET as $key => $value) {
+        if ($key !== 'id') {
+            $queryParams[$key] = urlencode($value);
+        }
+    }
+
+    if (!empty($queryParams)) {
+        $backUrl .= '?' . http_build_query($queryParams);
+    }
         
 ?>  
     <link rel="stylesheet" href="css/residentProfile.css" type="text/css">
@@ -21,7 +34,7 @@
         <div class="row mx-0">
             <div class="col-12">
                 <div class="profile-information">
-                    <a href="Manage-Users.php" class="back-button d-flex align-items-center text-white gap-2">
+                    <a href="<?php echo htmlspecialchars($backUrl); ?>" class="back-button d-flex align-items-center text-white gap-2">
                         <i class="fas fa-circle-chevron-left fa-2x"></i>
                         <span>Back</span>
                     </a>

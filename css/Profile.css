@@ -178,6 +178,7 @@ footer {
 .custom-swal {
     background-color: #1D4E89;
     color: #F9F8FD;
+    width: 800px !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 

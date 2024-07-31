@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
     viewButtons.forEach(button => {
         button.addEventListener('click', function() {
             const resId = this.getAttribute('data-res-id');
-            window.location.href = `residentProfile.php?id=${resId}`;
+            const currentUrl = new URL(window.location.href);
+            const params = new URLSearchParams(currentUrl.search);
+            params.append('id', resId);
+            window.location.href = `residentProfile.php?${params.toString()}`;
         });
     });
 
