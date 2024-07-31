@@ -128,7 +128,7 @@ async function initDocumentSelection() {
           title: "Upload Requirement",
           input: "file",
           inputAttributes: {
-            accept: "application/pdf, image/*",
+            accept: "image/*",
             "aria-label": "Upload your requirement",
           },
           showCancelButton: true,
@@ -159,9 +159,10 @@ async function initDocumentSelection() {
             }
           });
         } else {
-          Swal.fire("Error", "You need to upload a file", "error");
+          Swal.fire("Error", "You need to upload an image file", "error");
         }
       }
     });
   });
 }
+  

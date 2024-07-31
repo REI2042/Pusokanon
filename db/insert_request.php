@@ -29,6 +29,42 @@ if (isset($_POST['docTypeId']) && isset($_POST['purposeId']) && isset($_POST['pu
         error_log($e->getMessage()); // Log the error for debugging
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
+}elseif(isset($_POST['purpose']) && isset($_POST['file']) && isset($_POST['docTypeId'])){
+    if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+        $fileTmpPath = $_FILES['file']['tmp_name'];
+        $fileName = $_FILES['file']['name'];
+        $fileSize = $_FILES['file']['size'];
+        $fileType = $_FILES['file']['type'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+
+        // Sanitize file name
+        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+
+        // Check if the file type is allowed
+        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+        if (in_array($fileExtension, $allowedfileExtensions)) {
+            // Directory in which the uploaded file will be moved
+            $uploadFileDir = './uploaded_filesRequirements/';
+            $dest_path = $uploadFileDir . $newFileName;
+
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                $message = 'File is successfully uploaded.';
+            } else {
+                $message = 'There was some error moving the file to upload directory. Please make sure the upload directory is writable by web server.';
+            }
+        } else {
+            $message = 'Upload failed. Allowed file types: ' . implode(',', $allowedfileExtensions);
+        }
+    } else {
+        $message = 'There is some error in the file upload. Please check the following error.<br>';
+        $message .= 'Error:' . $_FILES['file']['error'];
+    }
+
+    // Save the purpose and document type ID
+    $purpose = $_POST['purpose'];
+    $docTypeId = $_POST['docTypeId'];
+
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid input']);
 }
