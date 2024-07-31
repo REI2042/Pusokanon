@@ -136,7 +136,7 @@
                                     <textarea class="form-control" rows="3" name="narrative" id="narrative" placeholder="Narrate what happened..."></textarea>
                                 </div>
                             
-                                <div class="text-center d-grid col-8 mx-auto mt-4">
+                                <div class="text-center d-grid col-5 mx-auto mt-4">
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>

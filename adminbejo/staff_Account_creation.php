@@ -61,7 +61,7 @@
 
                                 <div class="col-md-6 mb-3 ps-0">
 
-                                    <h6 class="mb-2 pb-1 ps-1" style="font-size: 0.9rem;">Gender: </h6>
+                                    <h6 class="mb-2 pb-1 ps-1" style="font-size: 0.9rem; color: white;">Gender: </h6>
 
                                     <div class="form-check form-check-inline ">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="Male"autocomplete="off" checked />
@@ -161,8 +161,8 @@
                                 togglePasswordVisibility('password', 'togglePassword');
                                 togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword');
                             </script>
-                            <div class="mt-3 pt-2">
-                                <input data-mdb-ripple-init class="btn btn-primary btn-sm" type="submit" value="Create Account" />
+                            <div class="mt-3 pt-2 text-center d-grid col-5 mx-auto">
+                                <input data-mdb-ripple-init class="btn btn-success btn-sm" type="submit" value="Create Account" />
                             </div>
 
                         </form>
