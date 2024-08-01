@@ -16,53 +16,80 @@ $staffs = fetchStaffAccounts($pdo, $search, $limit, $offset);
 $total_records = getTotalStaffCount($pdo, $search);
 $total_pages = ceil($total_records / $limit);
 ?>
-<div class="container mt-5">
-    <h2>Manage Staff Accounts</h2>
-    <form action="" method="GET" class="input-group d-flex align-self-center">
-                <input type="text" class="form-control" name="search" placeholder="Enter User's ID or Name" aria-label="User's ID or Name" aria-describedby="basic-addon2">
+
+<link rel="stylesheet" href="css/manage_staff.css">
+<div class="container-fluid">
+    <h1>Manage Staff Accounts</h1>
+    <div class="mu-ds row d-flex justify-content-end mt-5 mb-3">
+        <div class="col-12 col-md-9 d-flex justify-content-end align-items-center flex-wrap">
+            <form action="" method="GET" class="d-flex">
+                <input type="input" class="form-control me-2" name="search" placeholder="Enter User's ID or Name" aria-label="User's ID or Name" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="btn this-button" type="submit">Search</button>
                 </div>
             </form>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="staffTable">
-            <?php if(empty($staffs)): ?>
-                <tr><td colspan="12" class="text-center">No records found.</td></tr>
-            <?php else:?>
-                <?php foreach($staffs as $staff_users):?>
-                    <tr>
-                        <td><?= htmlspecialchars($staff_users['staff_id']) ;?></td>
-                        <td><?= htmlspecialchars(decryptData($staff_users['staff_fname']).' '. strtoupper(substr(decryptData($staff_users['staff_midname']), 0, 1)) . '. '. decryptData($staff_users['staff_lname'])) ;?></td>       
-                        <td><?= htmlspecialchars($staff_users['role_definition']);?></td>                                         
-                        <td><?= htmlspecialchars(decryptData($staff_users['staff_email']));?></td>
-                        
-                        <td>
-                            <a href="editStaff.php?id=<?= htmlspecialchars( $staff_users['staff_id']);?>" class="btn btn-warning">Edit</a>
-                            <a href="deleteStaff.php?id=<?= htmlspecialchars( $staff_users['staff_id']);?>" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach;?>
-            <?php endif;?>
-        </tbody>
-    </table>
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            <?php for($i = 1; $i <= $total_pages; $i++): ?>
-                <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
-                </li>
-            <?php endfor; ?>
-        </ul>
-    </nav>
+
+            <script>
+                document.getElementById('searchInput').addEventListener('input', function() {
+                    if (this.value === '') {
+                        document.getElementById('searchForm').submit();
+                    }
+                });
+            </script>
+
+        </div>
+    </div>
+
+
+    <div id="" class="card d-flex flex-column">
+            <div class="card-body flex-grow-1 d-flex flex-column">
+                <div class="table-responsive flex-grow-1">
+                    <table class="table mx-auto" cellspacing="0" cellpadding="0">
+                        <thead style="background-color: #2260a7;">
+                            <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staffTable">
+                            <?php if(empty($staffs)): ?>
+                                <tr><td colspan="12" class="text-center">No records found.</td></tr>
+                            <?php else:?>
+                                <?php foreach($staffs as $staff_users):?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($staff_users['staff_id']) ;?></td>
+                                        <td><?= htmlspecialchars(decryptData($staff_users['staff_fname']).' '. strtoupper(substr(decryptData($staff_users['staff_midname']), 0, 1)) . '. '. decryptData($staff_users['staff_lname'])) ;?></td>       
+                                        <td><?= htmlspecialchars($staff_users['role_definition']);?></td>                                         
+                                        <td><?= htmlspecialchars(decryptData($staff_users['staff_email']));?></td>
+                                        
+                                        <td>
+                                            <a href="editStaff.php?id=<?= htmlspecialchars( $staff_users['staff_id']);?>" class="btn btn-warning">Edit</a>
+                                            <a href="deleteStaff.php?id=<?= htmlspecialchars( $staff_users['staff_id']);?>" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach;?>
+                            <?php endif;?>
+                        </tbody>
+                    </table>
+                    <div class="pagination-container">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <?php for($i = 1; $i <= $total_pages; $i++): ?>
+                                    <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                                        <a class="page-link" href="?page=<?= $i ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

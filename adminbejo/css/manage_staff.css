@@ -1,0 +1,133 @@
+body {
+    display: flex;
+  }
+.container-fluid {
+    margin-top: 23px;
+    margin-left: 90px;
+    padding-bottom: 47px;
+  }
+
+h1 {
+    font-family: "Titan One", cursive;
+    font-size: 2rem;
+    color: #434349;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body{
+  padding-top: 40px;
+  padding-bottom: 10px;
+  background-color: #D7D9DC;
+  height: 440px;
+  border-radius: 10px;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.scrollable-table-body {
+    overflow-y: auto;
+}
+  
+  
+.table tr td {
+    font-size: 13px;
+    
+}
+  
+.table tr th {
+    font-size: 13px;
+    width: 20px;
+    color: white;
+}
+  
+.table-responsive {
+    position: relative;
+    border-radius: 10px;
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y:scroll;
+    height:400px;
+    display:block;
+    padding-top: 0;
+    flex-grow: 1;
+  }
+  
+  
+  .pagination-container {
+    position: absolute;
+    bottom: 5px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+  
+  
+  .table-responsive table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table-responsive tbody {
+    max-height: 400px; 
+    overflow-y: auto;
+    background-color: #E9E9E9; 
+  }
+  
+  .table-responsive th,
+  .table-responsive td {
+    font-size: 16px; 
+    text-align: left;
+    vertical-align: middle; 
+  }
+  
+  
+  .table-responsive th {
+      border-bottom: 1px solid blue;
+      position: sticky;
+      top: 0;
+      padding-bottom: 20px;
+      color: white;
+  }
+  
+  .table-responsive td {
+      padding: 10px 15px;
+      border-bottom: 2px solid white;
+  }
+  
+  .table-responsive tbody tr:hover {
+    background-color: #7BA0E5; 
+  }
+
+  .col-12 .form-control {
+    border-radius: 50px;
+  }
+  
+  .mu-ds {
+    margin: 1rem;
+  }
+  
+  .col-12 {
+    gap: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+  .this-button {
+    background-color: #2260a7; 
+    color: white; 
+    border-radius: 50px; 
+  }
+  
+  .this-button:hover {
+    background-color: white; 
+    border: 2px solid #2260a7; 
+    color: #2260a7; 
+  }
