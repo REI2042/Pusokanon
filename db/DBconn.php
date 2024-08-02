@@ -618,6 +618,15 @@ function fetchNumberOfRequestedDocuments($pdo, $document)
 	return $stmt->fetchColumn();
 }
 
+function numRequestedDocsInPending($pdo, $document)
+{
+	$sql = "SELECT COUNT(*) FROM request_doc WHERE stat = 'Pending' AND docType_id = :document";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':document', $document, PDO::PARAM_STR);
+	$stmt->execute();
+	return $stmt->fetchColumn();
+}
+
 function fetchDocumentRates($pdo, $id)
 {
 	$sql = "SELECT doc_amount FROM doc_type WHERE docType_id = :id";
