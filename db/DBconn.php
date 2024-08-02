@@ -283,7 +283,7 @@ function getTotalStaffCount($pdo, $search = '') {
 function fetchStaffAccounts($pdo, $search = '', $limit = null, $offset = null) {
     $sql = "SELECT bs.staff_id, 
             bs.staff_fname, bs.staff_midname, bs.staff_lname,
-            bs.staff_email, bs.contact_no, bs.userRole_id, ac.role_definition
+            bs.staff_email, bs.contact_no, bs.userRole_id, ac.role_definition, bs.status, bs.user_name
             FROM barangay_staff bs
             INNER JOIN account_role ac ON bs.userRole_id = ac.userRole_id";
     
@@ -313,6 +313,8 @@ function fetchStaffAccounts($pdo, $search = '', $limit = null, $offset = null) {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 // function fetchStaffAccounts($pdo){
 // 	$sql = "SELECT bs.staff_id, 
 // 			bs.staff_fname, bs.staff_midname, bs.staff_lname,
@@ -684,6 +686,7 @@ function countComplaints($pdo, $userId)
 	$stmt->execute();
 	return $stmt->fetchColumn();
 }
+
 function accountRole($pdo)
 {
 	$sql = "SELECT userRole_id, role_definition FROM account_role WHERE userRole_id != 2";

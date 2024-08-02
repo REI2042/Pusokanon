@@ -19,18 +19,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resident = $stmtResident->fetch();
 
     // Check if either staff or resident exists
-    if ($staff && password_verify($password, $staff['staff_password'])) {
-        session_start();
-        $_SESSION['loggedin'] = true;
-        if ($staff['userRole_id'] == 1 ) { // Admin
+    if ($staff) {
+        if ($staff['status'] === 'DEACTIVATED') {
+            header("Location: ../login.php?status=deactivated");
+            exit();
+        } elseif (password_verify($password, $staff['staff_password'])) {
+            session_start();
+            $_SESSION['loggedin'] = true;
             $_SESSION['userRole'] = $staff['userRole_id'];
             $_SESSION['username'] = $staff['user_name'];
-            header("Location: ../adminbejo/Dashboard.php");
-            exit();
-        } elseif ($staff['userRole_id'] == 3){            
-            $_SESSION['userRole'] = $staff['userRole_id'];
-            header("Location: ../adminbejo/Dashboard.php");
-            exit();
+            
+            if ($staff['userRole_id'] == 1 || $staff['userRole_id'] == 3) { // Admin roles
+                header("Location: ../adminbejo/Dashboard.php");
+                exit();
+            }
         }
     } elseif ($resident && password_verify($password, $resident['res_password'])) {
         session_start();
@@ -51,14 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['res_email'] = decryptData($resident['res_email']); // Store user email in session
         $_SESSION['res_ID'] = $resident['res_ID']; // Store user ID in session
         $_SESSION['profile_picture'] = $resident['profile_picture'];
+        
         // Redirect to resident landing page
         header("Location: ../resident_landingPage.php");
         exit();
     } else {
         // User not found
-        session_start();
-        $_SESSION['login_error'] = true;
-        header("Location: ../login.php");
+        header("Location: ../login.php?status=invalid");
         exit();
     }
 }

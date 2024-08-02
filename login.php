@@ -2,6 +2,7 @@
 session_start();
 if (isset($_SESSION['loggedin'])) {
     header("Location: resident_landingPage.php");
+    header("Location: ../login.php?status=deactivated");
     exit();
 }
 
@@ -123,31 +124,30 @@ include 'db/check_user_login.php';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-
     <script>
         <?php
         if (isset($_SESSION['login_error'])) {
-            echo 'const Toast = Swal.mixin({
-                toast: true,
-                position: "top",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-                });
-                Toast.fire({
+            echo 'Swal.fire({
                 icon: "error",
-                title: "Signed in unseccessful wrong username or password",
-                customClass: {
-                    popup: "mt-5 " // Adjust the margin-top as needed
-                }
-                });';
+                title: "Login Failed",
+                text: "Invalid username or password.",
+            });';
             unset($_SESSION['login_error']);
         }
         ?>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+
+            if (status === 'deactivated') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Account Deactivated',
+                    text: 'This account has been deactivated and cannot be used to login.',
+                });
+            } 
+        });
     </script>
 </body>
 </html>
