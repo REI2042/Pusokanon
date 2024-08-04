@@ -2,7 +2,17 @@
     include '../include/staff_restrict_pages.php';
     include 'headerAdmin.php';
     include '../db/DBconn.php';
-
+    
+    $residency = numRequestedDocsInPending($pdo, 4);
+    $indigency = numRequestedDocsInPending($pdo, 2);
+    $certificate = numRequestedDocsInPending($pdo, 9);
+    $clearance = numRequestedDocsInPending($pdo, 1);
+    $cedula  = numRequestedDocsInPending($pdo, 3);
+    $fencing = numRequestedDocsInPending($pdo, 7);
+    $construction = numRequestedDocsInPending($pdo, 6);
+    $electrical = numRequestedDocsInPending($pdo, 5);
+    $business = numRequestedDocsInPending($pdo, 8);
+   
     $total_users = fetchTotalResidents($pdo);
     $total_males = fetchTotalMales($pdo);
     $total_females = fetchTotalFemales($pdo);
@@ -42,7 +52,8 @@
                     </div>
                 </div>
                 <div class="row mr-0">
-                    <div class="record-container col-12 col-sm-4">
+                    <div class="record-container col-12 col-sm-4 position-relative">
+                        <span class="badge badge-danger position-absolute rounded-circle"> </span>                     
                         <div class="record-box text-center">
                             <i class="fa-solid fa-user-clock fa-2x" style="color: #FFC107"></i>
                             <p class="record-title">Pending Accounts</p>
@@ -69,61 +80,107 @@
                 </div>
                 <div class="row mr-0 mb-1">
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($residency)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($residency)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Barangay Residency</p>
-                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '1'); ?></p>
+                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '4'); ?></p>
                         </div>
                     </div>
+
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($indigency)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($indigency)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Barangay Indigency</p>
                             <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '2'); ?></p>
                         </div>
                     </div>
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($certificate)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($certificate)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Barangay Certificate</p>
-                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '3'); ?></p>
+                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '9'); ?></p>
                         </div>
                     </div>
                 </div>
                 <div class="row mr-0 mb-1">
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($clearance)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($clearance)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Barangay Clearance</p>
-                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '4'); ?></p>
+                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '1'); ?></p>
                         </div>
                     </div>
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($cedula)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($cedula)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Cedula</p>
-                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '5'); ?></p>
+                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '3'); ?></p>
                         </div>
                     </div>
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($fencing)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($fencing)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Barangay Fencing Permit</p>
-                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '6'); ?></p>
+                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '7'); ?></p>
                         </div>
                     </div>
                 </div>
                 <div class="row mr-0">
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($business)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($business)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Barangay Business Clearance</p>
-                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '7'); ?></p>
-                        </div>
-                    </div>
-                    <div class="document-container col-12 col-sm-4">
-                        <div class="document-box text-center">
-                            <p class="document-name">Barangay Construction Permit</p>
                             <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '8'); ?></p>
                         </div>
                     </div>
                     <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($construction)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($construction)?></span>  
+                    <?php endif;?>
+                        <div class="document-box text-center">
+                            <p class="document-name">Barangay Construction Permit</p>
+                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '6'); ?></p>
+                        </div>
+                    </div>
+                    <div class="document-container col-12 col-sm-4">
+                    <?php if (empty($electrical)): ?>
+                    
+                    <?php else: ?>
+                        <span class="badge badge-danger position-absolute rounded-circle"><?= htmlspecialchars($electrical)?></span>  
+                    <?php endif;?>
                         <div class="document-box text-center">
                             <p class="document-name">Barangay Electrical Permit</p>
-                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '9'); ?></p>
+                            <p class="document-price"><?php echo fetchNumberOfRequestedDocuments($pdo, '5'); ?></p>
                         </div>
                     </div>
                 </div>

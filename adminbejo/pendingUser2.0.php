@@ -15,9 +15,9 @@ $total_pages = ceil($total_records / $records_per_page);
 $users = fetchRegister($pdo, $records_per_page, $offset);
 ?>  
 </div>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/pending2.0.css">
 <main>
     <h1>Pending Users</h1>
@@ -108,8 +108,8 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
                                                                              onclick="handleCancelClick(this.getAttribute('res_email'), this.getAttribute('res_ID'))">
                                                 <span class="btn-text">Cancel</span><i class="bi bi-person-x-fill"></i>
                                             </div>
-                                            <div class="btn btn-primary btn-sm" res_ID="<?= htmlspecialchars($user['res_ID']) ?>" id="approveButton" 
-                                                                             onclick="handleApproveClick(this.getAttribute('res_ID'))">
+                                            <div class="btn btn-primary btn-sm" res_email="<?= htmlspecialchars($decryptedEmail) ?>" res_ID="<?= htmlspecialchars($user['res_ID']) ?>" id="approveButton" 
+                                                                             onclick="handleApproveClick(this.getAttribute('res_email'), this.getAttribute('res_ID'))">
                                                 <span class="btn-text">Approve</span><i class="bi bi-person-fill-check"></i></div>
                                         </td>
                                     </tr>
@@ -157,6 +157,13 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
     </div>
 </main>
 
-<script src="https://smtpjs.com/v3/smtp.js"></script>
+
 <script src="../js/sweetAlert.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "3M0ZwTJ5XMRKLtzfl",
+      });
+   })();
+</script>
 <?php include 'footerAdmin.php'; ?>

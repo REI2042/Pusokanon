@@ -188,34 +188,28 @@ $(document).ready(function () {
 
 //cancel button in pending user
 async function handleCancelClick(userEmail, userId) {
-  const { value: text } = await Swal.fire({
-    title: "Message",
-    input: "textarea",
-    inputLabel: "Write Message.",
-    inputPlaceholder: "Type your message here...",
-    inputAttributes: {
-      "aria-label": "Type your message here",
-    },
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to cancel this user?",
+    icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, cancel it!"
   });
 
-  if (text) {
-    // Email sending code
-    Email.send({
-      SecureToken: "53fa4906-cb95-4a98-b24d-dc75b4225487",
-      To: "reiiiiiiii.24@gmail.com",
-      From: "reiiiiiiii.24@gmail.com",
-      Subject: "Message from Barangay Staff",
-      Body: text,
-    }).then(
-      (message) => {
+  if (result.isConfirmed) {
+    // Email sending code using EmailJS
+    emailjs.send("service_26kfbyc", "template_55ezm2n", {
+      to_email: userEmail,
+      message: "Your registration has been cancelled due to some misinformation and incomplete information please contact the Barangay Staff for further assistance.",
+    }).then(() => {
         // Email sent successfully, proceed with transferring user data
         $.ajax({
           url: "phpConn/delete_user.php",
           type: "POST",
           data: { id: userId },
-          success: function (transferResponse) {
+          success: function () {
             Swal.fire({
               title: "Email Sent and User Cancelled!",
               text: "Email sent successfully and User Cancelled.",
@@ -254,37 +248,36 @@ async function handleCancelClick(userEmail, userId) {
   }
 }
 
+
+$(document).ready(function () {
+  $(".approveButton").on("click", function () {
+    var userEmail = $(this).data("res_email");
+    var userId = $(this).data("res_ID");
+    handleApproveClick(userEmail, userId);
+  });
+});
 //handle the accept button in pending user page
-async function handleApproveClick(userId) {
-  const { value: text } = await Swal.fire({
-    title: "Message",
-    input: "textarea",
-    inputLabel: "Write Message.",
-    inputPlaceholder: "Type your message here...",
-    inputAttributes: {
-      "aria-label": "Type your message here",
-    },
+async function handleApproveClick(userEmail, userId) {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to Approve this user?",
+    icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, cancel it!"
   });
-
-  if (text) {
-    // Email sending code
-    var preMessage = "Congratulations on registering your new website!\n\n";
-    var fullMessage = preMessage + text;
-    Email.send({
-      SecureToken: "53fa4906-cb95-4a98-b24d-dc75b4225487",
-      To: "reiiiiiiii.24@gmail.com",
-      From: "reiiiiiiii.24@gmail.com",
-      Subject: "Message from Barangay Staff",
-      Body: fullMessage,
-    }).then(
-      (message) => {
+  if (result.isConfirmed) {
+    // Email sending code using EmailJS
+    emailjs.send("service_26kfbyc", "template_55ezm2n", {
+      to_email: userEmail,
+      message: "Your registration has been approved. Please log in to your account.",
+    }).then(() => {
         $.ajax({
           url: "../adminbejo/phpConn/accept_user.php",
           type: "POST",
           data: { res_id: userId },
-          success: function (transferResponse) {
+          success: function () {
             Swal.fire({
               title: "Success!",
               text: "Email sent successfully and user data transferred.",
