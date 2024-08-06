@@ -171,7 +171,7 @@ include 'db/check_user_login.php';
                 Toast.fire({
                     icon: 'error',
                     title: 'Account Deactivated',
-                    text: 'This account has been deactivated and cannot be used to login. Please contact your administrator',
+                    text: 'Account has been deactivated. Please contact your Admin',
                     customClass: {
                         container: "mt-5 pt-3"         
                     }
