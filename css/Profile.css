@@ -69,7 +69,8 @@ footer {
 }
 
 .request-button,
-.complaints-button {
+.complaints-button,
+.history-button {
     padding: 10px 20px;
     background: #F9F8FD;
     border-style: none;
@@ -90,6 +91,11 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.history-button {
+    border: 2px solid #C0C0C0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .request-button:hover {
     background-color: green;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -100,9 +106,15 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.history-button:hover {
+    background-color: #C0C0C0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 .request-button.active,
-.complaints-button.active {
-    color: #F9F8FD;
+.complaints-button.active,
+.history-button.active {
+    color: black;
     font-weight: bold;
 }
 
@@ -112,6 +124,10 @@ footer {
 
 .complaints-button.active {
     background-color: red;
+}
+
+.history-button.active {
+    background-color: #C0C0C0;
 }
 
 .pending-button,
@@ -178,7 +194,6 @@ footer {
 .custom-swal {
     background-color: #1D4E89;
     color: #F9F8FD;
-    width: 800px !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 

@@ -34,6 +34,15 @@
 
     $totalComplaintPages = ceil($totalComplaints / $complaintsPerPage);
 
+    $historyPerPage = 5;
+    $historyPage = isset($_GET['history_page']) ? (int)$_GET['history_page'] : 1;
+    $historyOffset = ($historyPage - 1) * $historyPerPage;
+
+    $history = fetchDocumentHistory($pdo, $userId, $historyPerPage, $historyOffset);
+    $totalHistory = countDocumentHistory($pdo, $userId);
+
+    $totalHistoryPages = ceil($totalHistory / $historyPerPage);
+
     $birthdate = $_SESSION['birth_date'];
     $date = DateTime::createFromFormat('Y-m-d', $birthdate);
     $formattedBirthdate = $date->format('F j, Y');
@@ -80,12 +89,13 @@
             <div class="request-box p-3">
                 <div class="row">
                     <div class="buttons text-center mt-3">
-                        <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?> position-relative" data-target="document-requests">Your Document Request(s)
+                        <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?> position-relative" data-target="document-requests">Document Request(s)
                             <?php if ($readyToPickupCount > 0): ?>
                                 <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
                             <?php endif; ?>
                         </button>
-                        <button class="btn complaints-button <?php echo $activeTab === 'complaints' ? 'active' : ''; ?>" data-target="complaints">Your Complaint(s)</button>
+                        <button class="btn complaints-button <?php echo $activeTab === 'complaints' ? 'active' : ''; ?>" data-target="complaints">Complaint(s)</button>
+                        <button class="btn history-button <?php echo $activeTab === 'history' ? 'active' : ''; ?>" data-target="history">Request History</button>
                     </div>
                 </div>
                 
@@ -246,6 +256,79 @@
                                 </li>
                                 <li class="page-item">
                                     <a class="page-link" href="?complaints_page=<?php echo $totalComplaintPages; ?>&active_tab=complaints" aria-label="Last">
+                                        <span aria-hidden="true">Last</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div id="history" style="display: <?php echo $activeTab === 'history' ? 'block' : 'none'; ?>">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Document ID</th>
+                                    <th scope="col">Document Name</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Date Requested</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (empty($history)): ?>
+                                    <tr><td colspan="7" class="text-center">No records found.</td></tr>
+                                <?php else: ?>
+                                    <?php foreach ($history as $item): 
+                                        $dateRequested = DateTime::createFromFormat('Y-m-d H:i:s', $item['date_req']);
+                                        $formattedDateRequested = $dateRequested ? $dateRequested->format('F j, Y') : 'N/A';
+                                    ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($item['doc_ID']); ?></td>
+                                            <td><?php echo htmlspecialchars($item['document_name']); ?></td>
+                                            <td><?php echo htmlspecialchars($item['stat']); ?></td>
+                                            <td><?php echo htmlspecialchars($formattedDateRequested); ?></td>
+                                            <td><?php echo htmlspecialchars($item['purpose_name']); ?></td>
+                                            <td>₱ <?php echo htmlspecialchars($item['document_price']); ?></td>
+                                            <td><?php echo htmlspecialchars($item['remarks']); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Document history page navigation">
+                        <ul class="pagination justify-content-center">
+                            <?php if ($historyPage > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?history_page=1&active_tab=history" aria-label="First">
+                                        <span aria-hidden="true">First</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?history_page=<?php echo $historyPage - 1; ?>&active_tab=history" aria-label="Previous">
+                                        <span aria-hidden="true">Previous</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php for ($i = max(1, $historyPage - 1); $i <= min($totalHistoryPages, $historyPage + 1); $i++): ?>
+                                <li class="page-item <?php echo $i === $historyPage ? 'active' : ''; ?>">
+                                    <a class="page-link" href="?history_page=<?php echo $i; ?>&active_tab=history">
+                                        <?php echo $i; ?>
+                                    </a>
+                                </li>
+                            <?php endfor; ?>
+                            <?php if ($historyPage < $totalHistoryPages): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?history_page=<?php echo $historyPage + 1; ?>&active_tab=history" aria-label="Next">
+                                        <span aria-hidden="true">Next</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?history_page=<?php echo $totalHistoryPages; ?>&active_tab=history" aria-label="Last">
                                         <span aria-hidden="true">Last</span>
                                     </a>
                                 </li>

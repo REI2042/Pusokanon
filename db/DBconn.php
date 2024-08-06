@@ -713,6 +713,35 @@ function countComplaints($pdo, $userId)
 	return $stmt->fetchColumn();
 }
 
+function fetchDocumentHistory($pdo, $userId, $limit, $offset)
+{
+    $sql = "SELECT 
+                rd.doc_ID, dt.doc_name AS document_name, rd.stat, 
+                rd.date_req, rd.remarks, rd.purpose_name, rd.qrCode_image,
+                dt.doc_amount AS document_price
+            FROM request_doc rd
+            INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+            WHERE rd.res_id = :userId AND rd.stat = 'Done' AND rd.remarks = 'Released'
+            ORDER BY rd.date_req DESC
+            LIMIT :limit OFFSET :offset";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function countDocumentHistory($pdo, $userId)
+{
+    $sql = "SELECT COUNT(*) FROM request_doc WHERE res_id = :userId AND stat = 'Done' AND remarks = 'Released'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
 function accountRole($pdo)
 {
 	$sql = "SELECT userRole_id, role_definition FROM account_role WHERE userRole_id != 2";
