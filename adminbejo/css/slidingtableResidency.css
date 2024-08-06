@@ -257,3 +257,34 @@ h1{
 .small-font .pagination {
   font-size: 0.8rem;
 }
+
+
+
+/* document history design */
+.select-docs{
+  width: 100%;
+  padding: 10px;
+  background-color: #e9e9e9;
+  border-radius: 5px;
+}
+.history-selection{
+  width: 23%;
+  padding: 20px 0px 0px 10px;
+  
+}
+
+.history-tableholder{
+  padding: 5px;
+  width: 75%;
+}
+
+.vertical-line{
+  width: 2%;
+}
+
+.vertical{
+  color: white;
+  transform: rotate(180deg);
+  height: 96% !important;
+  width: 4px !important;
+}
