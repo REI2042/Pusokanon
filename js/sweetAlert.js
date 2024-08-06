@@ -265,7 +265,7 @@ async function handleApproveClick(userEmail, userId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, cancel it!"
+    confirmButtonText: "Yes, approve it!"
   });
   if (result.isConfirmed) {
     // Email sending code using EmailJS
