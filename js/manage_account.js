@@ -65,3 +65,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 });
+
+
+document.getElementById('searchInput').addEventListener('input', function() {
+    if (this.value === '') {
+        document.getElementById('searchForm').submit();
+    }
+});
+

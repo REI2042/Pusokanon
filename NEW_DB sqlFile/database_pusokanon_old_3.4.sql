@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 06, 2024 at 08:43 AM
+-- Host: 127.0.0.1:3307
+-- Generation Time: Jul 31, 2024 at 08:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -61,20 +61,17 @@ CREATE TABLE `barangay_staff` (
   `userRole_id` int(11) NOT NULL,
   `staff_email` varchar(100) NOT NULL,
   `user_name` varchar(30) NOT NULL,
-  `staff_password` varchar(100) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `staff_password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `barangay_staff`
 --
 
-INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `contact_no`, `userRole_id`, `staff_email`, `user_name`, `staff_password`, `status`) VALUES
-(14, 'y6uepI9zt4ZrJ9xmLmSsjw==', '+MFss/zNRoJECy4hrlzhXw==', 'ecq8+4XRxyX+47+406+RHA==', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', '/E6zUxtovr16bzf1hwX8', 'ZFdRdXN6phKHg', 1, '0P1kRNo3yJAG64fgWjSxPoH8uQl1+qDaXx7uaeIuW3w=', 'administrator', '$2y$10$BfdBmc07XyEbG7R8b0YrBeGWPRwjuRXkhurNUtMT8u45iBW7lH7ji', 'ACTIVE'),
-(17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', 'aSoXP6qGxdcVAIvtlLiF', '0000-00-00', '7GppKkCbhvktizXpUSh8', '7EmYfvxuEWHbV', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'admin', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172', 'ACTIVE'),
-(18, 'slMIwOL0Ac7TZlgUoWCibg==', '8IYqHYelARTZzYfZo+lqig==', 'RoAS9dOqf118NORNXd1X3w==', '8ftK2n94Fv7Ym/bhA9JC', '0000-00-00', '/E6zUxtovr16bzf1hwX8', 'CNaMzHs8uuS1o', 3, 'M1UgoWz+nWh05sZtodnuQ8PnFi8qTDXMbncq05Q/ydY=', 'airene', '$2y$10$ndRBn8Q7dG4IMdWEnWv9D.ZPZ385uYnLb7b9Tq/KmDO8fiZV3uPM6', 'ACTIVE'),
-(19, 'tWfXJejCL/2H3JGkypbn6A==', 'Eyz7WwVSBLUrqD7G6aCUsw==', '/ireiF8fvuioRTrCsR4L1hQ8qFSbkxFsVIdT2zj5crE=', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', '7GppKkCbhvktizXpUSh8', 'uAejdjUxyZ65W', 4, 'Pk6L2T8QrzPOcJCDLbhmcuprPsL414aMekkQG91VSXY=', 'qetiwuk', '$2y$10$gRZwzMacMCPbXT7Dx/Kalu14rRrjOBtv8JiGcN564spzqtdAK0kQe', 'DEACTIVATED'),
-(20, 'R2X1FbmA8YMXKdS7+qVi2g==', 'LlZWBVcipNBWnFTmBxO3og==', 'P1nFqW/1JYvxcPol7MXC64fNQjowLYrXQLyQalgaM2s=', 'lhUQKW2T9Bnf87FizXwX', '0000-00-00', '/E6zUxtovr16bzf1hwX8', '8oG4HwPv3eknR', 5, 'P3MiDbzfWP+joOXhJa7m1a2TOaA83mH+uMnyVWTKwds=', 'gomeg', '$2y$10$mWCsustHEpv4wGtQkVHMmu97rtMWEYbQxYRxV6sTKYEMb8LbRU0Mq', 'ACTIVE');
+INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `contact_no`, `userRole_id`, `staff_email`, `user_name`, `staff_password`) VALUES
+(14, 'y6uepI9zt4ZrJ9xmLmSsjw==', '+MFss/zNRoJECy4hrlzhXw==', 'ecq8+4XRxyX+47+406+RHA==', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', '/E6zUxtovr16bzf1hwX8', 'ZFdRdXN6phKHg', 1, '0P1kRNo3yJAG64fgWjSxPoH8uQl1+qDaXx7uaeIuW3w=', 'administrator', '$2y$10$BfdBmc07XyEbG7R8b0YrBeGWPRwjuRXkhurNUtMT8u45iBW7lH7ji'),
+(17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', 'aSoXP6qGxdcVAIvtlLiF', '0000-00-00', '7GppKkCbhvktizXpUSh8', '7EmYfvxuEWHbV', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'admin', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172'),
+(18, 'slMIwOL0Ac7TZlgUoWCibg==', '8IYqHYelARTZzYfZo+lqig==', 'RoAS9dOqf118NORNXd1X3w==', '8ftK2n94Fv7Ym/bhA9JC', '0000-00-00', '/E6zUxtovr16bzf1hwX8', 'CNaMzHs8uuS1o', 3, 'M1UgoWz+nWh05sZtodnuQ8PnFi8qTDXMbncq05Q/ydY=', 'airene', '$2y$10$ndRBn8Q7dG4IMdWEnWv9D.ZPZ385uYnLb7b9Tq/KmDO8fiZV3uPM6');
 
 -- --------------------------------------------------------
 
@@ -124,35 +121,7 @@ INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `res
 (10, 28, 'Nino Rey', 'Yunson', 'Cabunilas', ' ', 'Male', 28, '2024-07-16', '19:30:00', '2024-07-19 08:40:38', 'Seabreeze', 'Theft', 'ambot. reklamo ni nako kay ano...', 'complaints_evidence/669a268639b74.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
 (11, 28, 'Jaryl Jane', '', 'Baroro', ' ', 'Female', 23, '2024-07-18', '11:15:00', '2024-07-19 08:41:33', 'Seaside', 'Theft', 'sobraan ka gwapa', 'complaints_evidence/669a26bdcda63.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
 (12, 28, 'Demi', '', 'Bebanco', ' ', 'Female', 29, '2024-06-01', '21:30:00', '2024-07-19 08:42:16', 'San Roque', 'Theft', 'kawatan og sud an', 'complaints_evidence/669a26e8edbe5.png', 2, NULL, NULL, 'Pending', '--', '', NULL),
-(13, 28, 'Demitria', '', 'Mabulay', ' ', 'Female', 23, '2024-07-06', '14:30:00', '2024-07-19 08:42:54', 'Arca', 'Trespassing', 'hilasan rko. maldita kaayo bisan wala unsaa', 'complaints_evidence/669a270ee3607.png', 2, '2024-08-09', '09:30:00', 'Approved', 'q', 'CASE CLOSED', '2024-07-25'),
-(14, 28, 'Whilemina', 'Summer Alston', 'Carr', 'Sr.', 'Male', 89, '2024-05-11', '20:50:00', '2024-07-26 07:48:32', 'Lawis', 'Damaging Properties', 'Maiores consectetur ', 'complaints_evidence/66a354d093c2c.jpg', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(15, 28, 'Blair', 'Stephanie Tate', 'Anthony', ' ', 'Female', 27, '2024-07-24', '21:15:00', '2024-07-26 07:52:50', 'Sewage', 'Bullying', 'Nihil qui eveniet r', 'complaints_evidence/66a355d209be5.jpg', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(16, 28, 'Chava', 'Jameson Wall', 'Pacheco', 'Jr', 'Male', 71, '2004-04-25', '03:08:00', '2024-07-26 07:56:25', 'Matumbo', 'Bullying', 'Eius omnis dolorem s', 'complaints_evidence/66a356a9c0363.jpg', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(17, 28, 'Susan', 'Xantha Stevenson', 'Keith', ' ', 'Female', 63, '2024-05-09', '09:04:00', '2024-07-26 07:59:12', 'Sta. Maria', 'Libel', 'Soluta voluptas reic', 'complaints_evidence/66a3575075cb9.jpg', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(18, 28, 'Colette', 'Seth Owen', 'Lancaster', 'Sr.', 'Male', 93, '1993-05-18', '11:55:00', '2024-07-26 08:01:23', 'San Roque', 'Bullying', 'Provident voluptatu', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(19, 28, 'Mara', 'Melissa Fowler', 'Austin', ' ', 'Female', 9, '2024-01-16', '03:24:00', '2024-07-26 08:07:36', 'Chumba-Chumba', 'Vandalism', 'Velit quia corporis ', 'complaints_evidence/66a35948107cf.jpg', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(20, 28, 'Jillian', 'Glenna Jacobson', 'Carlson', ' ', 'Female', 79, '2016-11-28', '23:03:00', '2024-07-26 09:02:46', 'Seaside', 'Vandalism', 'In mollit ipsum nul', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(21, 79, 'Louis', 'Lesley Nixon', 'Petersen', 'I', 'Female', 2, '2014-08-23', '22:51:00', '2024-07-26 12:39:47', 'Lawis', 'Other', 'Nostrud proident to', 'complaints_evidence/66a3991339e0d.jpg', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(22, 28, 'Kennan', 'Melanie Sheppard', 'Willis', 'II', 'Male', 18, '2015-02-20', '17:38:00', '2024-07-26 12:58:14', 'Mustang', 'Cyberbullying', 'Est mollitia blandit', 'complaints_evidence/66a39d666468c.jpg', 18, NULL, NULL, 'Rejected', 'testingg', 'CASE CLOSED', '2024-07-26'),
-(23, 28, 'Jolie', 'Alika Evans', 'Burns', 'Jr', 'Male', 93, '1975-09-24', '19:01:00', '2024-07-26 14:03:29', 'Ibabao', 'Cyberbullying', 'Voluptatem consequat', 'complaints_evidence/66a3acb1afcd9.jpg', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(24, 74, 'Patrick', 'Hashim Peck', 'Swanson', 'I', 'Female', 1, '1981-12-17', '18:29:00', '2024-07-26 15:26:42', 'Seaside', 'Bullying', 'Quia odio qui rerum ', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(25, 28, 'Nina', 'Garrison Rivas', 'Daniels', 'I', 'Male', 21, '2010-02-21', '16:22:00', '2024-07-26 15:32:07', 'Matumbo', 'Damaging Properties', 'Molestiae et vel vel', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(26, 28, 'Quinlan', 'Zane Leblanc', 'Waters', ' ', 'Female', 22, '1978-03-18', '21:36:00', '2024-07-28 09:03:22', 'Mustang', 'Theft', 'Quia nobis maiores q', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(27, 28, 'Kaitlin', 'Celeste Holcomb', 'Mcfadden', 'Jr', 'Male', 78, '2010-05-02', '22:05:00', '2024-07-28 09:12:11', 'Cemento', 'Bullying', 'Laudantium aut rem ', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(28, 28, 'Graham', 'Basia Leblanc', 'Wallace', 'Sr.', 'Male', 55, '2002-12-21', '15:50:00', '2024-07-28 09:12:46', 'Arca', 'Physical Abuse', 'Facilis ipsum perspi', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(29, 28, 'Noah', 'Fallon Mcbride', 'Campbell', 'III', 'Female', 25, '1999-09-02', '14:00:00', '2024-07-28 09:17:39', 'Seabreeze', 'Defamation', 'Cillum in non labore', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(30, 28, 'Savannah', 'Bianca Campbell', 'Kim', 'III', 'Male', 8, '2017-09-06', '19:03:00', '2024-07-28 09:18:38', 'Ibabao', 'Threat', 'Voluptate incididunt', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(31, 28, 'Maia', 'Madeline Barrera', 'Baxter', 'Jr', 'Male', 22, '2015-04-02', '16:34:00', '2024-07-28 09:22:04', 'Seabreeze', 'Libel', 'Lorem et eiusmod des', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(32, 28, 'Norman', 'Mary Blankenship', 'Vincent', 'III', 'Male', 97, '2007-03-15', '21:59:00', '2024-07-28 09:26:53', 'Seabreeze', 'Damaging Properties', 'Animi culpa consequ', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(33, 28, 'Scott', 'Elijah Robinson', 'Barr', 'I', 'Female', 39, '2008-03-13', '02:30:00', '2024-07-28 09:29:24', 'Seabreeze', 'Libel', 'Sunt quasi pariatur', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(34, 28, 'Heidi', 'Acton Holt', 'Moore', 'Jr', 'Male', 88, '1992-11-20', '16:11:00', '2024-07-28 09:37:40', 'Sta. Maria', 'Libel', 'Ea lorem non officia', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(35, 28, 'Stacey', 'Faith Herman', 'Osborn', 'Jr', 'Male', 31, '2000-04-29', '22:55:00', '2024-07-28 09:41:13', 'Seabreeze', 'Defamation', 'Quia dolore laborum', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(36, 28, 'Lucius', 'Quincy Rich', 'Stokes', 'Jr', 'Female', 99, '2002-09-13', '04:00:00', '2024-07-28 10:53:26', 'San Roque', 'Threat', 'Sit omnis non do inc', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(37, 28, 'Quon', 'Justine Neal', 'Gomez', 'II', 'Female', 8, '1972-03-14', '03:58:00', '2024-07-28 10:54:05', 'Lawis', 'Defamation', 'Commodo provident a', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(38, 28, 'Perry', 'Chaney Blake', 'Mccall', 'II', 'Male', 22, '1992-05-17', '04:13:00', '2024-07-28 10:54:30', 'Chumba-Chumba', 'Threat', 'Sequi accusamus in i', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(39, 28, 'Caesar', 'Celeste Marsh', 'Newman', ' ', 'Female', 32, '2001-01-19', '02:51:00', '2024-07-28 10:55:27', 'Matumbo', 'Trespassing', 'Omnis non voluptate ', NULL, 18, NULL, NULL, 'Pending', '--', '', NULL),
-(40, 28, 'Ira', 'Mara Perry', 'Villarreal', ' ', 'Female', 91, '1995-07-21', '22:56:00', '2024-07-31 06:56:19', 'Cemento', 'Defamation', 'Consequat Voluptate', 'complaints_evidence/66a9e013c8191.png', 18, NULL, NULL, 'Pending', '--', '', NULL),
-(41, 28, 'Quinlan', 'Wing Page', 'Spencer', ' ', 'Male', 14, '1989-05-01', '00:16:00', '2024-07-31 06:56:39', 'San Roque', 'Vandalism', 'Excepturi fugiat ex', 'complaints_evidence/66a9e027b8aab.png', 18, NULL, NULL, 'Pending', '--', '', NULL);
+(13, 28, 'Demitria', '', 'Mabulay', ' ', 'Female', 23, '2024-07-06', '14:30:00', '2024-07-19 08:42:54', 'Arca', 'Trespassing', 'hilasan rko. maldita kaayo bisan wala unsaa', 'complaints_evidence/669a270ee3607.png', 2, '2024-08-09', '09:30:00', 'Approved', 'q', 'CASE CLOSED', '2024-07-25');
 
 -- --------------------------------------------------------
 
@@ -201,7 +170,8 @@ INSERT INTO `doc_type` (`docType_id`, `doc_name`, `doc_amount`) VALUES
 (5, 'Barangay Electrical Permit', 500),
 (6, 'Barangay Construction Permit', 500),
 (7, 'Barangay Fencing Permit', 500),
-(8, 'Barangay Business Clearance', 630);
+(8, 'Barangay Business Clearance', 630),
+(9, 'Barangay Certificate', 50);
 
 -- --------------------------------------------------------
 
@@ -220,7 +190,7 @@ CREATE TABLE `initial_sitio_population` (
 --
 
 INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial_residents`) VALUES
-(1, 'Arca', 0),
+(1, 'Arca', 234),
 (2, 'Cemento', 0),
 (3, 'Chumba-Chumba', 0),
 (4, 'Ibabao', 0),
@@ -231,7 +201,7 @@ INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial
 (9, 'San Roque', 0),
 (10, 'Seabreeze', 0),
 (11, 'Seaside', 0),
-(12, 'Sewage', 0),
+(12, 'Sewage', 234),
 (13, 'Sta. Maria', 0);
 
 -- --------------------------------------------------------
@@ -439,13 +409,13 @@ ALTER TABLE `account_role`
 -- AUTO_INCREMENT for table `barangay_staff`
 --
 ALTER TABLE `barangay_staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `complaints_tbl`
 --
 ALTER TABLE `complaints_tbl`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `docs_purpose`
@@ -457,7 +427,7 @@ ALTER TABLE `docs_purpose`
 -- AUTO_INCREMENT for table `doc_type`
 --
 ALTER TABLE `doc_type`
-  MODIFY `docType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `docType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `initial_sitio_population`
@@ -492,6 +462,14 @@ ALTER TABLE `resident_users`
 --
 ALTER TABLE `barangay_staff`
   ADD CONSTRAINT `barangay_staff_ibfk_1` FOREIGN KEY (`userRole_id`) REFERENCES `account_role` (`userRole_id`);
+
+--
+-- Constraints for table `request_doc`
+--
+ALTER TABLE `request_doc`
+  ADD CONSTRAINT `FK_PUPOSE` FOREIGN KEY (`purpose_id`) REFERENCES `docs_purpose` (`purpose_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_RESIDENT` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_doc_type` FOREIGN KEY (`docType_id`) REFERENCES `doc_type` (`docType_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `resident_users`

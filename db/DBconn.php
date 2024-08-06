@@ -265,54 +265,71 @@ function fetchLatestRequest($pdo, $userId)
 	return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getTotalStaffCount($pdo, $search = '') {
-    $query = "SELECT COUNT(*) FROM barangay_staff";
-    $params = [];
-
+function getTotalStaffCount($pdo, $search = null) {
+    $query = "SELECT COUNT(*) FROM barangay_staff bs";
+    
     if (!empty($search)) {
-        $query .= " WHERE staff_fname LIKE :search OR staff_lname LIKE :search OR staff_email LIKE :search";
-        $params[':search'] = "%$search%";
+        $query .= " WHERE bs.staff_id = :search 
+                    OR AES_DECRYPT(bs.staff_fname, :key) LIKE :search_like
+                    OR AES_DECRYPT(bs.staff_midname, :key) LIKE :search_like
+                    OR AES_DECRYPT(bs.staff_lname, :key) LIKE :search_like
+                    OR AES_DECRYPT(bs.staff_email, :key) LIKE :search_like";
     }
 
     $stmt = $pdo->prepare($query);
-    $stmt->execute($params);
-    
-    return $stmt->fetchColumn();
-}
-
-function fetchStaffAccounts($pdo, $search = '', $limit = null, $offset = null) {
-    $sql = "SELECT bs.staff_id, 
-            bs.staff_fname, bs.staff_midname, bs.staff_lname,
-            bs.staff_email, bs.contact_no, bs.userRole_id, ac.role_definition, bs.status, bs.user_name
-            FROM barangay_staff bs
-            INNER JOIN account_role ac ON bs.userRole_id = ac.userRole_id";
-    
-    $params = [];
 
     if (!empty($search)) {
-        $sql .= " WHERE bs.staff_fname LIKE :search 
-                  OR bs.staff_lname LIKE :search 
-                  OR bs.staff_email LIKE :search";
-        $params[':search'] = "%$search%";
-    }
-
-    $sql .= " ORDER BY bs.staff_id";
-
-    if ($limit !== null && $offset !== null) {
-        $sql .= " LIMIT :limit OFFSET :offset";
-        $params[':limit'] = $limit;
-        $params[':offset'] = $offset;
-    }
-
-    $stmt = $pdo->prepare($sql);
-    
-    foreach ($params as $key => &$val) {
-        $stmt->bindParam($key, $val);
+        $search_like = "%$search%";
+        $stmt->bindParam(':search', $search);
+        $stmt->bindParam(':key', ENCRYPTION_KEY);
+        $stmt->bindParam(':search_like', $search_like);
     }
 
     $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchColumn();
 }
+
+
+function fetchStaffAccounts($pdo, $search = null) {
+    $sql = "SELECT bs.staff_id, 
+            bs.staff_fname,
+            bs.staff_midname,
+            bs.staff_lname,
+            bs.staff_email, 
+            bs.contact_no, 
+            bs.userRole_id, 
+            ac.role_definition, 
+            bs.status
+            FROM barangay_staff bs
+            INNER JOIN account_role ac ON bs.userRole_id = ac.userRole_id
+            ORDER BY bs.staff_id";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (!empty($search)) {
+        $filtered_results = array_filter($results, function($staff) use ($search) {
+            $full_name = strtolower(
+                decryptData($staff['staff_fname']) . ' ' . 
+                decryptData($staff['staff_midname']) . ' ' . 
+                decryptData($staff['staff_lname'])
+            );
+            $email = strtolower(decryptData($staff['staff_email']));
+            $search_lower = strtolower($search);
+
+            return (
+                strpos($full_name, $search_lower) !== false ||
+                strpos($email, $search_lower) !== false ||
+                $staff['staff_id'] == $search
+            );
+        });
+        return array_values($filtered_results);
+    }
+
+    return $results;
+}
+
 
 
 // function fetchStaffAccounts($pdo){
