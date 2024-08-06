@@ -108,7 +108,7 @@ include 'db/check_user_login.php';
                                     <button type="submit" class="btn btn-success">Login</button>
                                 </div>
                                 <div class="text-center mt-3">
-                                    <small class="smallText">Don't have an account?</small><a href="registration.php" class="link-warning"> Sign Up</a></p>
+                                    <small class="smallText">Don't have an account?</small><a href="registration.php" class="link-warning"> Sign Up</a>
                                 </div>
                             </form>
                         </div>
@@ -127,10 +127,25 @@ include 'db/check_user_login.php';
     <script>
         <?php
         if (isset($_SESSION['login_error'])) {
-            echo 'Swal.fire({
+            echo 'const Toast = Swal.mixin({
+                toast: true,
+                position: "top",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer)
+                    toast.addEventListener("mouseleave", Swal.resumeTimer)
+                }
+            });
+            
+            Toast.fire({
                 icon: "error",
                 title: "Login Failed",
                 text: "Invalid username or password.",
+                customClass: {
+                    container: "mt-5 pt-3"         
+               }
             });';
             unset($_SESSION['login_error']);
         }
@@ -149,5 +164,5 @@ include 'db/check_user_login.php';
             } 
         });
     </script>
-</body>
+</body></body>
 </html>
