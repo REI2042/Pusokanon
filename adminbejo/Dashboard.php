@@ -53,7 +53,9 @@
                 </div>
                 <div class="row mr-0">
                     <div class="record-container col-12 col-sm-4 position-relative">
-                        <span class="badge badge-danger position-absolute rounded-circle"> </span>                     
+                        <?php if($pending_accounts > 0): ?>
+                            <span class="badge badge-danger position-absolute rounded-circle" style="background-color: #FF3333;"> </span>  
+                        <?php endif;?>                   
                         <div class="record-box text-center">
                             <i class="fa-solid fa-user-clock fa-2x" style="color: #FFC107"></i>
                             <p class="record-title">Pending Accounts</p>
