@@ -156,10 +156,25 @@ include 'db/check_user_login.php';
             const status = urlParams.get('status');
 
             if (status === 'deactivated') {
-                Swal.fire({
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
                     icon: 'error',
                     title: 'Account Deactivated',
-                    text: 'This account has been deactivated and cannot be used to login.',
+                    text: 'This account has been deactivated and cannot be used to login. Please contact your administrator',
+                    customClass: {
+                        container: "mt-5 pt-3"         
+                    }
                 });
             } 
         });
