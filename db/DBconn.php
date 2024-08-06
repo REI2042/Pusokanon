@@ -752,15 +752,16 @@ function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
 {
 	$sql = "SELECT 
 				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
-				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+                CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
+                dt.doc_name AS document_name, 
+                rd.purpose_name AS purpose_name, 
+                rd.request_id, 
+                rd.date_req, 
+                rd.remarks 
+            FROM request_doc rd
+            INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+            INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+            INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
 			WHERE dt.doc_name = :doctype AND stat = :status AND (ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
 			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
 			OR CONCAT(ru.res_fname,' ', ru.res_lname) LIKE '{$search}%'

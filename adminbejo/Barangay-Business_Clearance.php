@@ -133,7 +133,7 @@
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <div class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>                                         
+                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>                                         
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
                                                 <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
