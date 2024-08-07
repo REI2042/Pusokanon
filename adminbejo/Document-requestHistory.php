@@ -116,7 +116,7 @@
               <table class="table-history" style="width: 100%; border-color: #007bff;">
                   <thead class="table-head">                    
                     <tr class="history-docs">
-                        <th>Document ID</th>
+                        <th>Doc ID</th>
                         <th>Name</th>
                         <th>Document Requested</th>
                         <th>Date & Time Requested</th>
@@ -134,9 +134,9 @@
                                 <td><?php echo $row['doc_ID']?></td>
                                 <td><?php echo $row['resident_name']?></td>
                                 <td><?php echo $row['document_name']?></td>
-                                <td><?php echo $row['date_req']?></td>
+                                <td><?php echo date('m/d/y h:i A', strtotime($row['date_req']))?></td>
                                 <td><?php echo $row['purpose_name']?></td>
-                                <td><?php echo $row['date_processed']?></td>
+                                <td><?php echo date('m/d/y h:i A', strtotime($row['date_processed']))?></td>
                                 <td><?php echo $row['remarks']?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -184,6 +184,15 @@
             e.preventDefault();
             let doctype = this.getAttribute('data-doctype');
             document.getElementById('doctypeInput').value = doctype;
+            
+            // Remove 'active' class from all links
+            document.querySelectorAll('.table-link').forEach(l => {
+                l.querySelector('.select-docs').classList.remove('active');
+            });
+            
+            // Add 'active' class to the clicked link
+            this.querySelector('.select-docs').classList.add('active');
+            
             document.getElementById('doctypeForm').submit();
         });
     });

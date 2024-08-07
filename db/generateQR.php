@@ -16,6 +16,8 @@ if ($userData) {
         'request_id' => $userData['request_id'],
         'resident_name' => $userData['resident_name'],
         'doc_name' => $userData['document_name'],
+        'stat'=> 'Ready to pickup',
+        'remarks'=>$userData['remarks'],
         'purpose' => $userData['purpose'],
         'date_req' => $userData['request_date']
     ]);

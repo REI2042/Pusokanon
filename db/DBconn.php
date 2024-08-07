@@ -251,6 +251,8 @@ function fetchLatestRequest($pdo, $userId)
 				dt.doc_name AS document_name,
 				rd.doctype_id AS document_type_id, 
 				rd.purpose_name AS purpose, 
+				rd.stat AS stat,
+				rd.remarks AS remarks,
 				rd.date_req AS request_date,
 				dt.doc_amount
 				FROM request_doc rd 
@@ -815,6 +817,7 @@ function fetchdocsRequestHistorySearch($pdo,$doctype ,$status, $remarks, $limit,
                 rd.purpose_name AS purpose_name, 
                 rd.request_id, 
                 rd.date_req, 
+				rd.date_processed,
                 rd.remarks 
             FROM request_doc rd
             INNER JOIN resident_users ru ON rd.res_id = ru.res_id
@@ -850,6 +853,7 @@ function fetchdocsRequestHistory($pdo, $doctype, $status, $remarks, $limit, $off
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
 			WHERE dt.doc_name = :doctype AND stat = :status AND remarks = :remarks
+			ORDER BY rd.date_processed DESC
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':doctype', $doctype, PDO::PARAM_STR);

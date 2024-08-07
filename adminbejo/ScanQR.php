@@ -51,15 +51,16 @@ function domReady(fn) {
 
 domReady(function () {
     function onScanSuccess(decodeText, decodeResult) {
-        console.log("Scanned Text: ", decodeText); // Debug: Log scanned text
+        console.log("Scanned Text: ", decodeText);
 
         if (!qrCodeScanned) {
             try {
                 let data = JSON.parse(decodeText);
-                console.log("Parsed Data: ", data); // Debug: Log parsed data
-                let { doc_ID, res_id, request_id } = data;
+                console.log("Parsed Data: ", data);
+                let { doc_ID, res_id, request_id, stat, remarks } = data;
 
-                // Send AJAX request to update remarks
+                htmlscanner.clear(); // Stop the scanning process
+
                 fetch('phpConn/updateRemarks.php', {
                     method: 'POST',
                     headers: {
@@ -69,7 +70,6 @@ domReady(function () {
                 })
                 .then(response => response.json())
                 .then(result => {
-                    // Handle the response from the server
                     if (result.stat === 'success') {
                         Swal.fire({
                             icon: 'success',
@@ -77,9 +77,13 @@ domReady(function () {
                             text: 'The remarks have been updated.',
                             showConfirmButton: true,
                             confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = 'Barangay-Residency.php';
+                        }).then((alertResult) => {
+                            if (alertResult.isConfirmed) {
+                                let redirectUrl = `Document-requestHistory.php?doctype=${result.doc_name}`;
+                                window.location.href = redirectUrl;
+                            } else {
+                                qrCodeScanned = false;
+                                htmlscanner.render(onScanSuccess); // Restart the scanning process
                             }
                         });
                     } else {
@@ -89,9 +93,11 @@ domReady(function () {
                             text: result.message,
                             showConfirmButton: true,
                             confirmButtonText: 'OK'
+                        }).then(() => {
+                            qrCodeScanned = false;
+                            htmlscanner.render(onScanSuccess); // Restart the scanning process
                         });
                     }
-                    qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
                 })
                 .catch(error => {
                     Swal.fire({
@@ -100,21 +106,25 @@ domReady(function () {
                         text: 'There was a problem with the request.',
                         showConfirmButton: true,
                         confirmButtonText: 'OK'
+                    }).then(() => {
+                        qrCodeScanned = false;
+                        htmlscanner.render(onScanSuccess); // Restart the scanning process
                     });
-                    qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
                 });
 
                 qrCodeScanned = true;
             } catch (error) {
-                console.error("Error parsing JSON: ", error); // Debug: Log parsing error
+                console.error("Error parsing JSON: ", error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid QR Code',
                     text: 'The scanned QR code is not valid.',
                     showConfirmButton: true,
                     confirmButtonText: 'OK'
+                }).then(() => {
+                    qrCodeScanned = false;
+                    htmlscanner.render(onScanSuccess); // Restart the scanning process
                 });
-                qrCodeScanned = false; // Reset qrCodeScanned flag to allow for rescanning
             }
         }
     }
@@ -127,5 +137,6 @@ domReady(function () {
     htmlscanner.render(onScanSuccess);
 });
 </script>
+
 
 <?php include 'footerAdmin.php'; ?>

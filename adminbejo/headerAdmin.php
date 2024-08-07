@@ -98,6 +98,9 @@
                                 <a href="Admin-Document.php" class="sidebar-link">Requested Document</a>
                             </li>
                             <li class="sidebar-item">
+                                <a href="ScanQR.php" class="sidebar-link">Scan QRcode</a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="Document-requestHistory.php" class="sidebar-link">Document Request History </a>
                             </li>
                         </ul>
