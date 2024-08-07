@@ -752,8 +752,8 @@ function accountRole($pdo)
 
 
 
-//----------------------------------------------admin manage document request
-function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)
+//------------admin manage document request connection
+function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)//connection in getting document request without search function
 {
 	$sql = "SELECT 
 				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
@@ -777,7 +777,8 @@ function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)
 	$stmt->execute();
 	return $stmt->fetchAll();
 }
-function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
+
+function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)//connection in getting document request with search functionality
 {
 	$sql = "SELECT 
 				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
@@ -805,30 +806,35 @@ function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
 	return $stmt->fetchAll();
 }
 
-function fetchdocsRequestIndigency($pdo, $status, $limit, $offset)
+function fetchdocsRequestHistorySearch($pdo,$doctype ,$status, $remarks, $limit, $offset,$search)//connection in getting document request with search functionality
 {
 	$sql = "SELECT 
 				ru.res_id, ru.res_email AS res_email, doc_ID, stat,
-				CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
-				dt.doc_name AS document_name, 
-				rd.purpose_name AS purpose_name, 
-				rd.date_req, 
-				rd.remarks 
-			FROM request_doc rd
-			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Indigency' AND stat = :status
+                CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) AS resident_name, 
+                dt.doc_name AS document_name, 
+                rd.purpose_name AS purpose_name, 
+                rd.request_id, 
+                rd.date_req, 
+                rd.remarks 
+            FROM request_doc rd
+            INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+            INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+            INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+			WHERE dt.doc_name = :doctype AND stat = :status AND remarks = :remarks AND (ru.res_fname LIKE '{$search}%' OR ru.res_lname LIKE '{$search}%' 
+			OR ru.res_midname LIKE '{$search}%' OR CONCAT(ru.res_fname,' ', ru.res_midname,' ', ru.res_lname) LIKE '{$search}%'
+			OR CONCAT(ru.res_fname,' ', ru.res_lname) LIKE '{$search}%'
+			OR ru.res_id LIKE '{$search}%')
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 	$stmt->execute();
 	return $stmt->fetchAll();
 }
 
-function fetchdocsRequestRemarks($pdo, $status, $remarks, $limit, $offset)
+function fetchdocsRequestHistory($pdo, $doctype, $status, $remarks, $limit, $offset)
 {
 	$sql = "SELECT 
 				ru.res_id, doc_ID, stat,
@@ -842,9 +848,10 @@ function fetchdocsRequestRemarks($pdo, $status, $remarks, $limit, $offset)
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = 'Barangay Clearance' AND stat = :status AND remarks = :remarks
+			WHERE dt.doc_name = :doctype AND stat = :status AND remarks = :remarks
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':doctype', $doctype, PDO::PARAM_STR);
 	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
 	$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -862,6 +869,7 @@ function fetchResidentDetails($pdo, $residentId)
     
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
 
 function fetchChartData($pdo)
 {

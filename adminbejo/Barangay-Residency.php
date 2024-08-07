@@ -7,7 +7,7 @@ include 'headerAdmin.php';
 
 // Find out the number of Pending results stored in the database
 // Get the document type from the form submission
-$search = isset($_GET['search']) ? $_GET['search'] : '';
+
 $docType = isset($_POST['docType']) ? $_POST['docType'] : 'Barangay Residency';
 
 
@@ -54,6 +54,7 @@ $processing_offset = ($processing_page - 1) * $results_per_page;
 $completed_offset = ($completed_page - 1) * $results_per_page;
 
 // Retrieve the data to display for the current page
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 if($search) {
     $pending = fetchdocsRequestSearch($pdo, $docType,'Pending', $results_per_page, $pending_offset, $search);
     $Processing = fetchdocsRequestSearch($pdo, $docType,'Processing', $results_per_page, $processing_offset, $search);
@@ -82,7 +83,7 @@ if($search) {
             <i class="fa-solid fa-chevron-left fa-2x"></i>
             <span>Back</span>
         </a>
-        <div class="d-flex align-items-center gap-3">
+        <div title="Scan QRcode" class="d-flex align-items-center gap-3">
             <a href="ScanQR.php" class="btn camera-btn">
                 <i class="bi bi-camera" style="font-size: 1.2rem;"></i>&nbsp;Scan QR
             </a>
@@ -293,7 +294,7 @@ if($search) {
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
-                                                <button title="Dowload" type="submit" name="status" value="Processing" class="btn btn-sm <?= $completed['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
+                                                <button title="" type="submit" name="status" value="Processing" class="btn btn-sm <?= $completed['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>
