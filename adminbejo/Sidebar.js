@@ -13,3 +13,17 @@ hamBurger.addEventListener("click", function () {
         sidebar.classList.remove("show-text");
     }
 }); 
+
+function closeSidebar() {
+    sidebar.classList.remove("expand");
+    sidebar.classList.remove("show-text");
+}
+
+document.addEventListener("click", function(event) {
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    const isClickOnHamburger = hamBurger.contains(event.target);
+    
+    if (!isClickInsideSidebar && !isClickOnHamburger && sidebar.classList.contains("expand")) {
+        closeSidebar();
+    }
+});
