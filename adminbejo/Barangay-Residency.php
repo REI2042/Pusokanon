@@ -137,7 +137,7 @@ if($search) {
                                     <td><?= htmlspecialchars($pendings['document_name']); ?></td>
                                     <td><?= htmlspecialchars($pendings['purpose_name']); ?></td>
                                     <td><?= htmlspecialchars($pendings['stat']); ?></td>
-                                    <td><?= htmlspecialchars($pendings['date_req']); ?></td>
+                                    <td><?= date('m/d/y h:i A', strtotime($pendings['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
@@ -213,7 +213,7 @@ if($search) {
                                     <td><?= htmlspecialchars($processings['document_name']); ?></td>
                                     <td><?= htmlspecialchars($processings['purpose_name']); ?></td>
                                     <td><?= htmlspecialchars($processings['stat']); ?></td>
-                                    <td><?= htmlspecialchars($processings['date_req']); ?></td>
+                                    <td><?= date('m/d/y h:i A', strtotime($processings['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
@@ -286,7 +286,7 @@ if($search) {
                                     <td><?= htmlspecialchars($completed['document_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['purpose_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['stat']); ?></td>
-                                    <td><?= htmlspecialchars($completed['date_req']); ?></td>
+                                    <td><?= date('m/d/y h:i A', strtotime($completed['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
