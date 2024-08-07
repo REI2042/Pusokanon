@@ -828,6 +828,7 @@ function fetchdocsRequestHistorySearch($pdo,$doctype ,$status, $remarks, $limit,
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
 	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
+	$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 	$stmt->execute();

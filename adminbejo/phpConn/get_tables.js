@@ -76,9 +76,12 @@ document.getElementById('showTable3').addEventListener('click', function() {
 });
 
 // Set initial visibility based on session storage
-let activeTable = sessionStorage.getItem('activeTable') || 'table1Container';
-let activePagination = sessionStorage.getItem('activePagination') || 'pendingPagination';
-let activeLink = sessionStorage.getItem('activeLink') || 'showTable1';
+let activeTable = 'table1Container';
+let activePagination = 'pendingPagination';
+let activeLink = 'showTable1';
+// let activeTable = sessionStorage.getItem('activeTable') || 'table1Container';
+// let activePagination = sessionStorage.getItem('activePagination') || 'pendingPagination';
+// let activeLink = sessionStorage.getItem('activeLink') || 'showTable1';
 
 showTable(activeTable, activePagination);
 document.getElementById(activeLink).classList.add('active');

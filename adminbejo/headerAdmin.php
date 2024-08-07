@@ -98,9 +98,6 @@
                                 <a href="Admin-Document.php" class="sidebar-link">Requested Document</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Create Document</a>
-                            </li>
-                            <li class="sidebar-item">
                                 <a href="Document-requestHistory.php" class="sidebar-link">Document Request History </a>
                             </li>
                         </ul>

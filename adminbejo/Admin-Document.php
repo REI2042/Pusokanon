@@ -17,19 +17,19 @@ include 'headerAdmin.php';
         </div>
         <div class="ctn row m-2 d-flex justify-content-center">
             <div class="docs col-3">
-                <form action="Barangay-Residency.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Residency.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="Barangay Residency">
-                    <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
+                    <button type="submit"  class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
                         <div class="document-data text-left">
                             <span class="data1">Barangay Residency</span>
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Indigency.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Indigency.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="Barangay Indigency">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -38,10 +38,10 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Certificate.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Certificate.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="3">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -50,10 +50,10 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
             <div class="docs col-3 ">
-                <form action="Barangay-Clearance.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Clearance.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="4">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -62,10 +62,10 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Cedula.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Cedula.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="5">
                     <button type="submit" class="document-bx text-left" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -74,11 +74,11 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
 
             <div class="docs col-3">
-                <form action="Barangay-Electrical_Permit.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Electrical_Permit.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="6">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -87,11 +87,11 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
 
             <div class="docs col-3">
-                <form action="Barangay-Fencing_Permit.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Fencing_Permit.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="7">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -100,10 +100,10 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Business_Clearance.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Business_Clearance.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="8">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -112,10 +112,10 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
             <div class="docs col-3">
-                <form action="Barangay-Construction_Permit.php" method="POST" class="document-bx-form">
+                <a href="Barangay-Construction_Permit.php" class="document-bx-form">
                     <input type="hidden" name="docType" value="9">
                     <button type="submit" class="document-bx" style="background: none; color: white; width: 100%; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit; transition: all 0.3s ease;">
                         <i class="fa-solid fa-file fa-2x"></i>
@@ -124,7 +124,7 @@ include 'headerAdmin.php';
                             <span class="data2">100</span>
                         </div>
                     </button>
-                </form>
+                </a>
             </div>
 
         </div>
