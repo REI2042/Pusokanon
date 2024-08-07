@@ -236,7 +236,29 @@ a.sidebar-link:hover {
 
 .sidebar-item {
     position: relative;
-}   
+}
+
+/* For items without dropdowns */
+#sidebar:not(.expand) .sidebar-item .sidebar-link {
+    position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-link .span-word {
+    position: absolute;
+    left: 87px;
+    top: 0;
+    background-color: #0e2238;
+    padding: 0.625rem 1rem;
+    min-width: 15rem;
+    display: none;
+    white-space: nowrap;
+    color: #FFF;
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .sidebar-link .span-word {
+    display: block;
+    opacity: 1;
+}
 
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
     position: absolute;
