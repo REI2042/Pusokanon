@@ -97,10 +97,32 @@ include 'db/check_user_login.php';
                                     <label for="text" class="form-label">Email</label>
                                     <input type="text" class="form-control" name="username" id="email" placeholder="Enter your email" required>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3" style="border-radius: 5px;">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="userPassword" id="password" placeholder="Enter your password" required>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" name="userPassword" id="password" placeholder="Enter your password" required>
+                                        <div class="input-group-append" style="border: 1px solid #ced4da; border-radius: 0 5px 5px 0;">
+                                            <button class="btn btn-white bg-white" type="button" id="togglePassword" style="border: none;">
+                                                <i class="bi bi-eye" id="toggleIcon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
+                                <script>
+                                    document.getElementById('togglePassword').addEventListener('click', function () {
+                                        const password = document.getElementById('password');
+                                        const icon = document.getElementById('toggleIcon');
+                                        if (password.type === 'password') {
+                                            password.type = 'text';
+                                            icon.classList.remove('bi-eye');
+                                            icon.classList.add('bi-eye-slash');
+                                        } else {
+                                            password.type = 'password';
+                                            icon.classList.remove('bi-eye-slash');
+                                            icon.classList.add('bi-eye');
+                                        }
+                                    });
+                                </script>                                
                                 <div class="text-center mt-4">
                                     <a href="forgotPass.php" class="link text-white"><small>Forgot Password</small></a>
                                 </div>
