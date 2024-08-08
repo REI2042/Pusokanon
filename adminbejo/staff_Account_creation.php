@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3 pb-2 ps-2 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off"/>
+                                        <input type="number" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="phoneNumber">Phone Number</label>
                                     </div>
                                 </div>

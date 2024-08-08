@@ -164,7 +164,7 @@
                                                                     '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                     '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                     '<?= $imageSrc ?>')">
-                                                    <i class="bi bi-eye"></i> </a>
+                                                    <i class="bi bi-eye" title="View Details"></i> </a>
                                             </div>
                                         </td>
                                     </tr>

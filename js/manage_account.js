@@ -5,7 +5,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    window.deactivateStaff = function(staff_id) {
+    window.deactivateStaff = function(staff_id, status) {
+        if (status === 'DEACTIVATED') {
+            Swal.fire({
+                title: 'Already Deactivated',
+                text: "This account is already deactivated.",
+                icon: 'info',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
         Swal.fire({
             title: 'Are you sure?',
             text: "Do you really want to deactivate this account?",
@@ -35,7 +46,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    window.activateStaff = function(staff_id) {
+    window.activateStaff = function(staff_id, status) {
+        if (status === 'ACTIVE') {
+            Swal.fire({
+                title: 'Already Active',
+                text: "This account is already active.",
+                icon: 'info',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
         Swal.fire({
             title: 'Are you sure?',
             text: "Do you really want to activate this account?",
@@ -72,4 +94,3 @@ document.getElementById('searchInput').addEventListener('input', function() {
         document.getElementById('searchForm').submit();
     }
 });
-

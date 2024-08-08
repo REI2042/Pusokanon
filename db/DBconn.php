@@ -332,6 +332,40 @@ function fetchStaffAccounts($pdo, $search = null) {
     return $results;
 }
 
+function fetchStaffInfo($pdo, $staffId = null) {
+    $sql = "SELECT bs.staff_id, 
+                   bs.staff_fname,
+                   bs.staff_midname,
+                   bs.staff_lname,
+                   bs.staff_email, 
+                   bs.contact_no, 
+                   bs.userRole_id, 
+                   ac.role_definition, 
+                   bs.status,
+                   bs.birth_date,
+                   bs.gender,
+                   bs.staff_suffix,
+                   bs.user_name,
+				   bs.staff_password
+            FROM barangay_staff bs
+            INNER JOIN account_role ac ON bs.userRole_id = ac.userRole_id";
+
+    if ($staffId !== null) {
+        $sql .= " WHERE bs.staff_id = :staff_id";
+    }
+
+    $stmt = $pdo->prepare($sql);
+    
+    if ($staffId !== null) {
+        $stmt->bindParam(':staff_id', $staffId, PDO::PARAM_INT);
+    }
+
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $results;
+}
+
 
 
 // function fetchStaffAccounts($pdo){

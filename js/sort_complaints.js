@@ -13,20 +13,6 @@ document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(functio
     });
 });
 
-// // Event listeners for case type dropdown
-// document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
-//     item.addEventListener('click', function() {
-//         const caseType = this.getAttribute('data-case-type');
-//         const incidentPlace = new URLSearchParams(window.location.search).get('incident_place') || '';
-//         const status = new URLSearchParams(window.location.search).get('status') || ''; 
-//         const currentUrl = new URL(window.location.href);
-//         currentUrl.searchParams.set('case_type', caseType);
-//         currentUrl.searchParams.set('incident_place', incidentPlace);
-//         currentUrl.searchParams.set('status', status); 
-//         window.location.href = currentUrl.toString();
-//     });
-// });
-
 // Event listeners for case type dropdown
 document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
     item.addEventListener('click', function() {

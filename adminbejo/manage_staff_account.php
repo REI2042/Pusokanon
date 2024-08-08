@@ -64,13 +64,13 @@
                                     <td><?= htmlspecialchars(decryptData($staff_users['staff_email']));?></td>
                                     <td><?= htmlspecialchars($staff_users['status']);?></td>  
                                     <td>
-                                        <button class="btn btn-secondary btn-sm me-2" onclick="editStaff('<?= htmlspecialchars($staff_users['staff_id']) ?>')">
+                                        <button class="btn btn-secondary btn-sm me-2" title="Edit Account" onclick="window.location.href='edit_staffAccount.php?staff_id=<?= htmlspecialchars($staff_users['staff_id']) ?>'">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm me-2" onclick="activateStaff('<?= htmlspecialchars($staff_users['staff_id']) ?>')">
+                                        <button class="btn btn-success btn-sm me-2" title="Activate Account" onclick="activateStaff('<?= htmlspecialchars($staff_users['staff_id']) ?>', '<?= htmlspecialchars($staff_users['status']) ?>')">
                                             <i class="bi bi-person-fill-check"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm me-2" onclick="deactivateStaff('<?= htmlspecialchars($staff_users['staff_id']) ?>')">
+                                        <button class="btn btn-danger btn-sm me-2" title="Deactivate Account" onclick="deactivateStaff('<?= htmlspecialchars($staff_users['staff_id']) ?>', '<?= htmlspecialchars($staff_users['status']) ?>')">
                                             <i class="bi bi-person-fill-slash"></i>
                                         </button>
                                     </td>

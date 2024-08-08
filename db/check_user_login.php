@@ -59,9 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // User not found
-        session_start();
-        $_SESSION['login_error'] = true;
-        header("Location: ../login.php?status=invalid");
+        header("Location: ../login.php?");
         exit();
     }
 }

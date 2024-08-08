@@ -160,11 +160,11 @@
                                                                         '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                         '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                         '<?= $imageSrc ?>')">
-                                                    <i class="bi bi-eye"></i> </a>
-                                                <button class="btn btn-success btn-sm me-2" onclick="approve_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
+                                                    <i class="bi bi-eye" title="View Details"></i> </a>
+                                                <button class="btn btn-success btn-sm me-2" title="Approve Complaint" onclick="approve_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
                                                     <i class="bi bi-check-circle"></i> 
                                                 </button>
-                                                <button class="btn btn-danger btn-sm me-2" onclick="reject_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
+                                                <button class="btn btn-danger btn-sm me-2" title="Reject Complaint" onclick="reject_complaint('<?= htmlspecialchars($complaint['complaint_id']) ?>')">
                                                     <i class="bi bi-x-circle"></i> 
                                                 </button>
                                             </div>
@@ -278,21 +278,17 @@
                                                                     '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                     '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                     '<?= $imageSrc ?>')">
-                                                <i class="bi bi-eye"></i> </a>
-                                                <?php
-                                                    $disabled = ($complaint['remarks'] === 'CASE CLOSED') ? 'disabled' : '';
-                                                ?>
-                                                <button class="btn btn-danger btn-sm me-2" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>')" <?= $disabled ?>>
-                                                    <i class="bi bi-x-octagon"></i>
-                                                </button>
-
+                                                <i class="bi bi-eye" title="View Details"></i> </a>
+                                            <button class="btn btn-danger btn-sm me-2" title="Close Case" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>', '<?= htmlspecialchars($complaint['remarks']) ?>')">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center">No approved complaints found.</td>
+                                <td colspan="8" class="text-center">No approved complaints found.</td>
                             </tr>
                         <?php endif; ?>
                         </tbody>
@@ -395,14 +391,14 @@
                                                                         '<?= htmlspecialchars($complaint['incident_place'])?>',
                                                                         '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                         '<?= $imageSrc ?>')">
-                                                    <i class="bi bi-eye"></i> </a>
+                                                    <i class="bi bi-eye" title="View Details"></i> </a>
                                             </div>
                                         </td>
                                     </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center">No rejected complaints found.</td>
+                                <td colspan="8" class="text-center">No rejected complaints found.</td>
                             </tr>
                         <?php endif; ?>
                         </tbody>

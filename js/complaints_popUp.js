@@ -305,8 +305,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // });
 
 
-  
-
 // show details pop up
 async function showDetails(
     resident_name,
@@ -604,7 +602,18 @@ async function reject_complaint(complaint_id) {
 }
 
 // closing the case pop up
-async function closeCase(complaint_id) {
+async function closeCase(complaint_id, remarks) {
+    if (remarks === 'CASE CLOSED') {
+        Swal.fire({
+            title: 'Already Closed',
+            text: "This case is already closed.",
+            icon: 'info',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
+
     const { value: reason } = await Swal.fire({
         title: "Reason for Closing",
         input: 'textarea',
@@ -642,8 +651,7 @@ async function closeCase(complaint_id) {
                     text: 'The case has been successfully closed.',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    // Disable the button
-                    document.querySelector(`button[onclick="closeCase('${complaint_id}')"]`).disabled = true;
+                    location.reload(); // Refresh the page to reflect the changes
                 });
             } else {
                 Swal.fire({
