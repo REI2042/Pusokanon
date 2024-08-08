@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } elseif ($currentStatus['stat'] == 'Done' && $currentStatus['remarks'] == 'Released') {
                 echo json_encode(['stat' => 'error', 'message' => 'QR has been scanned']);
             } else {
-                echo json_encode(['stat' => 'error', 'message' => 'Invalid status or remarks']);
+                echo json_encode(['stat' => 'error', 'message' => 'Document is not Ready Yet']);
             }
         } else {
             echo json_encode(['stat' => 'error', 'message' => 'Document not found']);

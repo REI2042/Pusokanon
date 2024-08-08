@@ -12,7 +12,7 @@
             $fetchStmt = $pdo->prepare($fetchSql);
             $fetchStmt->execute([$res_id]);
             $userData = $fetchStmt->fetch(PDO::FETCH_ASSOC);
-
+            
             // Insert user into resident table
             $insertSql = "INSERT INTO resident_users (res_ID, res_fname, res_lname, res_midname, res_suffix, gender, birth_date, civil_status, registered_voter, citizenship, contact_no, place_birth, addr_sitio, res_email, res_password, userRole_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $insertStmt = $pdo->prepare($insertSql);

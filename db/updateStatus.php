@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
 
         if ($resident) {
             // Generate the word document
-            $templateProcessor = new TemplateProcessor('../template.docx');
+            $templateProcessor = new TemplateProcessor('../File_Templates/template_Certificate.docx');
             $templateProcessor->setValue('name', htmlspecialchars($resident['res_fname'] . ' ' . $resident['res_lname']));
             $templateProcessor->setValue('purpose', htmlspecialchars($resident['purpose_name']));
             $templateProcessor->setValue('date', htmlspecialchars($resident['Day']));
@@ -50,10 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
                 readfile($tempFile);
                 unlink($tempFile); // delete the temporary file
 
-                // Update status to 'Processing'
-                
 
-                exit; // Ensure the script ends here
+                exit; 
             } else {
                 $stats = 'Pending';
                 $sql = "UPDATE request_doc SET stat = :stats WHERE doc_ID = :doc_ID";
