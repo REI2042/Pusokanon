@@ -63,7 +63,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {// Check if
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Updates</a>
+                        <a class="nav-link" href="#">News</a>
                     </li>
 
                     <li class="nav-item dropdown">
