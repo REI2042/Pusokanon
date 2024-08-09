@@ -8,7 +8,8 @@ if (isset($_POST['firstName'])) {
     $middleName = encryptData($_POST['middleName']);
     $lastName = encryptData($_POST['lastName']);
     $suffix = encryptData($_POST['suffix']);
-    $birthDate = encryptData($_POST['birthdayDate']);
+    $birthDate = $_POST['birthdayDate']; // Expecting 'YYYY-MM-DD'
+    $birthDate = encryptData($birthDate);
     $gender = encryptData($_POST['inlineRadioOptions']);
     $email = encryptData($_POST['emailAddress']);
     $phoneNumber = encryptData($_POST['phoneNumber']);
@@ -19,16 +20,17 @@ if (isset($_POST['firstName'])) {
 
     $password = hashPassword($_POST['password']);
 
-    $sql = "INSERT INTO barangay_staff (staff_fname, staff_lname, staff_midname, staff_suffix, birth_date, gender, contact_no, userRole_id, staff_email, user_name, staff_password, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    $sql = "INSERT INTO barangay_staff (staff_fname, staff_lname, staff_midname, staff_suffix, birth_date, gender, contact_no, userRole_id, staff_email, user_name, staff_password, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
 
-    if ($stmt->execute([$firstName, $lastName, $middleName, $suffix, $birthDate, $gender, $phoneNumber, $accountType, $email, $username ,$password, $status])) {
+    if ($stmt->execute([$firstName, $lastName, $middleName, $suffix, $birthDate, $gender, $phoneNumber, $accountType, $email, $username, $password, $status])) {
         echo json_encode(['success' => 'New record created successfully']);
     } else {
         echo json_encode(['error' => 'Error creating record']);
     }
-} else {
-    echo json_encode(['error' => 'Invalid request']);
-}
+
+    } else {
+        echo json_encode(['error' => 'Invalid request']);
+    }
 ?>
 

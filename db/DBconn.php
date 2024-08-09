@@ -332,7 +332,7 @@ function fetchStaffAccounts($pdo, $search = null) {
     return $results;
 }
 
-function fetchStaffInfo($pdo, $staffId = null) {
+function fetchStaffInfo($pdo, $staffId) {
     $sql = "SELECT bs.staff_id, 
                    bs.staff_fname,
                    bs.staff_midname,
@@ -346,7 +346,7 @@ function fetchStaffInfo($pdo, $staffId = null) {
                    bs.gender,
                    bs.staff_suffix,
                    bs.user_name,
-				   bs.staff_password
+                   bs.staff_password
             FROM barangay_staff bs
             INNER JOIN account_role ac ON bs.userRole_id = ac.userRole_id";
 
@@ -354,17 +354,99 @@ function fetchStaffInfo($pdo, $staffId = null) {
         $sql .= " WHERE bs.staff_id = :staff_id";
     }
 
-    $stmt = $pdo->prepare($sql);
+    try {
+        $stmt = $pdo->prepare($sql);
+        if ($staffId !== null) {
+            $stmt->bindParam(':staff_id', $staffId, PDO::PARAM_INT);
+        }
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($results) {
+            // Decrypt the data
+            foreach ($results as &$row) {
+                $row['staff_fname'] = safeDecrypt($row['staff_fname'], 'staff_fname');
+                $row['staff_midname'] = safeDecrypt($row['staff_midname'], 'staff_midname');
+                $row['staff_lname'] = safeDecrypt($row['staff_lname'], 'staff_lname');
+                $row['staff_email'] = safeDecrypt($row['staff_email'], 'staff_email');
+                $row['contact_no'] = safeDecrypt($row['contact_no'], 'contact_no');
+                $row['birth_date'] = safeDecryptDate($row['birth_date'], 'birth_date');
+                $row['gender'] = safeDecrypt($row['gender'], 'gender');
+                $row['staff_suffix'] = safeDecrypt($row['staff_suffix'], 'staff_suffix');
+                $row['user_name'] = safeDecrypt($row['user_name'], 'user_name');
+            }
+        }
+        return $results;
+    } catch (PDOException $e) {
+        error_log("Database query error: " . $e->getMessage());
+        return [];
+    }
+}
+
+function safeDecrypt($data, $fieldName) {
+    if (is_null($data)) {
+        error_log("Null data passed for decryption in $fieldName.");
+        return $data; // Or return a default value if needed
+    }
+    try {
+        $decrypted = decryptData($data);
+        if ($decrypted === false) {
+            error_log("Decryption failed for $fieldName: " . error_get_last()['message']);
+            return $data;
+        }
+        return $decrypted;
+    } catch (Exception $e) {
+        error_log("Decryption error for $fieldName: " . $e->getMessage());
+        return $data;
+    }
+}
+
+function safeDecryptDate($data, $fieldName) {
+    if (is_null($data)) {
+        error_log("Null data passed for decryption in $fieldName.");
+        return $data; // Or return a default value if needed
+    }
+    try {
+        $decrypted = decryptDate($data);
+        if ($decrypted === false) {
+            error_log("Decryption failed for $fieldName: " . error_get_last()['message']);
+            return $data;
+        }
+        return $decrypted;
+    } catch (Exception $e) {
+        error_log("Decryption error for $fieldName: " . $e->getMessage());
+        return $data;
+    }
+}
+
+function decryptDate($encryptedDate) {
+    // This function should implement the decryption logic for dates.
+    // Assuming you use the same decryption logic as other fields.
     
-    if ($staffId !== null) {
-        $stmt->bindParam(':staff_id', $staffId, PDO::PARAM_INT);
+    // Placeholder for the actual decryption logic
+    // Replace this with your actual decryption algorithm
+    $decryptedDate = openssl_decrypt($encryptedDate, 'aes-256-cbc', $encryptionKey, 0, $iv);
+    
+    if ($decryptedDate === false) {
+        return false; // Indicate decryption failure
     }
 
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Ensure the decrypted date is in a valid format
+    $date = DateTime::createFromFormat('Y-m-d', $decryptedDate);
+    if ($date === false) {
+        return false; // Indicate format validation failure
+    }
 
-    return $results;
+    return $date->format('Y-m-d'); // Return the date in 'Y-m-d' format
 }
+
+
+
+
+
+
+
+
 
 
 
