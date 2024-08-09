@@ -37,20 +37,40 @@ function verifyPassword($password, $hash)
 	return password_verify($password, $hash);
 }
 
-// Encryption key (you should use a secure key management system)
-define('ENCRYPTION_KEY', 'qwmnsdfghankyetr');
+// // Encryption key (you should use a secure key management system)
+// define('ENCRYPTION_KEY', 'qwmnsdfghankyetr');
+
+// // Function to encrypt data
+// function encryptData($data)
+// {
+// 	return openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
+// }
+
+// // Function to decrypt data
+// function decryptData($data)
+// {
+// 	return openssl_decrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
+// }
+
+define('ENCRYPTION_KEY', 'qwmnsdfghankyetrqwmnsdfghankyetr'); // 32-byte key for AES-256-CBC
 
 // Function to encrypt data
 function encryptData($data)
 {
-	return openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
+    $iv = openssl_random_pseudo_bytes(16); // Generate a 16-byte IV
+    $encryptedData = openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, $iv);
+    return base64_encode($iv . $encryptedData); // Prepend IV to the encrypted data
 }
 
 // Function to decrypt data
 function decryptData($data)
 {
-	return openssl_decrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
+    $data = base64_decode($data); // Decode the base64 encoded string
+    $iv = substr($data, 0, 16); // Extract the IV
+    $encryptedData = substr($data, 16); // Extract the encrypted data
+    return openssl_decrypt($encryptedData, 'aes-256-cbc', ENCRYPTION_KEY, 0, $iv);
 }
+
 
 
 function fetchRegister($pdo, $limit, $offset)
@@ -420,12 +440,7 @@ function safeDecryptDate($data, $fieldName) {
 }
 
 function decryptDate($encryptedDate) {
-    // This function should implement the decryption logic for dates.
-    // Assuming you use the same decryption logic as other fields.
-    
-    // Placeholder for the actual decryption logic
-    // Replace this with your actual decryption algorithm
-    $decryptedDate = openssl_decrypt($encryptedDate, 'aes-256-cbc', $encryptionKey, 0, $iv);
+    $decryptedDate = decryptData($encryptedDate); // Reuse the same decryption function
     
     if ($decryptedDate === false) {
         return false; // Indicate decryption failure
@@ -439,6 +454,7 @@ function decryptDate($encryptedDate) {
 
     return $date->format('Y-m-d'); // Return the date in 'Y-m-d' format
 }
+
 
 
 

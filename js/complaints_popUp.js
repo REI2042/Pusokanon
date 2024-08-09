@@ -43,59 +43,61 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // resident complaint form pop up
-document.getElementById('complaintForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var formData = new FormData(this);
 
-    // Debugging FormData
-    console.log("FormData content:");
-    for (var [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
 
-    fetch('db/DBconn_complaints.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        console.log("Response Status:", response.status); // Debug response status
-        if (!response.ok) {
-            return response.text().then(text => { // Read response text if not ok
-                throw new Error('Network response was not ok: ' + text);
-            });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Response Data:", data); // Debug the response data
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Complaint Submitted',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.href = 'residentComplaints.php';
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: data.message,
-                confirmButtonText: 'OK'
-            });
-        }
-    })
-    .catch(error => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An error occurred: ' + error.message,
-            confirmButtonText: 'OK'
-        });
-        console.error('Error:', error);
-    });
-});
+// document.getElementById('complaintForm').addEventListener('submit', function(event) {
+//     event.preventDefault();
+//     var formData = new FormData(this);
+
+//     // Debugging FormData
+//     console.log("FormData content:");
+//     for (var [key, value] of formData.entries()) {
+//         console.log(key, value);
+//     }
+
+//     fetch('db/DBconn_complaints.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => {
+//         console.log("Response Status:", response.status); // Debug response status
+//         if (!response.ok) {
+//             return response.text().then(text => { // Read response text if not ok
+//                 throw new Error('Network response was not ok: ' + text);
+//             });
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         console.log("Response Data:", data); // Debug the response data
+//         if (data.success) {
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Complaint Submitted',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             }).then(() => {
+//                 window.location.href = 'residentComplaints.php';
+//             });
+//         } else {
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: data.message,
+//                 confirmButtonText: 'OK'
+//             });
+//         }
+//     })
+//     .catch(error => {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Error',
+//             text: 'An error occurred: ' + error.message,
+//             confirmButtonText: 'OK'
+//         });
+//         console.error('Error:', error);
+//     });
+// });
 
 
 
