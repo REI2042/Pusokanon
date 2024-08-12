@@ -12,9 +12,9 @@
     <div class="container py-4 h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-9 col-xl-7">
-                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px; ">
                     <div class="card-body p-3 p-md-4">
-                        <h4 class="mb-3 pb-2 pb-md-0 mb-md-4 text-center">Create Staff Account</h4>
+                        <h4 class="mb-3 pb-2 pb-md-0 mb-md-4 text-center" style="font-family: 'Titan One', cursive; ">Create Staff Account</h4>
                         <form id="staffAccountForm" method="POST">
 
                             <div class="row">
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <select id="suffix" name="suffix" class="form-control form-control-sm">
+                                        <select id="suffix" type="text" name="suffix" class="form-control form-control-sm">
                                             <option value="">Select Suffix</option>
                                             <option value="Jr.">Jr.</option>
                                             <option value="Sr.">Sr.</option>
@@ -61,21 +61,16 @@
 
                                 <div class="col-md-6 mb-3 ps-0">
 
-                                    <h6 class="mb-2 pb-1 ps-1" style="font-size: 0.9rem; color: white;">Gender: </h6>
+                                    <h6 class="mb-2 pb-1 ps-1 form-check-inline" style="font-size: 0.9rem; font-weight: 400; ">Gender: </h6>
 
                                     <div class="form-check form-check-inline ">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="Male"autocomplete="off" checked />
-                                        <label class="form-check-label" for="femaleGender" style="font-size: 0.9rem;">Female</label>
+                                        <label class="form-check-label" for="femaleGender" style="font-size: 0.9rem;">Male</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="Female" autocomplete="off"  />
-                                        <label class="form-check-label" for="maleGender" style="font-size: 0.9rem;">Male</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="Other" autocomplete="off"/>
-                                        <label class="form-check-label" for="otherGender" style="font-size: 0.9rem;">Other</label>
+                                        <label class="form-check-label" for="maleGender" style="font-size: 0.9rem;">Female</label>
                                     </div>
 
                                 </div>
@@ -90,7 +85,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3 pb-2 ps-2 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="number" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off"/>
+                                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="phoneNumber">Phone Number</label>
                                     </div>
                                 </div>

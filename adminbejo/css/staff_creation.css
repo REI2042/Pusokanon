@@ -18,19 +18,7 @@
     }
 
     .card-body{
-        background-color: #2260A7;
+        background-color: #f0f0f0;
         border-radius: 15px;
 
-    }
-
-    .form-label{
-        color: white;
-    }
-
-    .form-check{
-        color: white;
-    }
-
-    h4{
-        color: white;
     }

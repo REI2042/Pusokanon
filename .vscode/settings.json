@@ -1,5 +1,6 @@
 {
-    "workbench.colorCustomizations":{
-        "titleBar.activeBackground": "#1aa7d2",
-    } 
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#6f33ce"
+    },
+    "workbench.tree.indent": 8
 }

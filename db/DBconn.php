@@ -37,39 +37,59 @@ function verifyPassword($password, $hash)
 	return password_verify($password, $hash);
 }
 
-// // Encryption key (you should use a secure key management system)
-// define('ENCRYPTION_KEY', 'qwmnsdfghankyetr');
-
-// // Function to encrypt data
-// function encryptData($data)
-// {
-// 	return openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
-// }
-
-// // Function to decrypt data
-// function decryptData($data)
-// {
-// 	return openssl_decrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
-// }
-
-define('ENCRYPTION_KEY', 'qwmnsdfghankyetrqwmnsdfghankyetr'); // 32-byte key for AES-256-CBC
+// Encryption key (you should use a secure key management system)
+define('ENCRYPTION_KEY', 'qwmnsdfghankyetr');
 
 // Function to encrypt data
 function encryptData($data)
 {
-    $iv = openssl_random_pseudo_bytes(16); // Generate a 16-byte IV
-    $encryptedData = openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, $iv);
-    return base64_encode($iv . $encryptedData); // Prepend IV to the encrypted data
+	return openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
 }
 
 // Function to decrypt data
 function decryptData($data)
 {
-    $data = base64_decode($data); // Decode the base64 encoded string
-    $iv = substr($data, 0, 16); // Extract the IV
-    $encryptedData = substr($data, 16); // Extract the encrypted data
-    return openssl_decrypt($encryptedData, 'aes-256-cbc', ENCRYPTION_KEY, 0, $iv);
+	return openssl_decrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
 }
+
+// Function to encrypt date
+function encryptDate($date)
+{
+    $timestamp = strtotime($date);
+    return encryptData($timestamp);
+}
+
+// Function to decrypt date
+function decryptDate($encryptedDate)
+{
+    $timestamp = decryptData($encryptedDate);
+    return date('Y-m-d', $timestamp);
+}
+
+// Function to encrypt number
+function encryptNumber($number)
+{
+    return encryptData((string)$number);
+}
+
+// Function to decrypt number
+function decryptNumber($encryptedNumber)
+{
+    return (int)decryptData($encryptedNumber);
+}
+
+// Function to compare encrypted dates
+function compareEncryptedDates($encryptedDate1, $encryptedDate2)
+{
+    return strcmp($encryptedDate1, $encryptedDate2);
+}
+
+// Function to compare encrypted numbers
+function compareEncryptedNumbers($encryptedNumber1, $encryptedNumber2)
+{
+    return strcmp($encryptedNumber1, $encryptedNumber2);
+}
+
 
 
 
@@ -287,6 +307,8 @@ function fetchLatestRequest($pdo, $userId)
 	return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+
+
 function getTotalStaffCount($pdo, $search = null) {
     $query = "SELECT COUNT(*) FROM barangay_staff bs";
     
@@ -317,7 +339,11 @@ function fetchStaffAccounts($pdo, $search = null) {
             bs.staff_fname,
             bs.staff_midname,
             bs.staff_lname,
+			bs.staff_suffix,
             bs.staff_email, 
+			bs.user_name,
+			bs.birth_date,
+			bs.gender,
             bs.contact_no, 
             bs.userRole_id, 
             ac.role_definition, 
@@ -385,15 +411,17 @@ function fetchStaffInfo($pdo, $staffId) {
         if ($results) {
             // Decrypt the data
             foreach ($results as &$row) {
-                $row['staff_fname'] = safeDecrypt($row['staff_fname'], 'staff_fname');
-                $row['staff_midname'] = safeDecrypt($row['staff_midname'], 'staff_midname');
-                $row['staff_lname'] = safeDecrypt($row['staff_lname'], 'staff_lname');
-                $row['staff_email'] = safeDecrypt($row['staff_email'], 'staff_email');
-                $row['contact_no'] = safeDecrypt($row['contact_no'], 'contact_no');
-                $row['birth_date'] = safeDecryptDate($row['birth_date'], 'birth_date');
-                $row['gender'] = safeDecrypt($row['gender'], 'gender');
-                $row['staff_suffix'] = safeDecrypt($row['staff_suffix'], 'staff_suffix');
-                $row['user_name'] = safeDecrypt($row['user_name'], 'user_name');
+                $row['staff_fname'] = decryptData($row['staff_fname']);
+                $row['staff_midname'] = decryptData($row['staff_midname']);
+                $row['staff_lname'] = decryptData($row['staff_lname']);
+                $row['staff_email'] = decryptData($row['staff_email']);
+               
+                $row['birth_date'] = decryptData($row['birth_date']);
+                $row['gender'] = decryptData($row['gender']);
+                $row['staff_suffix'] = decryptData($row['staff_suffix']);
+                $row['contact_no'] = decryptData($row['contact_no']);
+                $row['user_name'] = decryptData($row['user_name']);
+                
             }
         }
         return $results;
@@ -403,57 +431,58 @@ function fetchStaffInfo($pdo, $staffId) {
     }
 }
 
-function safeDecrypt($data, $fieldName) {
-    if (is_null($data)) {
-        error_log("Null data passed for decryption in $fieldName.");
-        return $data; // Or return a default value if needed
-    }
-    try {
-        $decrypted = decryptData($data);
-        if ($decrypted === false) {
-            error_log("Decryption failed for $fieldName: " . error_get_last()['message']);
-            return $data;
-        }
-        return $decrypted;
-    } catch (Exception $e) {
-        error_log("Decryption error for $fieldName: " . $e->getMessage());
-        return $data;
-    }
-}
 
-function safeDecryptDate($data, $fieldName) {
-    if (is_null($data)) {
-        error_log("Null data passed for decryption in $fieldName.");
-        return $data; // Or return a default value if needed
-    }
-    try {
-        $decrypted = decryptDate($data);
-        if ($decrypted === false) {
-            error_log("Decryption failed for $fieldName: " . error_get_last()['message']);
-            return $data;
-        }
-        return $decrypted;
-    } catch (Exception $e) {
-        error_log("Decryption error for $fieldName: " . $e->getMessage());
-        return $data;
-    }
-}
+// function safeDecrypt($data, $fieldName) {
+//     if (is_null($data)) {
+//         error_log("Null data passed for decryption in $fieldName.");
+//         return $data; // Or return a default value if needed
+//     }
+//     try {
+//         $decrypted = decryptData($data);
+//         if ($decrypted === false) {
+//             error_log("Decryption failed for $fieldName: " . error_get_last()['message']);
+//             return $data;
+//         }
+//         return $decrypted;
+//     } catch (Exception $e) {
+//         error_log("Decryption error for $fieldName: " . $e->getMessage());
+//         return $data;
+//     }
+// }
 
-function decryptDate($encryptedDate) {
-    $decryptedDate = decryptData($encryptedDate); // Reuse the same decryption function
+// function safeDecryptDate($data, $fieldName) {
+//     if (is_null($data)) {
+//         error_log("Null data passed for decryption in $fieldName.");
+//         return $data; // Or return a default value if needed
+//     }
+//     try {
+//         $decrypted = decryptDate($data);
+//         if ($decrypted === false) {
+//             error_log("Decryption failed for $fieldName: " . error_get_last()['message']);
+//             return $data;
+//         }
+//         return $decrypted;
+//     } catch (Exception $e) {
+//         error_log("Decryption error for $fieldName: " . $e->getMessage());
+//         return $data;
+//     }
+// }
+
+// function decryptDate($encryptedDate) {
+//     $decryptedDate = decryptData($encryptedDate); // Reuse the same decryption function
     
-    if ($decryptedDate === false) {
-        return false; // Indicate decryption failure
-    }
+//     if ($decryptedDate === false) {
+//         return false; // Indicate decryption failure
+//     }
 
-    // Ensure the decrypted date is in a valid format
-    $date = DateTime::createFromFormat('Y-m-d', $decryptedDate);
-    if ($date === false) {
-        return false; // Indicate format validation failure
-    }
+//     // Ensure the decrypted date is in a valid format
+//     $date = DateTime::createFromFormat('Y-m-d', $decryptedDate);
+//     if ($date === false) {
+//         return false; // Indicate format validation failure
+//     }
 
-    return $date->format('Y-m-d'); // Return the date in 'Y-m-d' format
-}
+//     return $date->format('Y-m-d'); // Return the date in 'Y-m-d' format
+// }
 
 
 

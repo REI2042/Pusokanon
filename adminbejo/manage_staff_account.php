@@ -1,4 +1,5 @@
 <?php
+// Start the session here
     include '../include/staff_restrict_pages.php';
     include 'headerAdmin.php';
     include '../db/DBconn.php';
@@ -14,9 +15,42 @@
 
     $staffs = array_slice($all_staffs, $offset, $limit);
     $total_pages = ceil($total_records / $limit);
-?>
-<link rel="stylesheet" href="css/manage_staff.css">
     
+
+    $staffId = $_GET['staff_id'] ?? null;
+    $staffChangeStastus = fetchStaffAccounts($pdo, $staffId);
+    $accountRole = accountRole($pdo);
+
+    $status = $_GET['status'] ?? null;
+?>
+
+<link rel="stylesheet" href="css/manage_staff.css">
+<?php if ($status === 'success'): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Staff account updated successfully!',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    });
+</script>
+<?php elseif ($status === 'error'): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was an error updating the staff account.',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    });
+</script>
+<?php endif; ?>
+
 <div class="container-fluid">
     <h1>Manage Staff Account</h1>
     <div class="mu-ds row d-flex justify-content-end mt-5 mb-3">
@@ -134,5 +168,6 @@
     </div>
 </div>
 <script src="../js/manage_account.js"></script>
+
 
 <?php require_once 'footerAdmin.php'; ?>

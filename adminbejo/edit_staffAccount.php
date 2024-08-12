@@ -4,17 +4,16 @@ include 'headerAdmin.php';
 include '../db/DBconn.php';
 
 $staffId = $_GET['staff_id'] ?? null;
-$staff = fetchStaffInfo($pdo, $staffId);
+$staff = fetchStaffAccounts($pdo, $staffId);
 $accountRole = accountRole($pdo);
 
 
-
-
-
 ?>
-
-<link rel="stylesheet" href="css/staff_creation.css">
 </div>
+<link rel="stylesheet" href="css/staff_creation.css">
+
+
+
 <section class="gradient-custom">
     <div class="container py-4 h-100">
         <div class="row justify-content-center align-items-center h-100">
@@ -29,32 +28,32 @@ $accountRole = accountRole($pdo);
                                 <div class="row">
                                     <div class="col-md-3 mb-3 ps-3 pe-1">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" id="firstName" name="firstName" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars($staffMember['staff_fname']); ?>">
+                                            <input type="text" id="firstName" name="firstName" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars(decryptData($staffMember['staff_fname'])); ?>" placeholder="<?= htmlspecialchars(decryptData($staffMember['staff_fname'])); ?>">
                                             <label class="form-label" for="firstName">First Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3 ps-1 pe-1">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" id="lastName" name="lastName" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars($staffMember['staff_lname']); ?>">
+                                            <input type="text" id="lastName" name="lastName" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars(decryptData($staffMember['staff_lname'])); ?>">
                                             <label class="form-label" for="lastName">Last Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3 ps-1 pe-1">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" id="middleName" name="middleName" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars($staffMember['staff_midname']); ?>">
+                                            <input type="text" id="middleName" name="middleName" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars(decryptData($staffMember['staff_midname'])); ?>" placeholder="<?= htmlspecialchars(decryptData($staffMember['staff_midname'])); ?>">
                                             <label class="form-label" for="middleName">Middle Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3 ps-1">
                                         <div data-mdb-input-init class="form-outline">
-                                        <select id="suffix" name="suffix" class="form-control form-control-sm">
-    <option value="">Select Suffix</option>
-    <option value="Jr." <?= $staffMember['staff_suffix'] == 'Jr.' ? 'selected' : '' ?>>Jr.</option>
-    <option value="Sr." <?= $staffMember['staff_suffix'] == 'Sr.' ? 'selected' : '' ?>>Sr.</option>
-    <option value="II" <?= $staffMember['staff_suffix'] == 'II' ? 'selected' : '' ?>>II</option>
-    <option value="III" <?= $staffMember['staff_suffix'] == 'III' ? 'selected' : '' ?>>III</option>
-    <option value="IV" <?= $staffMember['staff_suffix'] == 'IV' ? 'selected' : '' ?>>IV</option>
-</select>
+                                        <select id="suffix" name="suffix" placeholder="<?= htmlspecialchars($staffMember['staff_suffix']); ?>" class="form-control form-control-sm">
+                                            <option value="">N/A</option>
+                                            <option value="Jr." <?= $staffMember['staff_suffix'] == 'Jr.' ? 'selected' : '' ?>>Jr.</option>
+                                            <option value="Sr." <?= $staffMember['staff_suffix'] == 'Sr.' ? 'selected' : '' ?>>Sr.</option>
+                                            <option value="II" <?= $staffMember['staff_suffix'] == 'II' ? 'selected' : '' ?>>II</option>
+                                            <option value="III" <?= $staffMember['staff_suffix'] == 'III' ? 'selected' : '' ?>>III</option>
+                                            <option value="IV" <?= $staffMember['staff_suffix'] == 'IV' ? 'selected' : '' ?>>IV</option>
+                                        </select>
                                             <label class="form-label" for="suffix">Suffix</label>
                                         </div>
                                     </div>
@@ -62,14 +61,14 @@ $accountRole = accountRole($pdo);
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3 d-flex align-items-center">
-                                    <div class="form-outline w-100">
-                                            <input type="date" name="birthdayDate" class="form-control form-control-sm" id="birthdayDate" max="<?= date('Y-m-d'); ?>" value="<?= htmlspecialchars($staffMember['birth_date']); ?>" />
+                                    <div class="form-outline w-100 ">
+                                            <input type="date" name="birthdayDate" class="form-control form-control-sm" id="birthdayDate" max="<?= date('Y-m-d'); ?>" value="<?= htmlspecialchars(decryptDate($staffMember['birth_date'])) ;?>" />
                                             <label for="birthdayDate" class="form-label">Birthday</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-3 ps-0">
-                                        <h6 class="mb-2 pb-1 ps-1" style="font-size: 0.9rem; color: white;">Gender: </h6>
+                                        <h6 class="mb-2 pb-1 ps-1 form-check-inline" style="font-size: 0.9rem; font-weight:400">Gender: </h6>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="Female" <?= strtolower($staffMember['gender']) == 'female' ? 'checked' : '' ?> autocomplete="off" />
                                             <label class="form-check-label" for="femaleGender" style="font-size: 0.9rem;">Female</label>
@@ -78,24 +77,20 @@ $accountRole = accountRole($pdo);
                                             <input class="form-check-input" type="radio" name="gender" id="maleGender" value="Male" <?= strtolower($staffMember['gender']) == 'male' ? 'checked' : '' ?> autocomplete="off" />
                                             <label class="form-check-label" for="maleGender" style="font-size: 0.9rem;">Male</label>
                                         </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="otherGender" value="Other" <?= strtolower($staffMember['gender']) == 'other' ? 'checked' : '' ?> autocomplete="off" />
-                                            <label class="form-check-label" for="otherGender" style="font-size: 0.9rem;">Other</label>
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-4 mb-3 pb-2 pe-0">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars($staffMember['staff_email']); ?>">
+                                            <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars(decryptData($staffMember['staff_email'])); ?>" placeholder="<?= htmlspecialchars(decryptData($staffMember['staff_email']));?>" >
                                             <label class="form-label" for="emailAddress">Email</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3 pb-2 ps-2 pe-1">
                                         <div data-mdb-input-init class="form-outline">
-                                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars($staffMember['contact_no']); ?>">
-                                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                                            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off" value="<?= htmlspecialchars($staffMember['contact_no']); ?>">
+                                            <label class="form-label" for="phoneNumber">Phone Number</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3 pb-2 ps-1 pe-0">
@@ -110,7 +105,7 @@ $accountRole = accountRole($pdo);
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <input type="username" name="username" class="form-control mt-4" id="username" placeholder="Username" autocomplete="off" value="<?= htmlspecialchars($staffMember['user_name']); ?>"/>
+                                        <input type="username" name="username" class="form-control mt-4" id="username" placeholder="Username" autocomplete="off" value="<?= htmlspecialchars(decryptData($staffMember['user_name'])); ?>" placeholder="<?= htmlspecialchars(decryptData($staffMember['user_name'])); ?>"/>
                                         <label class="form-label" for="username">Username</label>
                                     </div>
                                 </div>
@@ -119,7 +114,7 @@ $accountRole = accountRole($pdo);
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <div class="input-group">
-                                                <input type="password" id="password" name="password" class="form-control" value="<?= htmlspecialchars($staffMember['staff_password']); ?>" autocomplete="off"/>
+                                                <input type="password" id="password" name="password" class="form-control" autocomplete="off"/>
                                                 <span class="input-group-text" id="togglePassword">
                                                     <i class="fas fa-eye"></i>
                                                 </span>
@@ -181,3 +176,5 @@ $accountRole = accountRole($pdo);
 <div>
 
 <?php include 'footerAdmin.php'; ?>
+
+
