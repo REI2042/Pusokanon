@@ -476,16 +476,6 @@ function fetchStaffInfo($pdo, $staffId) {
 // }
 
 
-
-
-
-
-
-
-
-
-
-
 // function fetchStaffAccounts($pdo){
 // 	$sql = "SELECT bs.staff_id, 
 // 			bs.staff_fname, bs.staff_midname, bs.staff_lname,
@@ -896,8 +886,7 @@ function countDocumentHistory($pdo, $userId)
     return $stmt->fetchColumn();
 }
 
-function accountRole($pdo)
-{
+function accountRole($pdo){
 	$sql = "SELECT userRole_id, role_definition FROM account_role WHERE userRole_id != 2";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
@@ -990,8 +979,7 @@ function fetchdocsRequestHistorySearch($pdo,$doctype ,$status, $remarks, $limit,
 	return $stmt->fetchAll();
 }
 
-function fetchdocsRequestHistory($pdo, $doctype, $status, $remarks, $limit, $offset)
-{
+function fetchdocsRequestHistory($pdo, $doctype, $status, $remarks, $limit, $offset){
 	$sql = "SELECT 
 				ru.res_id, doc_ID, stat,
 				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name, 
@@ -1017,8 +1005,7 @@ function fetchdocsRequestHistory($pdo, $doctype, $status, $remarks, $limit, $off
 	return $stmt->fetchAll();
 }
 
-function fetchResidentDetails($pdo, $residentId)
-{
+function fetchResidentDetails($pdo, $residentId){
     $sql = "SELECT * FROM resident_users WHERE res_ID = :residentId";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':residentId', $residentId, PDO::PARAM_INT);
@@ -1028,8 +1015,7 @@ function fetchResidentDetails($pdo, $residentId)
 }
 
 
-function fetchChartData($pdo)
-{
+function fetchChartData($pdo){
     $sql = "SELECT isp.sitio_name, isp.total_initial_residents, COUNT(ru.res_ID) as registered_residents
             FROM initial_sitio_population isp
             LEFT JOIN resident_users ru ON isp.sitio_name = ru.addr_sitio
