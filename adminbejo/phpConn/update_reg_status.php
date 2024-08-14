@@ -11,4 +11,4 @@
         $stmt->execute([$newStatus, $resID]);
 
     }
-?>
+?>  
