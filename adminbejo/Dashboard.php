@@ -31,9 +31,7 @@
                 <div class="row mr-0 mb-3">
                     <div class="record-container col-12 col-sm-4">
                         <div class="record-box text-center">
-                            <i class="fa-solid fa-users fa-2x"></i>
-                            <p class="record-title">Total Users</p>
-                            <p class="record-count"><?php echo "$total_users"; ?></p>
+                            <i class="fa-solid fa-users fa-2x" style="background: linear-gradient(45deg, #FFC0CB, #00BFFF); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>                            <p class="record-title">Total Users</p>                            <p class="record-count"><?php echo "$total_users"; ?></p>
                         </div>
                     </div>
                     <div class="record-container col-12 col-sm-4">
@@ -64,7 +62,7 @@
                     </div>
                     <div class="record-container col-12 col-sm-4">
                         <div class="record-box text-center">
-                            <i class="fa-solid fa-user-check fa-2x" style="color: #28A745"></i>
+                            <i class="fa-solid fa-user-check fa-2x" style="color: #2ee745"></i>
                             <p class="record-title">Registered Voters</p>
                             <p class="record-count"><?php echo "$registered_voters"; ?></p>
                         </div>
@@ -189,38 +187,37 @@
             </div>
             <div class="box col-12 col-sm-4">
                 <div class="row text-center m-3">
-                    <i class="icon fa-solid fa-map-location-dot fa-2x"></i>
-                    <h6 class="sub-title">NUMBER OF USERS BY SITIO</h6>
+                    <i class="icon fa-solid fa-map-location-dot fa-2x" style="background: linear-gradient(45deg, #28A745, #f0f099); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>                    <h6 class="sub-title">NUMBER OF USERS BY SITIO</h6>
                 </div>
                 <div class="row text-center align-items-start ml-0 mr-0">
                     <div class="sitio col-sm">
-                        <p class="sitio-name" style="background-color: #FF3333;">LAWIS</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">LAWIS</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'LAWIS'); ?></p>
-                        <p class="sitio-name" style="background-color: #FF9933;">SEABREEZE</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">SEABREEZE</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Seabreeze'); ?></p>
-                        <p class="sitio-name" style="background-color: #FFFF33;">SAN ROQUE</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">SAN ROQUE</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'San Roque'); ?></p>
-                        <p class="sitio-name" style="background-color: #99FF33;">SEASIDE</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">SEASIDE</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Seaside'); ?></p>
-                        <p class="sitio-name" style="background-color: #33FF33;">STA. MARIA</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">STA. MARIA</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Sta. Maria'); ?></p>
-                        <p class="sitio-name" style="background-color: #33FF99;">MATUMBO</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">MATUMBO</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Matumbo'); ?></p>
-                        <p class="sitio-name" style="background-color: #33FFFF;">CEMENTO</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">CEMENTO</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Cemento'); ?></p>
                     </div>
                     <div class="sitio col-sm">
-                        <p class="sitio-name" style="background-color: #3399FF;">MUSTANG</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">MUSTANG</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Mustang'); ?></p>
-                        <p class="sitio-name" style="background-color: #3333FF;">ARCA</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">ARCA</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Arca'); ?></p>
-                        <p class="sitio-name" style="background-color: #9933FF;">IBABAO</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">IBABAO</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Ibabao'); ?></p>
-                        <p class="sitio-name" style="background-color: #FF33FF;">CHUMBA-CHUMBA</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">CHUMBA-CHUMBA</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Chumba-chumba'); ?></p>
-                        <p class="sitio-name" style="background-color: #FF3399;">NEW LIPATA</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">NEW LIPATA</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'New Lipata'); ?></p>
-                        <p class="sitio-name" style="background-color: #A0A0A0;">SEWAGE</p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">SEWAGE</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Sewage'); ?></p>
                     </div>
                 </div>

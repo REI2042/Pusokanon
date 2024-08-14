@@ -16,7 +16,7 @@
     background-color: #2260A7;
     border-radius: 10px;
     padding: 15px 0px;
-    color: #F9F8FD;
+    color: #fcfdf8;
 }
 
 .record-title,
@@ -48,7 +48,7 @@
     font-weight: bold;
     color: #434349;
     background-color: #3d7cc4;
-    border-radius: 5px;
+    
 }
 
 .sitio-numbers {
