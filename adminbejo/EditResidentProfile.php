@@ -43,7 +43,7 @@
             </div>
             <div class="col-12 text-center mt-2">
                 <p class="resident-id my-1"><strong>ID Number:</strong> <?= htmlspecialchars($resident['res_ID']); ?></p>
-                <p class="account-status my-1"><strong>Account Status:</strong>  <?php echo $resident['is_active'] ? 'Active' : 'Deactivated'; ?></p>
+                <p class="account-status my-1"><strong>Account Status:</strong>  <?php echo $resident['account_active_status'] ? 'Active' : 'Deactivated'; ?></p>
             </div>
             <div class="col-12 col-sm-4 px-1 mt-2">
                 <label for="firstname" class="form-label">First Name</label>

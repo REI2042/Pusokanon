@@ -190,7 +190,7 @@ include '../db/DBconn.php';
                                         <i class="fas fa-eye"></i>
                                     </button>
                                         <button class="btn btn-secondary btn-sm status-btn <?php echo $user['is_active'] ? 'deactivate-btn' : 'activate-btn'; ?>" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
-                                            <?php echo htmlspecialchars($user['is_active'] ? 'Deactivate' : 'Activate'); ?>
+                                            <?php echo htmlspecialchars($user['account_active_status'] ? 'Deactivate' : 'Activate'); ?>
                                         </button>
                                     </td>
                                 </tr>

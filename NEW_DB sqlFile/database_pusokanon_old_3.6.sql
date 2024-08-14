@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Aug 14, 2024 at 03:27 PM
+-- Generation Time: Aug 10, 2024 at 02:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -61,7 +61,7 @@ CREATE TABLE `barangay_staff` (
   `contact_no` varchar(20) NOT NULL,
   `userRole_id` int(11) NOT NULL,
   `staff_email` varchar(100) NOT NULL,
-  `user_name` varchar(100) NOT NULL,
+  `user_name` varchar(30) NOT NULL,
   `staff_password` varchar(100) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -72,8 +72,11 @@ CREATE TABLE `barangay_staff` (
 
 INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `contact_no`, `userRole_id`, `staff_email`, `user_name`, `staff_password`, `status`) VALUES
 (14, 'y6uepI9zt4ZrJ9xmLmSsjw==', '+MFss/zNRoJECy4hrlzhXw==', 'ecq8+4XRxyX+47+406+RHA==', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', '/E6zUxtovr16bzf1hwX8', '0', 1, '0P1kRNo3yJAG64fgWjSxPoH8uQl1+qDaXx7uaeIuW3w=', 'administrator', '$2y$10$BfdBmc07XyEbG7R8b0YrBeGWPRwjuRXkhurNUtMT8u45iBW7lH7ji', 'ACTIVE'),
-(17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', '', '0000-00-00', 'Male', '09347334823', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'BjfCK8M0mubh7rmg4W5sug==', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172', 'ACTIVE'),
-(60, '7QXDtZUbkEGvyt0/vp6biA==', '4bRlCdKuqV93r2XA+QypfA==', 'hT3TvBf3sF3Mgedpap/VGA==', '', '0000-00-00', 'Male', '09472340876', 1, '8pPI8TOCQfYSelCcQ21ss111JZhQCV8iJPI1rp8KhR0=', 'FLFydCCa0k1u9NOmNdmbTg==', '$2y$10$sA0UTCGbfUidCv337Re77ODGGqlDo9z.dKiYj8AXes3dYDlxWQS1G', 'ACTIVE');
+(17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', 'aSoXP6qGxdcVAIvtlLiF', '0000-00-00', '7GppKkCbhvktizXpUSh8', '7', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'admin', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172', 'ACTIVE'),
+(27, '6yqR0+QnKEQKGklXwgYQFw==', 'ClfEGy92wGUptxvQ/sDVNA==', 'A2El/BB9CpPVj1/1oLwIfg==', 'aSoXP6qGxdcVAIvtlLiF', '0000-00-00', 'Jq8oRXsIDZDVZbhgkps4', 'lX9uRkOLyAUEq', 5, 'QjTXcXAD5IsHQWthU6LmWDDnsja1SaOsCANi4WM7n0Y=', 'BjfCK8M0mubh7rmg4W5sug==', '$2y$10$J55/p2klvElde.VNS2sDXuLlQG7iMF05GfbYE0DY3ytNd8tMcVBqq', 'ACTIVE'),
+(29, 'Ha4jBGu2NEg0QyJ3/Kyc/Q==', 'gEJCqgGWo6QR19aJayv8wA==', 'deiLYiv5zbk2emLeViY8aQ==', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', 'Jq8oRXsIDZDVZbhgkps4', 'FZdl2jRhNsMk8CY3CxDR', 4, '3XlSZ5/Q1HcH2KC49ksEksj8gEBxNN/Lq6l5ENIHJSw=', 'ntXzhG2Xrvj3tOFjdOKb8w==', '$2y$10$G4unqKfon0LcRc/liP3xDeNdQJGJn5yS1.3s.mLppeYVvaED7hEnK', 'ACTIVE'),
+(30, 'q6E+lEiMRAxiOkbyhAJftg==', 'Il46pdjnqXE739N8htOZxQ==', 'KZeQrP2ldQ9xvnWUtmtQAg==', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', '7GppKkCbhvktizXpUSh8', 'uaIuxojn4ri1I58sdsKS', 4, '7fOzNU79FDIoQBub5mikrHeKHDwoSx16NzGt3qkqNRo=', 'mbXK/ZRnm82MFHkj6dgCPQ==', '$2y$10$EcCeTHsns1p6Rvym9o6vdOJzFCGQVK7ZfKIGxzRlqWiI1GKvJjJdm', 'ACTIVE'),
+(31, '2DJvNPK8g+ZpBKtcpmBgoQ==', 'HBQdKFOXc/UTLlAvkNU7oA==', 'AfEgoLHA9w5wWe8uU/Q8Uw==', 'lhUQKW2T9Bnf87FizXwX', '0000-00-00', '/E6zUxtovr16bzf1hwX8', 'xgiR0XtioRaxA4nZ0jwb', 5, 'p/O2J6yMLMPrxL2tuOrHyf/O4VdvOE0jhSNF6cal2mk=', 'C9EIrvGC72kO44xqenIGtw==', '$2y$10$v.0amzZsgUWxtB9Q3MOPzuvNk0XYTznIhfsjLFO3XqkvVfSLNoTT6', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -273,23 +276,25 @@ CREATE TABLE `resident_users` (
   `contact_no` varchar(13) NOT NULL,
   `res_email` varchar(100) NOT NULL,
   `addr_sitio` varchar(50) NOT NULL,
+  `addr_purok` varchar(50) NOT NULL,
   `res_password` varchar(100) NOT NULL,
   `profile_picture` varchar(200) DEFAULT NULL,
   `registered_voter` varchar(15) NOT NULL,
   `userRole_id` int(11) NOT NULL,
-  `verification_image` varchar(128) DEFAULT NULL,
-  `register_at` datetime NOT NULL DEFAULT current_timestamp(),
   `reset_token_hash` varchar(64) DEFAULT NULL,
   `reset_token_expires_at` datetime DEFAULT NULL,
-  `account_active_status` varchar(16) NOT NULL DEFAULT 'Unregistered'
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `resident_users`
 --
 
-INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `verification_image`, `register_at`, `reset_token_hash`, `reset_token_expires_at`, `account_active_status`) VALUES
-(6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'filipino', 'Rerum proident modi', '09893459842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', NULL, 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, 'Unregistered');
+INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `addr_purok`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `reset_token_hash`, `reset_token_expires_at`, `is_active`) VALUES
+(1, 'Niño Rey', 'Cabunilas', 'Yonson', ' ', 'Male', '2002-10-03', 'Married', 'Obcaecati neque nequ', 'seawage', '09682027920', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'Mustang', '', '$2y$10$a7DBbqhQHyHNIBcE0j16a.66omRrmRZW.wo1Ad/FtizGZdYLtvbA.', '449158623_460991273210301_5060266438973425229_n.jpg', 'Registered', 2, 'Wz7nmKAasaOTVRliZYj5dQ==', '2024-08-08 05:10:01', 1),
+(2, 'Christine', 'Baxter', 'Forrest Armstrong', ' ', 'Female', '2018-11-13', 'Married', 'filipino', 'Pariatur Necessitat', '09234587556', 'PJ6J915x8o9TOAacnxoyYeBgMb+kOu5rhxPo4s+u8J0=', 'Mustang', '', '$2y$10$oMBsO2ZS6kSlSwrJoEypOuIz8ZfUgP.4kNHqEMBASapYI/OJga4dG', '449126806_2136792833367260_1623341819262103114_n.jpg', 'Registered', 2, NULL, NULL, 1),
+(3, 'Wendy', 'Burch', 'Kay Bartlett', 'II.', 'Male', '1979-03-02', 'Single', 'Explicabo Quia est', 'Consequatur Nam rep', 'Et cum deleni', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Cemento', '', '$2y$10$g6iI4wwyXjyUChHUVhpzwuq9DdKFzgrF2hbZYYOQd8GyruoXUA.4C', NULL, 'Registered', 2, NULL, NULL, 1),
+(4, 'Marshall', 'Hubbard', 'Constance Clarke', 'II.', 'Female', '1977-10-02', 'Married', 'Aut laudantium quae', 'Voluptate et laborum', 'Aut veritatis', 'poSNMVCNkI+6/0L8PxHRYMPxCDKu2KziMSfnr3zt4KQ=', 'Seaside', '', '$2y$10$PbGt4D.ZmA1qk2IBbMsdRu/LWs1yQREJs.cuUyds..4TPKxkELu2G', NULL, 'Registered', 2, NULL, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -371,7 +376,7 @@ ALTER TABLE `account_role`
 -- AUTO_INCREMENT for table `barangay_staff`
 --
 ALTER TABLE `barangay_staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `complaints_tbl`
@@ -413,7 +418,7 @@ ALTER TABLE `request_doc`
 -- AUTO_INCREMENT for table `resident_users`
 --
 ALTER TABLE `resident_users`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

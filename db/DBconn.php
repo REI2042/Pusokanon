@@ -86,7 +86,7 @@ function compareEncryptedDates($encryptedDate1, $encryptedDate2){
 
 
 function fetchRegister($pdo, $limit, $offset){
-	$sql = "SELECT * FROM registration_tbl LIMIT :limit OFFSET :offset";
+	$sql = "SELECT * FROM resident_users WHERE  LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
