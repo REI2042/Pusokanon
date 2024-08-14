@@ -487,7 +487,7 @@ function trashCancelDocument(doc_ID, request_id) {
                                       <div class="col-12 text-center">
                                           <img src="${data.profile_picture ? '../db/ProfilePictures/' + data.profile_picture : '../PicturesNeeded/blank_profile.png'}" class="profile-picture m-1 rounded-circle" alt="Profile Picture" style="width: 100px; height: 100px; object-fit: cover;"/>
                                           <p class="resident-id my-1"><strong>ID Number:</strong> ${data.res_ID}</p>
-                                          <p class="account-status my-1"><strong>Account Status:</strong>  ${data.is_active ? 'Active' : 'Deactivated'}</p>
+                                          <p class="account-status my-1"><strong>Account Status:</strong>  ${data.account_active_status ? 'Active' : 'Deactivated'}</p>
                                       </div>
                                   </div>
                                   <div class="row infos mx-0 my-3 text-start" style="padding: 3px;">

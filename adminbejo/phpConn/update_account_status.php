@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newStatus = $_POST['newStatus'] === 'Activate' ? 1 : 0;
 
     try {
-        $sql = "UPDATE resident_users SET is_active = :newStatus WHERE res_ID = :resId";
+        $sql = "UPDATE resident_users SET account_active_status = :newStatus WHERE res_ID = :resId";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':newStatus', $newStatus, PDO::PARAM_INT);
         $stmt->bindParam(':resId', $resId, PDO::PARAM_INT);

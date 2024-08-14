@@ -184,12 +184,12 @@ include '../db/DBconn.php';
                                     <td><?php echo htmlspecialchars($user['addr_sitio']) ?></td>
                                     <td><?php echo htmlspecialchars($decryptedEmail) ?></td>
                                     <td><?php echo htmlspecialchars($user['contact_no']) ?></td>
-                                    <td><?php echo htmlspecialchars($user['is_active'] ? 'Active' : 'Deactivated'); ?></td>
+                                    <td><?php echo htmlspecialchars($user['account_active_status'] ? 'Active' : 'Deactivated'); ?></td>
                                     <td class="tools">
                                     <button class="btn btn-secondary btn-sm view-btn" data-return-url="<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?> " title="View Resident" data-bs-toggle="tooltip" data-bs-placement="left">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                        <button class="btn btn-secondary btn-sm status-btn <?php echo $user['is_active'] ? 'deactivate-btn' : 'activate-btn'; ?>" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
+                                        <button class="btn btn-secondary btn-sm status-btn <?php echo $user['account_active_status'] ? 'deactivate-btn' : 'activate-btn'; ?>" data-res-id="<?php echo htmlspecialchars($user['res_ID']); ?>">
                                             <?php echo htmlspecialchars($user['account_active_status'] ? 'Deactivate' : 'Activate'); ?>
                                         </button>
                                     </td>

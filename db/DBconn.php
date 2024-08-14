@@ -131,7 +131,7 @@ function fetchTotalResidents($pdo)
 
 function fetchResident($pdo, $limit, $offset, $gender = null, $ageRange = null, $sitio = null, $accountStatus = null)
 {
-	$sql = "SELECT * FROM resident_users WHERE account_active_status = 'Acitve'";
+	$sql = "SELECT * FROM resident_users WHERE 1=1";
 	$params = [];
 
 	if ($gender !== null && $gender !== 'All') {
@@ -166,11 +166,11 @@ function fetchResident($pdo, $limit, $offset, $gender = null, $ageRange = null, 
 	}
 
 	if ($accountStatus !== null && $accountStatus !== 'All') {
-		$sql .= " AND is_active = :accountStatus";
+		$sql .= " AND account_active_status = :accountStatus";
 		$params[':accountStatus'] = ($accountStatus == 'Active') ? 1 : 0;
 	}
 
-	$sql .= " ORDER BY is_active DESC, res_id ASC LIMIT :limit OFFSET :offset";
+	$sql .= " ORDER BY account_active_status DESC, res_id ASC LIMIT :limit OFFSET :offset";
 	$params[':limit'] = $limit;
 	$params[':offset'] = $offset;
 
@@ -184,7 +184,7 @@ function fetchResident($pdo, $limit, $offset, $gender = null, $ageRange = null, 
 
 function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, $sitio = null, $accountStatus = null)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve'";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE 1=1";
 	$params = [];
 
 	if ($gender !== null && $gender !== 'All') {
@@ -219,7 +219,7 @@ function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, 
 	}
 
 	if ($accountStatus !== null && $accountStatus !== 'All') {
-		$sql .= " AND is_active = :accountStatus";
+		$sql .= " AND account_active_status = :accountStatus";
 		$params[':accountStatus'] = ($accountStatus == 'Active') ? 1 : 0;
 	}
 
@@ -289,7 +289,7 @@ function fetchLatestRequest($pdo, $userId)
 				FROM request_doc rd 
 				INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 				INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-				WHERE rd.res_id = :userId AND account_active_status = 'Acitve'
+				WHERE rd.res_id = :userId 
 				ORDER BY rd.date_req DESC
 				LIMIT 1";
 	$stmt = $pdo->prepare($sql);

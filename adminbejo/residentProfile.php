@@ -45,7 +45,7 @@
                         <div class="col-12 text-center">
                             <img src="<?php echo $profilePicture ? '../db/ProfilePictures/' . htmlspecialchars($profilePicture) : '../PicturesNeeded/blank_profile.png'; ?>" class="profile-picture m-1" alt="Profile Picture"/>
                             <p class="resident-id my-1"><strong>ID Number:</strong> <?php echo htmlspecialchars($resident['res_ID']); ?></p>
-                            <p class="account-status my-1"><strong>Account Status:</strong> <?php echo $resident['is_active'] ? 'Active' : 'Deactivated'; ?></p>
+                            <p class="account-status my-1"><strong>Account Status:</strong> <?php echo $resident['account_active_status'] ? 'Active' : 'Deactivated'; ?></p>
                         </div>
                     </div>
                     <div class="row mx-0 mx-sm-3 my-3">
