@@ -3,7 +3,7 @@ include '../../db/DBconn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resId = $_POST['resId'];
-    $newStatus = $_POST['newStatus'] === 'Activate' ? 'Activate' : 'Deactivated';
+    $newStatus = $_POST['newStatus'] === 'Activate' ? 'Active' : 'Deactivated';
 
     try {
         $sql = "UPDATE resident_users SET account_active_status = :newStatus WHERE res_ID = :resId";
