@@ -89,11 +89,11 @@ p{
 .btn{
     margin-top: 20px;
     height:40px;
-/*    background-color: #13603C;*/
     font-weight: 500;
+    
 }
 .btn:hover{
-    background-color: #394a97;
+    background-color: #13603C;
 }
 
 @media (max-width: 767px) {

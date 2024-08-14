@@ -82,17 +82,20 @@ include 'db/check_user_login.php';
         </nav>
     </header>
     
-        <div class="container">
-            <h3>Forgot Password</h3>
-            <p>Please enter your email for the verification process. A 4-digit code will be sent to your email.</p>
-            <form id="emailForm">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Verification Code</button>
-            </form>
-        </div>
+    <div class="container">
+        <h3>Forgot Password</h3>
+        <p class="text-center">Please enter your email for the verification process. A 4-digit code will be sent to your email.</p>
+        <form id="emailForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Send Verification Code</button>
+            </div>
+        </form>
+    </div>
 
    
 </body>
