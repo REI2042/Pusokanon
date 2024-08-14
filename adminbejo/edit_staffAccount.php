@@ -96,7 +96,7 @@ $accountRole = accountRole($pdo);
                                         <select class="select form-control-sm" name="accountType">
                                             <option value="" disabled>Choose option</option>
                                             <?php foreach ($accountRole as $accountRoles): ?>
-                                                <option value="<?= htmlspecialchars($accountRoles['userRole_id']);?>" <?= decryptData($staffMember['userRole_id']) == $accountRoles['userRole_id'] ? 'selected' : '' ?>><?= htmlspecialchars($accountRoles['role_definition']); ?></option>
+                                                <option value="<?= htmlspecialchars($accountRoles['userRole_id']);?>" <?= $staffMember['userRole_id'] == $accountRoles['userRole_id'] ? 'selected' : '' ?>><?= htmlspecialchars($accountRoles['role_definition']); ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <label class="form-label select-label" style="font-size: 0.9rem;">Choose Account Type</label>

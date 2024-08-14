@@ -38,7 +38,7 @@
             <div class="dropdown ">
                 <button class="nav-link text-light" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="row">
-                        <div class="col px-1 mt-2 pt-1"><span class="admin-text">Admin</span></div>
+                        <div class="col px-1 mt-2 pt-1"><span class="admin-text"><?=  $_SESSION['staff_fname']?></span></div>
                         <div class="col"><i class="bi bi-person-circle"></i></div>
                     </div>
                 </button>
@@ -65,90 +65,218 @@
                 </div>
                     <hr class=" bg-white m-2">    
                 <ul class="sidebar-nav">
-                    <li class="sidebar-item">
-                        <a href="Manage-Users.php" class="sidebar-link">
-                            <i class="fa-solid fa-users"></i>
-                            <span class="span-word">Resident Users</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#staff" aria-expanded="false" aria-controls="staff">   
-                            <i class="fa-solid fa-building-user"></i>
-                            <span class="span-word">Staffs</span>
-                        </a>
-                        <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="staff_Account_creation.php" class="sidebar-link">Create Staff Account</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="manage_staff_account.php" class="sidebar-link">Manage Staff Account</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                            data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                            <i class="fa-solid fa-file-lines ms-1"></i>
-                            <span class="span-word"> &nbsp;Document&nbsp;</span>
-                        </a>
-                        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="Admin-Document.php" class="sidebar-link">Requested Document</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="ScanQR.php" class="sidebar-link">Scan QRcode</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="Document-requestHistory.php" class="sidebar-link">Document Request History </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fa-solid fa-bullhorn"></i>
-                            <span class="span-word">&nbsp;Post Announcement</span>
-                        </a>
-                    </li>
-                    <?php  if ($_SESSION['userRole'] != 3): ?>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                            data-bs-target="#blotter" aria-expanded="false" aria-controls="blotter">
-                            <i class="bi bi-headset"></i>
-                            <span class="span-word"> &nbsp;Blotter&Complaints&nbsp;</span>
-                        </a>
-                        <ul id="blotter" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="writeComplaints.php" class="sidebar-link">Write Complaints</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="complaintsList.php" class="sidebar-link">Complaints List </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="complaints_history.php" class="sidebar-link">Complaints History </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="pendingUser2.0.php" class="sidebar-link">
-                            <i class="fa-solid fa-user-clock"></i>
-                            <span class="span-word">Pending User</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="DocumentRate.php" class="sidebar-link">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <span class="span-word">Set Document Rate</span>
-                            
-                        </a>
-                    </li> 
-                    <li class="sidebar-item">
-                        <a href="Graphs_Reports.php" class="sidebar-link">
-                            <i class="fa-solid fa-chart-column"></i>
-                            <span class="span-word">Graphs & Reports</span>
-                        </a>
-                    </li> 
-                    <?php endif; ?>
+                    <?php  if ($_SESSION['userRole'] == 1): ?> <!--ADMIN SIDEBAR-->
+                        <li class="sidebar-item">
+                            <a href="Manage-Users.php" class="sidebar-link">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="span-word">Resident Users</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#staff" aria-expanded="false" aria-controls="staff">   
+                                <i class="fa-solid fa-building-user"></i>
+                                <span class="span-word">Staffs</span>
+                            </a>
+                            <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="staff_Account_creation.php" class="sidebar-link">Create Staff Account</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="manage_staff_account.php" class="sidebar-link">Manage Staff Account</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                                data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                                <i class="fa-solid fa-file-lines ms-1"></i>
+                                <span class="span-word"> &nbsp;Document&nbsp;</span>
+                            </a>
+                            <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="Admin-Document.php" class="sidebar-link">Requested Document</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="ScanQR.php" class="sidebar-link">Scan QRcode</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="Document-requestHistory.php" class="sidebar-link">Docs Request History </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <i class="fa-solid fa-bullhorn"></i>
+                                <span class="span-word">&nbsp;Post Announcement</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                                data-bs-target="#blotter" aria-expanded="false" aria-controls="blotter">
+                                <i class="bi bi-headset"></i>
+                                <span class="span-word"> &nbsp;Blotter&Complaints&nbsp;</span>
+                            </a>
+                            <ul id="blotter" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="writeComplaints.php" class="sidebar-link">Write Complaints</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="complaintsList.php" class="sidebar-link">Complaints List </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="complaints_history.php" class="sidebar-link">Complaints History </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pendingUser2.0.php" class="sidebar-link">
+                                <i class="fa-solid fa-user-clock"></i>
+                                <span class="span-word">Pending User</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="DocumentRate.php" class="sidebar-link">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="span-word">Set Document Rate</span>
+                                
+                            </a>
+                        </li> 
+                        <li class="sidebar-item">
+                            <a href="Graphs_Reports.php" class="sidebar-link">
+                                <i class="fa-solid fa-chart-column"></i>
+                                <span class="span-word">Graphs & Reports</span>
+                            </a>
+                        </li> 
+                    
+
+                    <?php  elseif ($_SESSION['userRole'] == 3): ?> <!--SECRETARY-->
+                        <li class="sidebar-item">
+                            <a href="Manage-Users.php" class="sidebar-link">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="span-word">Resident Users</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#staff" aria-expanded="false" aria-controls="staff">   
+                                <i class="fa-solid fa-building-user"></i>
+                                <span class="span-word">Staffs</span>
+                            </a>
+                            <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="staff_Account_creation.php" class="sidebar-link">Create Staff Account</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="manage_staff_account.php" class="sidebar-link">Manage Staff Account</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                                data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                                <i class="fa-solid fa-file-lines ms-1"></i>
+                                <span class="span-word"> &nbsp;Document&nbsp;</span>
+                            </a>
+                            <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="Admin-Document.php" class="sidebar-link">Requested Document</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="ScanQR.php" class="sidebar-link">Scan QRcode</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="Document-requestHistory.php" class="sidebar-link">Docs Request History </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <i class="fa-solid fa-bullhorn"></i>
+                                <span class="span-word">&nbsp;Post Announcement</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pendingUser2.0.php" class="sidebar-link">
+                                <i class="fa-solid fa-user-clock"></i>
+                                <span class="span-word">Pending User</span>
+                            </a>
+                        </li>    
+                        <li class="sidebar-item">
+                            <a href="Graphs_Reports.php" class="sidebar-link">
+                                <i class="fa-solid fa-chart-column"></i>
+                                <span class="span-word">Graphs & Reports</span>
+                            </a>
+                        </li> 
+                    <?php  elseif ($_SESSION['userRole'] == 4): ?> <!--BARANGAY OFFICIALS-->
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <i class="fa-solid fa-bullhorn"></i>
+                                <span class="span-word">&nbsp;Post Announcement</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pendingUser2.0.php" class="sidebar-link">
+                                <i class="fa-solid fa-user-clock"></i>
+                                <span class="span-word">Pending User</span>
+                            </a>
+                        </li>   
+                        <li class="sidebar-item">
+                            <a href="Graphs_Reports.php" class="sidebar-link">
+                                <i class="fa-solid fa-chart-column"></i>
+                                <span class="span-word">Graphs & Reports</span>
+                            </a>
+                        </li> 
+                    <?php  elseif ($_SESSION['userRole'] == 5): ?> <!--document processing-->
+                        <li class="sidebar-item ">
+                            <a href="Admin-Document.php" class="sidebar-link">
+                                <i class="fa-solid fa-file-import"></i>
+                                <span class="span-word">&nbsp;Requested Document</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="ScanQR.php" class="sidebar-link">
+                                <i class="fa-solid fa-qrcode"></i>
+                                <span class="span-word">Scan QRcode</span>
+                            </a>
+                        </li>   
+                        <li class="sidebar-item ">
+                            <a href="Document-requestHistory.php" class="sidebar-link">
+                                <i class="fa-solid fa-clipboard"></i>
+                                <span class="span-word">Docs Request History </span>
+                            </a>
+                        </li> 
+
+                    <?php  elseif ($_SESSION['userRole'] == 6): ?> <!--Collabs-->
+                        <li class="sidebar-item">
+                            <a href="Graphs_Reports.php" class="sidebar-link">
+                                <i class="fa-solid fa-chart-column"></i>
+                                <span class="span-word">Graphs & Reports</span>
+                            </a>
+                        </li> 
+
+                    <?php  elseif ($_SESSION['userRole'] == 7): ?> <!--Blotter Officer-->
+                        <li class="sidebar-item ">
+                            <a href="writeComplaints.php" class="sidebar-link">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="span-word">&nbsp;Write Complaints</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="complaintsList.php" class="sidebar-link">
+                                <i class="fa-solid fa-rectangle-list"></i>
+                                <span class="span-word">Complaints List</span>
+                            </a>
+                        </li>   
+                        <li class="sidebar-item ">
+                            <a href="complaints_history.php" class="sidebar-link">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                                <span class="span-word">Complaints History </span>
+                            </a>
+                        </li> 
+                    <?php endif; ?>    
+                    
                 </ul>
             </aside>
             

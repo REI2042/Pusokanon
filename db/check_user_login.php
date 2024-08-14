@@ -25,7 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
             $_SESSION['loggedin'] = true;
             $_SESSION['userRole'] = $staff['userRole_id'];
-            $_SESSION['username'] = $staff['user_name'];
+            $_SESSION['username'] = decryptData($staff['user_name']);
+            $_SESSION['staff_fname'] = decryptData($staff['staff_fname']);
             
             if ($staff['userRole_id'] == 1 || $staff['userRole_id'] == 3) { // Admin roles
                 header("Location: ../adminbejo/Dashboard.php");
