@@ -739,7 +739,7 @@ function fetchTotalFemales($pdo)
 
 function fetchPendingAccounts($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM registration_tbl WHERE account_active_status = 'Unregistered'";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Unregistered'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
