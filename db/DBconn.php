@@ -86,7 +86,7 @@ function compareEncryptedDates($encryptedDate1, $encryptedDate2){
 
 
 function fetchRegister($pdo, $limit, $offset){
-	$sql = "SELECT * FROM resident_users WHERE  LIMIT :limit OFFSET :offset";
+	$sql = "SELECT * FROM resident_users WHERE account_active_status = 'Unregistered' LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -97,7 +97,7 @@ function fetchRegister($pdo, $limit, $offset){
 //for pagination in the pending residents table
 function fetchTotalPending($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM registration_tbl";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Unregistered'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
@@ -113,7 +113,7 @@ function fetchTotalPending($pdo)
 //for pagination in the manage residents table
 function fetchTotalResidents($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
@@ -131,7 +131,7 @@ function fetchTotalResidents($pdo)
 
 function fetchResident($pdo, $limit, $offset, $gender = null, $ageRange = null, $sitio = null, $accountStatus = null)
 {
-	$sql = "SELECT * FROM resident_users WHERE 1=1";
+	$sql = "SELECT * FROM resident_users WHERE account_active_status = 'Acitve'";
 	$params = [];
 
 	if ($gender !== null && $gender !== 'All') {
@@ -184,7 +184,7 @@ function fetchResident($pdo, $limit, $offset, $gender = null, $ageRange = null, 
 
 function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, $sitio = null, $accountStatus = null)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users WHERE 1=1";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve'";
 	$params = [];
 
 	if ($gender !== null && $gender !== 'All') {
@@ -233,7 +233,7 @@ function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, 
 
 function fetchResidentById($pdo, $search)
 {
-	$sql = "SELECT * FROM resident_users WHERE 
+	$sql = "SELECT * FROM resident_users WHERE account_active_status = 'Acitve' 
 				res_ID = ? OR 
 				res_fname LIKE ? OR 
 				res_lname LIKE ? OR 
@@ -289,7 +289,7 @@ function fetchLatestRequest($pdo, $userId)
 				FROM request_doc rd 
 				INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 				INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-				WHERE rd.res_id = :userId
+				WHERE rd.res_id = :userId AND account_active_status = 'Acitve'
 				ORDER BY rd.date_req DESC
 				LIMIT 1";
 	$stmt = $pdo->prepare($sql);
@@ -518,7 +518,7 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
                 ct.respondent_gender AS respondent_gender
             FROM complaints_tbl ct 
             INNER JOIN resident_users ru ON ct.res_id = ru.res_id
-            WHERE 1=1";
+            WHERE account_active_status = 'Acitve'";
 
     $params = [];
 
@@ -723,7 +723,7 @@ function fetchTotalRejectedComp($pdo)
 
 function fetchTotalMales($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users WHERE gender = 'Male'";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve' AND gender = 'Male'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
@@ -731,7 +731,7 @@ function fetchTotalMales($pdo)
 
 function fetchTotalFemales($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users WHERE gender = 'Female'";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve' AND gender = 'Female'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
@@ -739,7 +739,7 @@ function fetchTotalFemales($pdo)
 
 function fetchPendingAccounts($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM registration_tbl";
+	$sql = "SELECT COUNT(*) FROM registration_tbl WHERE account_active_status = 'Unregistered'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
@@ -747,7 +747,7 @@ function fetchPendingAccounts($pdo)
 
 function fetchRegisteredVoters($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users WHERE registered_voter = 'Registered'";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve' AND registered_voter = 'Registered'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
@@ -755,7 +755,7 @@ function fetchRegisteredVoters($pdo)
 
 function fetchNonRegisteredVoters($pdo)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users WHERE registered_voter != 'Registered'";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve' AND registered_voter != 'Registered'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchColumn();
@@ -763,7 +763,7 @@ function fetchNonRegisteredVoters($pdo)
 
 function fetchUsersBySitio($pdo, $sitio)
 {
-	$sql = "SELECT COUNT(*) FROM resident_users WHERE addr_sitio = :sitio";
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status = 'Acitve' AND addr_sitio = :sitio";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':sitio', $sitio, PDO::PARAM_STR);
 	$stmt->execute();
@@ -1006,7 +1006,7 @@ function fetchdocsRequestHistory($pdo, $doctype, $status, $remarks, $limit, $off
 }
 
 function fetchResidentDetails($pdo, $residentId){
-    $sql = "SELECT * FROM resident_users WHERE res_ID = :residentId";
+    $sql = "SELECT * FROM resident_users WHERE account_active_status = 'Acitve' AND res_ID = :residentId";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':residentId', $residentId, PDO::PARAM_INT);
     $stmt->execute();

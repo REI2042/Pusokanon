@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmtResident->execute(['res_email' => encryptData($email)]);
     $resident = $stmtResident->fetch();
 
-    echo 'hello world';
     // Check if either staff or resident exists
     if ($staff && password_verify($password, $staff['staff_password'])) {
         if ($staff['status'] === 'ACTIVE') {
