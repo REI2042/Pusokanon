@@ -184,8 +184,8 @@ function fetchResident($pdo, $limit, $offset, $gender = null, $ageRange = null, 
 
 function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, $sitio = null, $accountStatus = null)
 {
-	$sql = "SELECT * FROM resident_users WHERE account_active_status != 'Unregistered'";
-	$params = [];
+	$sql = "SELECT COUNT(*) FROM resident_users WHERE account_active_status != 'Unregistered'";
+    $params = [];
 
 	if ($gender !== null && $gender !== 'All') {
 		$sql .= " AND gender = :gender";

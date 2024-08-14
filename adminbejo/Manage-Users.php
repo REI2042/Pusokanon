@@ -24,10 +24,10 @@ include '../db/DBconn.php';
         $users = fetchResidentById($pdo, $search);
         $total_records = count($users);
     } else {
-        $users = fetchResident($pdo, $records_per_page, $offset, $gender, $ageRange, $sitio, $accountStatus);
         $total_records = fetchTotalResidentsWithFilters($pdo, $gender, $ageRange, $sitio, $accountStatus);
+        $users = fetchResident($pdo, $records_per_page, $offset, $gender, $ageRange, $sitio, $accountStatus);
     }
-    
+
     $total_pages = ceil($total_records / $records_per_page);
 
 ?>  
