@@ -1,14 +1,22 @@
 .main {
     margin-top: 10px;
     padding: 10px 150px;
+    
+}
+.title{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
 }
 
 .form {
-    background: linear-gradient(45deg, #2c7bd5, #4a90e2, #6aafe6);
+    background-color: #f8f8f8;
     margin: 0px 50px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 30px;
     position: relative;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+
 }
 
 #updateProfileBtn {
@@ -22,7 +30,7 @@
 }
 
 .profile-picture {
-    border: 5px solid #F9F8FD;
+    border: 1px solid #c3c3c3;
     width: 130px;
     height: 130px;
     border-radius: 50%;

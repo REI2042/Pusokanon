@@ -20,15 +20,15 @@
 ?>  
     <link rel="stylesheet" href="css/Edit-Resident.css" type="text/css">
     <section class="main">
-        <form class="form row text-white" action="phpConn/update_resident_profile.php" method="POST" enctype="multipart/form-data">
+        <form class="form row " action="phpConn/update_resident_profile.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="res_ID" value="<?php echo $residentId; ?>">
             <input type="hidden" name="old_profile_picture" value="<?php echo htmlspecialchars($profilePicture); ?>">
             <input type="hidden" name="return_url" value="<?= htmlspecialchars($returnUrl) ?>">
             <div class="col-12 mt-5 mt-sm-2 d-flex justify-content-center align-items-center">
                 <h1 class="title">Update Resident Profile</h1>
             </div>
-            <a href="<?= htmlspecialchars(urldecode($returnUrl))?>" class="back-button d-flex align-items-center text-white gap-2">
-                <i class="fas fa-circle-chevron-left fa-2x"></i>
+            <a href="<?= htmlspecialchars(urldecode($returnUrl))?>" class="back-button d-flex align-items-center gap-2">
+                <i class="fas fa-chevron-left"></i>
                 <span>Back</span>
             </a>
             <div class="col-12 mt-2 d-flex justify-content-center align-items-center">
@@ -42,9 +42,7 @@
                 </div>
             </div>
             <div class="col-12 text-center mt-2">
-                <p class="resident-id my-1"><strong>ID Number:</strong> <?= htmlspecialchars($resident['res_ID']); ?></p>
-                <p class="account-status my-1"><strong>Account Status:</strong>  <?php echo $resident['account_active_status'] === 'Active' ? 'Active' : 'Deactivated'; ?></p>
-            </div>
+                <p class="resident-id my-1"><strong>ID Number:</strong> <?= htmlspecialchars($resident['res_ID']); ?> &nbsp; | &nbsp; <strong>Account Status:</strong> <?php echo $resident['account_active_status'] === 'Active' ? 'Active' : 'Deactivated'; ?></p>            </div>
             <div class="col-12 col-sm-4 px-1 mt-2">
                 <label for="firstname" class="form-label">First Name</label>
                 <input type="text" name="fname" class="form-control" id="firstname" placeholder="<?= htmlspecialchars($resident['res_fname']); ?>" value="<?= htmlspecialchars($resident['res_fname']); ?>" required>
