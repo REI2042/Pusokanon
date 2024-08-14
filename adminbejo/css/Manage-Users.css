@@ -38,7 +38,8 @@
 }
 
 .table-container {
-    background: linear-gradient(45deg, #2260A7, #4A90E2, #6AAFE6);
+    padding-top: 10px;
+    background-color: #D7D9DC;
     border-radius: 20px;
     height: 400px;
     position: relative;
@@ -56,9 +57,18 @@
     right: 10%;
 }
 
+.table-responsive {
+  border-radius: 20px;
+}
+
 .table-responsive .table th,
 .table-responsive .table td {
-    color: #ffffff;
+    background-color: #E9E9E9;
+}
+
+.table-responsive .table th {
+    background-color: #2260a7;
+    color: #E9E9E9;
 }
 
 .dropdown-menu.show {
