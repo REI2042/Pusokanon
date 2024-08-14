@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Aug 14, 2024 at 04:37 PM
+-- Generation Time: Aug 14, 2024 at 03:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -197,6 +197,34 @@ INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `registration_tbl`
+--
+
+CREATE TABLE `registration_tbl` (
+  `res_ID` int(11) NOT NULL,
+  `res_fname` varchar(50) DEFAULT NULL,
+  `res_lname` varchar(50) DEFAULT NULL,
+  `res_midname` varchar(50) DEFAULT NULL,
+  `res_suffix` varchar(50) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `civil_status` varchar(20) DEFAULT NULL,
+  `registered_voter` varchar(15) DEFAULT NULL,
+  `citizenship` varchar(50) DEFAULT NULL,
+  `contact_no` varchar(13) DEFAULT NULL,
+  `place_birth` varchar(100) DEFAULT NULL,
+  `addr_sitio` varchar(100) DEFAULT NULL,
+  `addr_purok` varchar(100) DEFAULT NULL,
+  `res_email` varchar(100) DEFAULT NULL,
+  `res_password` varchar(100) DEFAULT NULL,
+  `userRole_id` int(11) DEFAULT NULL,
+  `verification_image` varchar(200) DEFAULT NULL,
+  `register_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `request_doc`
 --
 
@@ -223,10 +251,7 @@ INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purp
 (1, 2, 4, 1, 'Employment', 'Done', '2024-08-07 19:05:19', '2024-08-07 19:20:45', 'Released', '<HkD0K5l7wv>', '1723057519.png', ''),
 (2, 2, 9, 2, 'Students Scholarship', 'Done', '2024-08-07 19:16:28', '2024-08-07 19:19:31', 'Released', '|7z)6SiD}k', '1723058188.png', ''),
 (3, 2, 3, 5, 'work load', 'Done', '2024-08-08 09:47:46', '2024-08-08 10:11:57', 'Released', 'B)386.>p4c', '1723110467.png', '80474a83035db7945c8c29f7148a599f.png'),
-(4, 1, 3, 5, 'qwwqe', 'Pending', '2024-08-08 10:25:52', '2024-08-08 10:25:53', 'Not released', '$2scDoAwOc@V', '1723112753.png', 'a42a9235a408fb46c4df453fd662f4da.png'),
-(5, 6, 9, 2, 'Students Scholarship', 'Pending', '2024-08-14 14:13:00', '2024-08-14 14:13:00', 'Not released', 'r=%R.EH?C', '', ''),
-(6, 6, 2, 2, 'Students Scholarship', 'Pending', '2024-08-14 14:13:13', '2024-08-14 14:13:13', 'Not released', 'LNyKH0E6aw', '', ''),
-(7, 6, 4, 3, 'Person With Disability Assistance', 'Pending', '2024-08-14 14:16:02', '2024-08-14 14:16:02', 'Not released', 'lg&$VnT1zxU=', '1723644962.png', '');
+(4, 1, 3, 5, 'qwwqe', 'Pending', '2024-08-08 10:25:52', '2024-08-08 10:25:53', 'Not released', '$2scDoAwOc@V', '1723112753.png', 'a42a9235a408fb46c4df453fd662f4da.png');
 
 -- --------------------------------------------------------
 
@@ -264,7 +289,7 @@ CREATE TABLE `resident_users` (
 --
 
 INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `verification_image`, `register_at`, `reset_token_hash`, `reset_token_expires_at`, `account_active_status`) VALUES
-(6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'filipino', 'Rerum proident modi', '09893459842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', '449158623_460991273210301_5060266438973425229_n.jpg', 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, '1');
+(6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'filipino', 'Rerum proident modi', '09893459842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', NULL, 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, 'Unregistered');
 
 --
 -- Indexes for dumped tables
@@ -308,6 +333,12 @@ ALTER TABLE `doc_type`
 --
 ALTER TABLE `initial_sitio_population`
   ADD PRIMARY KEY (`sitio_id`);
+
+--
+-- Indexes for table `registration_tbl`
+--
+ALTER TABLE `registration_tbl`
+  ADD PRIMARY KEY (`res_ID`);
 
 --
 -- Indexes for table `request_doc`
@@ -367,16 +398,22 @@ ALTER TABLE `initial_sitio_population`
   MODIFY `sitio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `registration_tbl`
+--
+ALTER TABLE `registration_tbl`
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
 --
 ALTER TABLE `resident_users`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
