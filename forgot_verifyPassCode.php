@@ -81,20 +81,22 @@ include 'db/check_user_login.php';
         </nav>
     </header>
 	<link rel="stylesheet" href="css/enterVerify.css">
-        <div class="container mt-5">
+    <div class="container">
         <h3>Enter Verification Code</h3>
         <p>Please enter the 6-digit verification code sent to your email.</p>
-        <form id="codeForm" >
-            <div class="mb-3 row gap-1 ">
-                <label for="code" class="form-label">Verification Code</label>
-                <input type="text" class="form-control" id="code1" required maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="text" class="form-control" id="code2" required maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="text" class="form-control" id="code3" required maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="text" class="form-control" id="code4" required maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="text" class="form-control" id="code5" required maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="text" class="form-control" id="code6" required maxlength="1" inputmode="numeric" autocomplete="off">
+        <form id="codeForm">
+            <div class="mb-3 row justify-content-center">
+                <label for="code" class="form-label"></label>
+                <div class="d-flex justify-content-center gap-2">
+                    <input type="text" class="form-control text-center" id="code1" required maxlength="1" inputmode="numeric" autocomplete="off">
+                    <input type="text" class="form-control text-center" id="code2" required maxlength="1" inputmode="numeric" autocomplete="off">
+                    <input type="text" class="form-control text-center" id="code3" required maxlength="1" inputmode="numeric" autocomplete="off">
+                    <input type="text" class="form-control text-center" id="code4" required maxlength="1" inputmode="numeric" autocomplete="off">
+                    <input type="text" class="form-control text-center" id="code5" required maxlength="1" inputmode="numeric" autocomplete="off">
+                    <input type="text" class="form-control text-center" id="code6" required maxlength="1" inputmode="numeric" autocomplete="off">
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Verify Code</button>
+            <button type="submit" class="btn btn-success w-100">Verify Code</button>
         </form>
     </div>
 
