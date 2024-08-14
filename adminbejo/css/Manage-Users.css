@@ -17,7 +17,7 @@
 .record-box {
     background-color: #2260A7;
     border-radius: 10px;
-    padding: 15px 0px;
+    padding: 0px 0px;
     color: #F9F8FD;
 }
 
@@ -25,23 +25,28 @@
 .record-count {
     margin: 10px 0px;
 }
-
-.btn {
-    background-color: #2260A7;
-    border-radius: 10px;
+.dropdown-toggle{
+    color: #2260A7;
 }
+.view-btn {
+    background-color: #2260A7 !important;
+    border-radius: 5px;
+}
+
+
 
 .dropdown-container {
     display: flex;
     justify-content: end;
     gap: 10px;
+    font-size: .9rem;
 }
 
 .table-container {
     padding-top: 10px;
     background-color: #D7D9DC;
-    border-radius: 20px;
-    height: 400px;
+    border-radius: 15px;
+    height: 450px;
     position: relative;
 }
 
@@ -57,8 +62,11 @@
     right: 10%;
 }
 
+.table-hover{
+    --bs-table-hover-bg: #bed4fe;
+}
 .table-responsive {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .table-responsive .table th,
@@ -69,8 +77,15 @@
 .table-responsive .table th {
     background-color: #2260a7;
     color: #E9E9E9;
+    font-size: .9rem;
 }
-
+.form-control{
+    border-radius: 5px;
+    font-size: .9rem;
+}
+.table-responsive .table td{
+    font-size: .8rem;
+}
 .dropdown-menu.show {
     transform: translate3d(0px, 0px, 0px) !important;
 }
@@ -84,8 +99,8 @@
 
 .custom-swal {
     width: 800px !important;
-    background-color: #1D4E89;
-    color: #F9F8FD;
+    background-color: #f0f0f0;
+    color: #000000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -93,7 +108,7 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: 5px solid #111010;
+    border: 1px solid #646464;
 }
 
 @media (max-width: 991px) {

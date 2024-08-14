@@ -35,7 +35,7 @@ include '../db/DBconn.php';
 <section class="main">
     <div class="row mx-0">
         <h1 class="title text-center">Manage Resident Users</h1>
-        <div class="col-12">
+        <div class="col-12 mb-3">
             <div class="record-container row g-1">
                 <div class="record-box col-12 col-sm">
                     <div class="text-center">
@@ -45,25 +45,25 @@ include '../db/DBconn.php';
                 </div>
                 <div class="record-box col-6 col-sm">
                     <div class="text-center">
-                        <h1 class="record-title" style="color: #00BFFF">Number of Males</h1>
+                        <h1 class="record-title">Number of Males</h1>
                         <p class="record-count"><?php echo "$total_males"; ?></p>
                     </div>
                 </div>
                 <div class="record-box col-6 col-sm">
                     <div class=" text-center">
-                        <h1 class="record-title" style="color: #FF69B4">Number of Females</h1>
+                        <h1 class="record-title">Number of Females</h1>
                         <p class="record-count"><?php echo "$total_females"; ?></p>
                     </div>
                 </div>
                 <div class="record-box col-6 col-sm">
                     <div class="text-center">
-                        <h1 class="record-title" style="color: #28A745">Total Registered Voters</h1>
+                        <h1 class="record-title" >Total Registered Voters</h1>
                         <p class="record-count"><?php echo "$registered_voters"; ?></p>
                     </div>
                 </div>
                 <div class="record-box col-6 col-sm">
                     <div class="text-center align-items-center">
-                        <h1 class="record-title" style="color: #FF3131">Total Non-Voters</h1>
+                        <h1 class="record-title" >Total Non-Voters</h1>
                         <p class="record-count"><?php echo "$non_registered_voters"; ?></p>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ include '../db/DBconn.php';
             <div class="row mx-0">
                 <div class="col-6 col-sm d-flex justify-content-center align-self-center">
                     <div class="dropdown">
-                        <button class="account-status btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="account-status btn dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Account Status
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -87,7 +87,7 @@ include '../db/DBconn.php';
                 </div>
                 <div class="col-6 col-sm d-flex justify-content-center align-self-center">
                     <div class="dropdown">
-                        <button class="gender btn btn-secondary dropdown-toggle" type="button" id="genderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="gender btn dropdown-toggle" type="button" id="genderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gender
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -99,7 +99,7 @@ include '../db/DBconn.php';
                 </div>
                 <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0 align-self-center">
                     <div class="dropdown">
-                        <button class="age btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="age btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Age
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -114,7 +114,7 @@ include '../db/DBconn.php';
                 </div>
                 <div class="col-6 col-sm d-flex justify-content-center my-1 my-sm-0 align-self-center">
                     <div class="dropdown">
-                        <button class="sitio btn btn-secondary dropdown-toggle" type="button" id="sitioDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="sitio btn dropdown-toggle" type="button" id="sitioDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Sitio
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -139,9 +139,9 @@ include '../db/DBconn.php';
         </div>
         <div class="col-12 col-sm-3 my-1 my-sm-0">
             <form action="" method="GET" class="input-group d-flex align-self-center" id="searchForm">
-                <input type="text" class="form-control" name="search" placeholder="Enter User's ID or Name" id="searchInput" aria-label="User's ID or Name" aria-describedby="basic-addon2" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                <input type="text" class="form-control" name="search" placeholder="Enter User's ID or Name" id="searchInput" aria-label="User's ID or Name" aria-describedby="basic-addon2" value="<?php echo htmlspecialchars($searchTerm); ?>">                
                 <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit">Search</button>
+                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </form>
         </div>
