@@ -26,29 +26,33 @@
 
 <link rel="stylesheet" href="css/manage_staff.css">
 <?php if ($status === 'success'): ?>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Staff account updated successfully!',
-            showConfirmButton: false,
-            timer: 2000
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Staff account updated successfully!',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(function() {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            });
         });
-    });
-</script>
+    </script>
 <?php elseif ($status === 'error'): ?>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'There was an error updating the staff account.',
-            showConfirmButton: false,
-            timer: 2000
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'There was an error updating the staff account.',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(function() {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            });
         });
-    });
-</script>
+    </script>
 <?php endif; ?>
 
 <div class="container-fluid">

@@ -26,14 +26,12 @@ try {
 }
 
 // Function to hash passwords
-function hashPassword($password)
-{
+function hashPassword($password){
 	return password_hash($password, PASSWORD_BCRYPT);
 }
 
 // Function to verify password
-function verifyPassword($password, $hash)
-{
+function verifyPassword($password, $hash){
 	return password_verify($password, $hash);
 }
 
@@ -41,60 +39,53 @@ function verifyPassword($password, $hash)
 define('ENCRYPTION_KEY', 'qwmnsdfghankyetr');
 
 // Function to encrypt data
-function encryptData($data)
-{
+function encryptData($data){
 	return openssl_encrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
 }
 
 // Function to decrypt data
-function decryptData($data)
-{
+function decryptData($data){
 	return openssl_decrypt($data, 'aes-256-cbc', ENCRYPTION_KEY, 0, ENCRYPTION_KEY);
 }
 
+function verifyEncryptedUser($username, $encryptedVal){
+    $decryptedVal = decryptData($encryptedVal);
+    return verifyPassword($username,$decryptedVal);
+}
+
 // Function to encrypt date
-function encryptDate($date)
-{
+function encryptDate($date){
     $timestamp = strtotime($date);
     return encryptData($timestamp);
 }
 
 // Function to decrypt date
-function decryptDate($encryptedDate)
-{
+function decryptDate($encryptedDate){
     $timestamp = decryptData($encryptedDate);
     return date('Y-m-d', $timestamp);
 }
 
 // Function to encrypt number
-function encryptNumber($number)
-{
+function encryptNumber($number){
     return encryptData((string)$number);
 }
 
 // Function to decrypt number
-function decryptNumber($encryptedNumber)
-{
+function decryptNumber($encryptedNumber){
     return (int)decryptData($encryptedNumber);
 }
 
 // Function to compare encrypted dates
-function compareEncryptedDates($encryptedDate1, $encryptedDate2)
-{
+function compareEncryptedDates($encryptedDate1, $encryptedDate2){
     return strcmp($encryptedDate1, $encryptedDate2);
 }
 
-// Function to compare encrypted numbers
-function compareEncryptedNumbers($encryptedNumber1, $encryptedNumber2)
-{
-    return strcmp($encryptedNumber1, $encryptedNumber2);
-}
 
 
 
 
-function fetchRegister($pdo, $limit, $offset)
-{
+
+function fetchRegister($pdo, $limit, $offset){
 	$sql = "SELECT * FROM registration_tbl LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -416,12 +407,12 @@ function fetchStaffInfo($pdo, $staffId) {
                 $row['staff_lname'] = decryptData($row['staff_lname']);
                 $row['staff_email'] = decryptData($row['staff_email']);
                
-                $row['birth_date'] = decryptData($row['birth_date']);
-                $row['gender'] = decryptData($row['gender']);
-                $row['staff_suffix'] = decryptData($row['staff_suffix']);
-                $row['contact_no'] = decryptData($row['contact_no']);
+                $row['birth_date'] = decryptDate($row['birth_date']);
+                $row['gender'] = $row['gender'];
+                $row['staff_suffix'] = $row['staff_suffix'];
+                $row['contact_no'] = $row['contact_no'];
                 $row['user_name'] = decryptData($row['user_name']);
-                
+				$row['staff_password'] = $row['staff_password'];
             }
         }
         return $results;

@@ -7,9 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['userPassword'];
 
     // Query to check barangay staff table
-    $sqlStaff = "SELECT * FROM barangay_staff WHERE user_name = :userName";
-    $stmtStaff = $pdo->prepare($sqlStaff);
-    $stmtStaff->execute([':userName' => $email]);
+    $encryptUser = encryptData($email);
+    $sqlStaff = "SELECT * FROM barangay_staff WHERE user_name = :username";
+    $stmtStaff = $pdo->prepare($sqlStaff); 
+    $stmtStaff->execute(['username' => $encryptUser]);
     $staff = $stmtStaff->fetch();
 
     // Query to check resident user table
@@ -18,12 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmtResident->execute(['res_email' => encryptData($email)]);
     $resident = $stmtResident->fetch();
 
+    echo 'hello world';
     // Check if either staff or resident exists
-    if ($staff) {
-        if ($staff['status'] === 'DEACTIVATED') {
-            header("Location: ../login.php?status=deactivated");
-            exit();
-        } elseif (password_verify($password, $staff['staff_password'])) {
+    if ($staff && password_verify($password, $staff['staff_password'])) {
+        if ($staff['status'] === 'ACTIVE') {
             session_start();
             $_SESSION['loggedin'] = true;
             $_SESSION['userRole'] = $staff['userRole_id'];
@@ -33,6 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../adminbejo/Dashboard.php");
                 exit();
             }
+            
+        } else {
+            header("Location: ../login.php");
+            exit();
         }
     } elseif ($resident && password_verify($password, $resident['res_password'])) {
         session_start();

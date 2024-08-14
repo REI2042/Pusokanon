@@ -1,9 +1,13 @@
 <?php
 session_start();
 if (isset($_SESSION['loggedin'])) {
-    header("Location: resident_landingPage.php");
-    header("Location: ../login.php?status=deactivated");
-    exit();
+    if ($_SESSION['userRole'] == 2) { // Admin roles
+        header("Location: resident_landingPage.php");
+        exit();
+    }else{
+        header("Location: adminbejo/Dashboard.php");
+        exit();
+    }
 }
 
 include 'db/check_user_login.php';
