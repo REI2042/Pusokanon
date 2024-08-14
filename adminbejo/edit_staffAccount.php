@@ -67,7 +67,7 @@ $accountRole = accountRole($pdo);
                                     </div>
 
                                     <div class="col-md-6 mb-3 ps-0">
-                                        <h6 class="mb-2 pb-1 ps-1 form-check-inline" style="font-size: 0.9rem; font-weight:400">Gender: </h6>
+                                        <h6 class="mb-2 pb-1 ps-1 form-check-inline" style="font-size: 0.9rem; font-weight:500">Gender: </h6>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="Female" <?= strtolower($staffMember['gender']) == 'female' ? 'checked' : '' ?> autocomplete="off" />
                                             <label class="form-check-label" for="femaleGender" style="font-size: 0.9rem;">Female</label>
@@ -102,12 +102,12 @@ $accountRole = accountRole($pdo);
                                         <label class="form-label select-label" style="font-size: 0.9rem;">Choose Account Type</label>
                                     </div>
                                 </div>
-                                <div class="row mb-5">
+                                <div class="row mt-4 mb-5">
                                     <div class="col-8">
                                         <label class="form-label" for="username">Username</label>
                                         <input type="username" name="username" class="form-control" id="username" autocomplete="off" value="<?= htmlspecialchars($staffMember['user_name']); ?>" placeholder="<?= htmlspecialchars($staffMember['user_name']); ?>"/>
                                     </div>
-                                    <div class="col-4 mt-4 pt-3 text-center">
+                                    <div class="col-4 mt-4 pt-3 ">
                                         <a href="#" onclick="changepass('<?= htmlspecialchars($staffMember['staff_password']);?>')">Change Password</a>
                                     </div>
                                 </div>
