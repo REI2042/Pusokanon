@@ -81,10 +81,6 @@ function compareEncryptedDates($encryptedDate1, $encryptedDate2){
 }
 
 
-
-
-
-
 function fetchRegister($pdo, $limit, $offset){
 	$sql = "SELECT * FROM resident_users WHERE account_active_status = 'Unregistered' LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);
