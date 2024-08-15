@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3 pb-2 ps-2 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control form-control-sm" autocomplete="off"/>
+                                    <input type="tel" class="form-control" name="contactNo" autocomplete="off" id="Contact" placeholder="09XX XXX XXXX" pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" title="Please enter a valid Philippine phone number starting with 09" required oninput="this.value = this.value.replace(/[^0-9\s]/g, '')">
                                         <label class="form-label" for="phoneNumber">Phone Number</label>
                                     </div>
                                 </div>
