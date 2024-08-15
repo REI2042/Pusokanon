@@ -50,7 +50,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Updates</a>
+                        <a class="nav-link" href="#">News</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -92,10 +92,6 @@
 						<h3 class=" text-center text-white">Register</h3><hr class="bg-white">
 					</div>
 				</div>
-				<?php
-
-					
-				?>
 				
 				<form class="row gy-2 gx-3 text-white" action="db/data_SubmitToUpload.php" method="POST" enctype="multipart/form-data">
 						<div class="col px-1">
@@ -130,45 +126,68 @@
 						    </select>
 						</div>
                         <div class="row">
-	                        <div class="col-3 mt-2 px-1">
-	                            <label for="quantity" class="form-label">Birthdate</label>
-	                            <input class="form-control" type="number" id="quantity" name="bday" min="1" max="31" placeholder="Day" required>
-	                        </div>
-	                        <div class="col-4 mt-2 px-1">
-	                            <label for="birthMonth" class="form-label">&nbsp;</label>
-	                            <select class="form-select" name="bmonth" id="birthMonth" required>
-	                                                <option value="">Month</option>
-	                                                <option value="01">January</option>
-								                    <option value="02">February</option>
-								                    <option value="03">March</option>
-								                    <option value="04">April</option>
-								                    <option value="05">May</option>
-								                    <option value="06">June</option>
-								                    <option value="07">July</option>
-								                    <option value="08">August</option>
-								                    <option value="09">September</option>
-								                    <option value="10">October</option>
-								                    <option value="11">November</option>
-								                    <option value="12">December</option>
-							    </select>
+							<div class="col-3 mt-2 px-1">
+								<label for="birthDay" class="form-label">Birthdate</label>
+								<select class="form-select" id="birthDay" name="bday" required>
+									<option value="">Day</option>
+								</select>
 							</div>
+							<div class="col-4 mt-2 px-1">
+								<label for="birthMonth" class="form-label"> </label>
+								<select class="form-select" name="bmonth" id="birthMonth" required>
+										<option value="">Month</option>
+										<option value="01">January</option>
+										<option value="02">February</option>
+										<option value="03">March</option>
+										<option value="04">April</option>
+										<option value="05">May</option>
+										<option value="06">June</option>
+										<option value="07">July</option>
+										<option value="08">August</option>
+										<option value="09">September</option>
+										<option value="10">October</option>
+										<option value="11">November</option>
+										<option value="12">December</option>
+								</select>
+								</div>
+								<script>
+									const monthSelect = document.getElementById('birthMonth');
+									const daySelect = document.getElementById('birthDay');
+
+									function updateDays() {
+										const month = monthSelect.value;
+										const year = new Date().getFullYear();
+										const daysInMonth = new Date(year, month, 0).getDate();
+
+										daySelect.innerHTML = '<option value="">Day</option>';
+										for (let i = 1; i <= daysInMonth; i++) {
+														const option = document.createElement('option');
+														option.value = i.toString().padStart(2, '0');
+														option.textContent = i;
+														daySelect.appendChild(option);
+										}
+									}
+
+									monthSelect.addEventListener('change', updateDays);
+									updateDays();
+								</script>							
 							<div class="col-4 mt-2 px-1" >
 	                            <label for="birthYear" class="form-label">&nbsp;</label>
 	                            <select class="form-select" name="byear" id="birthYear" required>
 	                                <option value="">Year</option>
 	                            </select>
-							                <script>
-							                    var select = document.getElementById("birthYear");
-							                    var currentYear = new Date().getFullYear();
-							                    var startYear = currentYear - 100;
+									<script>
+										var select = document.getElementById("birthYear");
+										var currentYear = new Date().getFullYear();
+										var startYear = currentYear - 100;
 
-							                    for (var year = currentYear; year >= startYear; year--) {
-							                        var option = document.createElement("option");
-							                        option.text = year;
-							                        option.value = year;
-							                        select.add(option);
-							                    }
-							                </script>
+										for (var year = currentYear; year >= startYear; year--) {
+											var option = document.createElement("option");
+											option.text = year;
+											option.value = year;
+											select.add(option);
+										}
+									</script>
 							</div>
 						</div>
 						<div class="col-6 mt-2 px-1">
@@ -188,11 +207,24 @@
 						</div>
 						<div class="col-6 mt-2 px-1 ">
 						   	<label for="citizenship" class="form-label">Citizenship</label>
-						   	<input class="form-control" type="text" id="citizenship" name="citizenship" placeholder="Enter Citizenship" required>
+						   	<select class="form-select" name="citizenship" id="citizenship" required>
+						   		<option value="">Select Citizenship</option>
+						   		<option value="Filipino">Filipino</option>
+						   		<option value="American">American</option>
+						   		<option value="Chinese">Chinese</option>
+						   		<option value="Japanese">Japanese</option>
+						   		<option value="Korean">Korean</option>
+						   		<option value="British">British</option>
+						   		<option value="Canadian">Canadian</option>
+						   		<option value="Australian">Australian</option>
+						   		<option value="German">German</option>
+						   		<option value="French">French</option>
+						   		<option value="Other">Other</option>
+						   	</select>
 						</div>
 						<div class="col-6 mt-2 px-1">
 						    <label for="Contact" class="form-label">Contact No</label>
-						    <input type="text" class="form-control" name="contactNo" id="Contact" placeholder="Contact" required>
+						    <input type="tel" class="form-control" name="contactNo" id="Contact" placeholder="09XX XXX XXXX" pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" title="Please enter a valid Philippine phone number starting with 09" required oninput="this.value = this.value.replace(/[^0-9\s]/g, '')">
 						</div>
 						<div class="col-12 mt-2 px-1">
 						    <label for="placeBirth" class="form-label">Place of birth</label>
