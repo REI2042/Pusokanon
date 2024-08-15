@@ -118,6 +118,7 @@ async function initDocumentSelection() {
       if (purpose) {
         const { value: file } = await Swal.fire({
           title: "Upload Image Requirement",
+          text: "Please upload a 2x2 ID picture of yourself.",
           input: "file",
           inputAttributes: {
             accept: "image/*",

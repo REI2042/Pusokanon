@@ -114,10 +114,11 @@
                             <th>Status</th>
                             <th>Date & Time Requested</th>
                             <th>Remarks</th>
+                            <th>Requirements</th>
                             <th>Tools</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="font-size: .8rem;">
                         <?php if (empty($pending)): ?>
                             <tr><td colspan="8">No Pending Documents</td></tr>
                         <?php else: ?>    
@@ -131,6 +132,7 @@
                                     <td><?= htmlspecialchars($pendings['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($pendings['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
+                                    <td><a href="#" onclick="ViewRequirements('<?= htmlspecialchars($pendings['document_requirements']); ?>')">View Requirements</a></td>
                                     <td>
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')">
@@ -193,10 +195,11 @@
                             <th>Status</th>
                             <th>Date & Time Requested</th>
                             <th>Remarks</th>
+                            <th>Requirements</th>
                             <th>Tools</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="font-size: .8rem;">
                         <?php if (empty($Processing)): ?>
                             <tr><td colspan="8">No Processing Documents</td></tr>
                         <?php else: ?>    
@@ -209,6 +212,7 @@
                                     <td><?= htmlspecialchars($processings['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($processings['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
+                                    <td><a href="#" onclick="ViewRequirements('<?= htmlspecialchars($processings['document_requirements']); ?>')">View Requirements</a></td>
                                     <td>
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
@@ -266,10 +270,11 @@
                             <th>Status</th>
                             <th>Date & Time Requested</th>
                             <th>Remarks</th>
+                            <th>Requirements</th>
                             <th>Tools</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="font-size: .8rem;">
                          <?php if (empty($completed)): ?>
                             <tr><td colspan="8">No Ready to Pick up Documents</td></tr>
                         <?php else: ?>    
@@ -282,6 +287,7 @@
                                     <td><?= htmlspecialchars($completed['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($completed['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
+                                    <td><a href="#" onclick="ViewRequirements('<?= htmlspecialchars($completed['document_requirements']); ?>')">View Requirements</a></td>
                                     <td>
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>

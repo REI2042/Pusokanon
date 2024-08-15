@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Aug 15, 2024 at 08:02 PM
+-- Generation Time: Aug 14, 2024 at 04:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,8 +42,7 @@ INSERT INTO `account_role` (`userRole_id`, `role_definition`) VALUES
 (3, 'secretary'),
 (4, 'officials'),
 (5, 'document processing'),
-(6, 'Collabs'),
-(7, 'Blotter Officer');
+(6, 'Collabs');
 
 -- --------------------------------------------------------
 
@@ -72,10 +71,9 @@ CREATE TABLE `barangay_staff` (
 --
 
 INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `contact_no`, `userRole_id`, `staff_email`, `user_name`, `staff_password`, `status`) VALUES
+(14, 'y6uepI9zt4ZrJ9xmLmSsjw==', '+MFss/zNRoJECy4hrlzhXw==', 'ecq8+4XRxyX+47+406+RHA==', 'k07qP+bfUh+lLEH/Lmle', '0000-00-00', '/E6zUxtovr16bzf1hwX8', '0', 1, '0P1kRNo3yJAG64fgWjSxPoH8uQl1+qDaXx7uaeIuW3w=', 'administrator', '$2y$10$BfdBmc07XyEbG7R8b0YrBeGWPRwjuRXkhurNUtMT8u45iBW7lH7ji', 'ACTIVE'),
 (17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', '', '0000-00-00', 'Male', '09347334823', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'BjfCK8M0mubh7rmg4W5sug==', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172', 'ACTIVE'),
-(60, 't+FxILiWLXP/QiR6U/tPTQ==', '4bRlCdKuqV93r2XA+QypfA==', 'L0VNWzJdF6FyKgU3hfoloA==', '', '0000-00-00', 'Female', '09472340876', 3, '8pPI8TOCQfYSelCcQ21ss111JZhQCV8iJPI1rp8KhR0=', 'FLFydCCa0k1u9NOmNdmbTg==', '$2y$10$sA0UTCGbfUidCv337Re77ODGGqlDo9z.dKiYj8AXes3dYDlxWQS1G', 'ACTIVE'),
-(61, 'RzzeyROKFU0TExhG+qYaBw==', 'Y2fEy5soB5k8MsJX/Qc6kw==', 'IEHazRM6gmMJE4IV5NnQ5A==', 'IV', '0000-00-00', 'Male', '+1 (528) 591-4175', 4, 'PTjNhBq8gjrJJYFTNAAwkOEydIx00EFgJIKhPjnoRPk=', 'wIA87kaTuB5G1JyZugB+oA==', '$2y$10$eaD1FkJgt9f9/a9tP.FuJe01dv2iAGMRyfTbhKnF9VRbph/rNCW0W', 'ACTIVE'),
-(63, 'vxLAysrYz1s7BVT7rLvN5Q==', 's8ihuIr3QN/p0QMzN3LgFw==', 'jhyQwPQ7jASNmvj8aRepnw==', 'II', '0000-00-00', 'Male', '+1 (859) 728-1592', 5, 'fve0NnVWQjo4FrP5myOVcM+A4raMWpIM0R5f/iUyo8w=', '9AZHLHTYHG6rjqfw/H3jQA==', '$2y$10$ksH7aaJXYP2ltqcnBzjx9u.AGUL9b.EKeXsUnfAvf9qBZajE.DY.a', 'ACTIVE');
+(60, '7QXDtZUbkEGvyt0/vp6biA==', '4bRlCdKuqV93r2XA+QypfA==', 'hT3TvBf3sF3Mgedpap/VGA==', '', '0000-00-00', 'Male', '09472340876', 1, '8pPI8TOCQfYSelCcQ21ss111JZhQCV8iJPI1rp8KhR0=', 'FLFydCCa0k1u9NOmNdmbTg==', '$2y$10$sA0UTCGbfUidCv337Re77ODGGqlDo9z.dKiYj8AXes3dYDlxWQS1G', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -222,9 +220,13 @@ CREATE TABLE `request_doc` (
 --
 
 INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`, `document_requirements`) VALUES
-(1, 6, 4, 2, 'Students Scholarship', 'Pending', '2024-08-15 12:02:46', '2024-08-15 12:02:46', 'Not released', 'EtI0j^Ha', '1723723366.png', ''),
-(2, 6, 1, 5, 'for load', 'Trash', '2024-08-15 12:25:40', '2024-08-15 12:39:35', 'Trash', '', '1723724741.png', '5d9a134598f81c8bd35264046259485c.jpg'),
-(3, 6, 1, 5, 'asda', 'Ready to pickup', '2024-08-15 12:54:27', '2024-08-15 13:22:47', 'Not released', 'Cp}_vff@', '1723726467.png', 'e9106305bf4b8e729e89c1ff8a214cb1.jpg');
+(1, 2, 4, 1, 'Employment', 'Done', '2024-08-07 19:05:19', '2024-08-07 19:20:45', 'Released', '<HkD0K5l7wv>', '1723057519.png', ''),
+(2, 2, 9, 2, 'Students Scholarship', 'Done', '2024-08-07 19:16:28', '2024-08-07 19:19:31', 'Released', '|7z)6SiD}k', '1723058188.png', ''),
+(3, 2, 3, 5, 'work load', 'Done', '2024-08-08 09:47:46', '2024-08-08 10:11:57', 'Released', 'B)386.>p4c', '1723110467.png', '80474a83035db7945c8c29f7148a599f.png'),
+(4, 1, 3, 5, 'qwwqe', 'Pending', '2024-08-08 10:25:52', '2024-08-08 10:25:53', 'Not released', '$2scDoAwOc@V', '1723112753.png', 'a42a9235a408fb46c4df453fd662f4da.png'),
+(5, 6, 9, 2, 'Students Scholarship', 'Pending', '2024-08-14 14:13:00', '2024-08-14 14:13:00', 'Not released', 'r=%R.EH?C', '', ''),
+(6, 6, 2, 2, 'Students Scholarship', 'Pending', '2024-08-14 14:13:13', '2024-08-14 14:13:13', 'Not released', 'LNyKH0E6aw', '', ''),
+(7, 6, 4, 3, 'Person With Disability Assistance', 'Pending', '2024-08-14 14:16:02', '2024-08-14 14:16:02', 'Not released', 'lg&$VnT1zxU=', '1723644962.png', '');
 
 -- --------------------------------------------------------
 
@@ -262,9 +264,7 @@ CREATE TABLE `resident_users` (
 --
 
 INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `verification_image`, `register_at`, `reset_token_hash`, `reset_token_expires_at`, `account_active_status`) VALUES
-(6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'filipino', 'Rerum proident modi', '09893459842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', '449158623_460991273210301_5060266438973425229_n.jpg', 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, 'Active'),
-(8, 'Vivien', 'Lane', 'Reagan Ruiz', 'I', 'Female', '1999-12-15', 'Single', 'Eius ut quis perspic', 'Vero consectetur con', '09873459873', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'New Lipata', '$2y$10$wI0zj6LSsq47hgThyawF9ufUPlsV/VhZ9sh/aP7/oTYvbeywMqvAi', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-14 22:53:53', NULL, NULL, 'Active'),
-(10, 'Hiroko', 'Rutledge', 'Derek Blevins', 'II.', 'Male', '1982-02-27', 'Single', 'Canadian', 'Maxime et et id qui ', '0968 202 7920', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'Cemento', '$2y$10$VE8y80aZ7J08NUoMQttGCeY/l5osNs5G7PWlbvkVJCgus0MlfM2HS', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-15 19:37:13', NULL, NULL, 'Unregistered');
+(6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'filipino', 'Rerum proident modi', '09893459842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', '449158623_460991273210301_5060266438973425229_n.jpg', 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, '1');
 
 --
 -- Indexes for dumped tables
@@ -334,13 +334,13 @@ ALTER TABLE `resident_users`
 -- AUTO_INCREMENT for table `account_role`
 --
 ALTER TABLE `account_role`
-  MODIFY `userRole_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `userRole_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `barangay_staff`
 --
 ALTER TABLE `barangay_staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `complaints_tbl`
@@ -370,13 +370,13 @@ ALTER TABLE `initial_sitio_population`
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
 --
 ALTER TABLE `resident_users`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

@@ -518,3 +518,21 @@ function trashCancelDocument(doc_ID, request_id) {
           });
       });
   });
+
+
+  function ViewRequirements(requirements) {
+    // Construct the full image path based on the folder where the images are stored
+    const imagePath = '../db/uploaded_filesRequirements/' + requirements;
+
+    Swal.fire({
+        title: 'Document Requirements',
+        html: `<img src="${imagePath}" alt="Document Requirements" style="max-width: 100%; height: auto;">`,
+        width: 600,
+        padding: '2em',
+        showCloseButton: true,
+        showConfirmButton: false,
+        
+    });
+}
+
+  

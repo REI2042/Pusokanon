@@ -901,6 +901,7 @@ function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)//connection i
 				rd.purpose_name AS purpose_name, 
 				rd.request_id,
 				rd.date_req, 
+				rd.document_requirements,
 				rd.remarks 
 			FROM request_doc rd
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
@@ -926,6 +927,7 @@ function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
                 rd.purpose_name AS purpose_name, 
                 rd.request_id, 
                 rd.date_req, 
+				rd.document_requirements,
                 rd.remarks 
             FROM request_doc rd
             INNER JOIN resident_users ru ON rd.res_id = ru.res_id
