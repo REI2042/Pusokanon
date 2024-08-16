@@ -47,6 +47,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const sitio = document.getElementById('sitios').value;
     const population = document.getElementById('sitio_population').value;
 
+    if (isNaN(population) || parseInt(population) < 0) {
+        Swal.fire({
+            title: 'Invalid Input',
+            text: 'Please enter a non-negative number for the population.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            customClass: {
+                popup: 'custom-swal'
+            }
+        });
+        return;
+    }
+
     Swal.fire({
         title: 'Are you sure?',
         text: `Do you want to update the population of ${sitio} to ${population}?`,
