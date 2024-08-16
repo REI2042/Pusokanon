@@ -17,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $placeBirth = $_POST['placeBirth'];
     $voter = $_POST['voter'];
     $sitio = $_POST['addsitio'];
+    $contactNo = $_POST['contactNo'];
+    $email = $_POST['accemail'];
 
     // Combine the birthdate
     $birthDate = $byear . '-' . $bmonth . '-' . $bday;
@@ -50,6 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 place_birth = :placeBirth,
                 registered_voter = :voter,
                 addr_sitio = :sitio,
+                contact_no = :contactNo,
+                res_email = :email,
                 profile_picture = :profilePicture
             WHERE res_ID = :userId";
     $stmt = $pdo->prepare($sql);
@@ -65,7 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':placeBirth' => $placeBirth,
         ':voter' => $voter,
         ':sitio' => $sitio,
+        ':contactNo' => $contactNo,
         ':profilePicture' => $profilePicture,
+        ':email' => encryptData($email),
         ':userId' => $_SESSION['res_ID']
     ]);
 
@@ -81,7 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['place_birth'] = $placeBirth;
     $_SESSION['registered_voter'] = $voter;
     $_SESSION['addr_sitio'] = $sitio;
+    $_SESSION['contact_no'] = $contactNo;
     $_SESSION['profile_picture'] = $profilePicture;
+    $_SESSION['res_email'] = $email;
 
     // Redirect to the profile page
     header("Location: ../Profile.php");

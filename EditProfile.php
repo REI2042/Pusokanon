@@ -58,7 +58,6 @@
 		<div class="col-3 col-md-3 px-1 mt-2">
 	        <label for="day" class="form-label">Birthdate</label>
 	    	<select class="form-select" name="bday" id="day" required>
-	            <option value="">Day</option>
 	            <?php for ($day = 1; $day <= 31; $day++): ?>
 	                <option value="<?= $day ?>" <?php if ($day == $birthDay) echo 'selected'; ?>><?= $day ?></option>
 	            <?php endfor; ?>
@@ -67,7 +66,6 @@
 		<div class="col-5 col-md-3 px-1 mt-2">
 	        <label for="birthMonth" class="form-label">&nbsp;</label>
 			<select class="form-select" name="bmonth" id="birthMonth" required>
-	            <option value="">Month</option>
 	            <option value="01" <?php if ($birthMonth == '01') echo 'selected'; ?>>January</option>
 	            <option value="02" <?php if ($birthMonth == '02') echo 'selected'; ?>>February</option>
 			    <option value="03" <?php if ($birthMonth == '03') echo 'selected'; ?>>March</option>
@@ -85,7 +83,6 @@
 		<div class="col-4 col-md-3 px-1 mt-2">
 	            <label for="birthYear" class="form-label">&nbsp;</label>
 	            <select class="form-select" name="byear" id="birthYear" required>
-	                <option value="">Year</option>
 	                <?php
 	                    $currentYear = date('Y');
 	                    $startYear = $currentYear - 100;
@@ -104,7 +101,19 @@
 		</div>
 		<div class="col-6 col-md-3 mt-2 px-1">
 		   	<label for="citizenship" class="form-label">Citizenship</label>
-		   	<input class="form-control" type="text" id="citizenship" name="citizenship" placeholder="<?= htmlspecialchars($_SESSION['citizenship']); ?>" value="<?= htmlspecialchars($_SESSION['citizenship']); ?>" required>
+			<select class="form-select" name="citizenship" id="citizenship" required>
+				<option value="Filipino" <?php if ($_SESSION['citizenship'] == 'Filipino') echo 'selected'; ?>>Filipino</option>
+				<option value="American" <?php if ($_SESSION['citizenship'] == 'American') echo 'selected'; ?>>American</option>
+				<option value="Chinese" <?php if ($_SESSION['citizenship'] == 'Chinese') echo 'selected'; ?>>Chinese</option>
+				<option value="Japanese" <?php if ($_SESSION['citizenship'] == 'Japanese') echo 'selected'; ?>>Japanese</option>
+				<option value="Korean" <?php if ($_SESSION['citizenship'] == 'Korean') echo 'selected'; ?>>Korean</option>
+				<option value="British" <?php if ($_SESSION['citizenship'] == 'British') echo 'selected'; ?>>British</option>
+				<option value="Canadian" <?php if ($_SESSION['citizenship'] == 'Canadian') echo 'selected'; ?>>Canadian</option>
+				<option value="Australian" <?php if ($_SESSION['citizenship'] == 'Australian') echo 'selected'; ?>>Australian</option>
+				<option value="German" <?php if ($_SESSION['citizenship'] == 'German') echo 'selected'; ?>>German</option>
+				<option value="French" <?php if ($_SESSION['citizenship'] == 'French') echo 'selected'; ?>>French</option>
+				<option value="Other" <?php if ($_SESSION['citizenship'] == 'Other') echo 'selected'; ?>>Other</option>
+			</select>
 		</div>
 		<div class="col-12 col-md-3 mt-2 px-1">
 			<label for="placeBirth" class="form-label">Place of birth</label>
@@ -137,7 +146,7 @@
 		</div>
 		<div class="col-12 col-md-6 mt-2 px-1">
 			<label for="Contact" class="form-label">Contact No</label>
-			<input type="text" class="form-control" name="contactNo" id="Contact" placeholder="<?= htmlspecialchars($_SESSION['contact_no']); ?>" value="<?= htmlspecialchars($_SESSION['contact_no']); ?>" required>
+			<input type="text" class="form-control" name="contactNo" id="Contact" placeholder="<?= htmlspecialchars($_SESSION['contact_no']); ?>" value="<?= htmlspecialchars($_SESSION['contact_no']); ?>" oninput="this.value = this.value.replace(/[^0-9\s]/g, '')" required>
 		</div>
 		<div class="col-12 col-md-6 mt-2 px-1">
             <label for="email" class="form-label">Email</label>
