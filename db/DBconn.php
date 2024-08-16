@@ -1014,7 +1014,8 @@ function fetchResidentDetails($pdo, $residentId){
 
 
 function fetchChartData($pdo){
-    $sql = "SELECT isp.sitio_name, isp.total_initial_residents, COUNT(ru.res_ID) as registered_residents
+    $sql = "SELECT isp.sitio_name, isp.total_initial_residents, 
+            COUNT(CASE WHEN ru.account_active_status != 'Unregistered' THEN ru.res_ID END) as registered_residents
             FROM initial_sitio_population isp
             LEFT JOIN resident_users ru ON isp.sitio_name = ru.addr_sitio
             GROUP BY isp.sitio_name, isp.total_initial_residents
