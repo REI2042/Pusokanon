@@ -230,10 +230,10 @@ function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, 
 function fetchResidentById($pdo, $search)
 {
 	$sql = "SELECT * FROM resident_users WHERE account_active_status != 'Unregistered' AND
-				res_ID = ? OR 
+				(res_ID = ? OR 
 				res_fname LIKE ? OR 
 				res_lname LIKE ? OR 
-				CONCAT(res_fname, ' ', res_lname) LIKE ?";
+				CONCAT(res_fname, ' ', res_lname) LIKE ?)";
 	$stmt = $pdo->prepare($sql);
 	$searchLike = "%$search%";
 	$stmt->execute([$search, $searchLike, $searchLike, $searchLike]);
