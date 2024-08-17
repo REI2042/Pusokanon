@@ -1,35 +1,31 @@
 <?php
 session_start();
 include 'DBconn.php';
+  $data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($_POST['docTypeId']) && isset($_POST['purposeId']) && isset($_POST['purposeName'])) {
-    $resId = $_SESSION['res_ID'];
-    $docTypeId = $_POST['docTypeId'];
-    $purposeId = $_POST['purposeId'];
-    $purposeName = $_POST['purposeName'];
-    $requestId = generateRandomString(8, 13);
+  if (isset($data['docTypeId']) && isset($data['purposeId']) && isset($data['purposeName'])) {
+      $resId = $_SESSION['res_ID'];
+      $docTypeId = $data['docTypeId'];
+      $purposeId = $data['purposeId'];
+      $purposeName = $data['purposeName'];
+      $requestId = generateRandomString(8, 13);
 
-    try {
-        $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, request_id) VALUES (:resId, :docTypeId, :purposeId, :purposeName, :requestId)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':resId' => $resId,
-            ':docTypeId' => $docTypeId,
-            ':purposeId' => $purposeId,
-            ':purposeName' => $purposeName,
-            ':requestId' => $requestId
-        ]);
+      try {
+          $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, request_id) VALUES (:resId, :docTypeId, :purposeId, :purposeName, :requestId)";
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute([
+              ':resId' => $resId,
+              ':docTypeId' => $docTypeId,
+              ':purposeId' => $purposeId,
+              ':purposeName' => $purposeName,
+              ':requestId' => $requestId
+          ]);
 
-        if ($stmt->execute()) {
-            $_SESSION['last_request_id'] = $requestId;
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Failed to insert request']);
-        }
-    } catch (PDOException $e) {
-        error_log($e->getMessage());
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-    }
+          echo json_encode(['success' => true]);
+      } catch (PDOException $e) {
+          error_log($e->getMessage());
+          echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+      }
 } elseif (isset($_POST['purpose']) && isset($_FILES['file']) && isset($_POST['docTypeId'])) {
     if ($_FILES['file']['error'] == 0) {
         $fileTmpPath = $_FILES['file']['tmp_name'];

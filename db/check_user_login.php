@@ -1,6 +1,7 @@
 <?php
 include 'DBconn.php'; 
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user input
     $email = $_POST['username'];
