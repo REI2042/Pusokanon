@@ -20,7 +20,12 @@ if (isset($_POST['docTypeId']) && isset($_POST['purposeId']) && isset($_POST['pu
             ':requestId' => $requestId
         ]);
 
-        echo json_encode(['success' => true]);
+        if ($stmt->execute()) {
+            $_SESSION['last_request_id'] = $requestId;
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Failed to insert request']);
+        }
     } catch (PDOException $e) {
         error_log($e->getMessage());
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);

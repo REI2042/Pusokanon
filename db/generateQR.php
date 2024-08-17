@@ -5,9 +5,12 @@ require_once '../phpqrcode/qrlib.php';
 require_once 'DBconn.php';
 
 
-$res_id = $_SESSION['res_ID'];
 
-$userData = fetchLatestRequest($pdo, $res_id);
+$request_id = $_SESSION['last_request_id'];
+$userData = fetchSpecificRequest($pdo, $request_id);
+
+
+
 
 if ($userData) {
     $qrData = json_encode([
@@ -48,6 +51,6 @@ if ($userData) {
         echo "Failed to generate QR code or save file.";
     }
 } else {
-    echo "No data found for this user.";
-}
-?>
+    error_log("No data found for user with res_id: " . $res_id);
+    echo "Error: No data found for the user.";
+}?>

@@ -111,6 +111,20 @@ include 'db/check_user_login.php';
                                             </button>
                                         </div>
                                     </div>
+                                    <style>
+                                        @media (max-width: 767px) {
+                                            .input-group-append {
+                                                position: absolute;
+                                                right: 0;
+                                                top: 0;
+                                                bottom: 0;
+                                                z-index: 3;
+                                            }
+                                            #togglePassword {
+                                                height: 100%;
+                                            }
+                                        }
+                                    </style>                                
                                 </div>
                                 <script>
                                     document.getElementById('togglePassword').addEventListener('click', function () {

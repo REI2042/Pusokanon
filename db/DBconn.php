@@ -294,7 +294,32 @@ function fetchLatestRequest($pdo, $userId)
 	return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-
+function fetchSpecificRequest($pdo, $request_id)
+{
+	$sql = "SELECT
+				rd.request_id,
+				rd.res_id AS resident_id,
+				CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+				ru.addr_sitio AS sitio,
+				rd.doc_ID AS document_id,
+				dt.doc_name AS document_name,
+				rd.doctype_id AS document_type_id, 
+				rd.purpose_name AS purpose, 
+				rd.stat AS stat,
+				rd.remarks AS remarks,
+				rd.date_req AS request_date,
+				dt.doc_amount
+				FROM request_doc rd 
+				INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+				INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+				WHERE rd.request_id = :request_id 
+				ORDER BY rd.date_req DESC
+				LIMIT 1";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindValue(':request_id', $request_id, PDO::PARAM_INT);
+	$stmt->execute();
+	return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 function getTotalStaffCount($pdo, $search = null) {
     $query = "SELECT COUNT(*) FROM barangay_staff bs";

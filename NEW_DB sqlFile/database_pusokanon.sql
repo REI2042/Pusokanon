@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Aug 15, 2024 at 08:02 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Aug 15, 2024 at 05:15 PM
+-- Server version: 10.3.39-MariaDB-cll-lve
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `database_pusokanon`
+-- Database: `pfnvpzmi_database_pusokanon`
 --
 
 -- --------------------------------------------------------
@@ -107,13 +107,6 @@ CREATE TABLE `complaints_tbl` (
   `remarks` varchar(200) NOT NULL,
   `date_closed` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `complaints_tbl`
---
-
-INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `comment`, `remarks`, `date_closed`) VALUES
-(1, 1, 'Meghan', 'Alea Bailey', 'Marsh', 'Sr.', 'Female', 64, '2007-12-22', '02:09:00', '2024-08-09 08:41:32', 'Mustang', 'Theft', 'Dignissimos eius ani', 'complaints_evidence/66b5d63c1b9dd.png', 18, '2024-08-28', '20:42:00', 'Approved', 'akgasdj', 'CASE CLOSED', '2024-08-09');
 
 -- --------------------------------------------------------
 
@@ -222,9 +215,7 @@ CREATE TABLE `request_doc` (
 --
 
 INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`, `document_requirements`) VALUES
-(1, 6, 4, 2, 'Students Scholarship', 'Pending', '2024-08-15 12:02:46', '2024-08-15 12:02:46', 'Not released', 'EtI0j^Ha', '1723723366.png', ''),
-(2, 6, 1, 5, 'for load', 'Trash', '2024-08-15 12:25:40', '2024-08-15 12:39:35', 'Trash', '', '1723724741.png', '5d9a134598f81c8bd35264046259485c.jpg'),
-(3, 6, 1, 5, 'asda', 'Ready to pickup', '2024-08-15 12:54:27', '2024-08-15 13:22:47', 'Not released', 'Cp}_vff@', '1723726467.png', 'e9106305bf4b8e729e89c1ff8a214cb1.jpg');
+(1, 6, 4, 2, 'Students Scholarship', 'Pending', '2024-08-15 12:02:46', '2024-08-15 21:12:59', 'Not released', 'EtI0j^Ha', '1723756379.png', '');
 
 -- --------------------------------------------------------
 
@@ -262,7 +253,7 @@ CREATE TABLE `resident_users` (
 --
 
 INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `verification_image`, `register_at`, `reset_token_hash`, `reset_token_expires_at`, `account_active_status`) VALUES
-(6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'filipino', 'Rerum proident modi', '09893459842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', '449158623_460991273210301_5060266438973425229_n.jpg', 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, 'Active'),
+(6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'filipino', 'Rerum proident modi', '09893459842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', '66b5cd5402e49.png', 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, 'Active'),
 (8, 'Vivien', 'Lane', 'Reagan Ruiz', 'I', 'Female', '1999-12-15', 'Single', 'Eius ut quis perspic', 'Vero consectetur con', '09873459873', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'New Lipata', '$2y$10$wI0zj6LSsq47hgThyawF9ufUPlsV/VhZ9sh/aP7/oTYvbeywMqvAi', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-14 22:53:53', NULL, NULL, 'Active'),
 (10, 'Hiroko', 'Rutledge', 'Derek Blevins', 'II.', 'Male', '1982-02-27', 'Single', 'Canadian', 'Maxime et et id qui ', '0968 202 7920', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'Cemento', '$2y$10$VE8y80aZ7J08NUoMQttGCeY/l5osNs5G7PWlbvkVJCgus0MlfM2HS', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-15 19:37:13', NULL, NULL, 'Unregistered');
 
@@ -288,8 +279,8 @@ ALTER TABLE `barangay_staff`
 --
 ALTER TABLE `complaints_tbl`
   ADD PRIMARY KEY (`complaint_id`),
-  ADD KEY `res_id` (`res_id`),
-  ADD KEY `staff_id` (`staff_id`);
+  ADD KEY `staff_id` (`staff_id`),
+  ADD KEY `fk_res` (`res_id`);
 
 --
 -- Indexes for table `docs_purpose`
@@ -387,6 +378,21 @@ ALTER TABLE `resident_users`
 --
 ALTER TABLE `barangay_staff`
   ADD CONSTRAINT `barangay_staff_ibfk_1` FOREIGN KEY (`userRole_id`) REFERENCES `account_role` (`userRole_id`);
+
+--
+-- Constraints for table `complaints_tbl`
+--
+ALTER TABLE `complaints_tbl`
+  ADD CONSTRAINT `fk_res` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`),
+  ADD CONSTRAINT `staff_fk` FOREIGN KEY (`staff_id`) REFERENCES `barangay_staff` (`staff_id`);
+
+--
+-- Constraints for table `request_doc`
+--
+ALTER TABLE `request_doc`
+  ADD CONSTRAINT `doctype_fk` FOREIGN KEY (`docType_id`) REFERENCES `doc_type` (`docType_id`),
+  ADD CONSTRAINT `pupose_fk` FOREIGN KEY (`purpose_id`) REFERENCES `docs_purpose` (`purpose_id`),
+  ADD CONSTRAINT `userDocs request` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`);
 
 --
 -- Constraints for table `resident_users`
