@@ -106,7 +106,7 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="Post-Announcements.php" class="sidebar-link">
                                 <i class="fa-solid fa-bullhorn"></i>
                                 <span class="span-word">&nbsp;Post Announcement</span>
                             </a>
