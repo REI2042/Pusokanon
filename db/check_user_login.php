@@ -25,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($staff['status'] === 'ACTIVE') {
             session_start();
             $_SESSION['loggedin'] = true;
+            $_SESSION['staff_id'] = $staff['staff_id'];
             $_SESSION['userRole'] = $staff['userRole_id'];
             $_SESSION['username'] = decryptData($staff['user_name']);
             $_SESSION['staff_fname'] = decryptData($staff['staff_fname']);

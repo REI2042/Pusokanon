@@ -2,40 +2,29 @@
     include '../include/staff_restrict_pages.php';
     include 'headerAdmin.php';
     include '../db/DBconn.php';
-
-    $backUrl = 'Post-Announcements.php';
-    $queryParams = [];
-
-    foreach ($_GET as $key => $value) {
-        if ($key !== 'id') {
-            $queryParams[$key] = urlencode($value);
-        }
-    }
-
-    if (!empty($queryParams)) {
-        $backUrl .= '?' . http_build_query($queryParams);
-    }
+    
 ?>
 <link rel="stylesheet" href="#">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
-        <a href="<?php echo htmlspecialchars($backUrl); ?>" class="back-button d-flex align-items-center text-dark gap-2">
+        <a href="Post-Announcements.php" class="back-button d-flex align-items-center text-dark gap-2">
             <i class="fas fa-circle-chevron-left fa-2x"></i>
             <span>Back</span>
         </a>
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="Add-Post.php" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <label for="post_title">Title:</label>
                 <input type="text" id="post_title" name="post_title" required>
             </div>
             <div class="row">
                 <label for="post_body">Body:</label>
-                <textarea id="post_body" name="post_body" rows="15"  cols="6" required></textarea>
+                <textarea id="post_body" name="post_body" rows="8"  cols="6" required></textarea>
             </div>
             <div class="row">
                 <label for="myfile">Select files:</label>
                 <input type="file" id="post_media" name="post_media" accept="image/*, video/*" multiple>
             </div>
+            <div id="preview-container"></div>
             <button type="submit">Post</button>
         </form>
     </section>
