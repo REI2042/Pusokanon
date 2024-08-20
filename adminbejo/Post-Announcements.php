@@ -127,37 +127,37 @@
                     <h2>Pinned Posts</h2>
                     <div class="Pinned-Post">
                         <h5>Title</h5>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
+                        <i class="fa-solid fa-thumbs-up"></i>
                         <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Pinned-Post">
-                        <h5>Title</h5>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
-                        <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
+                        <i class="fa-solid fa-thumbs-down"></i>
                         <span class="">999</span>
                     </div>
                     <div class="Pinned-Post">
                         <h5>Title</h5>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
+                        <i class="fa-solid fa-thumbs-up"></i>
                         <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Pinned-Post">
-                        <h5>Title</h5>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
-                        <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
+                       <i class="fa-solid fa-thumbs-down"></i>
                         <span class="">999</span>
                     </div>
                     <div class="Pinned-Post">
                         <h5>Title</h5>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
+                        <i class="fa-solid fa-thumbs-up"></i>
                         <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
+                        <i class="fa-solid fa-thumbs-down"></i>
+                        <span class="">999</span>
+                    </div>
+                    <div class="Pinned-Post">
+                        <h5>Title</h5>
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        <span class="">999</span>
+                        <i class="fa-solid fa-thumbs-down"></i>
+                        <span class="">999</span>
+                    </div>
+                    <div class="Pinned-Post">
+                        <h5>Title</h5>
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        <span class="">999</span>
+                        <i class="fa-solid fa-thumbs-down"></i>
                         <span class="">999</span>
                     </div>
                 </div>

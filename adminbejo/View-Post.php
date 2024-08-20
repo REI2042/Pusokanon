@@ -23,6 +23,13 @@
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row">
+            <a href="Post-Announcements.php" class="back-button d-flex align-items-center text-dark gap-2">
+                <i class="fas fa-circle-chevron-left fa-2x"></i>
+                <span>Back</span>
+            </a>
+            <button id="pinPostButton" class="pin-button" data-post-id="<?php echo $post_id; ?>" data-is-pinned="<?php echo $post['pinned']; ?>">
+                <?php echo $post['pinned'] ? 'Unpin Post' : 'Pin Post'; ?>
+            </button>
             <div class="Post">
                 <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                 <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
@@ -73,8 +80,12 @@
                     </span>
                 </div>
             </div>  
+            <div class="">
+                <a href="#"><button class="edit-button">Edit Post</button></a>
+                <a href="#"><button class="delete-button">Delete Post</button></a>
+            </div>
         </div>
     </section>
 </div>
-<script src="js/View-Post.js"></script>
+<script src="View-Post.js"></script>
 <?php include 'footerAdmin.php'; ?>
