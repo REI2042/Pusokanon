@@ -11,7 +11,7 @@
             <i class="fas fa-circle-chevron-left fa-2x"></i>
             <span>Back</span>
         </a>
-        <form action="Add-Post.php" method="POST" enctype="multipart/form-data">
+        <form action="phpConn/Add-Post.php" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <label for="post_title">Title:</label>
                 <input type="text" id="post_title" name="post_title" required>

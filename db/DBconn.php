@@ -1049,3 +1049,20 @@ function fetchChartData($pdo){
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function fetchPost($pdo, $post_id) {
+    $stmt = $pdo->prepare("SELECT p.*, s.staff_fname, s.staff_lname, 
+                           (SELECT COUNT(*) FROM post_reactions WHERE post_id = p.post_id AND reaction_type = 'upvote') as upvotes,
+                           (SELECT COUNT(*) FROM post_reactions WHERE post_id = p.post_id AND reaction_type = 'downvote') as downvotes
+                           FROM posts p 
+                           JOIN barangay_staff s ON p.staff_id = s.staff_id 
+                           WHERE p.post_id = ?");
+    $stmt->execute([$post_id]);
+    return $stmt->fetch();
+}
+
+function fetchPostMedia($pdo, $post_id) {
+    $stmt = $pdo->prepare("SELECT * FROM post_media WHERE post_id = ?");
+    $stmt->execute([$post_id]);
+    return $stmt->fetchAll();
+}
