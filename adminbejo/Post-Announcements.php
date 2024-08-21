@@ -1,170 +1,140 @@
 <?php
-    include '../include/staff_restrict_pages.php';
-    include 'headerAdmin.php';
-    include '../db/DBconn.php';
+include '../include/staff_restrict_pages.php';
+include 'headerAdmin.php';
+include '../db/DBconn.php';
+
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'trending';
+
+$pinnedPosts = fetchPinnedPosts($pdo);
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$postsPerPage = 5;
+$offset = ($page - 1) * $postsPerPage;
+
+$posts = fetchPosts($pdo, $sort, $offset, $postsPerPage);
+
+$totalPosts = getTotalPosts($pdo);
+$totalPages = ceil($totalPosts / $postsPerPage);
+
+function time_elapsed_string($datetime, $full = false) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+
 ?>
 <link rel="stylesheet" href="css/Post-Announcements.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <a href="Create-Post.php">
-            <button class="btn btn-primary">Create Post</i></button>
+            <button class="btn btn-primary">Create Post</button>
         </a>
         <div class="row">
             <div class="col-6">
                 <div class="Posts">
                     <div class="">
-                        <a href="#" class="trending-button">Trending</a>
-                        <a href="#" class="latest-button">Latest</a>
-                        <a href="#" class="oldest-button">Oldest</a>
+                        <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>
+                        <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>
+                        <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
                     </div>
-                    <div class="Post">
-                        <h3>Title</h3>
-                        <p>Content</p>
-                        <p>Posted # Hrs Ago</p>
-                        <div id="PostCarousel" class="carousel slide d-flex" data-bs-interval="false">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active h-100">
-                                    <video class="video" controls autoplay loop>
-                                        <source src="../db/PostMedias/Videos/TestVideo.mp4" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
+                    <?php foreach ($posts as $post): ?>
+                        <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
+                            <div class="Post">
+                                <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+                                <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
+                                <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                <div>
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                    <span><?php echo $post['upvotes']; ?></span>
+                                    <i class="fa-solid fa-thumbs-down"></i>
+                                    <span><?php echo $post['downvotes']; ?></span>
                                 </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#PostCarousel" data-bs-slide="prev">
-                                <i class="prev fa-solid fa-chevron-left" aria-hidden="true"></i>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#PostCarousel" data-bs-slide="next">
-                                <i class="next fa-solid fa-chevron-right" aria-hidden="true"></i>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
-                        <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Post">
-                        <h3>Title</h3>
-                        <p>Content</p>
-                        <p>Posted # Hrs Ago</p>
-                        <div id="Post2" class="carousel slide d-flex" data-bs-interval="false">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#Post2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#Post2" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#Post2" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="../db/PostMedias/Images/Image1.jpg" class="image" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="../db/PostMedias/Images/Image2.jpg" class="image" alt="...">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <video class="video" controls autoplay muted loop>
-                                        <source src="../db/PostMedias/Videos/TestVideo.mp4" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#Post2" data-bs-slide="prev">
-                                <i class="prev fa-solid fa-chevron-left" aria-hidden="true"></i>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#Post2" data-bs-slide="next">
-                                <i class="next fa-solid fa-chevron-right" aria-hidden="true"></i>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
-                        <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Post">
-                        <h3>Title</h3>
-                        <p>Content</p>
-                        <p>Posted # Hrs Ago</p>
-                        <div id="Post3" class="carousel slide d-flex" data-bs-interval="false">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#Post3" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#Post3" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#Post3" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="../db/PostMedias/Images/Image1.jpg" class="image" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="../db/PostMedias/Images/Image2.jpg" class="image" alt="...">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <video class="video" controls autoplay muted loop>
-                                        <source src="../db/PostMedias/Videos/TestVideo.mp4" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#Post3" data-bs-slide="prev">
-                                <i class="prev fa-solid fa-chevron-left" aria-hidden="true"></i>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#Post3" data-bs-slide="next">
-                                <i class="next fa-solid fa-chevron-right" aria-hidden="true"></i>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i></button>
-                        <span class="">999</span>
-                        <button class="btn btn-primary"><i class="fa-solid fa-thumbs-down"></i></button>
-                        <span class="">999</span>
-                    </div>
-                    <p class="pagination text-center">Pagination Here</p>
+                        </a>
+                    <?php endforeach; ?>
+                    <nav aria-label="Post page navigation">
+                        <ul class="pagination justify-content-center">
+                            <?php if ($page > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=1" aria-label="First">
+                                        <span aria-hidden="true">First</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $page - 1; ?>" aria-label="Previous">
+                                        <span aria-hidden="true">Previous</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php for ($i = max(1, $page - 2); $i <= min($totalPages, $page + 2); $i++): ?>
+                                <li class="page-item <?php echo $i === $page ? 'active' : ''; ?>">
+                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $i; ?>">
+                                        <?php echo $i; ?>
+                                    </a>
+                                </li>
+                            <?php endfor; ?>
+
+                            <?php if ($page < $totalPages): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $page + 1; ?>" aria-label="Next">
+                                        <span aria-hidden="true">Next</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $totalPages; ?>" aria-label="Last">
+                                        <span aria-hidden="true">Last</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <div class="col-6">
                 <div class="Pinned-Posts">
                     <h2>Pinned Posts</h2>
-                    <div class="Pinned-Post">
-                        <h5>Title</h5>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                        <span class="">999</span>
-                        <i class="fa-solid fa-thumbs-down"></i>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Pinned-Post">
-                        <h5>Title</h5>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                        <span class="">999</span>
-                       <i class="fa-solid fa-thumbs-down"></i>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Pinned-Post">
-                        <h5>Title</h5>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                        <span class="">999</span>
-                        <i class="fa-solid fa-thumbs-down"></i>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Pinned-Post">
-                        <h5>Title</h5>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                        <span class="">999</span>
-                        <i class="fa-solid fa-thumbs-down"></i>
-                        <span class="">999</span>
-                    </div>
-                    <div class="Pinned-Post">
-                        <h5>Title</h5>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                        <span class="">999</span>
-                        <i class="fa-solid fa-thumbs-down"></i>
-                        <span class="">999</span>
-                    </div>
+                    <?php foreach ($pinnedPosts as $pinnedPost): ?>
+                        <a href="View-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
+                            <div class="Pinned-Post">
+                                <h5><?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
+                                <p>Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
+                                <div>
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                    <span><?php echo $pinnedPost['upvotes']; ?></span>
+                                    <i class="fa-solid fa-thumbs-down"></i>
+                                    <span><?php echo $pinnedPost['downvotes']; ?></span>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
     </section>
 </div>
-<script src="#"></script>
+
 <?php include 'footerAdmin.php'; ?>

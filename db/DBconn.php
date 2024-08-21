@@ -1066,3 +1066,46 @@ function fetchPostMedia($pdo, $post_id) {
     $stmt->execute([$post_id]);
     return $stmt->fetchAll();
 }
+
+function fetchPinnedPosts($pdo, $limit = 5) {
+    $query = "SELECT p.*
+              FROM posts p 
+              WHERE p.pinned = 1
+              ORDER BY p.created_at DESC
+              LIMIT :limit";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function fetchPosts($pdo, $sort, $offset, $postsPerPage) {
+    switch ($sort) {
+        case 'latest':
+            $orderBy = "p.created_at DESC";
+            break;
+        case 'oldest':
+            $orderBy = "p.created_at ASC";
+            break;
+        case 'trending':
+        default:
+            $orderBy = "(p.upvotes - p.downvotes) DESC, p.created_at DESC";
+            break;
+    }
+
+    $query = "SELECT p.*
+              FROM posts p 
+              WHERE p.pinned = 0
+              ORDER BY $orderBy
+              LIMIT :offset, :postsPerPage";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindParam(':postsPerPage', $postsPerPage, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function getTotalPosts($pdo) {
+    $query = "SELECT COUNT(*) FROM posts WHERE pinned = 0";
+    return $pdo->query($query)->fetchColumn();
+}
