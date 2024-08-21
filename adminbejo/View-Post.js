@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     pinButton.addEventListener('click', function() {
         const postId = this.getAttribute('data-post-id');
         const isPinned = this.getAttribute('data-is-pinned') === '1';
-        
+    
         Swal.fire({
             title: 'Are you sure?',
             text: isPinned ? "Do you want to unpin this post?" : "Do you want to pin this post?",
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         Swal.fire(
                             'Error!',
-                            'Failed to update pin status.',
+                            data.error,
                             'error'
                         );
                     }
