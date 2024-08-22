@@ -139,6 +139,7 @@
                                                 <i class="bi bi-trash3-fill"></i>
                                             </div>                                         
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
+                                                <input type="hidden" name="doctype" value="<?= $docType;?>">
                                                 <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
                                                 <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($pendings['doc_ID']); ?>">
