@@ -61,7 +61,23 @@ function time_elapsed_string($datetime, $full = false) {
                         <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
                     </div>
                     <?php if (!empty($posts)): ?>
-                        <?php foreach ($posts as $post): ?>
+                        <?php 
+                        $currentPostId = null;
+                        $imageCollage = [];
+                        foreach ($posts as $post): 
+                            if ($currentPostId !== $post['post_id']) {
+                                // If we have images for the previous post, display them as a collage
+                                if (!empty($imageCollage)) {
+                                    echo '<div class="image-collage">';
+                                    foreach ($imageCollage as $image) {
+                                        echo $image;
+                                    }
+                                    echo '</div>';
+                                    $imageCollage = [];
+                                }
+                                // Start a new post
+                                $currentPostId = $post['post_id'];
+                        ?>
                             <div class="Post position-relative">
                                 <form action="phpConn/pin_post.php" method="POST">
                                     <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
@@ -69,36 +85,52 @@ function time_elapsed_string($datetime, $full = false) {
                                         <i class="fa-solid fa-thumbtack"></i>
                                     </button>
                                 </form>
-                            <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
-                                <div>
-                                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
-                                    <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
-                                </div>
+                                <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
+                                    <div>
+                                        <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+                                        <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
+                                    </div>
 
-                                <div>
-                                    <?php if ($post['media_type'] === 'image'): ?>
-                                        <img src="../db/PostMedias/Images/<?php echo htmlspecialchars($post['media_path']); ?>" class="image" alt="Post Image">
-                                    <?php elseif ($post['media_type'] === 'video'): ?>
-                                        <video class="video" controls autoplay muted loop>
-                                            <source src="../db/PostMedias/Videos/<?php echo htmlspecialchars($post['media_path']); ?>" type="video/mp4">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    <?php endif; ?>
-                                </div>
+                                    <div>
+                                        <?php if ($post['media_type'] === 'image'): ?>
+                                            <?php $imageCollage[] = '<img src="../db/PostMedias/Images/' . htmlspecialchars($post['media_path']) . '" class="image" alt="Post Image">'; ?>
+                                        <?php elseif ($post['media_type'] === 'video'): ?>
+                                            <video class="video" controls autoplay muted loop>
+                                                <source src="../db/PostMedias/Videos/<?php echo htmlspecialchars($post['media_path']); ?>" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        <?php endif; ?>
+                                    </div>
 
-                                <div>
-                                    <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
-                                </div>
+                                    <div>
+                                        <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                    </div>
 
-                                <div>
-                                    <i class="fa-solid fa-thumbs-up"></i>
-                                    <span><?php echo $post['upvotes']; ?></span>
-                                    <i class="fa-solid fa-thumbs-down"></i>
-                                    <span><?php echo $post['downvotes']; ?></span>
-                                </div>
-                            </a>
+                                    <div>
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <span><?php echo $post['upvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-down"></i>
+                                        <span><?php echo $post['downvotes']; ?></span>
+                                    </div>
+                                </a>
                             </div>
-                        <?php endforeach; ?>
+                        <?php 
+                            } else {
+                                // If it's the same post_id, just add the image to the collage
+                                if ($post['media_type'] === 'image') {
+                                    $imageCollage[] = '<img src="../db/PostMedias/Images/' . htmlspecialchars($post['media_path']) . '" class="image" alt="Post Image">';
+                                }
+                            }
+                        endforeach; 
+                        // Display any remaining images in the collage
+                        if (!empty($imageCollage)) {
+                            echo '<div class="image-collage">';
+                            foreach ($imageCollage as $image) {
+                                echo $image;
+                            }
+                            echo '</div>';
+                        }
+                        ?>
                     <?php else: ?>
                         <p class="no-post-message">There are no posts yet.</p>
                     <?php endif; ?>
