@@ -64,11 +64,48 @@
                                     <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
                                     <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
-                                    <div>
-                                        <i class="fa-solid fa-thumbs-up"></i>
-                                        <span><?php echo $post['upvotes']; ?></span>
-                                        <i class="fa-solid fa-thumbs-down"></i>
-                                        <span><?php echo $post['downvotes']; ?></span>
+                                    <?php $media = fetchPostMedia($pdo, $post['post_id']); ?>
+                                    <?php if (!empty($media)): ?>
+                                        <div id="Post<?php echo $post['post_id']; ?>" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <?php foreach ($media as $index => $item): ?>
+                                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                                        <?php if ($item['media_type'] === 'image'): ?>
+                                                            <img src="db/PostMedias/Images/<?php echo htmlspecialchars($item['media_path']); ?>" class="d-block w-100" alt="Post Image">
+                                                        <?php elseif ($item['media_type'] === 'video'): ?>
+                                                            <video class="d-block w-100" controls>
+                                                                <source src="db/PostMedias/Videos/<?php echo htmlspecialchars($item['media_path']); ?>" type="video/mp4">
+                                                                Your browser does not support the video tag.
+                                                            </video>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <?php if (count($media) > 1): ?>
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#Post<?php echo $post['post_id']; ?>" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#Post<?php echo $post['post_id']; ?>" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="reactions">
+                                        <span class="reaction">
+                                            <button class="btn upvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'upvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                            </button>
+                                            <span class="count upvote-count"><?php echo $post['upvotes']; ?></span>
+                                        </span>
+                                        <span class="reaction">
+                                            <button class="btn downvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'downvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
+                                                <i class="fa-solid fa-thumbs-down"></i>
+                                            </button>
+                                            <span class="count downvote-count"><?php echo $post['downvotes']; ?></span>
+                                        </span>
                                     </div>
                                 </div>
                             </a>
@@ -141,5 +178,5 @@
         </div>
     </section>
 </div>
-<script src="#"></script>
+<script src="js/News.js"></script>
 <?php include 'include/footer.php'; ?>
