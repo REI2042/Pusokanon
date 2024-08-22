@@ -1,0 +1,22 @@
+#preview-container {
+    margin-top: 20px;
+}
+.preview-item {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.preview-item img, .preview-item video {
+    max-width: 250px;
+    max-height: 250px;
+}
+.remove-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

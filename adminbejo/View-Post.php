@@ -81,8 +81,8 @@
                 </div>
             </div>  
             <div class="">
-                <a href="#"><button class="edit-button">Edit Post</button></a>
-                <a href="#"><button class="delete-button">Delete Post</button></a>
+                <a href="Edit-Post.php?id=<?php echo $post_id; ?>"><button class="edit-button">Edit Post</button></a>
+                <button class="delete-button" data-post-id="<?php echo $post_id; ?>">Delete Post</button>
             </div>
         </div>
     </section>
