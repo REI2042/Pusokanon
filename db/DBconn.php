@@ -1093,9 +1093,8 @@ function fetchPosts($pdo, $sort, $offset, $postsPerPage) {
             break;
     }
 
-    $query = "SELECT p.*, pm.media_path, pm.media_type
+    $query = "SELECT p.*
               FROM posts p 
-			  LEFT JOIN post_media pm ON p.post_id = pm.post_id
               WHERE p.pinned = 0
               ORDER BY $orderBy
               LIMIT :offset, :postsPerPage";
