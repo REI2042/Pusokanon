@@ -69,17 +69,33 @@ function time_elapsed_string($datetime, $full = false) {
                                         <i class="fa-solid fa-thumbtack"></i>
                                     </button>
                                 </form>
-                                <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
+                                <div>
                                     <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
+                                </div>
+
+                                <div>
+                                    <?php if ($post['media_type'] === 'image'): ?>
+                                        <img src="../db/PostMedias/Images/<?php echo htmlspecialchars($post['media_path']); ?>" class="image" alt="Post Image">
+                                    <?php elseif ($post['media_type'] === 'video'): ?>
+                                        <video class="video" controls autoplay muted loop>
+                                            <source src="../db/PostMedias/Videos/<?php echo htmlspecialchars($post['media_path']); ?>" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div>
                                     <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
-                                    <div>
-                                        <i class="fa-solid fa-thumbs-up"></i>
-                                        <span><?php echo $post['upvotes']; ?></span>
-                                        <i class="fa-solid fa-thumbs-down"></i>
-                                        <span><?php echo $post['downvotes']; ?></span>
-                                    </div>
-                                </a>
+                                </div>
+
+                                <div>
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                    <span><?php echo $post['upvotes']; ?></span>
+                                    <i class="fa-solid fa-thumbs-down"></i>
+                                    <span><?php echo $post['downvotes']; ?></span>
+                                </div>
+
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -130,9 +146,22 @@ function time_elapsed_string($datetime, $full = false) {
                     <?php if (!empty($pinnedPosts)): ?>
                         <?php foreach ($pinnedPosts as $pinnedPost): ?>
                             <a href="View-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
-                                <div class="Pinned-Post">
-                                    <h5><?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
-                                    <p>Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
+                                <div class="Pinned-Post d-flex align-items-start">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-nowrap"><?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
+                                        <p class="text-nowrap">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
+                                    </div>
+                                    <div class="ml-3" style="height: auto; max-width: 100px; max-height: 100px;">
+                                        <?php if ($pinnedPost['media_type'] === 'image'): ?>
+                                            <img src="../db/PostMedias/Images/<?php echo htmlspecialchars($pinnedPost['media_path']); ?>" class="image h-100" alt="Post Image" style="object-fit: cover;">
+                                        <?php elseif ($pinnedPost['media_type'] === 'video'): ?>
+                                            <video class="video h-100" controls autoplay muted loop style="object-fit: cover;">
+                                                <source src="../db/PostMedias/Videos/<?php echo htmlspecialchars($pinnedPost['media_path']); ?>" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                                     <div>
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <span><?php echo $pinnedPost['upvotes']; ?></span>
