@@ -62,8 +62,14 @@ function time_elapsed_string($datetime, $full = false) {
                     </div>
                     <?php if (!empty($posts)): ?>
                         <?php foreach ($posts as $post): ?>
-                            <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
-                                <div class="Post">
+                            <div class="Post position-relative">
+                                <form action="phpConn/pin_post.php" method="POST">
+                                    <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
+                                    <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 mt-2 me-2" value="1" name="Pinpost" title="Pin post">
+                                        <i class="fa-solid fa-thumbtack"></i>
+                                    </button>
+                                </form>
+                                <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
                                     <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
                                     <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
@@ -73,8 +79,8 @@ function time_elapsed_string($datetime, $full = false) {
                                         <i class="fa-solid fa-thumbs-down"></i>
                                         <span><?php echo $post['downvotes']; ?></span>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p class="no-post-message">There are no posts yet.</p>
