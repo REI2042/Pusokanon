@@ -1067,9 +1067,8 @@ function fetchPostMedia($pdo, $post_id) {
 }
 
 function fetchPinnedPosts($pdo, $limit = 5) {
-    $query = "SELECT p.*, pm.media_path, pm.media_type
-              FROM posts p 
-			  LEFT JOIN post_media pm ON p.post_id = pm.post_id
+    $query = "SELECT p.*
+              FROM posts p
               WHERE p.pinned = 1
               ORDER BY p.created_at DESC
               LIMIT :limit";
@@ -1114,4 +1113,27 @@ function getUserReaction($pdo, $post_id, $res_id) {
     $stmt = $pdo->prepare("SELECT reaction_type FROM post_reactions WHERE post_id = ? AND res_id = ?");
     $stmt->execute([$post_id, $res_id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function fetchAllPosts($pdo, $sort) {
+    switch ($sort) {
+        case 'latest':
+            $orderBy = "p.created_at DESC";
+            break;
+        case 'oldest':
+            $orderBy = "p.created_at ASC";
+            break;
+        case 'trending':
+        default:
+            $orderBy = "(p.upvotes - p.downvotes) DESC, p.created_at DESC";
+            break;
+    }
+
+    $query = "SELECT p.*
+              FROM posts p 
+              WHERE p.pinned = 0
+              ORDER BY $orderBy";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll();
 }

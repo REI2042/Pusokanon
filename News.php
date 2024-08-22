@@ -2,18 +2,12 @@
     include 'include/header.php';
     include 'db/DBconn.php';
 
+    date_default_timezone_set('Asia/Manila');
+
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'trending';
 
     $pinnedPosts = fetchPinnedPosts($pdo);
-
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $postsPerPage = 5;
-    $offset = ($page - 1) * $postsPerPage;
-
-    $posts = fetchPosts($pdo, $sort, $offset, $postsPerPage);
-
-    $totalPosts = getTotalPosts($pdo);
-    $totalPages = ceil($totalPosts / $postsPerPage);
+    $posts = fetchAllPosts($pdo, $sort);
 
     function time_elapsed_string($datetime, $full = false) {
         $now = new DateTime;
@@ -113,43 +107,6 @@
                     <?php else: ?>
                         <p class="no-post-message">There are no posts yet.</p>
                     <?php endif; ?>
-                    <nav aria-label="Post page navigation">
-                        <ul class="pagination justify-content-center">
-                            <?php if ($page > 1): ?>
-                                <li class="page-item">
-                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=1" aria-label="First">
-                                        <span aria-hidden="true">First</span>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $page - 1; ?>" aria-label="Previous">
-                                        <span aria-hidden="true">Previous</span>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
-
-                            <?php for ($i = max(1, $page - 2); $i <= min($totalPages, $page + 2); $i++): ?>
-                                <li class="page-item <?php echo $i === $page ? 'active' : ''; ?>">
-                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $i; ?>">
-                                        <?php echo $i; ?>
-                                    </a>
-                                </li>
-                            <?php endfor; ?>
-
-                            <?php if ($page < $totalPages): ?>
-                                <li class="page-item">
-                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $page + 1; ?>" aria-label="Next">
-                                        <span aria-hidden="true">Next</span>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $totalPages; ?>" aria-label="Last">
-                                        <span aria-hidden="true">Last</span>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </nav>
                 </div>
             </div>
             <div class="col-6">
