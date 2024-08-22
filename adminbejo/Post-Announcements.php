@@ -69,6 +69,7 @@ function time_elapsed_string($datetime, $full = false) {
                                         <i class="fa-solid fa-thumbtack"></i>
                                     </button>
                                 </form>
+                            <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
                                 <div>
                                     <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
@@ -95,7 +96,7 @@ function time_elapsed_string($datetime, $full = false) {
                                     <i class="fa-solid fa-thumbs-down"></i>
                                     <span><?php echo $post['downvotes']; ?></span>
                                 </div>
-
+                            </a>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
