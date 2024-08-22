@@ -1,0 +1,102 @@
+.main {
+    width: 100%;
+    margin-top: 77px;
+}
+
+.prev,
+.next {
+    color: black;
+}
+
+#PostCarousel{
+    height: 350px;
+    width: 350px;
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+}
+
+.video {
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-control-prev {
+    background-color: gray;
+    border-radius: 50%;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+}
+.carousel-control-next {
+    background-color: gray;
+    border-radius: 50%;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+}
+
+.reactions {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.reaction i {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.reaction .count {
+    font-weight: bold;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.upvote-btn,
+.downvote-btn {
+    background-color: #c2dcf5;
+    border-color: #1c2126;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.upvote-btn:hover,
+.downvote-btn:hover {
+    background-color: #e2e6ea;
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.upvote-btn.active {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.downvote-btn.active {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.upvote-btn.active i,
+.downvote-btn.active i {
+    color: white;
+}
+
+.upvote-btn i,
+.downvote-btn i {
+    transition: color 0.3s ease;
+}

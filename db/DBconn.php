@@ -1051,11 +1051,10 @@ function fetchChartData($pdo){
 }
 
 function fetchPost($pdo, $post_id) {
-    $stmt = $pdo->prepare("SELECT p.*, s.staff_fname, s.staff_lname, 
-                           (SELECT COUNT(*) FROM post_reactions WHERE post_id = p.post_id AND reaction_type = 'upvote') as upvotes,
-                           (SELECT COUNT(*) FROM post_reactions WHERE post_id = p.post_id AND reaction_type = 'downvote') as downvotes
-                           FROM posts p 
-                           JOIN barangay_staff s ON p.staff_id = s.staff_id 
+    $stmt = $pdo->prepare("SELECT p.*, 
+                           p.upvotes AS upvotes, 
+                           p.downvotes AS downvotes
+                           FROM posts p
                            WHERE p.post_id = ?");
     $stmt->execute([$post_id]);
     return $stmt->fetch();
