@@ -7,7 +7,7 @@
         exit();
     }
     
-    $post_id = $_GET['id'];
+    $post_id = $_GET['id']; 
 
     $post = fetchPost($pdo, $post_id);
 
@@ -17,6 +17,8 @@
     }
 
     $media = fetchPostMedia($pdo, $post_id);
+
+    $userReaction = getUserReaction($pdo, $post_id, $_SESSION['res_ID']);
 ?>
 <link rel="stylesheet" href="css/Res-View-Post.css">
 <div class="container fluid d-flex justify-content-center">
@@ -67,13 +69,13 @@
 
                 <div class="reactions">
                     <span class="reaction">
-                        <button class="btn upvote-btn" data-post-id="<?php echo $post['post_id']; ?>">
+                        <button class="btn upvote-btn <?php echo ($userReaction && $userReaction['reaction_type'] === 'upvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
                             <i class="fa-solid fa-thumbs-up"></i>
                         </button>
                         <span class="count upvote-count"><?php echo $post['upvotes']; ?></span>
                     </span>
                     <span class="reaction">
-                        <button class="btn downvote-btn" data-post-id="<?php echo $post['post_id']; ?>">
+                        <button class="btn downvote-btn <?php echo ($userReaction && $userReaction['reaction_type'] === 'downvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
                             <i class="fa-solid fa-thumbs-down"></i>
                         </button>
                         <span class="count downvote-count"><?php echo $post['downvotes']; ?></span>

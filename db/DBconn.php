@@ -1108,3 +1108,9 @@ function getTotalPosts($pdo) {
     $query = "SELECT COUNT(*) FROM posts WHERE pinned = 0";
     return $pdo->query($query)->fetchColumn();
 }
+
+function getUserReaction($pdo, $post_id, $res_id) {
+    $stmt = $pdo->prepare("SELECT reaction_type FROM post_reactions WHERE post_id = ? AND res_id = ?");
+    $stmt->execute([$post_id, $res_id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}

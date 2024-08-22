@@ -60,21 +60,25 @@ function time_elapsed_string($datetime, $full = false) {
                         <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>
                         <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
                     </div>
-                    <?php foreach ($posts as $post): ?>
-                        <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
-                            <div class="Post">
-                                <h3><?php echo htmlspecialchars($post['title']); ?></h3>
-                                <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
-                                <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
-                                <div>
-                                    <i class="fa-solid fa-thumbs-up"></i>
-                                    <span><?php echo $post['upvotes']; ?></span>
-                                    <i class="fa-solid fa-thumbs-down"></i>
-                                    <span><?php echo $post['downvotes']; ?></span>
+                    <?php if (!empty($posts)): ?>
+                        <?php foreach ($posts as $post): ?>
+                            <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
+                                <div class="Post">
+                                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+                                    <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
+                                    <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                    <div>
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <span><?php echo $post['upvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-down"></i>
+                                        <span><?php echo $post['downvotes']; ?></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="no-post-message">There are no posts yet.</p>
+                    <?php endif; ?>
                     <nav aria-label="Post page navigation">
                         <ul class="pagination justify-content-center">
                             <?php if ($page > 1): ?>
@@ -117,20 +121,24 @@ function time_elapsed_string($datetime, $full = false) {
             <div class="col-6">
                 <div class="Pinned-Posts">
                     <h2>Pinned Posts</h2>
-                    <?php foreach ($pinnedPosts as $pinnedPost): ?>
-                        <a href="View-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
-                            <div class="Pinned-Post">
-                                <h5><?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
-                                <p>Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
-                                <div>
-                                    <i class="fa-solid fa-thumbs-up"></i>
-                                    <span><?php echo $pinnedPost['upvotes']; ?></span>
-                                    <i class="fa-solid fa-thumbs-down"></i>
-                                    <span><?php echo $pinnedPost['downvotes']; ?></span>
+                    <?php if (!empty($pinnedPosts)): ?>
+                        <?php foreach ($pinnedPosts as $pinnedPost): ?>
+                            <a href="View-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
+                                <div class="Pinned-Post">
+                                    <h5><?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
+                                    <p>Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
+                                    <div>
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <span><?php echo $pinnedPost['upvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-down"></i>
+                                        <span><?php echo $pinnedPost['downvotes']; ?></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="no-pinned-message">There are no pinned posts yet.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
