@@ -52,29 +52,29 @@ function time_elapsed_string($datetime, $full = false) {
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <a href="Create-Post.php">
-            <button class="btn btn-primary">Create Post</button>
+            <button class="btn btn-primary"><i class="fas fa-plus"></i> Create Post</button>
         </a>
         <div class="row">
-            <div class="col-6">
+            <div class="col-8">
                 <div class="Posts">
-                    <div class="">
-                        <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>
-                        <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>
+                    <div class="sort-container px-2 py-2">
+                        <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>  &nbsp; | &nbsp;
+                        <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>  &nbsp; | &nbsp;
                         <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
                     </div>
                     <?php if (!empty($posts)): ?>
                         <?php foreach ($posts as $post): ?>
                             <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
-                                <div class="Post position-relative">
+                                <div class="Post position-relative  my-3 px-3 py-3">
                                     <form action="phpConn/pin_post.php" method="POST">
                                         <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
                                         <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 mt-2 me-2" value="1" name="Pinpost" title="Pin post">
-                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <i class="fa-solid fa-thumbtack reactions"></i>
                                         </button>
                                     </form>
-                                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+                                    <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
-                                    <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                    <p class="posted">Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
                                     
                                     <?php
                                     $media = fetchPostMedia($pdo, $post['post_id']);
@@ -113,10 +113,10 @@ function time_elapsed_string($datetime, $full = false) {
                                     <?php endif; ?>
                                     
                                     <div>
-                                        <i class="fa-solid fa-thumbs-up"></i>
-                                        <span><?php echo $post['upvotes']; ?></span>
-                                        <i class="fa-solid fa-thumbs-down"></i>
-                                        <span><?php echo $post['downvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-up reactions"></i>
+                                        <span class="reactions"><?php echo $post['upvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-down reactions"></i>
+                                        <span class="reactions"><?php echo $post['downvotes']; ?></span>
                                     </div>
                                 </div>
                             </a>
@@ -134,7 +134,7 @@ function time_elapsed_string($datetime, $full = false) {
                                 </li>
                                 <li class="page-item">
                                     <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $page - 1; ?>" aria-label="Previous">
-                                        <span aria-hidden="true">Previous</span>
+                                        <span aria-hidden="true">Prev</span>
                                     </a>
                                 </li>
                             <?php endif; ?>
@@ -163,20 +163,20 @@ function time_elapsed_string($datetime, $full = false) {
                     </nav>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <div class="Pinned-Posts">
-                    <h2>Pinned Posts</h2>
+                    <h2 class="fw-bold">Pinned Posts <i class="bi bi-pin-angle-fill"></i></h2>
                     <?php if (!empty($pinnedPosts)): ?>
                         <?php foreach ($pinnedPosts as $pinnedPost): ?>
                             <a href="View-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
-                                <div class="Pinned-Post">
-                                    <h5><?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
-                                    <p>Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
+                                <div class="Pinned-Post my-3 px-3 py-3">
+                                    <h5 class="post-title"><i class="bi bi-chat-text-fill"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
+                                    <p class="posted">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
                                     <div>
-                                        <i class="fa-solid fa-thumbs-up"></i>
-                                        <span><?php echo $pinnedPost['upvotes']; ?></span>
-                                        <i class="fa-solid fa-thumbs-down"></i>
-                                        <span><?php echo $pinnedPost['downvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-up reactions"></i>
+                                        <span class="reactions"><?php echo $pinnedPost['upvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-down reactions"></i>
+                                        <span class="reactions"><?php echo $pinnedPost['downvotes']; ?></span>
                                     </div>
                                 </div>
                             </a>

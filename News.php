@@ -44,20 +44,20 @@
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row">
-            <div class="col-6">
+            <div class="col-8">
                 <div class="Posts">
-                    <div class="">
-                        <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>
-                        <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>
+                    <div class="sort-container px-2 py-2">
+                        <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a> &nbsp; | &nbsp;
+                        <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a> &nbsp; | &nbsp;
                         <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
                     </div>
                     <?php if (!empty($posts)): ?>
                         <?php foreach ($posts as $post): ?>
                             <a href="Res-view-Post.php?id=<?php echo $post['post_id']; ?>">
-                                <div class="Post">
-                                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+                                <div class="Post my-3 px-3 py-3">
+                                    <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
-                                    <p>Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                    <p class="posted mb-5">Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
                                     <?php $media = fetchPostMedia($pdo, $post['post_id']); ?>
                                     <?php if (!empty($media)): ?>
                                         <div id="Post<?php echo $post['post_id']; ?>" class="carousel slide" data-bs-ride="carousel">
@@ -109,20 +109,20 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <div class="Pinned-Posts">
-                    <h2>Pinned Posts</h2>
+                    <h2 class="fw-bold">Pinned Posts <i class="bi bi-pin-angle-fill"></i></h2>
                     <?php if (!empty($pinnedPosts)): ?>
                         <?php foreach ($pinnedPosts as $pinnedPost): ?>
                             <a href="Res-view-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
-                                <div class="Pinned-Post">
-                                    <h5><?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
-                                    <p>Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
+                                <div class="Pinned-Post my-3 px-3 py-3">
+                                    <h5><i class="bi bi-chat-text-fill"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
+                                    <p class="posted">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
                                     <div>
-                                        <i class="fa-solid fa-thumbs-up"></i>
-                                        <span><?php echo $pinnedPost['upvotes']; ?></span>
-                                        <i class="fa-solid fa-thumbs-down"></i>
-                                        <span><?php echo $pinnedPost['downvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-up pinned-reactions"></i>
+                                        <span class="pinned-reactions"><?php echo $pinnedPost['upvotes']; ?></span>
+                                        <i class="fa-solid fa-thumbs-down pinned-reactions"></i>
+                                        <span class="pinned-reactions"><?php echo $pinnedPost['downvotes']; ?></span>
                                     </div>
                                 </div>
                             </a>
