@@ -23,17 +23,31 @@
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row">
-            <a href="Post-Announcements.php" class="back-button d-flex align-items-center text-dark gap-2">
+            <a href="Post-Announcements.php" class="back-button d-flex align-items-center text-dark gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>
-            <button id="pinPostButton" class="pin-button" data-post-id="<?php echo $post_id; ?>" data-is-pinned="<?php echo $post['pinned']; ?>">
-                <?php echo $post['pinned'] ? 'Unpin Post' : 'Pin Post'; ?>
-            </button>
-            <div class="Post">
-                <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+
+            <div class="Post px-4 py-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
+                    <div>
+                        <button class="btn btn-link" type="button" id="postOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v dropdown"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="postOptionsDropdown">
+                            <li>
+                                <button id="pinPostButton" class="dropdown-item dropdown" data-post-id="<?php echo $post_id; ?>" data-is-pinned="<?php echo $post['pinned']; ?>">
+                                    <?php echo $post['pinned'] ? 'Unpin Post' : 'Pin Post'; ?>
+                                </button>
+                            </li>
+                            <li><a class="dropdown-item dropdown" href="edit-post.php?id=<?php echo $post_id; ?>">Edit Post</a></li>
+                            <li><button class="dropdown-item dropdown" onclick="deletePost(<?php echo $post_id; ?>)">Delete Post</button></li>
+                        </ul>
+                    </div>
+                </div>
                 <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
-                <p>Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
+                <p class="posted">Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
                 
                 <?php if (!empty($media)): ?>
                 <div id="Post<?php echo $post_id; ?>" class="carousel slide d-flex" data-bs-interval="false">
@@ -42,7 +56,7 @@
                             <button type="button" data-bs-target="#Post<?php echo $post_id; ?>" data-bs-slide-to="<?php echo $index; ?>" <?php echo $index === 0 ? 'class="active" aria-current="true"' : ''; ?> aria-label="Slide <?php echo $index + 1; ?>"></button>
                         <?php endforeach; ?>
                     </div>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner my-3">
                         <?php foreach ($media as $index => $item): ?>
                             <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
                                 <?php if ($item['media_type'] === 'image'): ?>
@@ -80,10 +94,6 @@
                     </span>
                 </div>
             </div>  
-            <div class="">
-                <a href="Edit-Post.php?id=<?php echo $post_id; ?>"><button class="edit-button">Edit Post</button></a>
-                <button class="delete-button" data-post-id="<?php echo $post_id; ?>">Delete Post</button>
-            </div>
         </div>
     </section>
 </div>

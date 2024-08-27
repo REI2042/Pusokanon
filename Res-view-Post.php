@@ -23,15 +23,15 @@
 <link rel="stylesheet" href="css/Res-View-Post.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
-        <div class="row">
-            <a href="News.php" class="back-button d-flex align-items-center text-dark gap-2">
+        <div class="row my-3">
+            <a href="News.php" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>
-            <div class="Post">
-                <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+            <div class="Post px-4 py-4">
+                <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                 <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
-                <p>Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
+                <p class="posted mt-3">Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
                 
                 <?php if (!empty($media)): ?>
                 <div id="Post<?php echo $post_id; ?>" class="carousel slide d-flex" data-bs-interval="false">
@@ -40,7 +40,7 @@
                             <button type="button" data-bs-target="#Post<?php echo $post_id; ?>" data-bs-slide-to="<?php echo $index; ?>" <?php echo $index === 0 ? 'class="active" aria-current="true"' : ''; ?> aria-label="Slide <?php echo $index + 1; ?>"></button>
                         <?php endforeach; ?>
                     </div>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner my-5">
                         <?php foreach ($media as $index => $item): ?>
                             <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
                                 <?php if ($item['media_type'] === 'image'): ?>
