@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
             $templateProcessor->setValue('date', htmlspecialchars($resident['Day']));
             $templateProcessor->setValue('month', htmlspecialchars($resident['Month']));
             $templateProcessor->setValue('year', htmlspecialchars($resident['Year']));
-            }  elseif($doctype == 'Barangay Clearance'){
+            }  elseif ($doctype == 'Barangay Clearance'){
             $templateProcessor = new TemplateProcessor('../File_Templates/template_Clearance.docx');
             $templateProcessor->setValue('name', htmlspecialchars($resident['res_fname'] . ' ' . $resident['res_lname']));
             $templateProcessor->setValue('gender', htmlspecialchars($resident['gender']));
@@ -48,6 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
             $currentDate = new DateTime();
             $age = $currentDate->diff($birthDate)->y;
             $templateProcessor->setValue('age', $age);
+            } elseif ($doctype == 'Barangay Indigency'){
+                $templateProcessor = new TemplateProcessor('../File_Templates/Template_Certificate_of_Indigency.docx');
+                $templateProcessor->setValue('name', htmlspecialchars($resident['res_fname'] . ' ' . $resident['res_lname']));
+                $templateProcessor->setValue('gender', htmlspecialchars($resident['gender']));
+                $templateProcessor->setValue('purpose', htmlspecialchars($resident['purpose_name']));
+                $templateProcessor->setValue('date', htmlspecialchars($resident['Day']));
+                $templateProcessor->setValue('month', htmlspecialchars($resident['Month']));
+                $templateProcessor->setValue('year', htmlspecialchars($resident['Year']));
             }
             // Save the file in memory and send it for download
             $tempFile = tempnam(sys_get_temp_dir(), 'word');
