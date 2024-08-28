@@ -44,7 +44,7 @@ if (!$post) {
                         <label for="post_body" class="form-label fw-bold">Body:</label>
                     </div>
                     <div class="col-md-10">
-                        <textarea id="post_body" name="post_body" class="form-control" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea>
+                        <textarea id="post_body" name="post_body" class="form-control" rows="3" required><?php echo htmlspecialchars($post['content']); ?></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -79,17 +79,17 @@ if (!$post) {
                                                     Your browser does not support the video tag.
                                                 </video>
                                             <?php endif; ?>
-                                            <input type="checkbox" name="remove_media[]" value="<?php echo $item['media_id']; ?>" id="remove_<?php echo $item['media_id']; ?>" style="display: none;">
-                                            <label for="remove_<?php echo $item['media_id']; ?>" class="remove-media-btn" style="cursor: pointer;">
-                                                <i class="fas fa-times remove-btn"></i>
-                                            </label>
-                                            <script>
-                                                document.getElementById('remove_<?php echo $item['media_id']; ?>').addEventListener('change', function() {
-                                                    if (this.checked) {
-                                                        this.closest('.media-item').style.display = 'none';
-                                                    }
-                                                });
-                                            </script>
+                                                <input type="checkbox" name="remove_media[]" value="<?php echo $item['media_id']; ?>" id="remove_<?php echo $item['media_id']; ?>" style="display: none;">
+                                                <label for="remove_<?php echo $item['media_id']; ?>" class="remove-media-btn" style="cursor: pointer;">
+                                                    <i class="fas fa-times remove-btn"></i>
+                                                </label>
+                                                <script>
+                                                    document.getElementById('remove_<?php echo $item['media_id']; ?>').addEventListener('change', function() {
+                                                        if (this.checked) {
+                                                            this.closest('.media-item').style.display = 'none';
+                                                        }
+                                                    });
+                                                </script>
                                         </div>
                                     </div>
                                 <?php 

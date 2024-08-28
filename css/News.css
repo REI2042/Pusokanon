@@ -59,7 +59,7 @@
 .Post {
     margin: 5px;
     padding: 5px;
-    background-color: aliceblue;
+    background-color: #FAF9F6;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -70,13 +70,13 @@
     background-color: #D7D9DC;
     border-radius: 10px;
     position: fixed;
-    width: 350px;
+    /* width: 350px; */
 }
 
 .Pinned-Post {
     margin: 5px;
     padding: 5px;
-    background-color: aliceblue;
+    background-color: #FAF9F6;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -163,20 +163,6 @@
     margin-top: 10px;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    flex: 1 0 auto;
-}
-
-footer {
-    flex-shrink: 0;
-    margin-top: auto;
-}
 
 .sort-container{
     width: 100%;
@@ -281,6 +267,9 @@ p {
 
 
 
+
+
+
 @media (max-width: 767px) {
     p {
         font-size: 14px;
@@ -295,41 +284,30 @@ p {
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     h5 {
-        font-size: 12px;
+        font-size: 15px;
     }
     
     .Pinned-Posts {
         position: static;
         width: 100%;
-        border-radius: 5px;      
+        margin-top: 10px;
     }
 
+
     .Posts {
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 500px;
-        padding: 0px;
+        padding: 10px;
+        background-color: #D7D9DC;
+        border-radius: 10px;
+        padding-bottom: none;
     }
 
     .Post {
-        margin: auto;
-    }
-
-    #all-pinned-posts {
-        display: none; /* Hide all pinned posts by default */
-    }
-
-    #latest-pinned-post {
-        display: block; /* Show only the latest pinned post by default */
-    }
-
-    .custom-dropdown .btn {
-        display: block; /* Show dropdown icon on smaller screens */
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: auto;
     }
 }
-    

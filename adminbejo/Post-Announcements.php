@@ -56,7 +56,7 @@ function time_elapsed_string($datetime, $full = false) {
         </a>
         <div class="row">
             <div class="col-8">
-                <div class="Posts">
+                <div class="Posts p-3">
                     <div class="sort-container px-2 py-2">
                         <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>  &nbsp; | &nbsp;
                         <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>  &nbsp; | &nbsp;
@@ -74,7 +74,7 @@ function time_elapsed_string($datetime, $full = false) {
                                     </form>
                                     <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
-                                    <p class="posted">Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                    <p class="posted"><i class="far fa-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
                                     
                                     <?php
                                     $media = fetchPostMedia($pdo, $post['post_id']);
@@ -169,7 +169,7 @@ function time_elapsed_string($datetime, $full = false) {
                     <?php if (!empty($pinnedPosts)): ?>
                         <?php foreach ($pinnedPosts as $pinnedPost): ?>
                             <a href="View-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
-                                <div class="Pinned-Post my-3 px-3 py-3">
+                                <div class="Pinned-Post my-3 mx-2 px-2 py-2">
                                     <h5 class="post-title"><i class="bi bi-chat-text-fill"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
                                     <p class="posted">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
                                     <div>

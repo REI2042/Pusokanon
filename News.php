@@ -107,13 +107,13 @@
                 </script>
             </div>
             <div class="col-12 col-md-8 order-md-1 px-0 px-md-3">
-                <div class="Posts my-4 mt-md-4">
+                <div class="Posts my-4 mt-md-4 p-0 p-sm-3 pb-0">
                     <div class="sort-container px-2 py-2 d-none d-md-block">
                         <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>   |  
                         <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>   |  
                         <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
                     </div>
-                    <div class="dropdown d-md-none position-fixed custom-dropdown" style="bottom: 80px; left: 20px;">
+                    <div class="dropdown d-md-none position-fixed custom-dropdown" style="bottom: 50px; left: 20px;">
                         <button class="btn btn-secondary rounded-circle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
                             <i class="bi bi-list"></i>
                         </button>
@@ -130,7 +130,7 @@
                                 <div class="Post my-3 px-3 py-3">
                                     <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
-                                    <p class="posted mb-5">Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                    <p class="posted mb-5"><i class="bi bi-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
                                     <?php $media = fetchPostMedia($pdo, $post['post_id']); ?>
                                     <?php if (!empty($media)): ?>
                                         <div id="Post<?php echo $post['post_id']; ?>" class="carousel slide" data-bs-ride="carousel">
@@ -182,6 +182,16 @@
                     <?php endif; ?>
                 </div>
             </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var carousels = document.querySelectorAll('.carousel');
+                    carousels.forEach(function(carousel) {
+                        new bootstrap.Carousel(carousel, {
+                            interval: false
+                        });
+                    });
+                });
+            </script>
         </div>
     </section>
 </div>
@@ -190,6 +200,14 @@
     document.addEventListener('DOMContentLoaded', function() {
     var dropdownToggle = document.getElementById('sortDropdown');
     var dropdownMenu = dropdownToggle.nextElementSibling;
+
+    document.querySelectorAll('.carousel-control-prev, .carousel-control-next').forEach(function(control) {
+        control.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    });
+
 
     dropdownToggle.addEventListener('click', function(e) {
         e.preventDefault();

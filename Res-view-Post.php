@@ -24,14 +24,14 @@
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row my-3">
-            <a href="News.php" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
+        <a href="News.php" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>
             <div class="Post px-4 py-4">
                 <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                 <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
-                <p class="posted mt-3">Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
+                <p class="posted mt-3"><i class="far fa-clock"></i> Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
                 
                 <?php if (!empty($media)): ?>
                 <div id="Post<?php echo $post_id; ?>" class="carousel slide d-flex" data-bs-interval="false">
@@ -86,4 +86,3 @@
     </section>
 </div>
 <script src="js/Res-View-Post.js"></script>
-<?php include 'include/footer.php'; ?>

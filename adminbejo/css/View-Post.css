@@ -75,11 +75,13 @@
 .Post {
     margin-bottom: 20px;
     padding: 5px;
-    background-color:white ;
+    background-color: #FAF9F6 ;
     border-radius: 5px;
     height: auto;
     min-height: fit-content;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+
 }
 
 p {
@@ -98,3 +100,5 @@ h3, p, .dropdown {
     font-style: italic;
 
 }
+
+

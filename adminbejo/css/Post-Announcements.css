@@ -59,7 +59,7 @@
 .Post {
     margin: 5px;
     padding: 5px;
-    background-color: white;
+    background-color: #FAF9F6;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -69,12 +69,13 @@
     padding: 10px;
     background-color: #D7D9DC;
     border-radius: 10px;
+    position: fixed;
 }
 
 .Pinned-Post {
     margin: 5px;
     padding: 5px;
-    background-color: aliceblue;
+    background-color: #FAF9F6;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 

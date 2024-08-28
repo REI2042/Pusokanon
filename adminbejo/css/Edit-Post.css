@@ -17,31 +17,26 @@
     height: 200px;
     object-fit: cover;
 }
-.remove-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: red;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+
 
 .Post {
     margin-bottom: 20px;
     padding: 5px;
-    background-color:white ;
+    background-color:#FAF9F6 ;
     border-radius: 5px;
     height: auto;
     min-height: fit-content;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 form {
-    background-color: white;
+    background-color: #FAF9F6;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+
 }
 
 
@@ -54,6 +49,8 @@ form {
     border: 1px solid #ccc;
     border-radius: 5px;
     position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .remove-btn {

@@ -35,19 +35,19 @@
                         <button class="btn btn-link" type="button" id="postOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-ellipsis-v dropdown"></i>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="postOptionsDropdown">
+                        <ul class="dropdown-menu" aria-labelledby="postOptionsDropdown" style="background-color: rgba(211, 211, 211, 0.8);">
                             <li>
                                 <button id="pinPostButton" class="dropdown-item dropdown" data-post-id="<?php echo $post_id; ?>" data-is-pinned="<?php echo $post['pinned']; ?>">
-                                    <?php echo $post['pinned'] ? 'Unpin Post' : 'Pin Post'; ?>
+                                    <i class="fas fa-thumbtack me-2"></i><?php echo $post['pinned'] ? 'Unpin' : 'Pin'; ?>
                                 </button>
                             </li>
-                            <li><a class="dropdown-item dropdown" href="edit-post.php?id=<?php echo $post_id; ?>">Edit Post</a></li>
-                            <li><button class="dropdown-item dropdown" onclick="deletePost(<?php echo $post_id; ?>)">Delete Post</button></li>
+                            <li><a class="dropdown-item dropdown" href="edit-post.php?id=<?php echo $post_id; ?>"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                            <li><button class="dropdown-item dropdown" onclick="deletePost(<?php echo $post_id; ?>)"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
                         </ul>
                     </div>
                 </div>
                 <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
-                <p class="posted">Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
+                <p class="posted"><i class="bi bi-clock me-2"></i>Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
                 
                 <?php if (!empty($media)): ?>
                 <div id="Post<?php echo $post_id; ?>" class="carousel slide d-flex" data-bs-interval="false">
