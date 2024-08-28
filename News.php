@@ -14,8 +14,8 @@
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
 
-        $diff->w = floor($diff->d / 7);
-        $diff->d -= $diff->w * 7;
+        $weeks = floor($diff->d / 7);
+        $diff->d -= $weeks * 7;
 
         $string = array(
             'y' => 'year',
@@ -27,8 +27,9 @@
             's' => 'second',
         );
         foreach ($string as $k => &$v) {
-            if ($diff->$k) {
-                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            $value = $k === 'w' ? $weeks : $diff->$k;
+            if ($value) {
+                $v = $value . ' ' . $v . ($value > 1 ? 's' : '');
             } else {
                 unset($string[$k]);
             }
@@ -37,53 +38,92 @@
         if (!$full) $string = array_slice($string, 0, 1);
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
-
-
 ?>
 <link rel="stylesheet" href="css/News.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row">
-            <div class="col-12 col-md-4 order-md-2">
-                <div class="Pinned-Posts">
-                    <h2 class="fw-bold">Pinned Posts <i class="bi bi-pin-angle-fill"></i></h2>
+            <div class="col-12 col-md-4 order-md-2 p-2 p-md-3">
+                <div class="Pinned-Posts p-1 p-sm-3 pb-1">
+                    <h2 class="fw-bold d-flex justify-content-between align-items-center">
+                        <a href="#" id="show-all-pinned" class="d-flex align-items-center w-100 text-black">
+                            <span class="d-flex align-items-center">
+                                Pinned Posts
+                                <i class="bi bi-pin-angle-fill ms-2 text-black"></i>
+                            </span>
+                            <i class="bi bi-chevron-down ms-auto text-black"></i>
+                        </a>
+                    </h2>
                     <?php if (!empty($pinnedPosts)): ?>
-                        <?php foreach ($pinnedPosts as $pinnedPost): ?>
-                            <a href="Res-view-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
-                                <div class="Pinned-Post my-3 px-3 py-3">
-                                    <h5><i class="bi bi-chat-text-fill"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
-                                    <p class="posted">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
-                                    <div>
+                        <?php $latestPinnedPost = $pinnedPosts[0]; ?>
+                        <div id="latest-pinned-post">
+                            <a href="Res-view-Post.php?id=<?php echo $latestPinnedPost['post_id']; ?>">
+                                <div class="Pinned-Post my-2 px-2 py-2">
+                                    <h5><i class="bi bi-chat-text-fill"></i> <?php echo htmlspecialchars($latestPinnedPost['title']); ?></h5>
+                                    <p class="posted d-none d-md-block">Posted <?php echo time_elapsed_string($latestPinnedPost['created_at']); ?></p>
+                                    <div class="d-none d-md-block">
                                         <i class="fa-solid fa-thumbs-up pinned-reactions"></i>
-                                        <span class="pinned-reactions"><?php echo $pinnedPost['upvotes']; ?></span>
+                                        <span class="pinned-reactions"><?php echo $latestPinnedPost['upvotes']; ?></span>
                                         <i class="fa-solid fa-thumbs-down pinned-reactions"></i>
-                                        <span class="pinned-reactions"><?php echo $pinnedPost['downvotes']; ?></span>
+                                        <span class="pinned-reactions"><?php echo $latestPinnedPost['downvotes']; ?></span>
                                     </div>
                                 </div>
                             </a>
-                        <?php endforeach; ?>
+                        </div>
+                        <div id="all-pinned-posts" style="display: none;">
+                            <?php foreach ($pinnedPosts as $pinnedPost): ?>
+                                <a href="Res-view-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
+                                    <div class="Pinned-Post my-2 px-2 py-2">
+                                        <h5><i class="bi bi-chat-text-fill"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
+                                        <p class="posted d-none d-md-block">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
+                                        <div class="d-none d-md-block">
+                                            <i class="fa-solid fa-thumbs-up pinned-reactions"></i>
+                                            <span class="pinned-reactions"><?php echo $pinnedPost['upvotes']; ?></span>
+                                            <i class="fa-solid fa-thumbs-down pinned-reactions"></i>
+                                            <span class="pinned-reactions"><?php echo $pinnedPost['downvotes']; ?></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
                     <?php else: ?>
                         <p class="no-pinned-message">There are no pinned posts yet.</p>
                     <?php endif; ?>
                 </div>
+                <script>
+                    document.getElementById('show-all-pinned').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var latestPost = document.getElementById('latest-pinned-post');
+                        var allPosts = document.getElementById('all-pinned-posts');
+                        if (allPosts.style.display === 'none') {
+                            latestPost.style.display = 'none';
+                            allPosts.style.display = 'block';
+                        } else {
+                            latestPost.style.display = 'block';
+                            allPosts.style.display = 'none';
+                        }
+                    });
+
+                </script>
             </div>
-            <div class="col-12 col-md-8 order-md-1">
-                <div class="Posts">
+            <div class="col-12 col-md-8 order-md-1 px-0 px-md-3">
+                <div class="Posts my-4 mt-md-4">
                     <div class="sort-container px-2 py-2 d-none d-md-block">
                         <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>   |  
                         <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>   |  
                         <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
                     </div>
-                    <div class="dropdown d-md-none position-fixed" style="bottom: 20px; left: 20px; z-index: 1000;">
-                        <button class="btn btn-secondary rounded-circle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="dropdown d-md-none position-fixed custom-dropdown" style="bottom: 80px; left: 20px;">
+                        <button class="btn btn-secondary rounded-circle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
                             <i class="bi bi-list"></i>
                         </button>
-                        <ul class="dropdown-menu bg-secondary bg-opacity-75" aria-labelledby="sortDropdown">
+                        <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="sortDropdown">
                             <li><a class="dropdown-item <?php echo $sort === 'trending' ? 'active' : ''; ?>" href="?sort=trending">Trending</a></li>
                             <li><a class="dropdown-item <?php echo $sort === 'latest' ? 'active' : ''; ?>" href="?sort=latest">Latest</a></li>
                             <li><a class="dropdown-item <?php echo $sort === 'oldest' ? 'active' : ''; ?>" href="?sort=oldest">Oldest</a></li>
                         </ul>
                     </div>
+
                     <?php if (!empty($posts)): ?>
                         <?php foreach ($posts as $post): ?>
                             <a href="Res-view-Post.php?id=<?php echo $post['post_id']; ?>">
@@ -146,7 +186,6 @@
     </section>
 </div>
 <script src="js/News.js"></script>
-<?php include 'include/footer.php'; ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     var dropdownToggle = document.getElementById('sortDropdown');
@@ -165,5 +204,4 @@
         }
     });
 });
-
 </script>

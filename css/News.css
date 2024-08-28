@@ -50,7 +50,7 @@
 }
 
 .Posts {
-    margin: 10px 0px;
+    /* margin: 10px 0px; */
     padding: 10px;
     background-color: #D7D9DC;
     border-radius: 10px;
@@ -69,6 +69,8 @@
     padding: 10px;
     background-color: #D7D9DC;
     border-radius: 10px;
+    position: fixed;
+    width: 350px;
 }
 
 .Pinned-Post {
@@ -228,7 +230,106 @@ p {
     font-style: italic;
 }
 
-
-@media (max-width: 991px) {
-    
+.custom-dropdown .btn {
+    padding: 15px; /* Increase padding for a larger button */
+    font-size: 24px; /* Increase font size for a larger icon */
+    width: 60px; /* Set a larger width */
+    height: 60px; /* Set a larger height */
+    line-height: 1; /* Ensure the icon is centered vertically */
+    opacity: 0.7; /* Make the button slightly transparent */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity change */
 }
+
+.custom-dropdown .btn:hover,
+.custom-dropdown .btn:focus,
+.custom-dropdown .btn.active {
+    opacity: 1; /* Fully opaque when hovered, focused, or active */
+}
+
+.custom-dropdown .btn i {
+    font-size: 24px; /* Adjust the icon size */
+}
+
+
+.custom-dropdown .btn i {
+    font-size: 24px; /* Adjust the icon size */
+}
+
+.custom-dropdown {
+    z-index: 9999; /* Ensures the dropdown is on top of other elements */
+}
+
+.custom-dropdown .dropdown-menu {
+    background-color: rgba(128, 128, 128, 0.75); /* Gray with 25% transparency */
+    z-index: 9999; /* Keeps the dropdown menu on top */
+    top: auto; /* Disable the default top alignment */
+    bottom: 100%; /* Position the dropdown menu above the button */
+    transform: translateY(-10px); /* Add a small offset for spacing */
+    left: 0; /* Align the dropdown menu with the button */
+    right: auto; /* Disable the default right alignment */
+}
+
+.custom-dropdown .dropdown-item {
+    color: white; /* White text color */
+}
+
+.custom-dropdown .dropdown-item:hover {
+    background-color: #2C7BD5; /* Blue background on hover */
+    color: white; /* White text color on hover */
+}
+
+
+
+
+@media (max-width: 767px) {
+    p {
+        font-size: 14px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .posted {
+        font-size: 12px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h5 {
+        font-size: 12px;
+    }
+    
+    .Pinned-Posts {
+        position: static;
+        width: 100%;
+        border-radius: 5px;      
+    }
+
+    .Posts {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 500px;
+        padding: 0px;
+    }
+
+    .Post {
+        margin: auto;
+    }
+
+    #all-pinned-posts {
+        display: none; /* Hide all pinned posts by default */
+    }
+
+    #latest-pinned-post {
+        display: block; /* Show only the latest pinned post by default */
+    }
+
+    .custom-dropdown .btn {
+        display: block; /* Show dropdown icon on smaller screens */
+    }
+}
+    
