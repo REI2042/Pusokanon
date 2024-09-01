@@ -83,7 +83,7 @@
                 </div>
                 <?php endif; ?>
 
-                <div class="reactions">
+                <div class="reactions mt-3">
                     <span class="reaction">
                         <i class="fa-solid fa-thumbs-up"></i>
                         <span class="count"><?php echo $post['upvotes']; ?></span>

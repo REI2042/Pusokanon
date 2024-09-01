@@ -112,7 +112,7 @@ function time_elapsed_string($datetime, $full = false) {
                                         </div>
                                     <?php endif; ?>
                                     
-                                    <div>
+                                    <div class="mt-5">
                                         <i class="fa-solid fa-thumbs-up reactions"></i>
                                         <span class="reactions"><?php echo $post['upvotes']; ?></span>
                                         <i class="fa-solid fa-thumbs-down reactions"></i>
@@ -159,6 +159,11 @@ function time_elapsed_string($datetime, $full = false) {
                                     </a>
                                 </li>
                             <?php endif; ?>
+                            <li class="page-item">
+                                <a class="page-link" href="#" onclick="window.scrollTo(0, 0); return false;" aria-label="Scroll to top">
+                                    <span aria-hidden="true">↑</span>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
