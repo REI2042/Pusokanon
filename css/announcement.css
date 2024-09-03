@@ -12,7 +12,53 @@ main{
 h3, h6{
     cursor: pointer;
 }
+.custom-dropdown .btn {
+    padding: 15px; /* Increase padding for a larger button */
+    font-size: 24px; /* Increase font size for a larger icon */
+    width: 60px; /* Set a larger width */
+    height: 60px; /* Set a larger height */
+    line-height: 1; /* Ensure the icon is centered vertically */
+    opacity: 0.7; /* Make the button slightly transparent */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+}
 
+.custom-dropdown .btn:hover,
+.custom-dropdown .btn:focus,
+.custom-dropdown .btn.active {
+    opacity: 1; /* Fully opaque when hovered, focused, or active */
+}
+
+.custom-dropdown .btn i {
+    font-size: 24px; /* Adjust the icon size */
+}
+
+
+.custom-dropdown .btn i {
+    font-size: 24px; /* Adjust the icon size */
+}
+
+.custom-dropdown {
+    z-index: 9999; /* Ensures the dropdown is on top of other elements */
+}
+
+.custom-dropdown .dropdown-menu {
+    background-color: rgba(128, 128, 128, 0.75); /* Gray with 25% transparency */
+    z-index: 9999; /* Keeps the dropdown menu on top */
+    top: auto; /* Disable the default top alignment */
+    bottom: 100%; /* Position the dropdown menu above the button */
+    transform: translateY(-10px); /* Add a small offset for spacing */
+    left: 0; /* Align the dropdown menu with the button */
+    right: auto; /* Disable the default right alignment */
+}
+
+.custom-dropdown .dropdown-item {
+    color: white; /* White text color */
+}
+
+.custom-dropdown .dropdown-item:hover {
+    background-color: #2C7BD5; /* Blue background on hover */
+    color: white; /* White text color on hover */
+}
 
 .carousel-control-prev {
     background-color: #2C7BD5;
@@ -151,9 +197,6 @@ h3, h6{
     background: transparent;
 }
 
-.pin{
-    background-color: #f5f5f5;
-}
 
 .Pinned-Post{
     background-color: #f5f5f5;
@@ -169,6 +212,10 @@ h3, h6{
     
 }
 
+.sort-container span {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    
+}
 
 .trending-button, .latest-button, .oldest-button{
     font-size: 1.1rem;
@@ -183,7 +230,20 @@ h3, h6{
     width: 100%;
 }
 
-h2 {
-    font-size: 2rem;
-}
 
+.Pinned-PostsPhone {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0; /* Sticks to the top of the viewport */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+  
+
+
+@media (max-width: 991px) {
+    body{
+        overflow-x: hidden;
+    }
+    
+    
+}
