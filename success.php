@@ -64,7 +64,7 @@ session_start();
                     </li>
 
                     <li class="nav-item mt-2 pt-1">
-                        <a class="nav-link" href="#">Forum</a>
+                        <a class="nav-link" href="#">Announcement</a>
                     </li>
 
                     <li class="nav-item dropdown mt-2 pt-1">

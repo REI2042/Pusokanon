@@ -58,7 +58,7 @@ include 'db/check_user_login.php';
                         </div>
                     </li>
                     <li class="nav-item1">
-                        <a class="nav-link" href="#">Updates</a>
+                        <a class="nav-link" href="announcement.php">Announcement</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="aboutUsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

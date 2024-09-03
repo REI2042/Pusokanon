@@ -50,7 +50,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
+                        <a class="nav-link" href="Announcement.php">Announcement</a>
                     </li>
 
                     <li class="nav-item dropdown">
