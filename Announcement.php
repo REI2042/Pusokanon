@@ -39,7 +39,7 @@
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 ?>
-<link rel="stylesheet" href="css/Announcement.css">
+<link rel="stylesheet" href="css/announcement.css">
 
 <main> 
     <div class="container-announcement">
@@ -123,7 +123,7 @@
                         <?php endif; ?>
                 </div>
                 
-                <div class="col-md-3 announcement-pin bg-white pin">
+                <div class="col-md-3 announcement-pin pin">
                     <div class="Pinned-Posts p-1 p-sm-3 pb-1 mt-3">
                         <h4 class="fw-bold d-flex justify-content-between align-items-center">
                             <span class="d-flex align-items-center">
@@ -154,8 +154,9 @@
                 </div>
             </div>
         </div>
+        /* ----Phone------ */
         <div class="row announcement-pin bg-white p-3 d-md-none">
-            phone
+            
         </div>
         
     </div>
