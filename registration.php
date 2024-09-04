@@ -25,7 +25,7 @@
 <body>
 	
 <header>
-        <nav class="navbar navbar-expand-lg ">
+		<nav class="navbar navbar-expand-lg" id="mainNavbar">
             <a class="navbar-brand" href="index.php"> 
                 <img src="PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo"><span > PUSOKANON</span>
             </a>

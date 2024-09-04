@@ -36,4 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     upvoteBtn.addEventListener('click', () => updateReaction('upvote'));
     downvoteBtn.addEventListener('click', () => updateReaction('downvote'));
+
+    document.addEventListener('click', function(event) {
+        const navbar = document.getElementById('mainNavbar');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+        if (!navbar.contains(event.target) && navbarCollapse.classList.contains('show')) {
+            navbarToggler.click();
+        }
+    });
 });

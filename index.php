@@ -34,7 +34,7 @@ if (isset($_SESSION['loggedin'])) {
 </head>
 <body>
 <header>
-        <nav class="navbar navbar-expand-lg ">
+        <nav class="navbar navbar-expand-lg" id="mainNavbar">
             <a class="navbar-brand" href="index.php"> 
                 <img src="PicturesNeeded/pusokLogo.png" alt="Pusokanon Logo"><span > PUSOKANON</span>
             </a>
@@ -173,6 +173,17 @@ if (isset($_SESSION['loggedin'])) {
     function toOfficials(){
         window.location.href = 'aboutus-barangayOfficials.php';
     }
+
+    document.addEventListener('click', function(event) {
+        const navbar = document.getElementById('mainNavbar');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        if (!navbar.contains(event.target) && navbarCollapse.classList.contains('show')) {
+            navbarToggler.click();
+        }
+    });
+
 </script>
         <footer class="" id="footer">
             <div class="footerContainer">
