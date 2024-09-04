@@ -77,41 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const requestButton = document.querySelector('.request-button');
-    const complaintsButton = document.querySelector('.complaints-button');
-    const historyButton = document.querySelector('.history-button');
-    const documentRequestsDiv = document.getElementById('document-requests');
-    const complaintsDiv = document.getElementById('complaints');
-    const historyDiv = document.getElementById('history');
-
-    requestButton.addEventListener('click', function() {
-        documentRequestsDiv.style.display = 'block';
-        complaintsDiv.style.display = 'none';
-        historyDiv.style.display = 'none';
-        requestButton.classList.add('active');
-        complaintsButton.classList.remove('active');
-        historyButton.classList.remove('active');
-    });
-
-    complaintsButton.addEventListener('click', function() {
-        documentRequestsDiv.style.display = 'none';
-        complaintsDiv.style.display = 'block';
-        historyDiv.style.display = 'none';
-        requestButton.classList.remove('active');
-        complaintsButton.classList.add('active');
-        historyButton.classList.remove('active');
-    });
-
-    historyButton.addEventListener('click', function() {
-        documentRequestsDiv.style.display = 'none';
-        complaintsDiv.style.display = 'none';
-        historyDiv.style.display = 'block';
-        requestButton.classList.remove('active');
-        complaintsButton.classList.remove('active');
-        historyButton.classList.add('active');
-    });
-
-
     function switchTab(tabName) {
         document.getElementById('document-requests').style.display = 'none';
         document.getElementById('complaints').style.display = 'none';

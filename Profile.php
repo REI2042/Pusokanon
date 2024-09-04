@@ -89,13 +89,13 @@
             <div class="request-box p-3">
                 <div class="row">
                     <div class="buttons text-center mt-3">
-                        <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?> position-relative" data-target="document-requests">Document Request(s)
+                        <button class="btn request-button <?php echo $activeTab === 'document-requests' ? 'active' : ''; ?> position-relative">Document Request(s)
                             <?php if ($readyToPickupCount > 0): ?>
                                 <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
                             <?php endif; ?>
                         </button>
-                        <button class="btn complaints-button <?php echo $activeTab === 'complaints' ? 'active' : ''; ?>" data-target="complaints">Complaint(s)</button>
-                        <button class="btn history-button <?php echo $activeTab === 'history' ? 'active' : ''; ?>" data-target="history">Request History</button>
+                        <button class="btn complaints-button <?php echo $activeTab === 'complaints' ? 'active' : ''; ?>" >Complaint(s)</button>
+                        <button class="btn history-button <?php echo $activeTab === 'history' ? 'active' : ''; ?>" >Request History</button>
                     </div>
                 </div>
                 
