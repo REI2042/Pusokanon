@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             sidebar.classList.add("show-text");
         }, 100);
-        localStorage.setItem('sidebarExpanded', 'true');
+        sessionStorage.setItem('sidebarExpanded', 'true');
 
         clearDropdownStates();
 
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = dropdown.getAttribute('data-bs-target');
             const target = document.querySelector(targetId);
             if (target && target.classList.contains('show')) {
-                localStorage.setItem(targetId, 'expanded');
+                sessionStorage.setItem(targetId, 'expanded');
                 dropdown.classList.remove('collapsed');
                 dropdown.setAttribute('aria-expanded', 'true');
             }
@@ -48,20 +48,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearDropdownStates() {
         dropdowns.forEach(dropdown => {
             const targetId = dropdown.getAttribute('data-bs-target');
-            localStorage.removeItem(targetId);
+            sessionStorage.removeItem(targetId);
         }); 
     }
 
     function collapseSidebar() {
         sidebar.classList.remove("expand");
         sidebar.classList.remove("show-text");
-        localStorage.setItem('sidebarExpanded', 'false');
+        sessionStorage.setItem('sidebarExpanded', 'false');
 
         dropdowns.forEach(dropdown => {
             const targetId = dropdown.getAttribute('data-bs-target');
             const target = document.querySelector(targetId);
             if (target) {
-                localStorage.removeItem(targetId);
+                sessionStorage.removeItem(targetId);
                 if (target.classList.contains('show')) {
                     target.classList.remove('show');
                     dropdown.classList.add('collapsed');
@@ -71,14 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (localStorage.getItem('sidebarExpanded') === 'true') {
+    if (sessionStorage.getItem('sidebarExpanded') === 'true') {
         sidebar.style.transition = 'none';
         sidebar.classList.add("expand");
         sidebar.classList.add("show-text");
         
         dropdowns.forEach(dropdown => {
             const targetId = dropdown.getAttribute('data-bs-target');
-            if (localStorage.getItem(targetId) === 'expanded') {
+            if (sessionStorage.getItem(targetId) === 'expanded') {
                 const target = document.querySelector(targetId);
                 if (target) {
                     target.classList.add('show');
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = dropdown.getAttribute('data-bs-target');
             clearDropdownStates();
             if (!dropdown.classList.contains('collapsed')) {
-                localStorage.setItem(targetId, 'expanded');
+                sessionStorage.setItem(targetId, 'expanded');
             }
         });
     });
