@@ -13,6 +13,7 @@
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>
+                <p class="text-center h2">Create Post</p>
                 <div class="mt-5">
                     <div class="row mb-3">
                         <div class="col-md-2">
@@ -36,10 +37,15 @@
                         </div>
                         <div class="col-md-10">
                             <input type="file" id="post_media" name="post_media[]" accept="image/*, video/*" multiple class="form-control">
+                            <div class="file-input-help">
+                                Click to add more files. Hold Ctrl to select multiple files, or Shift to select a range.
+                            </div>
                         </div>
                     </div>                
                     <div id="preview-container" class="preview-container">
-
+                    </div>
+                    <div class="button-container text-center">
+                        <button class="submit-post" type="submit">Post</button>
                     </div>
                 </div>
             </form>
@@ -47,7 +53,4 @@
     </section>
 </div>
 <script src="Create-Post.js"></script>
-<script>
-        console.log('JavaScript is running');
-    </script>
 <?php include 'footerAdmin.php'; ?>
