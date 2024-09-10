@@ -41,7 +41,7 @@
                                     <i class="fas fa-thumbtack me-2"></i><?php echo $post['pinned'] ? 'Unpin' : 'Pin'; ?>
                                 </button>
                             </li>
-                            <li><a class="dropdown-item dropdown" href="Edit-post.php?id=<?php echo $post_id; ?>"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                            <li><a class="dropdown-item dropdown" href="Edit-Post.php?id=<?php echo $post_id; ?>"><i class="fas fa-edit me-2"></i>Edit</a></li>
                             <li><button class="delete-button dropdown-item dropdown" data-post-id="<?php echo $post_id; ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
                         </ul>
                     </div>
