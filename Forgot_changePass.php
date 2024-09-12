@@ -112,7 +112,7 @@ if (isset($_SESSION['loggedin'])) {
 						<div class="col mt-3">
 							<label for="password" class="form-label">Confirm Password:</label>
                         	<input type="password" class="form-control" id="confirmPassword" placeholder="Comfirm Password" required autocomplete="off">
-                            <div id="passwordMatchError" style="color: red; display: none;">Passwords do not match</div>
+                            <div id="passwordMatchError" style="color: red; display: none;">Password does not match</div>
 						</div>
 						<div class="w-100"></div>
 						<div class="col text-center">
@@ -164,7 +164,7 @@ if (isset($_SESSION['loggedin'])) {
                 Swal.fire({
                     icon: data.success ? 'success' : 'error',
                     title: data.success ? 'Success' : 'Error',
-                    text: data.success ? 'Password changed successfully.' : 'Password change failed.',
+                    text: data.success ? 'Password has been changed successfully.' : 'Password change has failed.',
                     confirmButtonText: 'Ok'
                 }).then(() => {
                     if (data.success) window.location.href = "login.php";

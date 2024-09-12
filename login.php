@@ -142,7 +142,7 @@ include 'db/check_user_login.php';
                                     });
                                 </script>                                
                                 <div class="text-center mt-4">
-                                    <a href="forgotPass.php" class="link text-white"><small>Forgot Password</small></a>
+                                    <a href="forgotpass.php" class="link text-white"><small>Forgot Password</small></a>
                                 </div>
                                 <div class="text-center d-grid col-8 mx-auto mt-2">
                                     <button type="submit" class="btn btn-success">Login</button>

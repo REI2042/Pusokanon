@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
 	<link rel="stylesheet" href="css/navbarstyles.css">
 
 	<link rel="stylesheet" href="css/stylesRegistration2.css">
@@ -77,13 +76,23 @@
                     </li>
                 </ul>
             </div>
-        </nav>
-    </header>
+		</nav>
+</header>
 	<?php
 		if(isset($_GET['alert']) && $_GET['alert'] === 'exists') {
-		    echo '<script>alert("Account has already been created");</script>';
+			echo '<script>
+				document.addEventListener("DOMContentLoaded", function() {
+					Swal.fire({
+						icon: "warning",
+						title: "Account Already Exists",
+						text: "An account with this information has already been created.",
+						confirmButtonColor: "#3085D6",
+						confirmButtonText: "OK"
+					});
+				});
+			</script>';
 		}
-	?>	
+	?>
 <div class="container-fluid">
 		<section class="holder-section">
 			<div class="row container pb-3">
@@ -180,8 +189,9 @@
 										var select = document.getElementById("birthYear");
 										var currentYear = new Date().getFullYear();
 										var startYear = currentYear - 100;
+										var minYear = currentYear - 18; // Minimum year for 18 years old
 
-										for (var year = currentYear; year >= startYear; year--) {
+										for (var year = minYear; year >= startYear; year--) {
 											var option = document.createElement("option");
 											option.text = year;
 											option.value = year;
