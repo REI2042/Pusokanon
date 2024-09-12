@@ -202,11 +202,12 @@
                                     <th scope="col">Incident Date</th>
                                     <th scope="col">Incident Time </th>
                                     <th scope="col">Date Reported</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if (empty($complaints)): ?>
-                                    <tr><td colspan="6" class="text-center">No records found.</td></tr>
+                                    <tr><td colspan="7" class="text-center">No records found.</td></tr>
                                 <?php else: ?>
                                     <?php foreach ($complaints as $complaint): ?>
                                         <tr class="clickable-complaint" 
@@ -214,13 +215,15 @@
                                             data-respondent-name="<?php echo htmlspecialchars($complaint['respondent_fname'] . ' ' . $complaint['respondent_lname']); ?>"
                                             data-respondent-gender="<?php echo htmlspecialchars($complaint['respondent_gender']); ?>"
                                             data-respondent-age="<?php echo htmlspecialchars($complaint['respondent_age']); ?>"
-                                            data-narrative="<?php echo htmlspecialchars($complaint['narrative']); ?>">
+                                            data-narrative="<?php echo htmlspecialchars($complaint['narrative']); ?>"
+                                            data-status="<?php echo htmlspecialchars($complaint['status']); ?>">
                                             <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['incident_date']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['incident_time']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['date_filed']); ?></td>
+                                            <td><?php echo htmlspecialchars($complaint['status']); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>

@@ -211,12 +211,12 @@ include 'db/check_user_login.php';
                 Toast.fire({
                     icon: 'error',
                     title: 'Account Deactivated',
-                    text: 'Account has been deactivated. Please contact your Admin',
+                    text: 'Account has been deactivated. Please contact your Admin.',
                     customClass: {
                         container: "mt-5 pt-3"         
                     }
                 });
-            } 
+            }        
         });
 
         document.addEventListener('click', function(event) {
