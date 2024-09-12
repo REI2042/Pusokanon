@@ -42,8 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     postMediaInput.addEventListener('change', function(event) {
-        files = Array.from(event.target.files);
+        const newFiles = Array.from(event.target.files);
+        files = [...files, ...newFiles];
         renderPreview();
+        updateFileInput();
     });
 
     form.addEventListener('submit', function(e) {

@@ -54,52 +54,43 @@ if (!$post) {
                         </div>
                         <div class="col-md-10">
                             <input type="file" id="post_media" name="post_media[]" accept="image/*, video/*" multiple class="form-control">
+                            <div class="file-input-help">
+                                Click to add more files. Hold Ctrl to select multiple files, or Shift to select a range.
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="preview-container">
-                    <?php if (!empty($media)): ?>
-                        <div class="row">
-                            <label class="fw-bold">Current Media:</label>
-                            <div id="current-media-container" class="row">
-                                <?php 
-                                $count = 0;
-                                foreach ($media as $item): 
-                                    if ($count % 4 == 0 && $count != 0) {
-                                        echo '</div><div class="row">';
-                                    }
-                                ?>
-                                    <div class="col-md-3 media-item">
-                                        <div class="media-wrapper mb-2">
-                                            <?php if ($item['media_type'] === 'image'): ?>
-                                                <img src="../db/PostMedias/Images/<?php echo htmlspecialchars($item['media_path']); ?>" alt="Post Image" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                                            <?php elseif ($item['media_type'] === 'video'): ?>
-                                                <video controls style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                                                    <source src="../db/PostMedias/Videos/<?php echo htmlspecialchars($item['media_path']); ?>" type="video/mp4">
-                                                    Your browser does not support the video tag.
-                                                </video>
-                                            <?php endif; ?>
-                                                <input type="checkbox" name="remove_media[]" value="<?php echo $item['media_id']; ?>" id="remove_<?php echo $item['media_id']; ?>" style="display: none;">
-                                                <label for="remove_<?php echo $item['media_id']; ?>" class="remove-media-btn" style="cursor: pointer;">
-                                                    <i class="fas fa-times remove-btn"></i>
-                                                </label>
-                                                <script>
-                                                    document.getElementById('remove_<?php echo $item['media_id']; ?>').addEventListener('change', function() {
-                                                        if (this.checked) {
-                                                            this.closest('.media-item').style.display = 'none';
-                                                        }
-                                                    });
-                                                </script>
-                                        </div>
+                <div id="preview-container"></div>
+                <?php if (!empty($media)): ?>
+                    <div class="row">
+                        <label class="fw-bold mt-2">Current Media:</label>
+                        <div id="current-media-container" class="row">
+                            <?php foreach ($media as $item): ?>
+                                <div class="col-md-3 media-item">
+                                    <div class="media-wrapper mb-2">
+                                        <?php if ($item['media_type'] === 'image'): ?>
+                                            <img src="../db/PostMedias/Images/<?php echo htmlspecialchars($item['media_path']); ?>" alt="Post Image">
+                                        <?php elseif ($item['media_type'] === 'video'): ?>
+                                            <video controls style="object-fit: cover;">
+                                                <source src="../db/PostMedias/Videos/<?php echo htmlspecialchars($item['media_path']); ?>" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        <?php endif; ?>
+                                        <input type="checkbox" name="remove_media[]" value="<?php echo $item['media_id']; ?>" id="remove_<?php echo $item['media_id']; ?>" style="display: none;">
+                                        <label for="remove_<?php echo $item['media_id']; ?>" class="remove-media-btn" style="cursor: pointer;"><i class="fas fa-times remove-btn"></i></label>
+                                        <script>
+                                            document.getElementById('remove_<?php echo $item['media_id']; ?>').addEventListener('change', function() {
+                                                if (this.checked) {
+                                                    this.closest('.media-item').style.display = 'none';
+                                                }
+                                            });
+                                        </script>
                                     </div>
-                                <?php 
-                                    $count++;
-                                endforeach; 
-                                ?>
-                            </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </form>
     </section>

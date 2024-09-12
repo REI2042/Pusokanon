@@ -88,7 +88,6 @@
                                                         </div>
                                                     <?php endforeach; ?>
                                                 </div>
-                                                <p class="posted text-end"><i class="bi bi-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
                                                 <?php if (count($media) > 1): ?>
                                                     <button class="carousel-control-prev" type="button" data-bs-target="#Post<?php echo $post['post_id']; ?>" data-bs-slide="prev">
                                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -101,6 +100,7 @@
                                                 <?php endif; ?>
                                             </div>
                                         <?php endif; ?>
+                                        <p class="posted text-end"><i class="bi bi-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
                                         <div class="reactions pl-2">
                                             <span class="reaction pe-3">
                                                 <button class="btn upvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'upvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
