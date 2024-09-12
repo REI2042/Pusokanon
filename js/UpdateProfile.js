@@ -193,4 +193,26 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('file').files.length > 0
         );
     }
+
+    contactInput.addEventListener('input', function() {
+        formatPhoneNumber(this);
+    });
+
+    function formatPhoneNumber(input) {
+        var number = input.value.replace(/\D/g, '').substring(0, 11);
+        var formatted = '';
+        if (number.length > 0) {
+            formatted += number.substring(0, 4);
+            if (number.length > 4) {
+                formatted += ' ' + number.substring(4, 7);
+                if (number.length > 7) {
+                    formatted += ' ' + number.substring(7, 11);
+                }
+            }
+        }
+        input.value = formatted;
+    
+        var contactNumberError = document.getElementById('contactNumberError');
+        contactNumberError.style.display = number.length !== 11 ? 'block' : 'none';
+    }
 });

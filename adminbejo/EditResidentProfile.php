@@ -164,7 +164,8 @@
             </div>
             <div class="col-12 col-md-6 mt-2 px-1">
                 <label for="Contact" class="form-label">Contact No</label>
-                <input type="text" class="form-control" name="contactNo" id="Contact" placeholder="<?= htmlspecialchars($resident['contact_no']); ?>" value="<?= htmlspecialchars($resident['contact_no']); ?>" oninput="this.value = this.value.replace(/[^0-9\s]/g, '')" required>
+                <input type="tel" class="form-control" name="contactNo" id="Contact" placeholder="<?= htmlspecialchars($resident['contact_no']); ?>"  pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}"  pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" value="<?= htmlspecialchars($resident['contact_no']); ?>"required>
+			    <small id="contactNumberError" class="text-danger" style="display: none;">Contact number must be exactly 11 digits</small>
             </div>
             <div class="col-12 col-md-6 mt-2 px-1">
                 <label for="email" class="form-label">Email</label>

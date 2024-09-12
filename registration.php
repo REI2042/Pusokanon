@@ -92,6 +92,20 @@
 				});
 			</script>';
 		}
+
+		if(isset($_GET['alert']) && $_GET['alert'] === 'password_short') {
+			echo '<script>
+					document.addEventListener("DOMContentLoaded", function() {
+						Swal.fire({
+							icon: "error",
+							title: "Password Too Short",
+							text: "The password should be at least 12 characters long.",
+							confirmButtonColor: "#3085D6",
+							confirmButtonText: "OK"
+						});
+					});
+				</script>';
+		}
 	?>
 <div class="container-fluid">
 		<section class="holder-section">
@@ -234,8 +248,29 @@
 						</div>
 						<div class="col-6 mt-2 px-1">
 						    <label for="Contact" class="form-label">Contact No</label>
-						    <input type="tel" class="form-control" name="contactNo" id="Contact" placeholder="09XX XXX XXXX" pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" title="Please enter a valid Philippine phone number starting with 09" required oninput="this.value = this.value.replace(/[^0-9\s]/g, '')">
+						    <input type="tel" class="form-control" name="contactNo" id="Contact" placeholder="09XX XXX XXXX" pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" title="Please enter a valid Philippine phone number starting with 09" required oninput="formatPhoneNumber(this)">
+						    <small id="contactNumberError" class="text-danger" style="display: none;">Contact number must be exactly 11 digits</small>
 						</div>
+
+						<script>
+						function formatPhoneNumber(input) {
+						    var number = input.value.replace(/\D/g, '').substring(0, 11);
+						    var formatted = '';
+						    if (number.length > 0) {
+						        formatted += number.substring(0, 4);
+						        if (number.length > 4) {
+						            formatted += ' ' + number.substring(4, 7);
+						            if (number.length > 7) {
+						                formatted += ' ' + number.substring(7, 11);
+						            }
+						        }
+						    }
+						    input.value = formatted;
+
+						    var contactNumberError = document.getElementById('contactNumberError');
+						    contactNumberError.style.display = number.length !== 11 ? 'block' : 'none';
+						}
+						</script>
 						<div class="col-12 mt-2 px-1">
 						    <label for="placeBirth" class="form-label">Place of birth</label>
 						    <input type="text" class="form-control" name="placeBirth" id="placeBirth" placeholder="Place of Birth" required>
@@ -295,17 +330,23 @@
         const confirmPasswordInput = document.getElementById('confirmPassword');
         const passwordMatchError = document.getElementById('passwordMatchError');
         const registerButton = document.getElementById('registerButton');
+          function validatePassword() {
+              const password = passwordInput.value;
+              if (password.length < 12) {
+                  passwordMatchError.textContent = 'Password must be at least 12 characters long.';
+                  passwordMatchError.style.display = 'block';
+                  registerButton.disabled = true;
+              } else if (confirmPasswordInput.value !== "" && password !== confirmPasswordInput.value) {
+                  passwordMatchError.textContent = 'Passwords do not match.';
+                  passwordMatchError.style.display = 'block';
+                  registerButton.disabled = true;
+              } else {
+                  passwordMatchError.style.display = 'none';
+                  registerButton.disabled = false;
+              }
+          }
 
-        function validatePassword() {
-            if (confirmPasswordInput.value !== "" && passwordInput.value !== confirmPasswordInput.value) {
-                passwordMatchError.style.display = 'block';
-                registerButton.disabled = true;
-            } else {
-                passwordMatchError.style.display = 'none';
-                registerButton.disabled = false;
-            }
-        }
-
-        confirmPasswordInput.addEventListener('input', validatePassword);
+          passwordInput.addEventListener('input', validatePassword);
+          confirmPasswordInput.addEventListener('input', validatePassword);
 	</script>	
 <?php require_once 'include/footer.php'; ?>

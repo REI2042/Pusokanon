@@ -5,6 +5,13 @@ require_once 'DBconn.php';
 
 if(isset($_POST['save_account'])) {
     $userData = $_POST;
+    $password = $userData['accpassword'];
+
+    if (strlen($password) < 12) {
+        header("Location:../registration.php?alert=password_short");
+        exit();
+    }
+
     $firstName = $userData['fname'];
     $lastName = $userData['lname'];
     $middleName = $userData['mname'];
@@ -26,7 +33,6 @@ if(isset($_POST['save_account'])) {
         exit();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
