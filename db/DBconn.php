@@ -1134,3 +1134,24 @@ function fetchAllPosts($pdo, $sort) {
     $stmt->execute();
     return $stmt->fetchAll();
 }
+
+function getTotalPendingDocuments($pdo) {
+    $sql = "SELECT COUNT(*) FROM request_doc WHERE stat = 'Pending'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
+function getTotalReleasedDocuments($pdo) {
+    $sql = "SELECT COUNT(*) FROM request_doc WHERE stat = 'Done' AND remarks = 'Released'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
+function getTotalDocuments($pdo) {
+    $sql = "SELECT COUNT(*) FROM request_doc";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}

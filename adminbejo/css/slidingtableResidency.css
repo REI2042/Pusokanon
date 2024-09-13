@@ -16,7 +16,7 @@ table {
 .pagination {
     margin: 20px 0;
     justify-content: center;
-    right: 5%;
+    left: 45%;
     bottom: 0;
     position: fixed;
     padding-bottom: 10px;

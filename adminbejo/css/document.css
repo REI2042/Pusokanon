@@ -229,6 +229,16 @@ main {
   border: 1px solid black;
   border-radius: 5px;
 }
+
+.badge {
+  top: -5px; 
+  right: -8px; 
+  width: 18px; 
+  height: 18px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
 /*QR CODE*/
 
 @media (max-width: 991px) {
