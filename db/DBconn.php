@@ -191,9 +191,6 @@ function fetchTotalResidentsWithFilters($pdo, $gender = null, $ageRange = null, 
 	if ($ageRange !== null && $ageRange !== 'All') {
 
 		switch ($ageRange) {
-			case 'Under 18':
-				$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) < 18";
-				break;
 			case 'Young Adults (18-24)':
 				$sql .= " AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 24";
 				break;

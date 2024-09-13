@@ -33,6 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($staff['userRole_id'] == 1 || $staff['userRole_id'] == 3) { // Admin roles
                 header("Location: ../adminbejo/Dashboard.php");
                 exit();
+            } else if ($staff['userRole_id'] == 2) {
+                header("Location: ../adminbejo/Dashboard.php");
+                exit();
+            } else if ($staff['userRole_id'] == 4) {
+                header("Location: ../adminbejo/Dashboard.php");
+                exit();
+            } else if ($staff['userRole_id'] == 5) {
+                header("Location: ../adminbejo/Dashboard.php");
+                exit();
             }
             
         } else {
