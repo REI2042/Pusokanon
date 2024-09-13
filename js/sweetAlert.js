@@ -211,8 +211,8 @@ async function handleCancelClick(userEmail, userId) {
           data: { id: userId },
           success: function () {
             Swal.fire({
-              title: "Email Sent and User Cancelled!",
-              text: "Email sent successfully and User Cancelled.",
+              title: "Email Sent and User Rejected!",
+              text: "Account Registration has been rejected.",
               icon: "success",
               confirmButtonColor: "#3085d6",
             }).then(() => {
@@ -535,4 +535,11 @@ function trashCancelDocument(doc_ID, request_id) {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('searchInput').addEventListener('input', function() {
+      if (this.value === '') {
+          document.getElementById('searchForm').submit();
+      }
+  });
+});
   

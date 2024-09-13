@@ -1,9 +1,12 @@
 <?php
 include '../include/staff_restrict_pages.php';
 include 'headerAdmin.php'; 
-include '../db/DBconn.php'; 
+include '../db/DBconn.php';
 
-// Determine the current page and set the number of records per page
+
+$sitio = isset($_GET['sitio']) ? $_GET['sitio'] : 'All';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
 $records_per_page = 10;
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $records_per_page;
@@ -11,9 +14,7 @@ $offset = ($current_page - 1) * $records_per_page;
 $total_records = fetchTotalPending($pdo);
 $total_pages = ceil($total_records / $records_per_page);
 
-// Fetch the user data from the database
-$users = fetchRegister($pdo, $records_per_page, $offset);
-?>  
+$users = fetchRegister($pdo, $records_per_page, $offset, $sitio, $search);?>  
 </div>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -28,22 +29,29 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
                     Sitio
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" value="Arca">Arca</a>
-                    <a class="dropdown-item" value="Cemento">Cemento</a>
-                    <a class="dropdown-item" value="Chumba-Chumba">Chumba-Chumba</a>
-                    <a class="dropdown-item" value="Ibabao">Ibabao</a>
-                    <a class="dropdown-item" value="Lawis">Lawis</a>
-                    <a class="dropdown-item" value="Matumbo">Matumbo</a>
-                    <a class="dropdown-item" value="Mustang">Mustang</a>
-                    <a class="dropdown-item" value="New Lipata">New Lipata</a>
-                    <a class="dropdown-item" value="San Roque">San Roque</a>
-                    <a class="dropdown-item" value="Seabreeze">Seabreeze</a>
-                    <a class="dropdown-item" value="Seaside">Seaside</a>
-                    <a class="dropdown-item" value="Sewage">Sewage</a>
-					<a class="dropdown-item" value="Sta. Maria">Sta. Maria</a>
+                    <a class="dropdown-item <?php echo $sitio == 'All' ? 'active' : ''; ?>" href="?sitio=All">All</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Arca' ? 'active' : ''; ?>" href="?sitio=Arca">Arca</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Cemento' ? 'active' : ''; ?>" href="?sitio=Cemento">Cemento</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Chumba-Chumba' ? 'active' : ''; ?>" href="?sitio=Chumba-Chumba">Chumba-Chumba</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Ibabao' ? 'active' : ''; ?>" href="?sitio=Ibabao">Ibabao</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Lawis' ? 'active' : ''; ?>" href="?sitio=Lawis">Lawis</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Matumbo' ? 'active' : ''; ?>" href="?sitio=Matumbo">Matumbo</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Mustang' ? 'active' : ''; ?>" href="?sitio=Mustang">Mustang</a>
+                    <a class="dropdown-item <?php echo $sitio == 'New Lipata' ? 'active' : ''; ?>" href="?sitio=New Lipata">New Lipata</a>
+                    <a class="dropdown-item <?php echo $sitio == 'San Roque' ? 'active' : ''; ?>" href="?sitio=San Roque">San Roque</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Seabreeze' ? 'active' : ''; ?>" href="?sitio=Seabreeze">Seabreeze</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Seaside' ? 'active' : ''; ?>" href="?sitio=Seaside">Seaside</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Sewage' ? 'active' : ''; ?>" href="?sitio=Sewage">Sewage</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Sta. Maria' ? 'active' : ''; ?>" href="?sitio=Sta. Maria">Sta. Maria</a>
                 </div>
-                <input class="form-control" type="input" placeholder="Search Name" aria-label="Search">
-                <button class="btn my-2 my-sm-0" type="submit">Search</button>
+                <form method="GET" id="searchForm">
+                    <div class="input-group mb-0 custom-search">
+                        <input type="search" class="form-control custom-search" name="search" placeholder="Search" aria-label="Search" id="searchInput" value="<?php echo htmlspecialchars($search); ?>">
+                        <button class="btn search-btn" title="Search" id="search_btn" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row d-flex justify-content-center">
@@ -64,7 +72,7 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
                             </thead>
                             <tbody>
                             <?php if (empty($users)): ?>
-                                <tr><td colspan="7">No user registering</td></tr>
+                                <tr><td colspan="7">No users are currently requesting to register.</td></tr>
                             <?php else: ?>    
                                 <?php foreach ($users as $user): ?>
                                     <tr>
@@ -135,7 +143,7 @@ $users = fetchRegister($pdo, $records_per_page, $offset);
                         <?php endif; ?>
                         <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                             <li class="page-item <?= ($i == $current_page) ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                <a class="page-link" href="?page=<?= $i ?>&sitio=<?php echo $sitio; ?>&search=<?php echo urlencode($search); ?>"><?= $i ?></a>
                             </li>
                         <?php endfor; ?>
                         <?php if ($current_page < $total_pages): ?>
