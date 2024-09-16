@@ -131,7 +131,11 @@ domReady(function () {
 
     htmlscanner = new Html5QrcodeScanner(
         "my-qr-reader",
-        { fps: 60, qrbox: 250 }
+        { 
+            fps: 60, 
+            qrbox: 250,
+            supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+        }
     );
 
     htmlscanner.render(onScanSuccess);

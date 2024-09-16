@@ -4,15 +4,16 @@ require_once '../vendor/autoload.php'; // Ensure this is the correct path to the
 date_default_timezone_set('Asia/Manila');
 use PhpOffice\PhpWord\TemplateProcessor;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['status'], $_POST['resident_id'], $_POST['doctype'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['status'], $_POST['resident_id'])) {
     $doc_ID = $_POST['doc_ID'];
     $status = $_POST['status'];
     $resident_id = $_POST['resident_id'];
-    $doctype = $_POST['doctype'];
+    
 
-    if ($status == 'Processing') {
+    if ($status == 'Processing' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doctype'])) {
         // Fetch resident details
-        $sql = "SELECT ru.res_id, ru.res_fname, ru.res_lname, rd.doc_ID, rd.purpose_name, ru.gender, ru.addr_sitio, ru.birth_date,
+        $doctype = $_POST['doctype'];
+        $sql = "SELECT ru.res_id, ru.res_fname, ru.res_lname, ru.civil_status, rd.doc_ID, rd.purpose_name, ru.gender, ru.addr_sitio, ru.birth_date,
                        DAY(rd.date_req) AS Day, MONTHNAME(rd.date_req) AS Month, YEAR(rd.date_req) AS Year,
                        dt.docType_id, dt.doc_name
                 FROM request_doc rd 
@@ -51,11 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
             } elseif ($doctype == 'Barangay Indigency'){
                 $templateProcessor = new TemplateProcessor('../File_Templates/Template_Certificate_of_Indigency.docx');
                 $templateProcessor->setValue('name', htmlspecialchars($resident['res_fname'] . ' ' . $resident['res_lname']));
+                $templateProcessor->setValue('civil_status', htmlspecialchars($resident['civil_status']));
                 $templateProcessor->setValue('gender', htmlspecialchars($resident['gender']));
+                $templateProcessor->setValue('sitio', htmlspecialchars($resident['addr_sitio']));
                 $templateProcessor->setValue('purpose', htmlspecialchars($resident['purpose_name']));
                 $templateProcessor->setValue('date', htmlspecialchars($resident['Day']));
                 $templateProcessor->setValue('month', htmlspecialchars($resident['Month']));
                 $templateProcessor->setValue('year', htmlspecialchars($resident['Year']));
+                $birthDate = new DateTime($resident['birth_date']);
+                $currentDate = new DateTime();
+                $age = $currentDate->diff($birthDate)->y;
+                $templateProcessor->setValue('age', $age);
             } elseif ($doctype == 'Barangay Residency'){
                 $templateProcessor = new TemplateProcessor('../File_Templates/Template_Certificate_of_Residency.docx');
                 $templateProcessor->setValue('name', htmlspecialchars($resident['res_fname'] . ' ' . $resident['res_lname']));
