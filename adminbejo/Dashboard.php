@@ -187,7 +187,8 @@
             </div>
             <div class="box col-12 col-sm-4">
                 <div class="row text-center m-3">
-                    <i class="icon fa-solid fa-map-location-dot fa-2x" style="background: linear-gradient(45deg, #28A745, #f0f099); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>                    <h6 class="sub-title">NUMBER OF USERS BY SITIO</h6>
+                    <i class="icon fa-solid fa-map-location-dot fa-2x" style="background: linear-gradient(45deg, #28A745, #f0f099); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>                    
+                    <h6 class="sub-title">NUMBER OF USERS BY SITIO</h6>
                 </div>
                 <div class="row text-center align-items-start ml-0 mr-0">
                     <div class="sitio col-sm">
