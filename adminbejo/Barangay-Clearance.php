@@ -217,7 +217,8 @@
                                     <td>
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
-                                            <form class="status-form" action="../db/updateStatus.php" method="POST">                                            
+                                            <form class="status-form" action="../db/updateStatus.php" method="POST">     
+                                                <input type="hidden" name="doctype" value="<?= $docType;?>">                                          
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($processings['res_id']); ?>">
                                                 <button title="Downlaod" type="submit" name="status" value="Processing" class="btn btn-sm <?= $processings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
@@ -293,6 +294,7 @@
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
+                                                <input type="hidden" name="doctype" value="<?= $docType;?>">   
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
                                                 <button title="Download" type="submit" name="status" value="Processing" class="btn btn-sm <?= $completed['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>

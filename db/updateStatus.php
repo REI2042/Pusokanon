@@ -68,9 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['doc_ID'], $_POST['stat
                 $templateProcessor->setValue('name', htmlspecialchars($resident['res_fname'] . ' ' . $resident['res_lname']));
                 $templateProcessor->setValue('gender', htmlspecialchars($resident['gender']));
                 $templateProcessor->setValue('purpose', htmlspecialchars($resident['purpose_name']));
+                $templateProcessor->setValue('sitio', htmlspecialchars($resident['addr_sitio']));
                 $templateProcessor->setValue('date', htmlspecialchars($resident['Day']));
                 $templateProcessor->setValue('month', htmlspecialchars($resident['Month']));
                 $templateProcessor->setValue('year', htmlspecialchars($resident['Year']));
+                $birthDate = new DateTime($resident['birth_date']);
+                $currentDate = new DateTime();
+                $age = $currentDate->diff($birthDate)->y;
+                $templateProcessor->setValue('age', $age);
             }
             // Save the file in memory and send it for download
             $tempFile = tempnam(sys_get_temp_dir(), 'word');
