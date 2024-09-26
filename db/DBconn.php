@@ -903,23 +903,27 @@ function fetchProfilePicture($pdo, $userId)
 
 function fetchResdocsRequest($pdo, $userId, $status, $limit, $offset)
 {
-	$sql = "SELECT 
-				rd.doc_ID, dt.doc_name AS document_name, rd.stat, 
-				rd.date_req, rd.remarks, rd.purpose_name, rd.qrCode_image,
-				dt.doc_amount AS document_price
-			FROM request_doc rd
-			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
-			WHERE rd.res_id = :userId AND rd.stat = :status
-			ORDER BY rd.date_req DESC
-			LIMIT :limit OFFSET :offset";
+    $sql = "SELECT 
+                rd.doc_ID, dt.doc_name AS document_name, rd.stat, 
+                rd.date_req, rd.remarks, rd.purpose_name, rd.qrCode_image,
+                CASE 
+                    WHEN rd.purpose_id BETWEEN 1 AND 4 THEN dp.pupose_fee
+                    ELSE dt.doc_amount
+                END AS document_price
+            FROM request_doc rd
+            INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+            INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+            WHERE rd.res_id = :userId AND rd.stat = :status
+            ORDER BY rd.date_req DESC
+            LIMIT :limit OFFSET :offset";
 
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-	$stmt->execute();
-	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function countResdocsRequest($pdo, $userId, $status)
@@ -957,9 +961,13 @@ function fetchDocumentHistory($pdo, $userId, $limit, $offset)
     $sql = "SELECT 
                 rd.doc_ID, dt.doc_name AS document_name, rd.stat, 
                 rd.date_req, rd.remarks, rd.purpose_name, rd.qrCode_image,
-                dt.doc_amount AS document_price
+                CASE 
+                    WHEN rd.purpose_id BETWEEN 1 AND 4 THEN dp.pupose_fee
+                    ELSE dt.doc_amount
+                END AS document_price
             FROM request_doc rd
             INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+            INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
             WHERE rd.res_id = :userId AND rd.stat = 'Done' AND rd.remarks = 'Released'
             ORDER BY rd.date_req DESC
             LIMIT :limit OFFSET :offset";
