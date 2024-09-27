@@ -26,55 +26,58 @@ include 'DBconn.php';
           error_log($e->getMessage());
           echo json_encode(['success' => false, 'error' => $e->getMessage()]);
       }
-} elseif (isset($_POST['purpose']) && isset($_FILES['file']) && isset($_POST['docTypeId'])) {
-    if ($_FILES['file']['error'] == 0) {
-        $fileTmpPath = $_FILES['file']['tmp_name'];
-        $fileName = $_FILES['file']['name'];
-        $fileSize = $_FILES['file']['size'];
-        $fileType = $_FILES['file']['type'];
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+}elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $resId = $_SESSION['res_ID'];
+    $docTypeId = $_POST['docTypeId'];
+    $purposeId = 5; // Assuming 'Others' for file uploads
+    $purposeName = $_POST['purpose'];
+    $requestId = generateRandomString(8, 13);
 
-        $allowedfileExtensions = array('jpg', 'png', 'jpeg');
-        if (in_array($fileExtension, $allowedfileExtensions)) {
-            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-            $uploadFileDir = 'uploaded_filesRequirements/';
-            $dest_path = $uploadFileDir . $newFileName;
+    try {
+        $uploadedFiles = [];
+        $uploadFileDir = 'uploaded_filesRequirements/';
 
-            if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                $resId = $_SESSION['res_ID'];
-                $docTypeId = $_POST['docTypeId'];
-                $purposeId = 5;
-                $purposeName = $_POST['purpose'];
-                $requestId = generateRandomString(8, 13);
+        // Ensure the 'fileNames' key is correctly processed
+        $fileInput = $_FILES['fileNames'];
 
-                try {
-                    $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, request_id, document_requirements) VALUES (:resId, :docTypeId, :purposeId, :purposeName, :requestId, :document_requirements)";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute([
-                        ':resId' => $resId,
-                        ':docTypeId' => $docTypeId,
-                        ':purposeId' => $purposeId,
-                        ':purposeName' => $purposeName,
-                        ':requestId' => $requestId,
-                        ':document_requirements' => $newFileName
-                    ]);
+        for ($i = 0; $i < count($fileInput['name']); $i++) {
+            $fileName = $fileInput['name'][$i];
+            $fileTmpPath = $fileInput['tmp_name'][$i];
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-                    echo json_encode(['success' => true]);
-                } catch (PDOException $e) {
-                    error_log($e->getMessage());
-                    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+            $allowedfileExtensions = array('jpg', 'png', 'jpeg', 'pdf');
+
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $newFileName = substr(md5(time() . $fileName), 0, 16) . '.' . $fileExtension;
+                $dest_path = $uploadFileDir . $newFileName;
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                    $uploadedFiles[] = $newFileName;
                 }
-            } else {
-                echo json_encode(['success' => false, 'error' => 'Error moving file to upload directory.']);
             }
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Upload failed. Allowed file types: ' . implode(',', $allowedfileExtensions)]);
         }
-    } else {
-        echo json_encode(['success' => false, 'error' => 'Error in file upload. Error code: ' . $_FILES['file']['error']]);
+
+        $documentRequirements = implode(',', $uploadedFiles);
+
+        // Insert the request and uploaded file names into the database
+        $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, request_id, document_requirements) 
+                VALUES (:resId, :docTypeId, :purposeId, :purposeName, :requestId, :documentRequirements)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':resId' => $resId,
+            ':docTypeId' => $docTypeId,
+            ':purposeId' => $purposeId,
+            ':purposeName' => $purposeName,
+            ':requestId' => $requestId,
+            ':documentRequirements' => $documentRequirements
+        ]);
+
+        echo json_encode(['success' => true, 'message' => 'Request submitted successfully']);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        echo json_encode(['success' => false, 'error' => 'Database error: ' . $e->getMessage()]);
     }
 } else {
-    echo json_encode(['success' => false, 'error' => 'Invalid input']);
+    echo json_encode(['success' => false, 'error' => 'Invalid request method']);
 }
 
 function generateRandomString($minLength = 8, $maxLength = 13) {
