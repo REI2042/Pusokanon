@@ -305,14 +305,14 @@
     </div>
 </main>
 <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var carousels = document.querySelectorAll('.carousel');
-                    carousels.forEach(function(carousel) {
-                        new bootstrap.Carousel(carousel, {
-                            interval: false
-                        });
-                    });
-                });
+    document.addEventListener('DOMContentLoaded', function() {
+        var carousels = document.querySelectorAll('.carousel');
+        carousels.forEach(function(carousel) {
+            new bootstrap.Carousel(carousel, {
+                interval: false
+            });
+        });
+    });
 </script>
 <script src="js/News.js"></script>
 <script>
