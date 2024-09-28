@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $content = $_POST['post_body'];
     $staff_id = $_SESSION['staff_id'];
 
-    $stmt = $pdo->prepare("INSERT INTO posts (staff_id, title, content) VALUES (?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO announcement_posts (staff_id, title, content) VALUES (?, ?, ?)");
     $stmt->execute([$staff_id, $title, $content]);
     $post_id = $pdo->lastInsertId();
 

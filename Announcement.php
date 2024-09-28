@@ -125,6 +125,9 @@
                 
                 <div class="col-md-3 announcement-pin bg-white pin">
                     <div class="Pinned-Posts p-1 p-sm-3 pb-1 mt-3">
+                        <a href="Forum.php">
+                            <button class="btn btn-primary">Go to Forum <i class="fa-solid fa-arrow-right"></i></button>
+                        </a>
                         <h5 class="fw-bold d-flex justify-content-between align-items-center">
                             <span class="d-flex align-items-center">
                                 Pinned Posts

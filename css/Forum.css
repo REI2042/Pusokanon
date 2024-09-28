@@ -1,3 +1,146 @@
+/* .main {
+    width: 100%;
+    margin-top: 77px;
+}
+
+.prev,
+.next {
+    color: black;
+}
+
+#PostCarousel{
+    height: 350px;
+    width: 350px;
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+}
+
+.video {
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-control-prev {
+    background-color: gray;
+    border-radius: 50%;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+}
+.carousel-control-next {
+    background-color: gray;
+    border-radius: 50%;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+}
+
+.Posts {
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: gray;
+}
+
+.Post {
+    margin: 5px;
+    padding: 5px;
+    background-color: aliceblue;
+}
+
+.Pinned-Posts {
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: gray;
+}
+
+.Pinned-Post {
+    margin: 5px;
+    padding: 5px;
+    background-color: aliceblue;
+}
+
+.pinned-posts-wrapper {
+    position: sticky;
+    top: 90px;
+    max-height: calc(100vh - 90px); 
+    overflow-y: auto;
+}
+
+.Sort-Container {
+    position: sticky;
+    top: 90px;
+    max-height: calc(100vh - 90px); 
+    overflow-y: auto;
+    background-color: #28a745;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+@media (max-width: 991px) {
+
+}
+
+.reactions {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.reaction i {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.reaction .count {
+    font-weight: bold;
+}
+
+.upvote-btn,
+.downvote-btn {
+    background-color: #c2dcf5;
+    border-color: #1c2126;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.upvote-btn:hover,
+.downvote-btn:hover {
+    background-color: #e2e6ea;
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.upvote-btn.active {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.downvote-btn.active {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.upvote-btn.active i,
+.downvote-btn.active i {
+    color: white;
+}
+
+.upvote-btn i,
+.downvote-btn i {
+    transition: color 0.3s ease;
+} */
+
 .main {
     width: 100%;
     margin-top: 77px;
@@ -64,13 +207,25 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.kuan {
+    position: fixed;
+}
+
+.Actions {
+    margin: 10px 0px;
+    padding: 10px;
+    gap:10px;
+    background-color: #D7D9DC;
+    border-radius: 10px;
+}
+
 .Pinned-Posts {
     margin: 10px 0px;
     padding: 10px;
     background-color: #D7D9DC;
     border-radius: 10px;
     position: fixed;
-    /* width: 350px; */
+    width: 30%;
 }
 
 .Pinned-Post {
@@ -170,6 +325,9 @@
     background-color: #2C7BD5;
     color: white;
     border-radius: 5px;
+    position: sticky;
+    top: 80px; /* Adjust this value based on your navbar height */
+    z-index: 1000;
 }
 
 .trending-button, 
@@ -290,6 +448,12 @@ p {
     h5 {
         font-size: 15px;
     }
+
+    .kuan {
+        position: static;
+        width: 100%;
+        margin-top: 10px;
+    }
     
     .Pinned-Posts {
         position: static;
@@ -300,16 +464,27 @@ p {
 
     .Posts {
         padding: 10px;
+        margin: 0px 10px;
         background-color: #D7D9DC;
         border-radius: 10px;
         padding-bottom: none;
-        /* margin-top: 10rem !important; */
-
     }
 
     .Post {
         margin-left: auto;
         margin-right: auto;
         margin-bottom: auto;
+    }
+
+    .Pinned-Posts {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0; /* Sticks to the top of the viewport */
+    }
+
+    #actionsContainer {
+        position: sticky;
+        top: 60px; /* Adjust this value based on your navbar height */
+        z-index: 1000;
     }
 }

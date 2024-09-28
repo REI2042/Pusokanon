@@ -1136,21 +1136,21 @@ function fetchPost($pdo, $post_id) {
     $stmt = $pdo->prepare("SELECT p.*, 
                            p.upvotes AS upvotes, 
                            p.downvotes AS downvotes
-                           FROM posts p
+                           FROM announcement_posts p
                            WHERE p.post_id = ?");
     $stmt->execute([$post_id]);
     return $stmt->fetch();
 }
 
 function fetchPostMedia($pdo, $post_id) {
-    $stmt = $pdo->prepare("SELECT * FROM post_media WHERE post_id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM announcement_posts_media WHERE post_id = ?");
     $stmt->execute([$post_id]);
     return $stmt->fetchAll();
 }
 
 function fetchPinnedPosts($pdo, $limit = 5) {
     $query = "SELECT p.*
-              FROM posts p
+              FROM announcement_posts p
               WHERE p.pinned = 1
               ORDER BY p.created_at DESC
               LIMIT :limit";
@@ -1175,7 +1175,7 @@ function fetchPosts($pdo, $sort, $offset, $postsPerPage) {
     }
 
     $query = "SELECT p.*
-              FROM posts p 
+              FROM announcement_posts p 
               WHERE p.pinned = 0
               ORDER BY $orderBy
               LIMIT :offset, :postsPerPage";
@@ -1187,12 +1187,12 @@ function fetchPosts($pdo, $sort, $offset, $postsPerPage) {
 }
 
 function getTotalPosts($pdo) {
-    $query = "SELECT COUNT(*) FROM posts WHERE pinned = 0";
+    $query = "SELECT COUNT(*) FROM announcement_posts WHERE pinned = 0";
     return $pdo->query($query)->fetchColumn();
 }
 
 function getUserReaction($pdo, $post_id, $res_id) {
-    $stmt = $pdo->prepare("SELECT reaction_type FROM post_reactions WHERE post_id = ? AND res_id = ?");
+    $stmt = $pdo->prepare("SELECT reaction_type FROM announcement_posts_reactions WHERE post_id = ? AND res_id = ?");
     $stmt->execute([$post_id, $res_id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -1212,7 +1212,7 @@ function fetchAllPosts($pdo, $sort) {
     }
 
     $query = "SELECT p.*
-              FROM posts p 
+              FROM announcement_posts p 
               WHERE p.pinned = 0
               ORDER BY $orderBy";
     $stmt = $pdo->prepare($query);

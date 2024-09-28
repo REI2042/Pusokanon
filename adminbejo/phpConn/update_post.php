@@ -6,12 +6,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['post_title'];
     $content = $_POST['post_body'];
 
-    $stmt = $pdo->prepare("UPDATE posts SET title = ?, content = ? WHERE post_id = ?");
+    $stmt = $pdo->prepare("UPDATE announcement_posts SET title = ?, content = ? WHERE post_id = ?");
     $stmt->execute([$title, $content, $post_id]);
 
     if (isset($_POST['remove_media'])) {
-        $stmt = $pdo->prepare("SELECT media_type, media_path FROM post_media WHERE media_id = ?");
-        $deleteStmt = $pdo->prepare("DELETE FROM post_media WHERE media_id = ?");
+        $stmt = $pdo->prepare("SELECT media_type, media_path FROM announcement_posts_media WHERE media_id = ?");
+        $deleteStmt = $pdo->prepare("DELETE FROM announcement_posts_media WHERE media_id = ?");
         
         foreach ($_POST['remove_media'] as $media_id) {
             $stmt->execute([$media_id]);
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $unique_filename = uniqid() . '.' . $file_ext;
 
             if (move_uploaded_file($tmp_name, $upload_dir . $unique_filename)) {
-                $stmt = $pdo->prepare("INSERT INTO post_media (post_id, media_type, media_path) VALUES (?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO announcement_posts_media (post_id, media_type, media_path) VALUES (?, ?, ?)");
                 $stmt->execute([$post_id, $media_type, $unique_filename]);
                 $uploaded_files[] = [
                     'name' => $file_name,
