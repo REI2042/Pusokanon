@@ -1133,9 +1133,7 @@ function fetchChartData($pdo){
 }
 
 function fetchPost($pdo, $post_id) {
-    $stmt = $pdo->prepare("SELECT p.*, 
-                           p.upvotes AS upvotes, 
-                           p.downvotes AS downvotes
+    $stmt = $pdo->prepare("SELECT p.* 
                            FROM announcement_posts p
                            WHERE p.post_id = ?");
     $stmt->execute([$post_id]);
@@ -1239,4 +1237,33 @@ function getTotalDocuments($pdo) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     return $stmt->fetchColumn();
+}
+
+function fetchResidentPost($pdo, $post_id) {
+    $stmt = $pdo->prepare("SELECT p.* 
+                           FROM user_posts p
+                           WHERE p.post_id = ?");
+    $stmt->execute([$post_id]);
+    return $stmt->fetch();
+}
+
+function fetchResidentPostMedia($pdo, $post_id) {
+    $stmt = $pdo->prepare("SELECT * FROM user_posts_media WHERE post_id = ?");
+    $stmt->execute([$post_id]);
+    return $stmt->fetchAll();
+}
+
+function fetchPosterDetails($pdo, $residentId){
+    $sql = "SELECT * FROM resident_users WHERE res_ID = :residentId";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':residentId', $residentId, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function getResidentReaction($pdo, $post_id, $res_id) {
+    $stmt = $pdo->prepare("SELECT reaction_type FROM user_posts_reactions WHERE post_id = ? AND res_id = ?");
+    $stmt->execute([$post_id, $res_id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }

@@ -30,8 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // header("Location: ../view-post.php?id=" . $post_id);
-    header("Location: ../Forum.php");
+    header("Location: ../resident_post.php?id=" . $post_id);
     exit();
 }
 ?>
