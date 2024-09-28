@@ -303,6 +303,8 @@ p {
         background-color: #D7D9DC;
         border-radius: 10px;
         padding-bottom: none;
+        /* margin-top: 10rem !important; */
+
     }
 
     .Post {
