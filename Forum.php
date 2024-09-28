@@ -88,7 +88,7 @@
                 <div class="Posts my-4 mt-md-4 p-0 p-sm-3 pb-0">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="m-2">Residents Forum</h3>
-                        <a href="#" class="m-2 float-right">
+                        <a href="create_post.php" class="m-2 float-right">
                             <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Post</button>
                         </a>
                     </div>

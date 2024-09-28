@@ -1,14 +1,14 @@
 <?php
-include '../../include/staff_restrict_pages.php';
-include '../../db/DBconn.php';
+include '../db/DBconn.php';
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['post_title'];
     $content = $_POST['post_body'];
-    $staff_id = $_SESSION['staff_id'];
+    $res_id = $_SESSION['res_ID'];
 
-    $stmt = $pdo->prepare("INSERT INTO announcement_posts (staff_id, title, content) VALUES (?, ?, ?)");
-    $stmt->execute([$staff_id, $title, $content]);
+    $stmt = $pdo->prepare("INSERT INTO user_posts (res_id, title, content) VALUES (?, ?, ?)");
+    $stmt->execute([$res_id, $title, $content]);
     $post_id = $pdo->lastInsertId();
 
     if (!empty($_FILES['post_media']['name'][0])) {
@@ -18,19 +18,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $media_type = strpos($file_type, 'image') !== false ? 'image' : 'video';
 
-            $upload_dir = $media_type === 'image' ? '../../db/PostMedias/Images/' : '../../db/PostMedias/Videos/';
+            $upload_dir = $media_type === 'image' ? '../db/PostMedias/Images/' : '../db/PostMedias/Videos/';
 
             $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
             $unique_filename = uniqid() . '.' . $file_ext;
 
             if (move_uploaded_file($tmp_name, $upload_dir . $unique_filename)) {
-                $stmt = $pdo->prepare("INSERT INTO announcement_posts_media (post_id, media_type, media_path) VALUES (?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO user_posts_media (post_id, media_type, media_path) VALUES (?, ?, ?)");
                 $stmt->execute([$post_id, $media_type, $unique_filename]);
             }
         }
     }
 
-    header("Location: ../View-Post.php?id=" . $post_id);
+    // header("Location: ../view-post.php?id=" . $post_id);
+    header("Location: ../Forum.php");
     exit();
 }
 ?>
