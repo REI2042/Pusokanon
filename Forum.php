@@ -7,7 +7,7 @@
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'trending';
 
     $pinnedPosts = fetchPinnedPosts($pdo);
-    $posts = fetchAllPosts($pdo, $sort);
+    $posts = fetchAllResidentPosts($pdo, $sort);
 
     function time_elapsed_string($datetime, $full = false) {
         $now = new DateTime;
@@ -107,60 +107,63 @@
                             <li><a class="dropdown-item <?php echo $sort === 'oldest' ? 'active' : ''; ?>" href="?sort=oldest">Oldest</a></li>
                         </ul>
                     </div>
-
-                    <?php if (!empty($posts)): ?>
-                        <?php foreach ($posts as $post): ?>
-                            <a href="Res-view-Post.php?id=<?php echo $post['post_id']; ?>">
-                                <div class="Post my-2 px-3 py-3">
-                                    <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
-                                    <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
-                                    <p class="posted mb-5"><i class="bi bi-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
-                                    <?php $media = fetchPostMedia($pdo, $post['post_id']); ?>
-                                    <?php if (!empty($media)): ?>
-                                        <div id="Post<?php echo $post['post_id']; ?>" class="carousel slide" data-bs-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <?php foreach ($media as $index => $item): ?>
-                                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                                        <?php if ($item['media_type'] === 'image'): ?>
-                                                            <img src="db/PostMedias/Images/<?php echo htmlspecialchars($item['media_path']); ?>" class="d-block w-100" alt="Post Image">
-                                                        <?php elseif ($item['media_type'] === 'video'): ?>
-                                                            <video class="d-block w-100" controls>
-                                                                <source src="db/PostMedias/Videos/<?php echo htmlspecialchars($item['media_path']); ?>" type="video/mp4">
-                                                                Your browser does not support the video tag.
-                                                            </video>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                <?php endforeach; ?>
-                                            </div>
-                                            <?php if (count($media) > 1): ?>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#Post<?php echo $post['post_id']; ?>" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Previous</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#Post<?php echo $post['post_id']; ?>" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Next</span>
-                                                </button>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <div class="reactions">
-                                        <span class="reaction">
-                                            <button class="btn upvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'upvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
-                                                <i class="fa-solid fa-thumbs-up"></i>
-                                            </button>
-                                            <span class="count upvote-count"><?php echo $post['upvotes']; ?></span>
-                                        </span>
-                                        <span class="reaction">
-                                            <button class="btn downvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'downvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
-                                                <i class="fa-solid fa-thumbs-down"></i>
-                                            </button>
-                                            <span class="count downvote-count"><?php echo $post['downvotes']; ?></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
+                      <?php if (!empty($posts)): ?>
+                          <?php foreach ($posts as $post): ?>
+                              <a href="resident_post.php?id=<?php echo $post['post_id']; ?>">
+                                  <div class="Post my-2 px-3 py-3">
+                                      <div class="post-header d-flex align-items-center mb-2">
+                                          <img src="<?php echo $post['profile_picture'] ? 'db/ProfilePictures/' . htmlspecialchars($post['profile_picture']) : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture mr-2" style="width: 40px; height: 40px; border-radius: 50%;">
+                                          <span class="poster-name"><?php echo htmlspecialchars($post['res_fname'] . ' ' . $post['res_lname']); ?></span>
+                                      </div>
+                                      <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
+                                      <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
+                                      <p class="posted mb-5"><i class="bi bi-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
+                                      <?php $media = fetchPostMedia($pdo, $post['post_id']); ?>
+                                      <?php if (!empty($media)): ?>
+                                          <div id="Post<?php echo $post['post_id']; ?>" class="carousel slide" data-bs-ride="carousel">
+                                              <div class="carousel-inner">
+                                                  <?php foreach ($media as $index => $item): ?>
+                                                      <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                                          <?php if ($item['media_type'] === 'image'): ?>
+                                                              <img src="db/PostMedias/Images/<?php echo htmlspecialchars($item['media_path']); ?>" class="d-block w-100" alt="Post Image">
+                                                          <?php elseif ($item['media_type'] === 'video'): ?>
+                                                              <video class="d-block w-100" controls>
+                                                                  <source src="db/PostMedias/Videos/<?php echo htmlspecialchars($item['media_path']); ?>" type="video/mp4">
+                                                                  Your browser does not support the video tag.
+                                                              </video>
+                                                          <?php endif; ?>
+                                                      </div>
+                                                  <?php endforeach; ?>
+                                              </div>
+                                              <?php if (count($media) > 1): ?>
+                                                  <button class="carousel-control-prev" type="button" data-bs-target="#Post<?php echo $post['post_id']; ?>" data-bs-slide="prev">
+                                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                      <span class="visually-hidden">Previous</span>
+                                                  </button>
+                                                  <button class="carousel-control-next" type="button" data-bs-target="#Post<?php echo $post['post_id']; ?>" data-bs-slide="next">
+                                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                      <span class="visually-hidden">Next</span>
+                                                  </button>
+                                              <?php endif; ?>
+                                          </div>
+                                      <?php endif; ?>
+                                      <div class="reactions">
+                                          <span class="reaction">
+                                              <button class="btn upvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'upvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
+                                                  <i class="fa-solid fa-thumbs-up"></i>
+                                              </button>
+                                              <span class="count upvote-count"><?php echo $post['upvotes']; ?></span>
+                                          </span>
+                                          <span class="reaction">
+                                              <button class="btn downvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'downvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
+                                                  <i class="fa-solid fa-thumbs-down"></i>
+                                              </button>
+                                              <span class="count downvote-count"><?php echo $post['downvotes']; ?></span>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </a>
+                          <?php endforeach; ?>
                     <?php else: ?>
                         <p class="no-post-message">There are no posts yet.</p>
                     <?php endif; ?>
@@ -179,7 +182,7 @@
         </div>
     </section>
 </div>
-<script src="js/News.js"></script>
+<script src="js/Forum.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     var dropdownToggle = document.getElementById('sortDropdown');

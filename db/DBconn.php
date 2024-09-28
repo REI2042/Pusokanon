@@ -1267,3 +1267,26 @@ function getResidentReaction($pdo, $post_id, $res_id) {
     $stmt->execute([$post_id, $res_id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function fetchAllResidentPosts($pdo, $sort) {
+    switch ($sort) {
+        case 'latest':
+            $orderBy = "p.created_at DESC";
+            break;
+        case 'oldest':
+            $orderBy = "p.created_at ASC";
+            break;
+        case 'trending':
+        default:
+            $orderBy = "(p.upvotes - p.downvotes) DESC, p.created_at DESC";
+            break;
+    }
+
+    $query = "SELECT p.*, ru.res_fname, ru.res_lname, ru.profile_picture
+              FROM user_posts p
+              JOIN resident_users ru ON p.res_id = ru.res_ID
+              ORDER BY $orderBy";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
