@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Aug 19, 2024 at 09:19 AM
+-- Generation Time: Sep 28, 2024 at 09:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -48,6 +48,80 @@ INSERT INTO `account_role` (`userRole_id`, `role_definition`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `announcement_comments`
+--
+
+CREATE TABLE `announcement_comments` (
+  `comment_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `comment_content` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement_posts`
+--
+
+CREATE TABLE `announcement_posts` (
+  `post_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `pinned` tinyint(1) NOT NULL DEFAULT 0,
+  `upvotes` int(11) DEFAULT 0,
+  `downvotes` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `announcement_posts`
+--
+
+INSERT INTO `announcement_posts` (`post_id`, `staff_id`, `title`, `content`, `created_at`, `pinned`, `upvotes`, `downvotes`) VALUES
+(57, 17, 'This is a test pinned post', 'body on the pinned post', '2024-08-22 17:32:50', 1, 1, 0),
+(71, 17, 'This is a test post', 'Body of the test post', '2024-09-27 11:13:42', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement_posts_media`
+--
+
+CREATE TABLE `announcement_posts_media` (
+  `media_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `media_type` enum('image','video') NOT NULL,
+  `media_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement_posts_reactions`
+--
+
+CREATE TABLE `announcement_posts_reactions` (
+  `reaction_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `reaction_type` enum('upvote','downvote') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `announcement_posts_reactions`
+--
+
+INSERT INTO `announcement_posts_reactions` (`reaction_id`, `post_id`, `res_id`, `reaction_type`, `created_at`) VALUES
+(44, 57, 11, 'upvote', '2024-08-22 17:33:21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `barangay_staff`
 --
 
@@ -75,7 +149,8 @@ INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_m
 (17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', '', '0000-00-00', 'Male', '09347334823', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'BjfCK8M0mubh7rmg4W5sug==', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172', 'ACTIVE'),
 (60, 't+FxILiWLXP/QiR6U/tPTQ==', '4bRlCdKuqV93r2XA+QypfA==', 'L0VNWzJdF6FyKgU3hfoloA==', '', '0000-00-00', 'Female', '09472340876', 3, '8pPI8TOCQfYSelCcQ21ss111JZhQCV8iJPI1rp8KhR0=', 'FLFydCCa0k1u9NOmNdmbTg==', '$2y$10$sA0UTCGbfUidCv337Re77ODGGqlDo9z.dKiYj8AXes3dYDlxWQS1G', 'ACTIVE'),
 (61, 'RzzeyROKFU0TExhG+qYaBw==', 'Y2fEy5soB5k8MsJX/Qc6kw==', 'IEHazRM6gmMJE4IV5NnQ5A==', 'IV', '0000-00-00', 'Male', '+1 (528) 591-4175', 4, 'PTjNhBq8gjrJJYFTNAAwkOEydIx00EFgJIKhPjnoRPk=', 'wIA87kaTuB5G1JyZugB+oA==', '$2y$10$eaD1FkJgt9f9/a9tP.FuJe01dv2iAGMRyfTbhKnF9VRbph/rNCW0W', 'ACTIVE'),
-(63, 'vxLAysrYz1s7BVT7rLvN5Q==', 's8ihuIr3QN/p0QMzN3LgFw==', 'jhyQwPQ7jASNmvj8aRepnw==', 'II', '0000-00-00', 'Male', '+1 (859) 728-1592', 5, 'fve0NnVWQjo4FrP5myOVcM+A4raMWpIM0R5f/iUyo8w=', '9AZHLHTYHG6rjqfw/H3jQA==', '$2y$10$ksH7aaJXYP2ltqcnBzjx9u.AGUL9b.EKeXsUnfAvf9qBZajE.DY.a', 'ACTIVE');
+(63, 'vxLAysrYz1s7BVT7rLvN5Q==', 's8ihuIr3QN/p0QMzN3LgFw==', 'jhyQwPQ7jASNmvj8aRepnw==', 'II', '0000-00-00', 'Male', '+1 (859) 728-1592', 5, 'fve0NnVWQjo4FrP5myOVcM+A4raMWpIM0R5f/iUyo8w=', '9AZHLHTYHG6rjqfw/H3jQA==', '$2y$10$ksH7aaJXYP2ltqcnBzjx9u.AGUL9b.EKeXsUnfAvf9qBZajE.DY.a', 'ACTIVE'),
+(64, 'zygy0fIiL4SULibC1B7lfA==', 'dXRL7w90efhLfcbyjcx0ng==', 'q0uVhQcUaKOyJQAAQ8teVw==', 'Jr.', '0000-00-00', 'Male', '0943 532 4512', 4, 'e731S3PtsUSAYCdJ2Q4fXup5oKh3Eko9whk3/VHpipk=', 'ZqVC8f4iI/jqL402o8rdMw==', '$2y$10$SsBeEUT0s.YWAFd84wpwGONoiT8.AlR8srB5tw3HG4ScGt1s4Eq2q', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -107,6 +182,13 @@ CREATE TABLE `complaints_tbl` (
   `remarks` varchar(200) NOT NULL,
   `date_closed` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaints_tbl`
+--
+
+INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `comment`, `remarks`, `date_closed`) VALUES
+(9, 11, 'Gwapo', 'sdadsa', 'dasdasdas', 'Jr', 'Male', 21, '2024-09-12', '14:17:00', '2024-09-12 06:17:57', 'Arca', 'Bullying', 'Test', NULL, 17, '2024-09-20', '08:30:00', 'Approved', 'Test', 'CASE CLOSED', '2024-09-13');
 
 -- --------------------------------------------------------
 
@@ -192,50 +274,6 @@ INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
---
-
-CREATE TABLE `posts` (
-  `post_id` int(11) NOT NULL,
-  `staff_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `pinned` tinyint(1) NOT NULL DEFAULT 0,
-  `upvotes` int(11) NOT NULL DEFAULT 0,
-  `downvotes` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `post_media`
---
-
-CREATE TABLE `post_media` (
-  `media_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `media_type` enum('image','video') NOT NULL,
-  `media_path` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `post_reactions`
---
-
-CREATE TABLE `post_reactions` (
-  `reaction_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `res_id` int(11) NOT NULL,
-  `reaction_type` enum('upvote','downvote') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `request_doc`
 --
 
@@ -292,7 +330,68 @@ CREATE TABLE `resident_users` (
 INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`, `res_suffix`, `gender`, `birth_date`, `civil_status`, `citizenship`, `place_birth`, `contact_no`, `res_email`, `addr_sitio`, `res_password`, `profile_picture`, `registered_voter`, `userRole_id`, `verification_image`, `register_at`, `reset_token_hash`, `reset_token_expires_at`, `account_active_status`) VALUES
 (6, 'niorey', 'cabunilas', 'yonson', 'I', 'Male', '1988-10-09', 'Married', 'Filipino', 'Rerum proident modi', '0989 345 9842', 'RttvRYF8taWyJoweINRR7bQg0nhSGo7KfmGgEY5s5hA=', 'Ibabao', '$2y$10$HmLy7vQ97oYIeJ0zJk23VusdnmvaA4PruQgcLDC1KwsQUAJPK7Ty6', '44912_n.jpg', 'Registered', 2, '380145502_11_n.jpg', '2024-08-14 21:12:40', NULL, NULL, 'Active'),
 (8, 'Vivien', 'Lane', 'Reagan Ruiz', 'I', 'Female', '1999-12-15', 'Single', 'Eius ut quis perspic', 'Vero consectetur con', '09873459873', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'New Lipata', '$2y$10$wI0zj6LSsq47hgThyawF9ufUPlsV/VhZ9sh/aP7/oTYvbeywMqvAi', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-14 22:53:53', NULL, NULL, 'Active'),
-(10, 'Hiroko', 'Rutledge', 'Derek Blevins', 'II.', 'Male', '1982-02-27', 'Single', 'Canadian', 'Maxime et et id qui ', '0968 202 7920', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'Cemento', '$2y$10$VE8y80aZ7J08NUoMQttGCeY/l5osNs5G7PWlbvkVJCgus0MlfM2HS', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-15 19:37:13', NULL, NULL, 'Unregistered');
+(10, 'Hiroko', 'Rutledge', 'Derek Blevins', 'II.', 'Male', '1982-02-27', 'Single', 'Canadian', 'Maxime et et id qui ', '0968 202 7920', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'Cemento', '$2y$10$VE8y80aZ7J08NUoMQttGCeY/l5osNs5G7PWlbvkVJCgus0MlfM2HS', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-15 19:37:13', NULL, NULL, 'Unregistered'),
+(11, 'Walter', 'Bejo', 'Ologuinsan', 'Jr', 'Male', '2002-09-28', 'Single', 'Filipino', 'Mandaue', '0932 946 4196', 'PJ6J915x8o9TOAacnxoyYeBgMb+kOu5rhxPo4s+u8J0=', 'Arca', '$2y$10$Q4cYh/WVDeOk0G.s/VSHaunHTkiNUR.Da//XDcjcu8c5uKVG6YepS', NULL, 'Not-registered', 2, 'Image1.jpg', '2024-08-20 15:01:18', 'qP2R57MZWPdHm+V7oRFBcw==', '2024-09-12 08:12:28', 'Active'),
+(12, 'Ogie', 'Bejo', 'Ologuinsan', 'Jr', 'Male', '2002-09-28', 'Single', 'Filipino', 'Mandaue', '0932 946 4191', 'BPPezEwW6I07bl5XMk0Bzph8EONPVuaFNh4y9dKRFBU=', 'Arca', '$2y$10$wbusHhlvH3D/Bv7gsoNRTe3zkiO7lMoyjwSkUjesax.1D..Uqcfom', NULL, 'Not-registered', 2, 'Image1.jpg', '2024-08-22 09:28:15', NULL, NULL, 'Active'),
+(13, 'Milenia', 'Ella', 'Blade', ' ', 'Female', '2002-09-28', 'Single', 'Filipino', 'Mandaue', '0933 949 6996', 'v1SpLVQwr1zmURk9o7e4jsDzT9SKlFUTmG+13H8ARms=', 'Arca', '$2y$10$GUY7lR5Au6hVYnMBw0a0POGPq68s.iBE.DWRgmtsXvc7T.a6Wt0Jy', NULL, 'Not-registered', 2, 'QR_Code_10.png', '2024-09-12 15:12:40', NULL, NULL, 'Unregistered');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_posts`
+--
+
+CREATE TABLE `user_posts` (
+  `post_id` int(11) NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `upvotes` int(11) NOT NULL DEFAULT 0,
+  `downvotes` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_posts_comments`
+--
+
+CREATE TABLE `user_posts_comments` (
+  `comment_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `comment_content` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_posts_media`
+--
+
+CREATE TABLE `user_posts_media` (
+  `media_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `media_type` enum('image','video') NOT NULL,
+  `media_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_posts_reactions`
+--
+
+CREATE TABLE `user_posts_reactions` (
+  `reaction_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `reaction_type` enum('upvote','downvote') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -303,6 +402,36 @@ INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`,
 --
 ALTER TABLE `account_role`
   ADD PRIMARY KEY (`userRole_id`);
+
+--
+-- Indexes for table `announcement_comments`
+--
+ALTER TABLE `announcement_comments`
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `res_id` (`res_id`);
+
+--
+-- Indexes for table `announcement_posts`
+--
+ALTER TABLE `announcement_posts`
+  ADD PRIMARY KEY (`post_id`),
+  ADD KEY `staff_id` (`staff_id`);
+
+--
+-- Indexes for table `announcement_posts_media`
+--
+ALTER TABLE `announcement_posts_media`
+  ADD PRIMARY KEY (`media_id`),
+  ADD KEY `post_id` (`post_id`);
+
+--
+-- Indexes for table `announcement_posts_reactions`
+--
+ALTER TABLE `announcement_posts_reactions`
+  ADD PRIMARY KEY (`reaction_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `res_id` (`res_id`);
 
 --
 -- Indexes for table `barangay_staff`
@@ -338,28 +467,6 @@ ALTER TABLE `initial_sitio_population`
   ADD PRIMARY KEY (`sitio_id`);
 
 --
--- Indexes for table `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`post_id`),
-  ADD KEY `staff_id` (`staff_id`);
-
---
--- Indexes for table `post_media`
---
-ALTER TABLE `post_media`
-  ADD PRIMARY KEY (`media_id`),
-  ADD KEY `post_id` (`post_id`);
-
---
--- Indexes for table `post_reactions`
---
-ALTER TABLE `post_reactions`
-  ADD PRIMARY KEY (`reaction_id`),
-  ADD KEY `post_id` (`post_id`),
-  ADD KEY `res_id` (`res_id`);
-
---
 -- Indexes for table `request_doc`
 --
 ALTER TABLE `request_doc`
@@ -377,6 +484,36 @@ ALTER TABLE `resident_users`
   ADD KEY `role_ID` (`userRole_id`);
 
 --
+-- Indexes for table `user_posts`
+--
+ALTER TABLE `user_posts`
+  ADD PRIMARY KEY (`post_id`),
+  ADD KEY `res_id` (`res_id`);
+
+--
+-- Indexes for table `user_posts_comments`
+--
+ALTER TABLE `user_posts_comments`
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `res_id` (`res_id`);
+
+--
+-- Indexes for table `user_posts_media`
+--
+ALTER TABLE `user_posts_media`
+  ADD PRIMARY KEY (`media_id`),
+  ADD KEY `post_id` (`post_id`);
+
+--
+-- Indexes for table `user_posts_reactions`
+--
+ALTER TABLE `user_posts_reactions`
+  ADD PRIMARY KEY (`reaction_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `res_id` (`res_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -387,16 +524,40 @@ ALTER TABLE `account_role`
   MODIFY `userRole_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `announcement_comments`
+--
+ALTER TABLE `announcement_comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `announcement_posts`
+--
+ALTER TABLE `announcement_posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+--
+-- AUTO_INCREMENT for table `announcement_posts_media`
+--
+ALTER TABLE `announcement_posts_media`
+  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+
+--
+-- AUTO_INCREMENT for table `announcement_posts_reactions`
+--
+ALTER TABLE `announcement_posts_reactions`
+  MODIFY `reaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
 -- AUTO_INCREMENT for table `barangay_staff`
 --
 ALTER TABLE `barangay_staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `complaints_tbl`
 --
 ALTER TABLE `complaints_tbl`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `docs_purpose`
@@ -417,38 +578,70 @@ ALTER TABLE `initial_sitio_population`
   MODIFY `sitio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `posts`
---
-ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `post_media`
---
-ALTER TABLE `post_media`
-  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `post_reactions`
---
-ALTER TABLE `post_reactions`
-  MODIFY `reaction_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
 --
 ALTER TABLE `resident_users`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `user_posts`
+--
+ALTER TABLE `user_posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_posts_comments`
+--
+ALTER TABLE `user_posts_comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_posts_media`
+--
+ALTER TABLE `user_posts_media`
+  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_posts_reactions`
+--
+ALTER TABLE `user_posts_reactions`
+  MODIFY `reaction_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `announcement_comments`
+--
+ALTER TABLE `announcement_comments`
+  ADD CONSTRAINT `fk_post_id_comments` FOREIGN KEY (`post_id`) REFERENCES `announcement_posts` (`post_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_res_id_comments` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`);
+
+--
+-- Constraints for table `announcement_posts`
+--
+ALTER TABLE `announcement_posts`
+  ADD CONSTRAINT `announcement_posts_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `barangay_staff` (`staff_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `announcement_posts_media`
+--
+ALTER TABLE `announcement_posts_media`
+  ADD CONSTRAINT `announcement_posts_media_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `announcement_posts` (`post_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `announcement_posts_reactions`
+--
+ALTER TABLE `announcement_posts_reactions`
+  ADD CONSTRAINT `announcement_posts_reactions_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `announcement_posts` (`post_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `announcement_posts_reactions_ibfk_2` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`);
 
 --
 -- Constraints for table `barangay_staff`
@@ -464,25 +657,6 @@ ALTER TABLE `complaints_tbl`
   ADD CONSTRAINT `staff_fk` FOREIGN KEY (`staff_id`) REFERENCES `barangay_staff` (`staff_id`);
 
 --
--- Constraints for table `posts`
---
-ALTER TABLE `posts`
-  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `barangay_staff` (`staff_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `post_media`
---
-ALTER TABLE `post_media`
-  ADD CONSTRAINT `post_media_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `post_reactions`
---
-ALTER TABLE `post_reactions`
-  ADD CONSTRAINT `post_reactions_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `post_reactions_ibfk_2` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`);
-
---
 -- Constraints for table `request_doc`
 --
 ALTER TABLE `request_doc`
@@ -495,6 +669,32 @@ ALTER TABLE `request_doc`
 --
 ALTER TABLE `resident_users`
   ADD CONSTRAINT `resident_users_ibfk_1` FOREIGN KEY (`userRole_id`) REFERENCES `account_role` (`userRole_id`);
+
+--
+-- Constraints for table `user_posts`
+--
+ALTER TABLE `user_posts`
+  ADD CONSTRAINT `fk_res_id_posts` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_posts_comments`
+--
+ALTER TABLE `user_posts_comments`
+  ADD CONSTRAINT `user_post_id_comments` FOREIGN KEY (`post_id`) REFERENCES `user_posts` (`post_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_res_id_comments` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`);
+
+--
+-- Constraints for table `user_posts_media`
+--
+ALTER TABLE `user_posts_media`
+  ADD CONSTRAINT `fk_res_id_media` FOREIGN KEY (`post_id`) REFERENCES `user_posts` (`post_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_posts_reactions`
+--
+ALTER TABLE `user_posts_reactions`
+  ADD CONSTRAINT `fk_post_id_reactions` FOREIGN KEY (`post_id`) REFERENCES `user_posts` (`post_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_res_id_reactions` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
