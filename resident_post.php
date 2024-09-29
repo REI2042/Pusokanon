@@ -20,6 +20,7 @@
         exit();
     }
 
+    $isOwner = ($_SESSION['res_ID'] == $post['res_id']);
 ?>
 <link rel="stylesheet" href="css/resident_post.css">
 <div class="container fluid d-flex justify-content-center">
@@ -30,9 +31,23 @@
                 <span>Back</span>
             </a>
             <div class="Post px-4 py-4">
-                <div class="poster-info">
-                    <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">
-                    <span class="poster-name"><?php echo htmlspecialchars($poster['res_fname'] . ' ' . $poster['res_lname']); ?></span>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="poster-info">
+                        <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">
+                        <span class="poster-name"><?php echo htmlspecialchars($poster['res_fname'] . ' ' . $poster['res_lname']); ?></span>
+                    </div>
+                    <div class="dropdown">
+                        <?php if ($isOwner): ?>
+                            <button class="btn btn-link" type="button" id="postOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="postOptionsDropdown">
+                            
+                                <li><a class="dropdown-item" href="edit_resident_post.php?id=<?php echo $post_id; ?>"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                <li><button class="dropdown-item delete-button" data-post-id="<?php echo $post_id; ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <h3 class="fw-bold ml-3"><?php echo htmlspecialchars($post['title']); ?></h3>
                 <p class="ml-3"><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
