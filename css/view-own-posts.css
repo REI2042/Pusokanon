@@ -1,0 +1,101 @@
+.main {
+    margin-top: 81px;
+    padding: 0px 75px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.post-box {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    height: 100%;
+}
+
+.post-box {
+    background: linear-gradient(45deg, rgba(211, 211, 211, 0.5), rgba(224, 224, 224, 0.5), rgba(245, 245, 245, 0.5));
+}
+
+.trending-button,
+.latest-button,
+.oldest-button {
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 26px;
+    border-style: none;
+    color: #222324;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin: 5px;
+}
+
+.trending-button:hover, 
+.latest-button:hover,
+.oldest-button:hover {
+    color: #00c3ff;
+}
+
+.trending-button.active,
+.oldest-button.active,
+.latest-button.active {
+    color: #00c3ff;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.page-link {
+    border-radius: 10%;
+}
+
+.table-responsive .table td, th {
+    font-size: 12px;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination {
+    gap: 5px;
+}
+
+@media (max-width: 768px), (min-height: 768px) {
+
+    .main {
+        margin-top: 65.5px;
+        padding: 0px 10px;
+    }
+
+    footer .footerContainer p {
+        font-size: small;
+    }
+
+    table thead th {
+        font-size: small;
+    }
+
+    .table {
+        width: 600px;
+    }
+
+    .table-responsive .table td, th {
+        font-size: smaller;
+    }
+    
+}
+
+@media (max-width: 1024px) {
+
+    footer .footerContainer p {
+        font-size: small;
+    }
+
+    table thead th {
+        font-size: small;
+    }
+
+}

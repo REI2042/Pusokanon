@@ -7,15 +7,13 @@ $sort = isset($_GET['sort']) ? $_GET['sort'] : 'trending';
 
 date_default_timezone_set('Asia/Manila');
 
-$pinnedPosts = fetchPinnedPosts($pdo);
-
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $postsPerPage = 5;
 $offset = ($page - 1) * $postsPerPage;
 
-$posts = fetchPosts($pdo, $sort, $offset, $postsPerPage);
+$posts = fetchResidentPosts($pdo, $sort, $offset, $postsPerPage);
 
-$totalPosts = getTotalPosts($pdo);
+$totalPosts = getTotalResidentPosts($pdo);
 $totalPages = ceil($totalPosts / $postsPerPage);
 
 function time_elapsed_string($datetime, $full = false) {
@@ -51,15 +49,13 @@ function time_elapsed_string($datetime, $full = false) {
 <link rel="stylesheet" href="css/Post-Announcements.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
-        <a href="Create-Post.php">
-            <button class="btn btn-primary"><i class="fas fa-plus"></i> Create Post</button>
-        </a>
-        <a href="Residents-Forum.php">
-            <button class="btn btn-primary">Go to Forum <i class="fa-solid fa-arrow-right"></i></button>
+        <a href="Post-Announcements.php">
+            <button class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Go back to Announcements</button>
         </a>
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="Posts p-3">
+                    <h3 class="m-2 text-center">Residents Forum</h3>
                     <div class="sort-container px-2 py-2">
                         <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>  &nbsp; | &nbsp;
                         <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>  &nbsp; | &nbsp;
@@ -67,14 +63,12 @@ function time_elapsed_string($datetime, $full = false) {
                     </div>
                     <?php if (!empty($posts)): ?>
                         <?php foreach ($posts as $post): ?>
-                            <a href="View-Post.php?id=<?php echo $post['post_id']; ?>">
+                            <a href="View-Resident-Post.php?id=<?php echo $post['post_id']; ?>">
                                 <div class="Post position-relative  my-3 px-3 py-3">
-                                    <form action="phpConn/pin_post.php" method="POST">
-                                        <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
-                                        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 mt-2 me-2" value="1" name="Pinpost" title="Pin post">
-                                            <i class="fa-solid fa-thumbtack reactions"></i>
-                                        </button>
-                                    </form>
+                                    <div class="post-header d-flex align-items-center mb-2">
+                                        <img src="<?php echo $post['profile_picture'] ? '../db/ProfilePictures/' . htmlspecialchars($post['profile_picture']) : '../PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture mr-2" style="width: 40px; height: 40px; border-radius: 50%;">
+                                        <span class="poster-name"><?php echo htmlspecialchars($post['res_fname'] . ' ' . $post['res_lname']); ?> | Resident</span>
+                                    </div>
                                     <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                                     <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
                                     <p class="posted"><i class="far fa-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
@@ -115,7 +109,7 @@ function time_elapsed_string($datetime, $full = false) {
                                         </div>
                                     <?php endif; ?>
                                     
-                                    <div class="mt-5">
+                                    <div >
                                         <i class="fa-solid fa-thumbs-up reactions"></i>
                                         <span class="reactions"><?php echo $post['upvotes']; ?></span>
                                         <i class="fa-solid fa-thumbs-down reactions"></i>
@@ -170,30 +164,7 @@ function time_elapsed_string($datetime, $full = false) {
                         </ul>
                     </nav>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="Pinned-Posts">
-                    <h2 class="fw-bold">Pinned Posts <i class="bi bi-pin-angle-fill"></i></h2>
-                    <?php if (!empty($pinnedPosts)): ?>
-                        <?php foreach ($pinnedPosts as $pinnedPost): ?>
-                            <a href="View-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
-                                <div class="Pinned-Post my-3 mx-2 px-2 py-2">
-                                    <h5 class="post-title"><i class="bi bi-chat-text-fill"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h5>
-                                    <p class="posted">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
-                                    <div>
-                                        <i class="fa-solid fa-thumbs-up reactions"></i>
-                                        <span class="reactions"><?php echo $pinnedPost['upvotes']; ?></span>
-                                        <i class="fa-solid fa-thumbs-down reactions"></i>
-                                        <span class="reactions"><?php echo $pinnedPost['downvotes']; ?></span>
-                                    </div>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p class="no-pinned-message">There are no pinned posts yet.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
+            </div>  
         </div>
     </section>
 </div>

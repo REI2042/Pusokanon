@@ -48,7 +48,7 @@
             <div class="col-12 col-md-4 order-md-2 p-2 p-md-3">
                 <div class="kuan">
                     <div id="actionsDiv" class="Actions d-flex justify-content-between">
-                        <a href="">
+                        <a href="view-own-posts.php">
                             <button class="btn btn-primary">View Your Post(s)</button>
                         </a>
                         <a href="Announcement.php">
@@ -109,7 +109,7 @@
                     </div>
                       <?php if (!empty($posts)): ?>
                           <?php foreach ($posts as $post): ?>
-                              <a href="resident_post.php?id=<?php echo $post['post_id']; ?>">
+                                <a href="resident_post.php?id=<?php echo $post['post_id']; ?>&ref=forum">
                                   <div class="Post my-2 px-3 py-3">
                                       <div class="post-header d-flex align-items-center mb-2">
                                           <img src="<?php echo $post['profile_picture'] ? 'db/ProfilePictures/' . htmlspecialchars($post['profile_picture']) : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture mr-2" style="width: 40px; height: 40px; border-radius: 50%;">

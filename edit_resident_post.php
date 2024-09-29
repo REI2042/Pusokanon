@@ -1,29 +1,31 @@
 <?php
- include 'include/header.php';
- include 'db/DBconn.php';
+    include 'include/header.php';
+    include 'db/DBconn.php';
 
-if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    echo "Invalid post ID";
-    exit();
-}
+    if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+        echo "Invalid post ID";
+        exit();
+    }
 
-$post_id = $_GET['id'];
-$post = fetchResidentPost($pdo, $post_id);
-$media = fetchResidentPostMedia($pdo, $post_id);
+    $post_id = $_GET['id'];
+    $post = fetchResidentPost($pdo, $post_id);
+    $media = fetchResidentPostMedia($pdo, $post_id);
 
-if (!$post) {
-    echo "Post not found";
-    exit();
-}
+    if (!$post) {
+        echo "Post not found";
+        exit();
+    }
+
+    $referrer = isset($_SESSION['post_referrer']) ? $_SESSION['post_referrer'] : 'forum';
 ?>
 
 <link rel="stylesheet" href="css/edit-post.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main" style="width: -webkit-fill-available;">
         <div class="edit-container">
-            <form action="phpConn/update_post.php" method="POST" enctype="multipart/form-data">
+            <form action="phpConn/update-post.php" method="POST" enctype="multipart/form-data">
                 <div class="d-flex justify-content-between align-items-center">
-                    <a href="resident_post.php?id=<?php echo $post_id; ?>" class="back-button d-flex align-items-center text-dark gap-2">
+                    <a href="resident_post.php?id=<?php echo $post_id; ?>&ref=<?php echo $referrer; ?>" class="back-button d-flex align-items-center text-dark gap-2">
                         <i class="fas fa-circle-chevron-left fa-2x"></i>
                         <span>Back</span>
                     </a>

@@ -1,0 +1,144 @@
+.main {
+    margin-left: 70px;
+    justify-content: center;
+}
+
+.prev,
+.next {
+    color: black;
+}
+
+#PostCarousel{
+    height: 350px;
+    width: 350px;
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+}
+
+.video {
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-control-prev {
+    background-color: #2C7BD5;
+    border-radius: 50%;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+}
+.carousel-control-next {
+    background-color: #2C7BD5;
+    border-radius: 50%;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+}
+.carousel-item {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin-top: auto;
+}
+
+.Posts {
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: #D7D9DC;
+    border-radius: 10px;
+}
+.Post {
+    margin: 5px;
+    padding: 5px;
+    background-color: #FAF9F6;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Pinned-Posts {
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: #D7D9DC;
+    border-radius: 10px;
+    position: fixed;
+}
+
+.Pinned-Post {
+    margin: 5px;
+    padding: 5px;
+    background-color: #FAF9F6;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.sort-container{
+    width: 100%;
+    display: flex;
+    background-color: #2C7BD5;
+    color: white;
+    border-radius: 5px;
+}
+
+.trending-button, 
+.latest-button,
+.oldest-button {
+    color: white;
+    font-size: 18px;
+}
+
+.trending-button:hover,
+.latest-button:hover,
+.oldest-button:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.trending-button.active,
+.latest-button.active,
+.oldest-button.active {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.post-title, .post-content, .posted {
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: none;
+}
+
+h3, h5, h2, p {
+    color: #212529;
+}
+
+.post-title {
+    font-size: 20px;
+}
+
+h3, h2 {
+    font-weight: bold;
+}
+
+p {
+    font-size: 18px;
+}
+
+.posted{
+    color: #2C7BD5;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.reactions{
+    color: #212529
+}

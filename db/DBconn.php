@@ -1290,3 +1290,72 @@ function fetchAllResidentPosts($pdo, $sort) {
     $stmt->execute();
     return $stmt->fetchAll();
 }
+
+function fetchResidentPosts($pdo, $sort, $offset, $postsPerPage) {
+    switch ($sort) {
+        case 'latest':
+            $orderBy = "p.created_at DESC";
+            break;
+        case 'oldest':
+            $orderBy = "p.created_at ASC";
+            break;
+        case 'trending':
+        default:
+            $orderBy = "(p.upvotes - p.downvotes) DESC, p.created_at DESC";
+            break;
+    }
+
+    $query = "SELECT p.*, ru.res_fname, ru.res_lname, ru.profile_picture
+              FROM user_posts p 
+              JOIN resident_users ru ON p.res_id = ru.res_ID
+              ORDER BY $orderBy
+              LIMIT :offset, :postsPerPage";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindParam(':postsPerPage', $postsPerPage, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function getTotalResidentPosts($pdo) {
+    $query = "SELECT COUNT(*) FROM user_posts";
+    return $pdo->query($query)->fetchColumn();
+}
+
+function fetchOwnPosts($pdo, $resId, $sort, $limit, $offset)
+{
+    switch ($sort) {
+        case 'latest':
+            $orderBy = "created_at DESC";
+            break;
+        case 'oldest':
+            $orderBy = "created_at ASC";
+            break;
+        case 'trending':
+        default:
+            $orderBy = "(upvotes - downvotes) DESC, created_at DESC";
+            break;
+    }
+
+    $sql = "SELECT * 
+            FROM user_posts
+            WHERE res_id = :resId
+            ORDER BY $orderBy
+            LIMIT :limit OFFSET :offset";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':resId', $resId, PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function countOwnPosts($pdo, $resId)
+{
+    $sql = "SELECT COUNT(*) FROM user_posts WHERE res_id = :resId";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':resId', $resId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}

@@ -21,12 +21,16 @@
     }
 
     $isOwner = ($_SESSION['res_ID'] == $post['res_id']);
+
+    if (isset($_GET['ref'])) {
+        $_SESSION['post_referrer'] = $_GET['ref'];
+    }
 ?>
 <link rel="stylesheet" href="css/resident_post.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row my-3">
-        <a href="Forum.php" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
+            <a href="<?php echo isset($_SESSION['post_referrer']) && $_SESSION['post_referrer'] == 'own-posts' ? 'view-own-posts.php' : 'Forum.php'; ?>" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>
