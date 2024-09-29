@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->beginTransaction();
 
         try {
-            $stmt = $pdo->prepare("SELECT media_type, media_path FROM post_media WHERE post_id = ?");
+            $stmt = $pdo->prepare("SELECT media_type, media_path FROM announcement_posts_media WHERE post_id = ?");
             $stmt->execute([$post_id]);
             $media = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -22,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            $stmt = $pdo->prepare("DELETE FROM post_media WHERE post_id = ?");
+            $stmt = $pdo->prepare("DELETE FROM announcement_posts_media WHERE post_id = ?");
             $stmt->execute([$post_id]);
 
-            $stmt = $pdo->prepare("DELETE FROM posts WHERE post_id = ?");
+            $stmt = $pdo->prepare("DELETE FROM announcement_posts WHERE post_id = ?");
             $stmt->execute([$post_id]);
 
             $pdo->commit();

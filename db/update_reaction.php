@@ -14,36 +14,36 @@ $reaction_type = $_POST['reaction_type'];
 try {
     $pdo->beginTransaction();
 
-    $stmt = $pdo->prepare("SELECT reaction_type FROM post_reactions WHERE post_id = ? AND res_id = ?");
+    $stmt = $pdo->prepare("SELECT reaction_type FROM announcement_posts_reactions WHERE post_id = ? AND res_id = ?");
     $stmt->execute([$post_id, $res_id]);
     $existingReaction = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($existingReaction) {
         if ($existingReaction['reaction_type'] === $reaction_type) {
-            $stmt = $pdo->prepare("DELETE FROM post_reactions WHERE post_id = ? AND res_id = ?");
+            $stmt = $pdo->prepare("DELETE FROM announcement_posts_reactions WHERE post_id = ? AND res_id = ?");
             $stmt->execute([$post_id, $res_id]);
             $updateField = $reaction_type === 'upvote' ? 'upvotes = upvotes - 1' : 'downvotes = downvotes - 1';
         } else {
-            $stmt = $pdo->prepare("UPDATE post_reactions SET reaction_type = ? WHERE post_id = ? AND res_id = ?");
+            $stmt = $pdo->prepare("UPDATE announcement_posts_reactions SET reaction_type = ? WHERE post_id = ? AND res_id = ?");
             $stmt->execute([$reaction_type, $post_id, $res_id]);
             $updateField = $reaction_type === 'upvote' ? 'upvotes = upvotes + 1, downvotes = downvotes - 1' : 'downvotes = downvotes + 1, upvotes = upvotes - 1';
         }
     } else {
-        $stmt = $pdo->prepare("INSERT INTO post_reactions (post_id, res_id, reaction_type) VALUES (?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO announcement_posts_reactions (post_id, res_id, reaction_type) VALUES (?, ?, ?)");
         $stmt->execute([$post_id, $res_id, $reaction_type]);
         $updateField = $reaction_type === 'upvote' ? 'upvotes = upvotes + 1' : 'downvotes = downvotes + 1';
     }
 
-    $stmt = $pdo->prepare("UPDATE posts SET $updateField WHERE post_id = ?");
+    $stmt = $pdo->prepare("UPDATE announcement_posts SET $updateField WHERE post_id = ?");
     $stmt->execute([$post_id]);
 
     $pdo->commit();
 
-    $stmt = $pdo->prepare("SELECT upvotes, downvotes FROM posts WHERE post_id = ?");
+    $stmt = $pdo->prepare("SELECT upvotes, downvotes FROM announcement_posts WHERE post_id = ?");
     $stmt->execute([$post_id]);
     $updatedCounts = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = $pdo->prepare("SELECT reaction_type FROM post_reactions WHERE post_id = ? AND res_id = ?");
+    $stmt = $pdo->prepare("SELECT reaction_type FROM announcement_posts_reactions WHERE post_id = ? AND res_id = ?");
     $stmt->execute([$post_id, $res_id]);
     $userReaction = $stmt->fetch(PDO::FETCH_ASSOC);
 

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($post_id !== null && $pin !== null) {
         
-        $stmt = $pdo->prepare("SELECT COUNT(*) AS pinned_count FROM posts WHERE pinned = 1");
+        $stmt = $pdo->prepare("SELECT COUNT(*) AS pinned_count FROM announcement_posts WHERE pinned = 1");
         $stmt->execute();
         $pinned_count = $stmt->fetchColumn();
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
 
-        $stmt = $pdo->prepare("UPDATE posts SET pinned = ? WHERE post_id = ?");
+        $stmt = $pdo->prepare("UPDATE announcement_posts SET pinned = ? WHERE post_id = ?");
         $result = $stmt->execute([$pin, $post_id]);
 
         if ($result) {
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $post_id = $_POST['post_id'];
         $pinpost = $_POST['Pinpost'];
     
-        $sql = "UPDATE posts SET pinned = :pinpost  WHERE post_id = :post_id";
+        $sql = "UPDATE announcement_posts SET pinned = :pinpost  WHERE post_id = :post_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
         $stmt->bindParam(':pinpost', $pinpost , PDO::PARAM_INT);

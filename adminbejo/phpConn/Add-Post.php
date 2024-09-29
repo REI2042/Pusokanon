@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $content = $_POST['post_body'];
     $staff_id = $_SESSION['staff_id'];
 
-    $stmt = $pdo->prepare("INSERT INTO posts (staff_id, title, content) VALUES (?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO announcement_posts (staff_id, title, content) VALUES (?, ?, ?)");
     $stmt->execute([$staff_id, $title, $content]);
     $post_id = $pdo->lastInsertId();
 
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $unique_filename = uniqid() . '.' . $file_ext;
 
             if (move_uploaded_file($tmp_name, $upload_dir . $unique_filename)) {
-                $stmt = $pdo->prepare("INSERT INTO post_media (post_id, media_type, media_path) VALUES (?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO announcement_posts_media (post_id, media_type, media_path) VALUES (?, ?, ?)");
                 $stmt->execute([$post_id, $media_type, $unique_filename]);
             }
         }
