@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,12 +141,22 @@
                                 
                             </a>
                         </li> 
+                
                         <li class="sidebar-item">
-                            <a href="Graphs_Reports.php" class="sidebar-link">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#graphs" aria-expanded="false" aria-controls="graphs">   
                                 <i class="fa-solid fa-chart-column"></i>
                                 <span class="span-word">Graphs & Reports</span>
                             </a>
-                        </li> 
+                            <ul id="graphs" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="Graphs_Reports.php" class="sidebar-link">Population Graph</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#!" class="sidebar-link">Documents Sales</a>
+                                </li>
+                            </ul>
+                        </li>
                     
 
                     <?php  elseif ($_SESSION['userRole'] == 3): ?> <!--SECRETARY-->

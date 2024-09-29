@@ -1,31 +1,48 @@
 <?php
 session_start();
 include 'DBconn.php';
-  $data = json_decode(file_get_contents('php://input'), true);
+    $data = json_decode(file_get_contents('php://input'), true);
 
-  if (isset($data['docTypeId']) && isset($data['purposeId']) && isset($data['purposeName'])) {
-      $resId = $_SESSION['res_ID'];
-      $docTypeId = $data['docTypeId'];
-      $purposeId = $data['purposeId'];
-      $purposeName = $data['purposeName'];
-      $requestId = generateRandomString(8, 13);
+    if (isset($data['docTypeId']) && isset($data['purposeId']) && isset($data['purposeName'])) {
+        $resId = $_SESSION['res_ID'];
+        $docTypeId = $data['docTypeId'];
+        $purposeId = $data['purposeId'];
+        $purposeName = $data['purposeName'];
+        $requestId = generateRandomString(8, 13);
 
-      try {
-          $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, request_id) VALUES (:resId, :docTypeId, :purposeId, :purposeName, :requestId)";
-          $stmt = $pdo->prepare($sql);
-          $stmt->execute([
-              ':resId' => $resId,
-              ':docTypeId' => $docTypeId,
-              ':purposeId' => $purposeId,
-              ':purposeName' => $purposeName,
-              ':requestId' => $requestId
-          ]);
-
-          echo json_encode(['success' => true]);
-      } catch (PDOException $e) {
-          error_log($e->getMessage());
-          echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-      }
+        try {
+            
+            if($purposeId == 5){
+                $sql = "SELECT doc_amount FROM doc_type WHERE docType_id = :docTypeId";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    ':docTypeId' => $docTypeId
+                ]);
+                $purposeFee = $stmt->fetchColumn();
+            }else{
+                $sql = "SELECT purpose_fee FROM docs_purpose WHERE purpose_id = :purpose_id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    ':purpose_id' => $purposeId
+                ]);
+                $purposeFee = $stmt->fetchColumn();
+                }
+                
+            $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, doc_amount, request_id) VALUES (:resId, :docTypeId, :purposeId, :purposeName, :purposeFee ,:requestId)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':resId' => $resId,
+                ':docTypeId' => $docTypeId,
+                ':purposeId' => $purposeId,
+                ':purposeName' => $purposeName,
+                ':purposeFee' => $purposeFee,
+                ':requestId' => $requestId
+            ]);
+            echo json_encode(['success' => true]);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        }
 }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resId = $_SESSION['res_ID'];
     $docTypeId = $_POST['docTypeId'];
@@ -58,15 +75,24 @@ include 'DBconn.php';
 
         $documentRequirements = implode(',', $uploadedFiles);
 
+        $sql = "SELECT doc_amount FROM doc_type WHERE docType_id = :docTypeId";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':docTypeId' => $docTypeId
+            ]);
+            $purposeFee = $stmt->fetchColumn();
+
+
         // Insert the request and uploaded file names into the database
-        $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, request_id, document_requirements) 
-                VALUES (:resId, :docTypeId, :purposeId, :purposeName, :requestId, :documentRequirements)";
+        $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, doc_amount, request_id, document_requirements) 
+                VALUES (:resId, :docTypeId, :purposeId, :purposeName, :purposeFee, :requestId, :documentRequirements)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':resId' => $resId,
             ':docTypeId' => $docTypeId,
             ':purposeId' => $purposeId,
             ':purposeName' => $purposeName,
+            ':purposeFee' => $purposeFee,
             ':requestId' => $requestId,
             ':documentRequirements' => $documentRequirements
         ]);
