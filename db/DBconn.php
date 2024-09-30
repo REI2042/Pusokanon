@@ -1370,6 +1370,16 @@ function fetchComments($pdo, $post_id) {
     return $stmt->fetchAll();
 }
 
+function fetchCommentsAnnouncements($pdo, $post_id) {
+    $stmt = $pdo->prepare("SELECT c.*, ru.res_fname, ru.res_lname, ru.profile_picture 
+                           FROM announcement_comments c
+                           JOIN resident_users ru ON c.res_id = ru.res_ID
+                           WHERE c.post_id = ?
+                           ORDER BY c.created_at DESC");
+    $stmt->execute([$post_id]);
+    return $stmt->fetchAll();
+}
+
 
 function getTotalDocAmountByDocType($pdo) {
     $sql = "SELECT COALESCE(SUM(rd.doc_amount), 0) as doc_amount, COUNT(rd.docType_id) as doc_count, dt.doc_name 
