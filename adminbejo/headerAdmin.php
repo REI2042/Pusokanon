@@ -283,8 +283,29 @@
                                 <span class="span-word">Complaints History </span>
                             </a>
                         </li> 
-                    <?php endif; ?>    
-                    
+                      
+
+                    <?php  elseif ($_SESSION['userRole'] == 8): ?> <!--Barangay treasurer-->
+                        <li class="sidebar-item">
+                            <a href="Graphs_Reports.php" class="sidebar-link">
+                                <i class="fa-solid fa-chart-column"></i>
+                                <span class="span-word">Graphs & Reports</span>
+                            </a>
+                        </li> 
+                        <li class="sidebar-item">
+                            <a href="GraphSales.php" class="sidebar-link">
+                                <i class="fa-solid fa-peso-sign"></i>
+                                <span class="span-word">Sales Graph</span>
+                            </a>
+                        </li> 
+                        <li class="sidebar-item">
+                            <a href="Document-requestHistory.php" class="sidebar-link">
+                                <i class="fa-solid fa-history"></i>
+                                <span class="span-word">Docs Request History</span>
+                            </a>
+                        </li>
+
+                    <?php endif; ?>  
                 </ul>
             </aside>
             
