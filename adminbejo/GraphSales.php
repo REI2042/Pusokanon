@@ -38,7 +38,7 @@ $totalSum = getTotalSum($pdo);
                         <?php foreach ($documentchart as $doc): ?>
                             <tr>
                                 <td><?= htmlspecialchars($doc['doc_name']); ?></td>
-                                <td><?= number_format($doc['doc_count']); ?></td>
+                                <td class="text-center"><?= number_format($doc['doc_count']); ?></td>
                                 <td class="show-sum">₱ <?= number_format($doc['doc_amount'], 2); ?></td>
                                 
                             </tr>

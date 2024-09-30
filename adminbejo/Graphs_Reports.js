@@ -168,6 +168,12 @@ document.addEventListener("DOMContentLoaded", function() {
           fill: {
               colors: ['#008FFB']
           },
+          markers: {
+              size: 5,
+              colors: ['#008FFB'],
+              strokeColor: '#fff',
+              strokeWidth: 2,
+          },
       };
   
       const chart = new ApexCharts(document.querySelector("#sales-chart"), options);
@@ -179,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function() {
       let newOptions;
       if (chartType === 'byDocType') {
           newOptions = {
-              
               xaxis: {
                   categories: chartAmountDocs.map(item => item.doc_name)
               },
@@ -189,7 +194,13 @@ document.addEventListener("DOMContentLoaded", function() {
               series: [{
                   name: 'Total Amount',
                   data: chartAmountDocs.map(item => parseInt(item.doc_amount))
-              }]
+              }],
+              markers: {
+                  size: 5,
+                  colors: ['#008FFB'],
+                  strokeColor: '#fff',
+                  strokeWidth: 2,
+              },
           };
       } else if (chartType === 'byMonth') {
           // Assuming you have monthlyData available
@@ -197,21 +208,26 @@ document.addEventListener("DOMContentLoaded", function() {
               "July", "August", "September", "October", "November", "December"];
           newOptions = {
               xaxis: {
-              categories: monthlyData.map(item => {
-                  const [year, month] = item.month.split('-');
-                  return `${monthNames[parseInt(month) - 1]} ${year}`;
-              })
+                  categories: monthlyData.map(item => {
+                      const [year, month] = item.month.split('-');
+                      return `${monthNames[parseInt(month) - 1]} ${year}`;
+                  })
               },
               title: {
-              text: 'Document Sales by Month'
+                  text: 'Document Sales by Month'
               },
               series: [{
-              name: 'Total Amount',
-              data: monthlyData.map(item => parseInt(item.total_amount))
-              }]
+                  name: 'Total Amount',
+                  data: monthlyData.map(item => parseInt(item.total_amount))
+              }],
+              markers: {
+                  size: 5,
+                  colors: ['#008FFB'],
+                  strokeColor: '#fff',
+                  strokeWidth: 2,
+              },
           };
       }
       
       chart.updateOptions(newOptions);
-  }
-  
+  }  
