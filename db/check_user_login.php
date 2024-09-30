@@ -30,20 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = decryptData($staff['user_name']);
             $_SESSION['staff_fname'] = decryptData($staff['staff_fname']);
             
-            if ($staff['userRole_id'] == 1 || $staff['userRole_id'] == 3) { // Admin roles
+            if ($staff['userRole_id'] == 1 || $staff['userRole_id'] == 3 || $staff['userRole_id'] == 5 || $staff['userRole_id'] == 6|| $staff['userRole_id'] == 7 || $staff['userRole_id'] == 8) { // Admin roles
                 header("Location: ../adminbejo/Dashboard.php");
                 exit();
-            } else if ($staff['userRole_id'] == 2) {
+            }else if ($staff['userRole_id'] == 4) {
                 header("Location: ../adminbejo/Dashboard.php");
                 exit();
-            } else if ($staff['userRole_id'] == 4) {
-                header("Location: ../adminbejo/Dashboard.php");
-                exit();
-            } else if ($staff['userRole_id'] == 5) {
+            }else{
                 header("Location: ../adminbejo/Dashboard.php");
                 exit();
             }
-            
         } else {
             header("Location: ../login.php");
             exit();
