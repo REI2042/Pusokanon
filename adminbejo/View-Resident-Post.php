@@ -19,6 +19,8 @@
 
     $poster = fetchPosterDetails($pdo, $post['res_id']);
     $media = fetchResidentPostMedia($pdo, $post_id);
+
+    $comments = fetchComments($pdo, $post['post_id']);
 ?>
 <link rel="stylesheet" href="css/View-Post.css">
 <div class="container fluid d-flex justify-content-center">
@@ -93,6 +95,37 @@
                         <i class="fa-solid fa-thumbs-down"></i>
                         <span class="count"><?php echo $post['downvotes']; ?></span>
                     </span>
+                </div>
+                <div class="comments-section mt-2">
+                    <h4>Comments</h4>
+                    <div id="comments-container" style="max-height: 500px; overflow-y: scroll;">
+                        <?php if (!empty($comments)): ?>
+                            <?php foreach ($comments as $comment): ?>
+                                <div class='comment'>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="poster-info d-flex align-items-center m-1">
+                                            <img src='<?php echo ($comment['profile_picture'] ? '../db/ProfilePictures/' . $comment['profile_picture'] : '../PicturesNeeded/blank_profile.png'); ?>' alt='Profile Picture' class='comment-profile-picture'>
+                                            <strong><?php echo htmlspecialchars($comment['res_fname'] . ' ' . $comment['res_lname']); ?></strong>
+                                        </div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-link" type="button" id="commentOptionsDropdown<?= $comment['comment_id'] ?>" data-comment-id="<?= $comment['comment_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="commentOptionsDropdown<?= $comment['comment_id'] ?>">
+                                                <li>
+                                                    <button class="dropdown-item delete-comment-button" data-comment-id="<?= $comment['comment_id'] ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p><?php echo htmlspecialchars($comment['comment_content']); ?></p>
+                                    <small><?php echo date('F j, Y, g:i a', strtotime($comment['created_at'])); ?></small>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="no-comments">No comments yet.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>  
         </div>
