@@ -27,22 +27,18 @@
     }
 
     $comments = fetchComments($pdo, $post['post_id']);
-
-    $isCommentOwner = ($_SESSION['res_ID'] == $comments['res_id']);
 ?>
 <link rel="stylesheet" href="css/resident_post.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row my-3">
-            <a href="<?php echo isset($_SESSION['post_referrer']) && $_SESSION['post_referrer'] == 'own-posts' ? 'view-own-posts.php' : 'Forum.php'; ?>" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
-                <i class="fas fa-circle-chevron-left fa-2x"></i>
-                <span>Back</span>
-            </a>
             <div class="Post px-4 py-4">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="poster-info">
-                        <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">
-                        <span class="poster-name"><?php echo htmlspecialchars($poster['res_fname'] . ' ' . $poster['res_lname']); ?></span>
+                    <div class="back-container">
+                        <a href="<?php echo isset($_SESSION['post_referrer']) && $_SESSION['post_referrer'] == 'own-posts' ? 'view-own-posts.php' : 'Forum.php'; ?>" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
+                            <i class="fas fa-circle-chevron-left fa-2x"></i>
+                            <span>Back</span>
+                        </a>
                     </div>
                     <div class="dropdown">
                         <?php if ($isOwner): ?>
@@ -57,6 +53,8 @@
                         <?php endif; ?>
                     </div>
                 </div>
+                <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">
+                <span class="poster-name"><?php echo htmlspecialchars($poster['res_fname'] . ' ' . $poster['res_lname']); ?></span>
                 <h3 class="fw-bold ml-3"><?php echo htmlspecialchars($post['title']); ?></h3>
                 <p class="ml-3"><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
                 <p class="posted mt-3"><i class="far fa-clock"></i> Posted on <?php echo date('F j, Y, g:i a', strtotime($post['created_at'])); ?></p>
@@ -110,7 +108,7 @@
                     </span>
                 </div>
                 <div class="comments-section mt-2">
-                    <form action="db/add_comment.php" method="POST" enctype="multipart/form-data">
+                    <form action="db/add_comment_post.php" method="POST" enctype="multipart/form-data">
                         <div class="row mb-3">
                             <div class="col-md-10">
                                 <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
@@ -122,22 +120,29 @@
                         </div>
                     </form>
                     <h4>Comments</h4>
-                    <div id="comments-container">
+                    <div id="comments-container" style="max-height: 500px; overflow-y: scroll;">
                         <?php if (!empty($comments)): ?>
                             <?php foreach ($comments as $comment): ?>
                                 <div class='comment'>
-                                    <img src='<?php echo ($comment['profile_picture'] ? 'db/ProfilePictures/' . $comment['profile_picture'] : 'PicturesNeeded/blank_profile.png'); ?>' alt='Profile Picture' class='comment-profile-picture'>
-                                    <strong><?php echo htmlspecialchars($comment['res_fname'] . ' ' . $comment['res_lname']); ?></strong>
-                                    <?php if ($isCommentOwner): ?>
-                                        <div class="dropdown">
-                                            <button class="btn btn-link" type="button" id="commentOptionsDropdown<?= $comment['comment_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="commentOptionsDropdown<?= $comment['comment_id'] ?>">
-                                                <li><button class="dropdown-item delete-comment-button" data-comment-id="<?= $comment['comment_id'] ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
-                                            </ul>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="poster-info d-flex align-items-center m-1">
+                                            <img src='<?php echo ($comment['profile_picture'] ? 'db/ProfilePictures/' . $comment['profile_picture'] : 'PicturesNeeded/blank_profile.png'); ?>' alt='Profile Picture' class='comment-profile-picture'>
+                                            <strong><?php echo htmlspecialchars($comment['res_fname'] . ' ' . $comment['res_lname']); ?></strong>
                                         </div>
-                                    <?php endif; ?>
+                                        <?php $isCommentOwner = ($_SESSION['res_ID'] == $comment['res_id']); ?>
+                                        <?php if ($isCommentOwner): ?>
+                                            <div class="dropdown">
+                                                <button class="btn btn-link" type="button" id="commentOptionsDropdown<?= $comment['comment_id'] ?>" data-comment-id="<?= $comment['comment_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="commentOptionsDropdown<?= $comment['comment_id'] ?>">
+                                                    <li>
+                                                        <button class="dropdown-item delete-comment-button" data-comment-id="<?= $comment['comment_id'] ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
                                     <p><?php echo htmlspecialchars($comment['comment_content']); ?></p>
                                     <small><?php echo date('F j, Y, g:i a', strtotime($comment['created_at'])); ?></small>
                                 </div>
