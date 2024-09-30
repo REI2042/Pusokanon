@@ -20,19 +20,38 @@
         exit();
     }
 
+    $isOwner = ($_SESSION['res_ID'] == $post['res_id']);
+
+    if (isset($_GET['ref'])) {
+        $_SESSION['post_referrer'] = $_GET['ref'];
+    }
 ?>
 <link rel="stylesheet" href="css/resident_post.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row my-3">
-        <a href="Forum.php" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
+            <a href="<?php echo isset($_SESSION['post_referrer']) && $_SESSION['post_referrer'] == 'own-posts' ? 'view-own-posts.php' : 'Forum.php'; ?>" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>
             <div class="Post px-4 py-4">
-                <div class="poster-info">
-                    <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">
-                    <span class="poster-name"><?php echo htmlspecialchars($poster['res_fname'] . ' ' . $poster['res_lname']); ?></span>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="poster-info">
+                        <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">
+                        <span class="poster-name"><?php echo htmlspecialchars($poster['res_fname'] . ' ' . $poster['res_lname']); ?></span>
+                    </div>
+                    <div class="dropdown">
+                        <?php if ($isOwner): ?>
+                            <button class="btn btn-link" type="button" id="postOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="postOptionsDropdown">
+                            
+                                <li><a class="dropdown-item" href="edit_resident_post.php?id=<?php echo $post_id; ?>"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                <li><button class="dropdown-item delete-button" data-post-id="<?php echo $post_id; ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <h3 class="fw-bold ml-3"><?php echo htmlspecialchars($post['title']); ?></h3>
                 <p class="ml-3"><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
