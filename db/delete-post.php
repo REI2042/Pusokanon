@@ -1,5 +1,6 @@
 <?php
 include 'DBconn.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $post_id = $_POST['post_id'] ?? null;

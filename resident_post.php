@@ -25,6 +25,10 @@
     if (isset($_GET['ref'])) {
         $_SESSION['post_referrer'] = $_GET['ref'];
     }
+
+    $comments = fetchComments($pdo, $post['post_id']);
+
+    $isCommentOwner = ($_SESSION['res_ID'] == $comments['res_id']);
 ?>
 <link rel="stylesheet" href="css/resident_post.css">
 <div class="container fluid d-flex justify-content-center">
@@ -104,6 +108,44 @@
                         </button>
                         <span class="count downvote-count"><?php echo $post['downvotes']; ?></span>
                     </span>
+                </div>
+                <div class="comments-section mt-2">
+                    <form action="db/add_comment.php" method="POST" enctype="multipart/form-data">
+                        <div class="row mb-3">
+                            <div class="col-md-10">
+                                <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
+                                <textarea name="comment_text" class="form-control" required placeholder="Write a comment..."></textarea>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center">
+                                <button class="submit-comment m-1" type="submit">Add Comment</button>
+                            </div>
+                        </div>
+                    </form>
+                    <h4>Comments</h4>
+                    <div id="comments-container">
+                        <?php if (!empty($comments)): ?>
+                            <?php foreach ($comments as $comment): ?>
+                                <div class='comment'>
+                                    <img src='<?php echo ($comment['profile_picture'] ? 'db/ProfilePictures/' . $comment['profile_picture'] : 'PicturesNeeded/blank_profile.png'); ?>' alt='Profile Picture' class='comment-profile-picture'>
+                                    <strong><?php echo htmlspecialchars($comment['res_fname'] . ' ' . $comment['res_lname']); ?></strong>
+                                    <?php if ($isCommentOwner): ?>
+                                        <div class="dropdown">
+                                            <button class="btn btn-link" type="button" id="commentOptionsDropdown<?= $comment['comment_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="commentOptionsDropdown<?= $comment['comment_id'] ?>">
+                                                <li><button class="dropdown-item delete-comment-button" data-comment-id="<?= $comment['comment_id'] ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
+                                            </ul>
+                                        </div>
+                                    <?php endif; ?>
+                                    <p><?php echo htmlspecialchars($comment['comment_content']); ?></p>
+                                    <small><?php echo date('F j, Y, g:i a', strtotime($comment['created_at'])); ?></small>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="no-comments">No comments yet.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
