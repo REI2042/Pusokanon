@@ -153,7 +153,7 @@
                                     <a href="Graphs_Reports.php" class="sidebar-link">Population Graph</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="#!" class="sidebar-link">Documents Sales</a>
+                                    <a href="GraphSales.php" class="sidebar-link">Documents Sales</a>
                                 </li>
                             </ul>
                         </li>

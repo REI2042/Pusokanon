@@ -1,0 +1,24 @@
+.title {
+    margin: 12px 0px;
+    font-size: 2rem;
+    color: #434349;
+    font-weight: 800;
+}
+
+.chart{
+    
+    background-color: rgba(10, 119, 243, 0.2);
+    border-radius: 5px;
+    border: #478aff solid 1px;
+}
+
+th{
+    font-size: .9rem;
+}
+
+td{
+    font-size: .7rem;
+}
+.show-sum{
+    width:90px;
+}

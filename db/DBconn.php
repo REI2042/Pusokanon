@@ -1290,3 +1290,31 @@ function fetchAllResidentPosts($pdo, $sort) {
     $stmt->execute();
     return $stmt->fetchAll();
 }
+
+
+function getTotalDocAmountByDocType($pdo) {
+    $sql = "SELECT COALESCE(SUM(rd.doc_amount), 0) as doc_amount, COUNT(rd.docType_id) as doc_count, dt.doc_name 
+            FROM doc_type dt
+            LEFT JOIN request_doc rd ON rd.docType_id = dt.docType_id
+            GROUP BY dt.docType_id, dt.doc_name";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getTotalSum($pdo) {
+    $sql = "SELECT COALESCE(SUM(rd.doc_amount), 0) as doc_amount
+            FROM request_doc rd";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+function getMonthlyDocumentSales($pdo) {
+    $query = "SELECT DATE_FORMAT(date_req, '%Y-%m') as month, SUM(doc_amount) as total_amount 
+              FROM request_doc 
+              GROUP BY DATE_FORMAT(date_req, '%Y-%m') 
+              ORDER BY month";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
