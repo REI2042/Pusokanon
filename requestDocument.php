@@ -120,7 +120,7 @@
 							<li>Valid ID</li>
 						</ul>
 						<div class="price text-right">
-							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($electricalPermit) ?></i><button class="btn btn-success text-left d-inline-block btn-5" name="electricalPermit" value="5" data-value="5" data-doc-name="Barangay Electrical Permit"> Request </button>
+							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($electricalPermit) ?></i><button class="btn btn-success text-left d-inline-block btn-5" name="electricalPermit" value="5" data-value="5" data-doc-name="Barangay Electrical Permit"> Make Appointment </button>
 						</div>
 					</div>
 				</div>
@@ -140,7 +140,7 @@
 							<li>Land Picture</li>
 						</ul>
 						<div class="price text-right">
-							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($constructionPermit) ?></i><button class="btn btn-success text-left d-inline-block btn-6" name="residency" value="6" data-value="6" data-doc-name="Barangay Construction Permit"> Request </button>
+							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($constructionPermit) ?></i><button class="btn btn-success text-left d-inline-block btn-6" name="residency" value="6" data-value="6" data-doc-name="Barangay Construction Permit"> Make Appointment </button>
 						</div>
 					</div>
 				</div>
@@ -160,7 +160,7 @@
 							<li>Fencing blueprint</li>
 						</ul>
 						<div class="price text-right">
-							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($fencingPermit) ?></i><button class="btn btn-success text-left d-inline-block btn-7" name="residency" value="7" data-value="7" data-doc-name="Barangay Fencing Permit"> Request </button>
+							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($fencingPermit) ?></i><button class="btn btn-success text-left d-inline-block btn-7" name="residency" value="7" data-value="7" data-doc-name="Barangay Fencing Permit"> Make Appointment </button>
 						</div>
 					</div>
 				</div>
@@ -180,7 +180,7 @@
 							<li>Store Map/location</li>
 						</ul>
 						<div class="price text-right">
-							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($businessClearance) ?></i><button class="btn btn-success text-left d-inline-block btn-8" name="residency" value="8" data-value="8" data-doc-name="Barangay Business Clearance"> Request </button>
+							Price - <i class="fa-solid fa-peso-sign pr-3"> <?= htmlspecialchars($businessClearance) ?></i><button class="btn btn-success text-left d-inline-block btn-8" name="residency" value="8" data-value="8" data-doc-name="Barangay Business Clearance"> Make Appointment </button>
 						</div>
 					</div>
 				</div>

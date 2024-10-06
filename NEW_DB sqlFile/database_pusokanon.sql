@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Sep 30, 2024 at 10:50 AM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 06, 2024 at 02:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -122,6 +122,29 @@ INSERT INTO `announcement_posts_reactions` (`reaction_id`, `post_id`, `res_id`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `appointment_tbl`
+--
+
+CREATE TABLE `appointment_tbl` (
+  `appt_ID` int(11) NOT NULL,
+  `res_ID` int(11) NOT NULL,
+  `doc_ID` int(11) NOT NULL,
+  `appt_date` date NOT NULL,
+  `appt_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `appointment_tbl`
+--
+
+INSERT INTO `appointment_tbl` (`appt_ID`, `res_ID`, `doc_ID`, `appt_date`, `appt_time`) VALUES
+(1, 6, 3, '2024-10-30', '19:40:00'),
+(2, 6, 4, '2024-10-16', '09:37:00'),
+(3, 14, 7, '2024-10-25', '19:53:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `barangay_staff`
 --
 
@@ -188,7 +211,8 @@ CREATE TABLE `complaints_tbl` (
 --
 
 INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `comment`, `remarks`, `date_closed`) VALUES
-(9, 11, 'Gwapo', 'sdadsa', 'dasdasdas', 'Jr', 'Male', 21, '2024-09-12', '14:17:00', '2024-09-12 06:17:57', 'Arca', 'Bullying', 'Test', NULL, 17, '2024-09-20', '08:30:00', 'Approved', 'Test', 'CASE CLOSED', '2024-09-13');
+(9, 11, 'Gwapo', 'sdadsa', 'dasdasdas', 'Jr', 'Male', 21, '2024-09-12', '14:17:00', '2024-09-12 06:17:57', 'Arca', 'Bullying', 'Test', NULL, 17, '2024-09-20', '08:30:00', 'Approved', 'Test', 'CASE CLOSED', '2024-09-13'),
+(10, 14, 'Cameron', 'Quintessa Terrell', 'Griffith', ' ', 'Male', 61, '1979-12-29', '01:10:00', '2024-10-06 11:49:59', 'Lawis', 'Theft', 'Aliqua In veniam i', 'complaints_evidence/6702796735d8e.jpg', 17, NULL, NULL, 'Rejected', 'lack of supporting evidence', 'CASE CLOSED', '2024-10-06');
 
 -- --------------------------------------------------------
 
@@ -298,11 +322,13 @@ CREATE TABLE `request_doc` (
 --
 
 INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `doc_amount`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`, `document_requirements`) VALUES
-(11, 8, 7, 5, 'asdagfh', 500, 'Pending', '2024-09-29 07:20:14', '2024-09-29 07:20:17', 'Not released', '<1qT|r.Lw', '1727594417.png', 'ccebc96b5ce58299.jpg'),
-(12, 8, 2, 3, 'Person With Disability Assistance', 0, 'Pending', '2024-08-29 07:23:22', '2024-09-29 14:06:53', 'Not released', '9nL%)ivb]', '1727594604.png', NULL),
-(13, 8, 2, 5, 'carrr', 50, 'Pending', '2024-08-29 07:57:30', '2024-09-29 14:10:51', 'Not released', 'qwmX7u7wyEDyl', '1727596652.png', NULL),
-(14, 8, 4, 5, 'sada', 50, 'Pending', '2024-07-29 08:01:18', '2024-09-29 14:10:01', 'Not released', 'u%]LNc&j?B', '1727596879.png', NULL),
-(15, 8, 2, 5, 'cannn', 50, 'Pending', '2024-08-29 08:01:37', '2024-09-29 14:10:59', 'Not released', 'C+M}I%u,bD', '1727596899.png', NULL);
+(1, 6, 2, 1, 'Employment', 0, 'Pending', '2024-10-06 11:36:40', '2024-10-06 11:36:41', 'Not released', 'wLZp|Soh', '1728214601.png', NULL),
+(2, 6, 4, 3, 'Person With Disability Assistance', 0, 'Ready to pickup', '2024-10-06 11:36:48', '2024-10-06 11:59:41', 'Not released', 'LW5bXuo]', '1728214610.png', NULL),
+(3, 6, 5, 5, 'business', 500, 'Pending', '2024-10-06 11:37:20', '2024-10-06 11:37:29', 'Not released', '!ld=sB4M+]]', '1728214649.png', 'aaf9c80aba92506e.png,7a992ab4ee0820c2.png'),
+(4, 6, 6, 5, 'Business', 500, 'Pending', '2024-10-06 11:37:45', '2024-10-06 11:37:54', 'Not released', 'F@3]*=M67-', '1728214674.png', '3077bfd50ed66369.png'),
+(5, 6, 1, 5, 'travel', 80, 'Pending', '2024-10-06 11:39:26', '2024-10-06 11:39:28', 'Not released', ']QQ[Nx|g[', '1728214768.png', 'fa19cf87557ffa7e.png'),
+(6, 14, 2, 4, 'Senior Citizen Assistance', 0, 'Pending', '2024-10-06 11:48:58', '2024-10-06 11:49:00', 'Not released', 'tfe1J6T.K<P>', '1728215340.png', NULL),
+(7, 14, 7, 5, 'Privacy', 500, 'Pending', '2024-10-06 11:49:21', '2024-10-06 11:49:31', 'Not released', 'K.d*cw;sz5', '1728215371.png', 'a40b237e192abb14.jpg,b1019c1f06491949.jpg');
 
 -- --------------------------------------------------------
 
@@ -345,7 +371,8 @@ INSERT INTO `resident_users` (`res_ID`, `res_fname`, `res_lname`, `res_midname`,
 (10, 'Hiroko', 'Rutledge', 'Derek Blevins', 'II.', 'Male', '1982-02-27', 'Single', 'Canadian', 'Maxime et et id qui ', '0968 202 7920', '4wJSXG/iBtqzVJb3OXrX4REKkFkB00P2o7j+uJN4Pbw=', 'Cemento', '$2y$10$VE8y80aZ7J08NUoMQttGCeY/l5osNs5G7PWlbvkVJCgus0MlfM2HS', NULL, 'Not-registered', 2, '380145502_11_n.jpg', '2024-08-15 19:37:13', NULL, NULL, 'Unregistered'),
 (11, 'Walter', 'Bejo', 'Ologuinsan', 'Jr', 'Male', '2002-09-28', 'Single', 'Filipino', 'Mandaue', '0932 946 4196', 'PJ6J915x8o9TOAacnxoyYeBgMb+kOu5rhxPo4s+u8J0=', 'Arca', '$2y$10$Q4cYh/WVDeOk0G.s/VSHaunHTkiNUR.Da//XDcjcu8c5uKVG6YepS', NULL, 'Not-registered', 2, 'Image1.jpg', '2024-08-20 15:01:18', 'qP2R57MZWPdHm+V7oRFBcw==', '2024-09-12 08:12:28', 'Active'),
 (12, 'Ogie', 'Bejo', 'Ologuinsan', 'Jr', 'Male', '2002-09-28', 'Single', 'Filipino', 'Mandaue', '0932 946 4191', 'BPPezEwW6I07bl5XMk0Bzph8EONPVuaFNh4y9dKRFBU=', 'Arca', '$2y$10$wbusHhlvH3D/Bv7gsoNRTe3zkiO7lMoyjwSkUjesax.1D..Uqcfom', NULL, 'Not-registered', 2, 'Image1.jpg', '2024-08-22 09:28:15', NULL, NULL, 'Active'),
-(13, 'Milenia', 'Ella', 'Blade', ' ', 'Female', '2002-09-28', 'Single', 'Filipino', 'Mandaue', '0933 949 6996', 'v1SpLVQwr1zmURk9o7e4jsDzT9SKlFUTmG+13H8ARms=', 'Arca', '$2y$10$GUY7lR5Au6hVYnMBw0a0POGPq68s.iBE.DWRgmtsXvc7T.a6Wt0Jy', NULL, 'Not-registered', 2, 'QR_Code_10.png', '2024-09-12 15:12:40', NULL, NULL, 'Unregistered');
+(13, 'Milenia', 'Ella', 'Blade', ' ', 'Female', '2002-09-28', 'Single', 'Filipino', 'Mandaue', '0933 949 6996', 'v1SpLVQwr1zmURk9o7e4jsDzT9SKlFUTmG+13H8ARms=', 'Arca', '$2y$10$GUY7lR5Au6hVYnMBw0a0POGPq68s.iBE.DWRgmtsXvc7T.a6Wt0Jy', NULL, 'Not-registered', 2, 'QR_Code_10.png', '2024-09-12 15:12:40', NULL, NULL, 'Unregistered'),
+(14, 'Mariene', 'Lune', 'Mabulay', ' ', 'Female', '2003-01-05', 'Single', 'Filipino', 'Cebu City', '0995 470 2461', 'Ogcgi6CXZHvyGzIAHfOfxTZgViV8YCewXvpvWNuascA=', 'Sewage', '$2y$10$dMYgyi4ltRFsYm7tczLG.upxLmHdbkL5VZKfI706G.fr/k0pQcy5O', 'WIN_20240129_15_10_00_Pro.jpg', 'Registered', 2, 'Screenshot (792).png', '2024-10-06 19:43:24', NULL, NULL, 'Active');
 
 -- --------------------------------------------------------
 
@@ -362,6 +389,13 @@ CREATE TABLE `user_posts` (
   `upvotes` int(11) NOT NULL DEFAULT 0,
   `downvotes` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_posts`
+--
+
+INSERT INTO `user_posts` (`post_id`, `res_id`, `title`, `content`, `created_at`, `upvotes`, `downvotes`) VALUES
+(1, 14, 'Helloo Worldsjfjoek', 'We Value Your Privacy\r\nWe may store and access personal data such as cookies, device identifiers or other similar technologies on your device and process such data to enhance site navigation, personalize ads and content when you visit our sites, measure ad and content performance, gain audience insights, analyze our site traffic as well as develop and improve our products and services. Further information on the cookies we use and their purpose can be found on our website privacy policy accessiblehere.\r\n\r\nWe use necessary cookies to make our site work. Necessary cookies enable core functionality such as security, network management, and accessibility. You may disable these by changing your browser settings, but this may affect how the website functions. We\'d also like to set optional cookies to help us improve our website and help improve your experience whilst on our website.\r\n\r\nBy clicking ‘Accept All Cookies’ you agree to us enabling all optional cookies for these purposes. Alternatively, you can set which optional cookies you wish to enable (and update your preferences including withdrawing your consent) at any time, by clicking ‘Cookie Settings’.', '2024-10-06 11:46:42', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -390,6 +424,13 @@ CREATE TABLE `user_posts_media` (
   `media_type` enum('image','video') NOT NULL,
   `media_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_posts_media`
+--
+
+INSERT INTO `user_posts_media` (`media_id`, `post_id`, `media_type`, `media_path`) VALUES
+(1, 1, 'image', '670278a2a50d8.jpg');
 
 -- --------------------------------------------------------
 
@@ -444,6 +485,14 @@ ALTER TABLE `announcement_posts_reactions`
   ADD PRIMARY KEY (`reaction_id`),
   ADD KEY `post_id` (`post_id`),
   ADD KEY `res_id` (`res_id`);
+
+--
+-- Indexes for table `appointment_tbl`
+--
+ALTER TABLE `appointment_tbl`
+  ADD PRIMARY KEY (`appt_ID`),
+  ADD KEY `res_ID` (`res_ID`),
+  ADD KEY `doc_ID` (`doc_ID`);
 
 --
 -- Indexes for table `barangay_staff`
@@ -560,6 +609,12 @@ ALTER TABLE `announcement_posts_reactions`
   MODIFY `reaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
+-- AUTO_INCREMENT for table `appointment_tbl`
+--
+ALTER TABLE `appointment_tbl`
+  MODIFY `appt_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `barangay_staff`
 --
 ALTER TABLE `barangay_staff`
@@ -569,7 +624,7 @@ ALTER TABLE `barangay_staff`
 -- AUTO_INCREMENT for table `complaints_tbl`
 --
 ALTER TABLE `complaints_tbl`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `docs_purpose`
@@ -593,19 +648,19 @@ ALTER TABLE `initial_sitio_population`
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
 --
 ALTER TABLE `resident_users`
-  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `res_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user_posts`
 --
 ALTER TABLE `user_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_posts_comments`
@@ -617,7 +672,7 @@ ALTER TABLE `user_posts_comments`
 -- AUTO_INCREMENT for table `user_posts_media`
 --
 ALTER TABLE `user_posts_media`
-  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_posts_reactions`
@@ -654,6 +709,13 @@ ALTER TABLE `announcement_posts_media`
 ALTER TABLE `announcement_posts_reactions`
   ADD CONSTRAINT `announcement_posts_reactions_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `announcement_posts` (`post_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `announcement_posts_reactions_ibfk_2` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`);
+
+--
+-- Constraints for table `appointment_tbl`
+--
+ALTER TABLE `appointment_tbl`
+  ADD CONSTRAINT `appointment_tbl_ibfk_1` FOREIGN KEY (`res_ID`) REFERENCES `resident_users` (`res_ID`),
+  ADD CONSTRAINT `appointment_tbl_ibfk_2` FOREIGN KEY (`doc_ID`) REFERENCES `request_doc` (`doc_ID`);
 
 --
 -- Constraints for table `barangay_staff`
