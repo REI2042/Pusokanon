@@ -168,13 +168,13 @@
                                       <?php endif; ?>
                                       <div class="reactions">
                                           <span class="reaction">
-                                              <button class="btn upvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'upvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
+                                              <button class="btn upvote-btn <?php echo (isset($_SESSION['res_ID']) && getResidentReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'upvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
                                                   <i class="fa-solid fa-thumbs-up"></i>
                                               </button>
                                               <span class="count upvote-count"><?php echo $post['upvotes']; ?></span>
                                           </span>
                                           <span class="reaction">
-                                              <button class="btn downvote-btn <?php echo (isset($_SESSION['res_ID']) && getUserReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'downvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
+                                              <button class="btn downvote-btn <?php echo (isset($_SESSION['res_ID']) && getResidentReaction($pdo, $post['post_id'], $_SESSION['res_ID'])['reaction_type'] === 'downvote') ? 'active' : ''; ?>" data-post-id="<?php echo $post['post_id']; ?>">
                                                   <i class="fa-solid fa-thumbs-down"></i>
                                               </button>
                                               <span class="count downvote-count"><?php echo $post['downvotes']; ?></span>
