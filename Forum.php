@@ -68,7 +68,7 @@
                         </h5>
                         <?php if (!empty($pinnedPosts)): ?>
                             <div id="single-pinned-post">
-                                <a href="Res-view-Post.php?id=<?php echo $pinnedPosts[0]['post_id']; ?>">
+                                <a href="Res-view-Post.php?id=<?php echo $pinnedPosts[0]['post_id']; ?>&ref=forum">
                                     <div class="Pinned-Post my-2 mx-1 px-2 py-2">
                                         <h6 class="post-title"><i class="bi bi-chat-text-fill pin-title"></i> <?php echo htmlspecialchars($pinnedPosts[0]['title']); ?></h6>
                                         <p class="posted small">Posted <?php echo time_elapsed_string($pinnedPosts[0]['created_at']); ?></p>
@@ -83,7 +83,7 @@
                             </div>
                             <div id="all-pinned-posts" style="display: none;">
                                 <?php foreach ($pinnedPosts as $pinnedPost): ?>
-                                    <a href="Res-view-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
+                                    <a href="Res-view-Post.php?id=<?php echo $pinnedPost['post_id']; ?>&ref=forum">
                                         <div class="Pinned-Post my-2 mx-1 px-2 py-2">
                                             <h6 class="post-title"><i class="bi bi-chat-text-fill pin-title"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h6>
                                             <p class="posted small">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>

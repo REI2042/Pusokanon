@@ -65,7 +65,7 @@
                         </h5>
                         <?php if (!empty($pinnedPosts)): ?>
                             <div id="single-pinned-post">
-                                <a href="Res-view-Post.php?id=<?php echo $pinnedPosts[0]['post_id']; ?>">
+                                <a href="Res-view-Post.php?id=<?php echo $pinnedPosts[0]['post_id']; ?>&ref=announcements">
                                     <div class="Pinned-Post my-2 mx-1 px-2 py-2">
                                         <h6 class="post-title"><i class="bi bi-chat-text-fill pin-title"></i> <?php echo htmlspecialchars($pinnedPosts[0]['title']); ?></h6>
                                         <p class="posted small">Posted <?php echo time_elapsed_string($pinnedPosts[0]['created_at']); ?></p>
@@ -80,7 +80,7 @@
                             </div>
                             <div id="all-pinned-posts" style="display: none;">
                                 <?php foreach ($pinnedPosts as $pinnedPost): ?>
-                                    <a href="Res-view-Post.php?id=<?php echo $pinnedPost['post_id']; ?>">
+                                    <a href="Res-view-Post.php?id=<?php echo $pinnedPost['post_id']; ?>&ref=announcements">
                                         <div class="Pinned-Post my-2 mx-1 px-2 py-2">
                                             <h6 class="post-title"><i class="bi bi-chat-text-fill pin-title"></i> <?php echo htmlspecialchars($pinnedPost['title']); ?></h6>
                                             <p class="posted small">Posted <?php echo time_elapsed_string($pinnedPost['created_at']); ?></p>
@@ -122,7 +122,7 @@
                     </div>
                       <?php if (!empty($posts)): ?>
                           <?php foreach ($posts as $post): ?>
-                                <a href="Res-view-Post.php?id=<?php echo $post['post_id']; ?>&ref=forum">
+                                <a href="Res-view-Post.php?id=<?php echo $post['post_id']; ?>&ref=announcements">
                                   <div class="Post my-2 px-3 py-3">
                                       <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                                       <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>

@@ -16,6 +16,10 @@
         exit();
     }
 
+    if (isset($_GET['ref'])) {
+        $_SESSION['announcement_post_referrer'] = $_GET['ref'];
+    }
+
     $media = fetchPostMedia($pdo, $post_id);
 
     $userReaction = getUserReaction($pdo, $post_id, $_SESSION['res_ID']);
@@ -27,7 +31,7 @@
     <section class="main">
         <div class="row my-3">
             <div class="Post px-4 py-4">
-                <a href="Barangay-Announcements.php" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
+                <a href="<?php echo isset($_SESSION['announcement_post_referrer']) && $_SESSION['announcement_post_referrer'] == 'announcements' ? 'Barangay-Announcements.php' : 'Forum.php'; ?>" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
                     <i class="fas fa-circle-chevron-left fa-2x"></i>
                     <span>Back</span>
                 </a>

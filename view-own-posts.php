@@ -111,15 +111,15 @@
             </div>
         </div>
     </section>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const rows = document.querySelectorAll('.clickable-row');
-    rows.forEach(row => {
-        row.addEventListener('click', function() {
-            const postId = this.getAttribute('data-doc-id');
-            window.location.href = 'resident_post.php?id=' + postId + '&ref=own-posts';
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('.clickable-row');
+        rows.forEach(row => {
+            row.addEventListener('click', function() {
+                const postId = this.getAttribute('data-doc-id');
+                window.location.href = 'resident_post.php?id=' + postId + '&ref=own-posts';
+            });
         });
     });
-});
 </script>
 <?php include 'include/footer.php'; ?>
