@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const postId = upvoteBtn.dataset.postId;
 
         function updateReaction(reactionType) {
-            fetch('db/update_post_reaction.php', {
+            fetch('db/update_reaction.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

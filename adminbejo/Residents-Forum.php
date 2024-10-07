@@ -63,7 +63,7 @@ function time_elapsed_string($datetime, $full = false) {
                     </div>
                     <?php if (!empty($posts)): ?>
                         <?php foreach ($posts as $post): ?>
-                            <a href="View-Resident-Post.php?id=<?php echo $post['post_id']; ?>">
+                            <a href="Residents-Post.php?id=<?php echo $post['post_id']; ?>">
                                 <div class="Post position-relative  my-3 px-3 py-3">
                                     <div class="post-header d-flex align-items-center mb-2">
                                         <img src="<?php echo $post['profile_picture'] ? '../db/ProfilePictures/' . htmlspecialchars($post['profile_picture']) : '../PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture mr-2" style="width: 40px; height: 40px; border-radius: 50%;">

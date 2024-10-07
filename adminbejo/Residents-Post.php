@@ -131,5 +131,5 @@
         </div>
     </section>
 </div>
-<script src="View-Resident-Post.js"></script>
+<script src="Resident-Post.js"></script>
 <?php include 'footerAdmin.php'; ?>

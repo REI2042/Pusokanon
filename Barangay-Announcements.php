@@ -7,7 +7,7 @@
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'trending';
 
     $pinnedPosts = fetchPinnedPosts($pdo);
-    $posts = fetchAllResidentPosts($pdo, $sort);
+    $posts = fetchAllPosts($pdo, $sort);
 
     function time_elapsed_string($datetime, $full = false) {
         $now = new DateTime;
@@ -39,7 +39,8 @@
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 ?>
-<link rel="stylesheet" href="css/Forum.css">
+<link rel="stylesheet" href="css/Barangay-Announcement.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="container-fluid d-flex justify-content-center">
     <section class="main">
         <div class="row">
@@ -48,13 +49,9 @@
             <div class="col-12 col-md-4 order-md-2 p-2 p-md-3" id="this">
                 <div class="kuan">
                     <div id="actionsDiv" class="Actions d-flex justify-content-between">
-                        <a href="view-own-posts.php">
-                            <button class="btn btn-primary">View Your Post(s)</button>
+                        <a href="Forum.php">
+                            <button class="btn btn-primary">Go to Forum <i class="fa-solid fa-arrow-right"></i></button>
                         </a>
-                        <a href="Barangay-Announcements.php">
-                            <button class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back to Announcements</button>
-                        </a>
-                        </button>
                     </div>
                     <div class="Pinned-Posts" id="pinnedPosts">
                         <h5 class="fw-bold d-flex align-items-center justify-content-between">
@@ -106,10 +103,7 @@
             <div class="col-12 col-md-8 order-md-1 px-0 px-md-3">
                 <div class="Posts my-4 mt-md-4 p-0 p-sm-3 pb-0">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="m-2">Residents Forum</h3>
-                        <a href="create_post.php" class="m-2 float-right">
-                            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Post</button>
-                        </a>
+                        <h3 class="m-2">Barangay Announcements</h3>
                     </div>
                     <div class="sort-container px-2 py-2 d-none d-md-block">
                         <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>   |  
@@ -128,12 +122,8 @@
                     </div>
                       <?php if (!empty($posts)): ?>
                           <?php foreach ($posts as $post): ?>
-                                <a href="resident_post.php?id=<?php echo $post['post_id']; ?>&ref=forum">
+                                <a href="Res-view-Post.php?id=<?php echo $post['post_id']; ?>&ref=forum">
                                   <div class="Post my-2 px-3 py-3">
-                                      <div class="post-header d-flex align-items-center mb-2">
-                                          <img src="<?php echo $post['profile_picture'] ? 'db/ProfilePictures/' . htmlspecialchars($post['profile_picture']) : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture mr-2" style="width: 40px; height: 40px; border-radius: 50%;">
-                                          <span class="poster-name"><?php echo htmlspecialchars($post['res_fname'] . ' ' . $post['res_lname']); ?></span>
-                                      </div>
                                       <h3 class="fw-bold"><?php echo htmlspecialchars($post['title']); ?></h3>
                                       <p><?php echo substr(htmlspecialchars($post['content']), 0, 100) . '...'; ?></p>
                                       <p class="posted mb-5"><i class="bi bi-clock"></i> Posted <?php echo time_elapsed_string($post['created_at']); ?></p>
@@ -201,7 +191,7 @@
         </div>
     </section>
 </div>
-<script src="js/Forum.js"></script>
+<script src="js/Barangay-Announcement.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     var dropdownToggle = document.getElementById('sortDropdown');
