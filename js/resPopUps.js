@@ -373,23 +373,37 @@ $(document).ready(function() {
     });
   
 
-    async function docDetails(imageDataArray) {
-        let imagesHtml = '';
-    
-        if (imageDataArray && imageDataArray.length > 0) {
-            imagesHtml = imageDataArray.map(imageSrc => 
-                `<div style="text-align: center; margin-bottom: 10px;">
-                    <img src="${imageSrc}" alt="Uploaded Document" style="max-width: 100%; height: auto;"/>
-                </div>`
-            ).join('');
+    function docDetails(imageSrc) {
+        let content;
+        if (imageSrc) {
+            // Determine if it's a PDF or an image
+            if (imageSrc.includes('application/pdf')) {
+                content = `
+                    <embed src="${imageSrc}" 
+                           type="application/pdf" 
+                           width="100%" 
+                           height="500px" />
+                `;
+            } else {
+                content = `
+                    <img src="${imageSrc}" 
+                         alt="Uploaded Document" 
+                         style="max-width: 100%; height: auto;" />
+                `;
+            }
         } else {
-            imagesHtml = '<p>No documents uploaded</p>';
+            content = '<p>No document attached</p>';
         }
     
         Swal.fire({
-            title: 'Document Details',
-            html: `<div style="text-align: left;">${imagesHtml}</div>`,
+            title: 'Uploaded Document',
+            html: `
+                <div>
+                    <p><strong>Document Preview:</strong></p>
+                    ${content}
+                </div>
+            `,
+            width: '80%',
             confirmButtonColor: "#3085d6",
-            width: '600px'
         });
     }
