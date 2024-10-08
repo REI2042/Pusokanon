@@ -140,7 +140,6 @@
                                                 <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($pendings['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($pendings['res_id']); ?>">
-                                                <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                                 <button type="button" class="btn btn-sm <?= $pendings['stat'] == 'Ready to pickup' ? 'btn-success' : 'btn-success'; ?>" onclick="showSweetAlert('<?= htmlspecialchars($dataDecrypt); ?>', '<?= htmlspecialchars($pendings['resident_name']); ?>', '<?= htmlspecialchars($pendings['document_name']); ?>','<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['res_id']); ?>')"><i class="fa-solid fa-check"></i></button>
                                             </form>
                                         </div>
@@ -215,7 +214,6 @@
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">                                          
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($processings['res_id']); ?>">
-                                                <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $processings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -289,7 +287,6 @@
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
-                                                <button type="submit" name="status" value="Processing" class="btn btn-sm <?= $completed['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>

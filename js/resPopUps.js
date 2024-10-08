@@ -372,3 +372,24 @@ $(document).ready(function() {
     }
     });
   
+
+    async function docDetails(imageDataArray) {
+        let imagesHtml = '';
+    
+        if (imageDataArray && imageDataArray.length > 0) {
+            imagesHtml = imageDataArray.map(imageSrc => 
+                `<div style="text-align: center; margin-bottom: 10px;">
+                    <img src="${imageSrc}" alt="Uploaded Document" style="max-width: 100%; height: auto;"/>
+                </div>`
+            ).join('');
+        } else {
+            imagesHtml = '<p>No documents uploaded</p>';
+        }
+    
+        Swal.fire({
+            title: 'Document Details',
+            html: `<div style="text-align: left;">${imagesHtml}</div>`,
+            confirmButtonColor: "#3085d6",
+            width: '600px'
+        });
+    }

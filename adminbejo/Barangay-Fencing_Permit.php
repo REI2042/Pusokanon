@@ -113,6 +113,7 @@
                             <th>Purpose</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
+                            <th>Date & Time Appointment</th>
                             <th>Remarks</th>
                             <th>Tools</th>
                         </tr>
@@ -120,34 +121,64 @@
                     <tbody>
                         <?php if (empty($pending)): ?>
                             <tr><td colspan="8">No Pending Documents</td></tr>
-                        <?php else: ?>    
-                            <?php foreach ($pending as $pendings): ?>
-                                <tr>
-                                <?php $dataDecrypt = decryptData($pendings['res_email']); ?>
-                                    <td><?= htmlspecialchars($pendings['res_id']); ?></td>
-                                    <td><?= htmlspecialchars($pendings['resident_name']); ?></td>
-                                    <td><?= htmlspecialchars($pendings['document_name']); ?></td>
-                                    <td><?= htmlspecialchars($pendings['purpose_name']); ?></td>
-                                    <td><?= htmlspecialchars($pendings['stat']); ?></td>
-                                    <td><?= date('m/d/y h:i A', strtotime($pendings['date_req'])); ?></td>
-                                    <td><?= htmlspecialchars($pendings['remarks']); ?></td>
-                                    <td>
-                                        <div class="inline-tools">
-                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>                                         
-                                            <form class="status-form" action="../db/updateStatus.php" method="POST">
-                                            <input type="hidden" name="doctype" value="<?= $docType;?>">
-                                                <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
-                                                <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
-                                                <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($pendings['doc_ID']); ?>">
-                                                <input type="hidden" name="resident_id" value="<?= htmlspecialchars($pendings['res_id']); ?>">
-                                                <button title="Download" type="submit" name="status" value="Processing" class="btn btn-sm <?= $pendings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
-                                                <button title="Approve" type="button" class="btn btn-sm <?= $pendings['stat'] == 'Ready to pickup' ? 'btn-success' : 'btn-success'; ?>" onclick="showSweetAlert('<?= htmlspecialchars($dataDecrypt); ?>', '<?= htmlspecialchars($pendings['resident_name']); ?>', '<?= htmlspecialchars($pendings['document_name']); ?>','<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['res_id']); ?>')"><i class="fa-solid fa-check"></i></button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                            <?php else: ?>    
+    <?php foreach ($pending as $pendings): ?>
+        <tr>
+        <?php 
+            // Get the request_id and prepare the file path
+            $request_id = $pendings['request_id'];
+            $upload_directory = "C:/xampp/htdocs/Pusokanon/db/uploaded_filesRequirements/";
+            
+            // Create an array to store image data
+            $imageDataArray = [];
+            
+            // Check if there are any files for this request_id
+            $files = glob($upload_directory . $request_id . "_*");
+            
+            foreach ($files as $file) {
+                if (file_exists($file)) {
+                    try {
+                        $imageData = base64_encode(file_get_contents($file));
+                        $imageMimeType = mime_content_type($file);
+                        $imageDataArray[] = "data:$imageMimeType;base64,$imageData";
+                    } catch (Exception $e) {
+                        // Handle any file reading errors silently
+                        continue;
+                    }
+                }
+            }
+            
+            // Convert image data array to JSON for JavaScript
+            $imageDataJson = json_encode($imageDataArray);
+            
+            $dataDecrypt = decryptData($pendings['res_email']); ?>
+            <td><?= htmlspecialchars($pendings['res_id']); ?></td>
+            <td><?= htmlspecialchars($pendings['resident_name']); ?></td>
+            <td><?= htmlspecialchars($pendings['document_name']); ?></td>
+            <td><?= htmlspecialchars($pendings['purpose_name']); ?></td>
+            <td><?= htmlspecialchars($pendings['stat']); ?></td>
+            <td><?= date('m/d/y h:i A', strtotime($pendings['date_req'])); ?></td>
+            <td><?= date('m/d/y h:i A', strtotime($pendings['appt_date'])); ?></td>
+            <td><?= htmlspecialchars($pendings['remarks']); ?></td>
+            <td>
+                <div class="inline-tools">
+                    <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails(<?= $imageDataJson ?>)'>
+                        <i class="bi bi-eye" title="View Details"></i>
+                    </a>                                        
+                    <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>         
+                    <form class="status-form" action="../db/updateStatus.php" method="POST">
+                        <input type="hidden" name="doctype" value="<?= $docType;?>">
+                        <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
+                        <input type="hidden" name="resident_name" value="<?= htmlspecialchars($pendings['resident_name']); ?>">
+                        <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($pendings['doc_ID']); ?>">
+                        <input type="hidden" name="resident_id" value="<?= htmlspecialchars($pendings['res_id']); ?>">
+                        <button title="Approve" type="button" class="btn btn-sm <?= $pendings['stat'] == 'Ready to pickup' ? 'btn-success' : 'btn-success'; ?>" onclick="showSweetAlert('<?= htmlspecialchars($dataDecrypt); ?>', '<?= htmlspecialchars($pendings['resident_name']); ?>', '<?= htmlspecialchars($pendings['document_name']); ?>','<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['res_id']); ?>')"><i class="fa-solid fa-check"></i></button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?>
                     </tbody>
                 </table>
                 <nav id="pendingPagination" aria-label="Pending Page navigation">
@@ -191,6 +222,7 @@
                             <th>Purpose</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
+                            <th>Date & Time Appointment</th>
                             <th>Remarks</th>
                             <th>Tools</th>
                         </tr>
@@ -207,15 +239,16 @@
                                     <td><?= htmlspecialchars($processings['purpose_name']); ?></td>
                                     <td><?= htmlspecialchars($processings['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($processings['date_req'])); ?></td>
+                                    <td><?= htmlspecialchars($processings['appt_date']); ?></td>
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
+                                            <div title="View Details" class="btn btn-secondary btn-sm btn-1" onclick="viewDetails('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-eye"></i></div>                                         
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">                                               
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($processings['res_id']); ?>">
-                                                <button title="Download" type="submit" name="status" value="Processing" class="btn btn-sm <?= $processings['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -265,6 +298,7 @@
                             <th>Purpose</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
+                            <th>Date & Time Appointment</th>
                             <th>Remarks</th>
                             <th>Tools</th>
                         </tr>
@@ -281,15 +315,16 @@
                                     <td><?= htmlspecialchars($completed['purpose_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($completed['date_req'])); ?></td>
+                                    <td><?= htmlspecialchars($completed['appt_date']); ?></td>
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
+                                            <div title="View Details" class="btn btn-secondary btn-sm btn-1" onclick="viewDetails('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-eye"></i></div>                                         
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">   
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
                                                 <input type="hidden" name="resident_id" value="<?= htmlspecialchars($completed['res_id']); ?>">
-                                                <button title="Download" type="submit" name="status" value="Processing" class="btn btn-sm <?= $completed['stat'] == 'Processing' ? 'btn-secondary' : 'btn-secondary'; ?>"><i class="fa-solid fa-download"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -332,6 +367,7 @@
     </div>
 </main>
 <script src="../js/sweetAlert.js"></script>
+<script src="../js/resPopUps.js"></script>
 <script type="text/javascript">
    (function(){
       emailjs.init({
