@@ -1007,6 +1007,35 @@ function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)//connection i
                 dp.purpose_name AS purpose_name, 
                 rd.request_id,
                 rd.date_req, 
+                rd.document_requirements,
+                rd.remarks 
+            FROM request_doc rd
+            INNER JOIN resident_users ru ON rd.res_id = ru.res_id
+            INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
+            INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
+            WHERE dt.doc_name = :doctype AND rd.stat = :status
+            LIMIT :limit OFFSET :offset ";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR);
+	$stmt-> bindParam(':doctype', $doctype, PDO::PARAM_STR);
+	$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+	$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+
+function fetchdocsRequestPermits($pdo,$doctype ,$status, $limit, $offset)//connection in getting document request without search function
+{
+	$sql = "SELECT 
+                ru.res_id, 
+                ru.res_email AS res_email, 
+                rd.doc_ID AS doc_ID,  -- Specify the source of doc_ID
+                rd.stat,
+                CONCAT(ru.res_fname, ' ', ru.res_midname, ' ', ru.res_lname) AS resident_name, 
+                dt.doc_name AS document_name, 
+                dp.purpose_name AS purpose_name, 
+                rd.request_id,
+                rd.date_req, 
                 at.appt_date AS  appt_date,
                 at.appt_time AS appt_time,
                 rd.document_requirements,
