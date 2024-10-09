@@ -1357,44 +1357,6 @@ function getTotalResidentPosts($pdo) {
     return $pdo->query($query)->fetchColumn();
 }
 
-function fetchOwnPosts($pdo, $resId, $sort, $limit, $offset)
-{
-    switch ($sort) {
-        case 'latest':
-            $orderBy = "created_at DESC";
-            break;
-        case 'oldest':
-            $orderBy = "created_at ASC";
-            break;
-        case 'trending':
-        default:
-            $orderBy = "(upvotes - downvotes) DESC, created_at DESC";
-            break;
-    }
-
-    $sql = "SELECT * 
-            FROM user_posts
-            WHERE res_id = :resId
-            ORDER BY $orderBy
-            LIMIT :limit OFFSET :offset";
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':resId', $resId, PDO::PARAM_INT);
-    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function countOwnPosts($pdo, $resId)
-{
-    $sql = "SELECT COUNT(*) FROM user_posts WHERE res_id = :resId";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':resId', $resId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchColumn();
-}
-
 function fetchComments($pdo, $post_id) {
     $stmt = $pdo->prepare("SELECT c.*, ru.res_fname, ru.res_lname, ru.profile_picture 
                            FROM user_posts_comments c
@@ -1439,6 +1401,72 @@ function getMonthlyDocumentSales($pdo) {
               GROUP BY DATE_FORMAT(date_req, '%Y-%m') 
               ORDER BY month";
     $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function fetchOwnPostById($pdo, $resId, $search)
+{
+	$sql = "SELECT * FROM user_posts WHERE res_id = :resId AND
+				(post_id = :search OR 
+				title LIKE :searchLike)";
+	$stmt = $pdo->prepare($sql);
+	$searchLike = "%$search%";
+	$stmt->execute([
+		':resId' => $resId,
+		':search' => $search,
+		':searchLike' => $searchLike
+	]);
+	return $stmt->fetchAll();
+}
+
+function fetchTotalOwnPostsWithFilters($pdo, $resId, $popularity = null, $status = null) {
+    $sql = "SELECT COUNT(*) FROM user_posts WHERE res_id = :resId";
+    $params = [':resId' => $resId];
+
+    if ($status !== null && $status !== 'all') {
+        $sql .= " AND approval_status = :status";
+        $params[':status'] = $status;
+    }
+
+    $stmt = $pdo->prepare($sql);
+    foreach ($params as $key => &$val) {
+        $stmt->bindParam($key, $val);
+    }
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
+function fetchOwnPosts($pdo, $resId, $perPage, $offset, $popularity = null, $status = null) {
+    $sql = "SELECT * FROM user_posts WHERE res_id = :resId";
+    $params = [':resId' => $resId];
+
+    if ($status !== null && $status !== 'all') {
+        $sql .= " AND approval_status = :status";
+        $params[':status'] = $status;
+    }
+
+    switch ($popularity) {
+        case 'latest':
+            $sql .= " ORDER BY created_at DESC";
+            break;
+        case 'oldest':
+            $sql .= " ORDER BY created_at ASC";
+            break;
+        case 'trending':
+        default:
+            $sql .= " ORDER BY (upvotes - downvotes) DESC, created_at DESC";
+            break;
+    }
+
+    $sql .= " LIMIT :offset, :perPage";
+    $params[':offset'] = $offset;
+    $params[':perPage'] = $perPage;
+
+    $stmt = $pdo->prepare($sql);
+    foreach ($params as $key => &$val) {
+        $stmt->bindParam($key, $val);
+    }
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

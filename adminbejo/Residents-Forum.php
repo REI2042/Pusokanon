@@ -52,6 +52,9 @@ function time_elapsed_string($datetime, $full = false) {
         <a href="Post-Announcements.php">
             <button class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Go back to Announcements</button>
         </a>
+        <a href="Post-Announcements.php">
+            <button class="btn btn-primary">View Pending Residents Posts</button>
+        </a>
         <div class="row">
             <div class="col-12">
                 <div class="Posts p-3">

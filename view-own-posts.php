@@ -5,14 +5,22 @@
 	
     $resId = $_SESSION['res_ID'];
 
-    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'trending';
+    $popularity = isset($_GET['popularity']) ? $_GET['popularity'] : 'trending';
+    $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+    $search = isset($_GET['search']) ? $_GET['search'] : null;
+    $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
+
     $perPage = 5;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-
     $offset = ($page - 1) * $perPage;
 
-    $posts = fetchOWnPosts($pdo, $resId, $sort, $perPage, $offset);
-    $totalPosts = countOwnPosts($pdo, $resId, $sort);
+    if ($search) {
+        $posts = fetchOwnPostById($pdo, $resId, $search);
+        $totalPosts = count($posts);
+    } else {
+        $totalPosts = fetchTotalOwnPostsWithFilters($pdo, $popularity, $status);
+        $posts = fetchOwnPosts($pdo, $resId, $perPage, $offset, $popularity, $status);
+    }
 
     $totalPages = ceil($totalPosts / $perPage);
     
@@ -28,14 +36,46 @@
                             <span>Back</span>
                         </a>
                         <div class="row text-center align-items-center my-3">
-                            <div class="col-6 col-sm-4">
-                                <a href="?sort=trending" class="trending-button <?php echo $sort === 'trending' ? 'active' : ''; ?>">Trending</a>
+                            <h1>Your Own Post(s)</h1>
+                        </div>
+                        <div class="row my-1 justify-content-end">
+                            <div class="dropdown-container col-12 col-sm-6 d-flex justify-content-end">
+                                <div class="row mx-0 justify-content-between">
+                                    <div class="col-6 col-sm-3 d-flex justify-content-center my-1 my-sm-0 align-self-center">
+                                        <div class="dropdown">
+                                            <button class="popularity btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Popularity
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item <?php echo $popularity == 'trending' || $popularity == '' ? 'active' : ''; ?>" href="?popularity=trending<?php echo isset($status) ? "&status=$status" : "";?>">Trending</a>
+                                                <a class="dropdown-item <?php echo $popularity == 'tatest' ? 'active' : ''; ?>" href="?popularity=latest<?php echo isset($status) ? "&status=$status" : ""; ?>">Latest</a>
+                                                <a class="dropdown-item <?php echo $popularity == 'oldest' ? 'active' : ''; ?>" href="?popularity=oldest<?php echo isset($status) ? "&status=$status" : ""; ?>">Oldest</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-sm-3 d-flex justify-content-center my-1 my-sm-0 align-self-center">
+                                        <div class="dropdown">
+                                            <button class="status btn dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Status
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="statusDropdown">
+                                                <a class="dropdown-item <?php echo $status == 'all' || $status == '' ? 'active' : ''; ?>" href="?status=all<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">All</a>
+                                                <a class="dropdown-item <?php echo $status == 'pending' ? 'active' : ''; ?>" href="?status=pending<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">Pending</a>
+                                                <a class="dropdown-item <?php echo $status == 'approved' ? 'active' : ''; ?>" href="?status=approved<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">Approved</a>
+                                                <a class="dropdown-item <?php echo $status == 'rejected' ? 'active' : ''; ?>" href="?status=rejected<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">Rejected</a>
+                                                <a class="dropdown-item <?php echo $status == 'resubmitted' ? 'active' : ''; ?>" href="?status=resubmitted<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">Resubmitted</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-6 col-sm-4">
-                                <a href="?sort=latest" class="latest-button <?php echo $sort === 'latest' ? 'active' : ''; ?>">Latest</a>
-                            </div>
-                            <div class="col-12 col-sm-4">
-                                <a href="?sort=oldest" class="oldest-button <?php echo $sort === 'oldest' ? 'active' : ''; ?>">Oldest</a>
+                            <div class="col-12 col-sm-3 my-1 my-sm-0">
+                                <form action="" method="GET" class="input-group d-flex align-self-center" id="searchForm">
+                                    <input type="text" class="form-control" name="search" placeholder="Enter Post's ID or Title" id="searchInput" aria-label="Post's ID or Title" aria-describedby="basic-addon2" value="<?php echo htmlspecialchars($searchTerm); ?>">                
+                                    <div class="input-group-append">
+                                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -121,6 +161,12 @@
                 const postId = this.getAttribute('data-doc-id');
                 window.location.href = 'resident_post.php?id=' + postId + '&ref=own-posts';
             });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            if (this.value === '') {
+                document.getElementById('searchForm').submit();
+            }
         });
     });
 </script>
