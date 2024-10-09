@@ -226,9 +226,9 @@
                                 <tr>
                                     <?php 
                                         
-                                        $requestId = $pendings['request_id']; 
+                                        $requestId = $processings['request_id']; 
 
-                                        $imageFileName = $pendings['document_requirements']; 
+                                        $imageFileName = $processings['document_requirements']; 
                                         $imageSrc = '';
                                         if (!empty($imageFileName)) {
                                             $uploadFileDir = '../db/uploaded_filesRequirements/';
@@ -251,7 +251,7 @@
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails("<?= htmlspecialchars($pendings["document_requirements"]); ?>")'>
+                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails("<?= htmlspecialchars($processings["document_requirements"]); ?>")'>
                                                 <i class="bi bi-eye" title="View Details"></i>
                                             </a>
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
@@ -321,9 +321,9 @@
 
                                     <?php 
                                             
-                                        $requestId = $pendings['request_id']; 
+                                        $requestId = $completed['request_id']; 
 
-                                        $imageFileName = $pendings['document_requirements']; 
+                                        $imageFileName = $completed['document_requirements']; 
                                         $imageSrc = '';
                                         if (!empty($imageFileName)) {
                                             $uploadFileDir = '../db/uploaded_filesRequirements/';
@@ -336,17 +336,18 @@
                                             }
                                         }
                                     
-                                        $imageDataJson = json_encode($imageSrc); ?>
+                                        $imageDataJson = json_encode($imageSrc);
+                                    ?>
                                     <td><?= htmlspecialchars($completed['res_id']); ?></td>
                                     <td><?= htmlspecialchars($completed['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['document_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($completed['date_req'])); ?></td>
-                                    <td><?= date('m/d/y h:i A', strtotime($pendings['appt_date'] . ' ' . $pendings['appt_time'])); ?></td>
+                                    <td><?= date('m/d/y h:i A', strtotime($completed['appt_date'] . ' ' . $completed['appt_time'])); ?></td>
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails("<?= htmlspecialchars($pendings["document_requirements"]); ?>")'>
+                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails("<?= htmlspecialchars($completed["document_requirements"]); ?>")'>
                                             <i class="bi bi-eye" title="View Details"></i>
                                         </a>
 

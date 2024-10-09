@@ -1221,7 +1221,7 @@ function fetchAllPosts($pdo, $sort) {
 }
 
 function getTotalPendingDocuments($pdo) {
-    $sql = "SELECT COUNT(*) FROM request_doc WHERE stat = 'Pending'";
+    $sql = "SELECT COUNT(*) FROM request_doc WHERE stat = 'Pending' OR stat = 'Ready to pickup'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     return $stmt->fetchColumn();
