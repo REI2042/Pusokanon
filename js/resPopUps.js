@@ -373,37 +373,62 @@ $(document).ready(function() {
     });
   
 
-    function docDetails(imageSrc) {
-        let content;
-        if (imageSrc) {
-            // Determine if it's a PDF or an image
-            if (imageSrc.includes('application/pdf')) {
-                content = `
-                    <embed src="${imageSrc}" 
-                           type="application/pdf" 
-                           width="100%" 
-                           height="500px" />
-                `;
-            } else {
-                content = `
-                    <img src="${imageSrc}" 
-                         alt="Uploaded Document" 
-                         style="max-width: 100%; height: auto;" />
-                `;
-            }
+    function docDetails(documentRequirements) {
+        // Split the document requirements string into an array of filenames
+        const fileNames = documentRequirements.split(',').map(name => name.trim());
+        
+        let content = '';
+        
+        if (fileNames.length > 0) {
+            fileNames.forEach(fileName => {
+                const filePath = `../db/uploaded_filesRequirements/${fileName}`;
+                const fileExtension = fileName.split('.').pop().toLowerCase();
+                
+                if (fileExtension === 'pdf') {
+                    content += `
+                        <div class="mb-3">
+                            <p><strong>File: ${fileName}</strong></p>
+                            <embed src="${filePath}" 
+                                   type="application/pdf" 
+                                   width="100%" 
+                                   height="500px" />
+                        </div>
+                    `;
+                } else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+                    content += `
+                        <div class="mb-3">
+                            <p><strong>File: ${fileName}</strong></p>
+                            <img src="${filePath}" 
+                                 alt="Uploaded Document - ${fileName}" 
+                                 style="max-width: 20%; height: auto;" />
+                        </div>
+                    `;
+                } else {
+                    content += `
+                        <div class="mb-3">
+                            <p><strong>File: ${fileName}</strong></p>
+                            <p>Unsupported file type. Please download to view.</p>
+                            <a href="${filePath}" download="${fileName}" class="btn btn-primary">Download ${fileName}</a>
+                        </div>
+                    `;
+                }
+            });
         } else {
-            content = '<p>No document attached</p>';
+            content = '<p>No documents attached</p>';
         }
     
         Swal.fire({
-            title: 'Uploaded Document',
+            title: 'Uploaded Documents',
             html: `
-                <div>
-                    <p><strong>Document Preview:</strong></p>
+                <div style="max-height: 70vh; overflow-y: auto;">
                     ${content}
                 </div>
             `,
             width: '80%',
             confirmButtonColor: "#3085d6",
+            confirmButtonText: 'Close',
+            showCloseButton: true,
         });
     }
+
+    
