@@ -1316,6 +1316,7 @@ function fetchAllResidentPosts($pdo, $sort) {
     $query = "SELECT p.*, ru.res_fname, ru.res_lname, ru.profile_picture
               FROM user_posts p
               JOIN resident_users ru ON p.res_id = ru.res_ID
+              WHERE approval_status = 'approved'
               ORDER BY $orderBy";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
@@ -1339,6 +1340,7 @@ function fetchResidentPosts($pdo, $sort, $offset, $postsPerPage) {
     $query = "SELECT p.*, ru.res_fname, ru.res_lname, ru.profile_picture
               FROM user_posts p 
               JOIN resident_users ru ON p.res_id = ru.res_ID
+              WHERE p.approval_status = 'approved'
               ORDER BY $orderBy
               LIMIT :offset, :postsPerPage";
     $stmt = $pdo->prepare($query);
@@ -1349,7 +1351,9 @@ function fetchResidentPosts($pdo, $sort, $offset, $postsPerPage) {
 }
 
 function getTotalResidentPosts($pdo) {
-    $query = "SELECT COUNT(*) FROM user_posts";
+    $query = "  SELECT COUNT(*) 
+                FROM user_posts
+                WHERE approval_status = 'approved'";
     return $pdo->query($query)->fetchColumn();
 }
 

@@ -29,7 +29,11 @@
                         <i class="fas fa-circle-chevron-left fa-2x"></i>
                         <span>Back</span>
                     </a>
-                    <button class="btn btn-primary" type="submit">Update Post</button>
+                    <?php if ($post['approval_status'] == 'pending'): ?>
+                        <button class="btn btn-primary" type="submit">Update Post</button>
+                    <?php elseif ($post['approval_status'] == 'rejected'): ?>
+                        <button class="btn" style="background-color: #f57c00;" type="submit">Re-submit Post</button>
+                    <?php endif; ?>
                 </div>
                 <div class="mt-5">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">

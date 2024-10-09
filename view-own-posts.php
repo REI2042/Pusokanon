@@ -48,11 +48,12 @@
                                         <th scope="col">Date Posted</th>
                                         <th scope="col">Upvotes</th>
                                         <th scope="col">Downvotes</th>
+                                        <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php if (empty($posts)): ?>
-                                        <tr><td colspan="6" class="text-center">No records found.</td></tr>
+                                        <tr><td colspan="7" class="text-center">No records found.</td></tr>
                                     <?php else: ?>
                                         <?php foreach ($posts as $posts): 
                                             $dateRequested = DateTime::createFromFormat('Y-m-d H:i:s', $posts['created_at']);
@@ -65,6 +66,7 @@
                                                 <td><?php echo htmlspecialchars($formattedDateRequested); ?></td>
                                                 <td><?php echo htmlspecialchars($posts['upvotes']); ?></td>
                                                 <td><?php echo htmlspecialchars($posts['downvotes']); ?></td>
+                                                <td><?php echo htmlspecialchars($posts['approval_status']); ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php endif; ?>

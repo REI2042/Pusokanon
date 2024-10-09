@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Oct 09, 2024 at 01:41 PM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 06, 2024 at 02:03 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -140,8 +140,7 @@ CREATE TABLE `appointment_tbl` (
 INSERT INTO `appointment_tbl` (`appt_ID`, `res_ID`, `doc_ID`, `appt_date`, `appt_time`) VALUES
 (1, 6, 3, '2024-10-30', '19:40:00'),
 (2, 6, 4, '2024-10-16', '09:37:00'),
-(3, 14, 7, '2024-10-25', '19:53:00'),
-(4, 11, 8, '2024-10-09', '18:57:00');
+(3, 14, 7, '2024-10-25', '19:53:00');
 
 -- --------------------------------------------------------
 
@@ -329,8 +328,7 @@ INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purp
 (4, 6, 6, 5, 'Business', 500, 'Pending', '2024-10-06 11:37:45', '2024-10-06 11:37:54', 'Not released', 'F@3]*=M67-', '1728214674.png', '3077bfd50ed66369.png'),
 (5, 6, 1, 5, 'travel', 80, 'Pending', '2024-10-06 11:39:26', '2024-10-06 11:39:28', 'Not released', ']QQ[Nx|g[', '1728214768.png', 'fa19cf87557ffa7e.png'),
 (6, 14, 2, 4, 'Senior Citizen Assistance', 0, 'Pending', '2024-10-06 11:48:58', '2024-10-06 11:49:00', 'Not released', 'tfe1J6T.K<P>', '1728215340.png', NULL),
-(7, 14, 7, 5, 'Privacy', 500, 'Pending', '2024-10-06 11:49:21', '2024-10-06 11:49:31', 'Not released', 'K.d*cw;sz5', '1728215371.png', 'a40b237e192abb14.jpg,b1019c1f06491949.jpg'),
-(8, 11, 6, 5, 'Barangay Construction Permit', 500, 'Pending', '2024-10-09 09:57:34', '2024-10-09 09:57:43', 'Not released', '[qmcH#1sc', '1728467863.png', '7e44ad3a4095ea1f.jpg');
+(7, 14, 7, 5, 'Privacy', 500, 'Pending', '2024-10-06 11:49:21', '2024-10-06 11:49:31', 'Not released', 'K.d*cw;sz5', '1728215371.png', 'a40b237e192abb14.jpg,b1019c1f06491949.jpg');
 
 -- --------------------------------------------------------
 
@@ -389,19 +387,15 @@ CREATE TABLE `user_posts` (
   `content` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `upvotes` int(11) NOT NULL DEFAULT 0,
-  `downvotes` int(11) NOT NULL DEFAULT 0,
-  `approval_status` enum('pending','approved','rejected','resubmitted') NOT NULL DEFAULT 'pending',
-  `rejection_reason` text DEFAULT NULL,
-  `approved_by` int(11) DEFAULT NULL
+  `downvotes` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_posts`
 --
 
-INSERT INTO `user_posts` (`post_id`, `res_id`, `title`, `content`, `created_at`, `upvotes`, `downvotes`, `approval_status`, `rejection_reason`, `approved_by`) VALUES
-(1, 14, 'I LOVE MY CATS.', 'Cats have a unique way of capturing our hearts with their playful antics and soothing purrs. Each of my feline companions brings a distinct personality to our home. From the curious and adventurous spirit of my tabby to the gentle and affectionate nature of my calico, they have a special ability to brighten my day. Watching them chase after a toy or curl up in a sunbeam fills my heart with joy. Their independent nature allows them to explore the world on their terms, and I admire their confidence and grace.\n\nBeyond their charming behaviors, my cats provide an unmatched sense of comfort and companionship. There\'s something incredibly calming about having them curl up beside me while I read or work. Their soft purring serves as a gentle reminder to slow down and appreciate the little moments. Whether it’s their mischievous antics or the way they nuzzle against me for affection, my cats enrich my life in countless ways. I cherish the bond we share and feel grateful for their unconditional love and companionship.', '2024-10-06 11:46:42', 1, 0, 'approved', NULL, NULL),
-(2, 11, 'Lorem Ipsum', '\nfreestar \n\nfreestar\n \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed condimentum sem id ante condimentum, non suscipit sapien consectetur. Maecenas varius mauris at lectus ultricies, vitae feugiat odio dignissim. Sed elementum sed neque ac venenatis. Aliquam erat volutpat. Duis molestie non risus eu volutpat. Phasellus urna libero, porta a fermentum nec, tempus eget purus. Donec at convallis orci, sed venenatis diam. Aliquam dignissim erat et est venenatis molestie.\n\nFusce nec pretium ligula. Curabitur consectetur diam erat, non efficitur tortor euismod et. Aliquam molestie quam porta velit semper venenatis. Proin eu egestas nibh, blandit vulputate felis. Nam felis justo, varius in ipsum eget, ornare varius arcu. Vivamus suscipit turpis at ante suscipit, at iaculis nunc varius. Nulla egestas sollicitudin tellus sed consectetur. Phasellus dictum ex quis orci auctor, vitae auctor neque rhoncus. Duis viverra turpis nec mauris molestie interdum. Duis pulvinar tellus ac orci pharetra, quis condimentum purus ultrices.', '2024-10-09 10:02:52', 0, 0, 'pending', NULL, NULL);
+INSERT INTO `user_posts` (`post_id`, `res_id`, `title`, `content`, `created_at`, `upvotes`, `downvotes`) VALUES
+(1, 14, 'Helloo Worldsjfjoek', 'We Value Your Privacy\r\nWe may store and access personal data such as cookies, device identifiers or other similar technologies on your device and process such data to enhance site navigation, personalize ads and content when you visit our sites, measure ad and content performance, gain audience insights, analyze our site traffic as well as develop and improve our products and services. Further information on the cookies we use and their purpose can be found on our website privacy policy accessiblehere.\r\n\r\nWe use necessary cookies to make our site work. Necessary cookies enable core functionality such as security, network management, and accessibility. You may disable these by changing your browser settings, but this may affect how the website functions. We\'d also like to set optional cookies to help us improve our website and help improve your experience whilst on our website.\r\n\r\nBy clicking ‘Accept All Cookies’ you agree to us enabling all optional cookies for these purposes. Alternatively, you can set which optional cookies you wish to enable (and update your preferences including withdrawing your consent) at any time, by clicking ‘Cookie Settings’.', '2024-10-06 11:46:42', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -417,13 +411,6 @@ CREATE TABLE `user_posts_comments` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_posts_comments`
---
-
-INSERT INTO `user_posts_comments` (`comment_id`, `post_id`, `res_id`, `comment_content`, `created_at`, `updated_at`) VALUES
-(1, 1, 11, 'Wow Grape :D', '2024-10-09 11:38:43', '2024-10-09 11:38:43');
 
 -- --------------------------------------------------------
 
@@ -458,13 +445,6 @@ CREATE TABLE `user_posts_reactions` (
   `reaction_type` enum('upvote','downvote') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_posts_reactions`
---
-
-INSERT INTO `user_posts_reactions` (`reaction_id`, `post_id`, `res_id`, `reaction_type`, `created_at`) VALUES
-(1, 1, 11, 'upvote', '2024-10-09 11:38:26');
 
 --
 -- Indexes for dumped tables
@@ -569,8 +549,7 @@ ALTER TABLE `resident_users`
 --
 ALTER TABLE `user_posts`
   ADD PRIMARY KEY (`post_id`),
-  ADD KEY `res_id` (`res_id`),
-  ADD KEY `fk_approved_by` (`approved_by`);
+  ADD KEY `res_id` (`res_id`);
 
 --
 -- Indexes for table `user_posts_comments`
@@ -633,7 +612,7 @@ ALTER TABLE `announcement_posts_reactions`
 -- AUTO_INCREMENT for table `appointment_tbl`
 --
 ALTER TABLE `appointment_tbl`
-  MODIFY `appt_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `appt_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `barangay_staff`
@@ -669,7 +648,7 @@ ALTER TABLE `initial_sitio_population`
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
@@ -681,13 +660,13 @@ ALTER TABLE `resident_users`
 -- AUTO_INCREMENT for table `user_posts`
 --
 ALTER TABLE `user_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_posts_comments`
 --
 ALTER TABLE `user_posts_comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_posts_media`
@@ -699,7 +678,7 @@ ALTER TABLE `user_posts_media`
 -- AUTO_INCREMENT for table `user_posts_reactions`
 --
 ALTER TABLE `user_posts_reactions`
-  MODIFY `reaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `reaction_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -769,7 +748,6 @@ ALTER TABLE `resident_users`
 -- Constraints for table `user_posts`
 --
 ALTER TABLE `user_posts`
-  ADD CONSTRAINT `fk_approved_by` FOREIGN KEY (`approved_by`) REFERENCES `barangay_staff` (`staff_id`),
   ADD CONSTRAINT `fk_res_id_posts` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`) ON DELETE CASCADE;
 
 --
