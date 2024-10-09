@@ -32,7 +32,7 @@
                     <?php if ($post['approval_status'] == 'pending'): ?>
                         <button class="btn btn-primary" type="submit">Update Post</button>
                     <?php elseif ($post['approval_status'] == 'rejected'): ?>
-                        <button class="btn" style="background-color: #f57c00;" type="submit">Re-submit Post</button>
+                        <button class="btn btn-warning" type="submit">Re-submit Post</button>
                     <?php endif; ?>
                 </div>
                 <div class="mt-5">
@@ -54,15 +54,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label for="post_media" class="form-label fw-bold">Add New Media:</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="file" id="post_media" name="post_media[]" accept="image/*, video/*" multiple class="form-control">
-                                <div class="file-input-help">
-                                    Click to add more files. Hold Ctrl to select multiple files, or Shift to select a range.
-                                </div>
+                        <div class="col-md-2">
+                            <label for="post_media" class="form-label fw-bold">Add New Media:</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="file" id="post_media" name="post_media[]" accept="image/*, video/*" multiple class="form-control">
+                            <div class="file-input-help">
+                                Click to add more files. Hold Ctrl to select multiple files, or Shift to select a range.
                             </div>
                         </div>
                     </div>

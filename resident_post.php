@@ -31,8 +31,8 @@
 <link rel="stylesheet" href="css/resident_post.css">
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
-        <div class="row my-3">
-            <div class="Post px-4 py-4">
+        <div class="row my-3 mx-1">
+            <div class="Post p-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="back-container">
                         <a href="<?php echo isset($_SESSION['post_referrer']) && $_SESSION['post_referrer'] == 'own-posts' ? 'view-own-posts.php' : 'Forum.php'; ?>" class="back-button d-flex align-items-center gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
@@ -55,6 +55,13 @@
                         <?php endif; ?>
                     </div>
                 </div>
+                <?php if ($post['approval_status'] == 'rejected'): ?>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>This post has been rejected and won't appear in the forum.</strong><br>
+                        Reason: <?php echo htmlspecialchars($post['rejection_reason']); ?><br>
+                        Please edit and resubmit your post.
+                    </div>
+                <?php endif; ?>
                 <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">
                 <span class="poster-name"><?php echo htmlspecialchars($poster['res_fname'] . ' ' . $poster['res_lname']); ?></span>
                 <h3 class="fw-bold ml-3"><?php echo htmlspecialchars($post['title']); ?></h3>
