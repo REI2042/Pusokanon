@@ -110,7 +110,6 @@
                             <th>Account No.</th>
                             <th>Name</th>
                             <th>Document Requested</th>
-                            <th>Purpose</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
                             <th>Date & Time Appointment</th>
@@ -147,7 +146,6 @@
                                         <td><?= htmlspecialchars($pendings['res_id']); ?></td>
                                         <td><?= htmlspecialchars($pendings['resident_name']); ?></td>
                                         <td><?= htmlspecialchars($pendings['document_name']); ?></td>
-                                        <td><?= htmlspecialchars($pendings['purpose_name']); ?></td>
                                         <td><?= htmlspecialchars($pendings['stat']); ?></td>
                                         <td><?= date('m/d/y h:i A', strtotime($pendings['date_req'])); ?></td>
                                         <td><?= date('m/d/y h:i A', strtotime($pendings['appt_date'] . ' ' . $pendings['appt_time'])); ?></td>
@@ -211,7 +209,6 @@
                             <th>Account No.</th>
                             <th>Name</th>
                             <th>Document Requested</th>
-                            <th>Purpose</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
                             <th>Date & Time Appointment</th>
@@ -248,7 +245,6 @@
                                         <td><?= htmlspecialchars($processings['res_id']); ?></td>
                                         <td><?= htmlspecialchars($processings['resident_name']); ?></td>
                                         <td><?= htmlspecialchars($processings['document_name']); ?></td>
-                                        <td><?= htmlspecialchars($processings['purpose_name']); ?></td>
                                         <td><?= htmlspecialchars($processings['stat']); ?></td>
                                         <td><?= date('m/d/y h:i A', strtotime($processings['date_req'])); ?></td>
                                         <td><?= date('m/d/y h:i A', strtotime($processings['appt_date'] . ' ' . $processings['appt_time'])); ?></td>
@@ -312,7 +308,6 @@
                             <th>Account No.</th>
                             <th>Name</th>
                             <th>Document Requested</th>
-                            <th>Purpose</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
                             <th>Date & Time Appointment</th>
@@ -349,7 +344,6 @@
                                         <td><?= htmlspecialchars($conmpletes['res_id']); ?></td>
                                         <td><?= htmlspecialchars($conmpletes['resident_name']); ?></td>
                                         <td><?= htmlspecialchars($conmpletes['document_name']); ?></td>
-                                        <td><?= htmlspecialchars($conmpletes['purpose_name']); ?></td>
                                         <td><?= htmlspecialchars($conmpletes['stat']); ?></td>
                                         <td><?= date('m/d/y h:i A', strtotime($conmpletes['date_req'])); ?></td>
                                         <td><?= date('m/d/y h:i A', strtotime($conmpletes['appt_date'] . ' ' . $conmpletes['appt_time'])); ?></td>
