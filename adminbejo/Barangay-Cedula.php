@@ -54,9 +54,9 @@
         $Processing = fetchdocsRequestSearch($pdo, $docType,'Processing', $results_per_page, $processing_offset, $search);
         $completed = fetchdocsRequestSearch($pdo, $docType,'Ready to pickup', $results_per_page, $completed_offset, $search);
     } else {
-        $pending = fetchdocsRequestPermits($pdo, $docType,'Pending', $results_per_page, $pending_offset);
-        $Processing = fetchdocsRequestPermits($pdo, $docType,'Processing', $results_per_page, $processing_offset);
-        $completed = fetchdocsRequestPermits($pdo, $docType,'Ready to pickup', $results_per_page, $completed_offset);
+        $pending = fetchdocsRequest($pdo, $docType,'Pending', $results_per_page, $pending_offset);
+        $Processing = fetchdocsRequest($pdo, $docType,'Processing', $results_per_page, $processing_offset);
+        $completed = fetchdocsRequest($pdo, $docType,'Ready to pickup', $results_per_page, $completed_offset);
     }
     
 ?>
@@ -112,7 +112,6 @@
                             <th>Document Requested</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
-                            <th>Date & Time Appointment</th>
                             <th>Remarks</th>
                             <th>Tools</th>
                         </tr>
@@ -148,7 +147,6 @@
                                     <td><?= htmlspecialchars($pendings['document_name']); ?></td>
                                     <td><?= htmlspecialchars($pendings['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($pendings['date_req'])); ?></td>
-                                    <td><?= date('m/d/y h:i A', strtotime($pendings['appt_date'] . ' ' . $pendings['appt_time'])); ?></td>
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
@@ -213,7 +211,6 @@
                             <th>Document Requested</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
-                            <th>Date & Time Appointment</th>
                             <th>Remarks</th>
                             <th>Tools</th>
                         </tr>
@@ -247,7 +244,6 @@
                                     <td><?= htmlspecialchars($processings['document_name']); ?></td>
                                     <td><?= htmlspecialchars($processings['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($processings['date_req'])); ?></td>
-                                    <td><?= date('m/d/y h:i A', strtotime($processings['appt_date'] . ' ' . $processings['appt_time'])); ?></td>
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
@@ -307,7 +303,6 @@
                             <th>Document Requested</th>
                             <th>Status</th>
                             <th>Date & Time Requested</th>
-                            <th>Date & Time Appointment</th>
                             <th>Remarks</th>
                             <th>Tools</th>
                         </tr>
@@ -342,7 +337,6 @@
                                     <td><?= htmlspecialchars($completed['document_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($completed['date_req'])); ?></td>
-                                    <td><?= date('m/d/y h:i A', strtotime($pendings['appt_date'] . ' ' . $pendings['appt_time'])); ?></td>
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
