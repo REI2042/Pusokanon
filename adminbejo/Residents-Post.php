@@ -89,51 +89,63 @@
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
-
-                <div class="reactions mt-3">
-                    <span class="reaction">
-                        <i class="fa-solid fa-thumbs-up"></i>
-                        <span class="count"><?php echo $post['upvotes']; ?></span>
-                    </span>
-                    <span class="reaction">
-                        <i class="fa-solid fa-thumbs-down"></i>
-                        <span class="count"><?php echo $post['downvotes']; ?></span>
-                    </span>
-                </div>
-                <div class="comments-section mt-2">
-                    <h4>Comments</h4>
-                    <div id="comments-container" style="max-height: 500px; overflow-y: scroll;">
-                        <?php if (!empty($comments)): ?>
-                            <?php foreach ($comments as $comment): ?>
-                                <div class='comment'>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="poster-info d-flex align-items-center m-1">
-                                            <img src='<?php echo ($comment['profile_picture'] ? '../db/ProfilePictures/' . $comment['profile_picture'] : '../PicturesNeeded/blank_profile.png'); ?>' alt='Profile Picture' class='comment-profile-picture'>
-                                            <strong><?php echo htmlspecialchars($comment['res_fname'] . ' ' . $comment['res_lname']); ?></strong>
-                                        </div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-link" type="button" id="commentOptionsDropdown<?= $comment['comment_id'] ?>" data-comment-id="<?= $comment['comment_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="commentOptionsDropdown<?= $comment['comment_id'] ?>">
-                                                <li>
-                                                    <button class="dropdown-item delete-comment-button" data-comment-id="<?= $comment['comment_id'] ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <p><?php echo htmlspecialchars($comment['comment_content']); ?></p>
-                                    <small><?php echo date('F j, Y, g:i a', strtotime($comment['created_at'])); ?></small>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p class="no-comments">No comments yet.</p>
-                        <?php endif; ?>
+                <?php if ($post['approval_status'] == 'approved'): ?>
+                    <div class="reactions mt-3">
+                        <span class="reaction">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="count"><?php echo $post['upvotes']; ?></span>
+                        </span>
+                        <span class="reaction">
+                            <i class="fa-solid fa-thumbs-down"></i>
+                            <span class="count"><?php echo $post['downvotes']; ?></span>
+                        </span>
                     </div>
-                </div>
+                    <div class="comments-section mt-2">
+                        <h4>Comments</h4>
+                        <div id="comments-container" style="max-height: 500px; overflow-y: scroll;">
+                            <?php if (!empty($comments)): ?>
+                                <?php foreach ($comments as $comment): ?>
+                                    <div class='comment'>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="poster-info d-flex align-items-center m-1">
+                                                <img src='<?php echo ($comment['profile_picture'] ? '../db/ProfilePictures/' . $comment['profile_picture'] : '../PicturesNeeded/blank_profile.png'); ?>' alt='Profile Picture' class='comment-profile-picture'>
+                                                <strong><?php echo htmlspecialchars($comment['res_fname'] . ' ' . $comment['res_lname']); ?></strong>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-link" type="button" id="commentOptionsDropdown<?= $comment['comment_id'] ?>" data-comment-id="<?= $comment['comment_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="commentOptionsDropdown<?= $comment['comment_id'] ?>">
+                                                    <li>
+                                                        <button class="dropdown-item delete-comment-button" data-comment-id="<?= $comment['comment_id'] ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p><?php echo htmlspecialchars($comment['comment_content']); ?></p>
+                                        <small><?php echo date('F j, Y, g:i a', strtotime($comment['created_at'])); ?></small>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="no-comments">No comments yet.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php elseif ($post['approval_status'] == 'pending' OR $post['approval_status'] == 'resubmitted'): ?>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-success mr-3" data-post-id="<?php echo $post_id; ?>">Approve Post</button>
+                        <button class="btn btn-danger ml-3" data-post-id="<?php echo $post_id; ?>">Reject Post</button>
+                    </div>
+                <?php endif; ?>
             </div>  
         </div>
     </section>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+    (function() {
+        emailjs.init("OwV9SfA7xuRibKiJJ");
+    })();
+</script>
 <script src="Resident-Post.js"></script>
 <?php include 'footerAdmin.php'; ?>

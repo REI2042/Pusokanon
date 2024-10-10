@@ -71,12 +71,12 @@ include '../db/DBconn.php';
                             <th scope="col">Upvotes</th>
                             <th scope="col">Downvotes</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Approve By</th>
+                            <th scope="col">Approved By</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($posts)): ?>
-                            <tr><td colspan="7" class="text-center">No records found.</td></tr>
+                            <tr><td colspan="8" class="text-center">No records found.</td></tr>
                         <?php else: ?>
                             <?php foreach ($posts as $posts): 
                                 $dateRequested = DateTime::createFromFormat('Y-m-d H:i:s', $posts['created_at']);
