@@ -47,9 +47,10 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="postOptionsDropdown">
-                                    
+                                    <?php if ($post['approval_status'] !== 'resubmitted'): ?>
                                         <li><a class="dropdown-item" href="edit_resident_post.php?id=<?php echo $post_id; ?>"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                        <li><button class="dropdown-item delete-button" data-post-id="<?php echo $post_id; ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
+                                    <?php endif; ?>
+                                    <li><button class="dropdown-item delete-button" data-post-id="<?php echo $post_id; ?>"><i class="fas fa-trash-alt me-2"></i>Delete</button></li>
                                 </ul>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -60,6 +61,14 @@
                         <strong>This post has been rejected and won't appear in the forum.</strong><br>
                         Reason: <?php echo htmlspecialchars($post['rejection_reason']); ?><br>
                         Please edit and resubmit your post.
+                    </div>
+                <?php elseif ($post['approval_status'] == 'resubmitted'): ?>
+                    <div class="alert alert-success" role="alert">
+                        Your post has been resubmitted! We’ll notify you via email once it’s approved. Thank you!
+                    </div>
+                <?php elseif ($post['approval_status'] == 'pending'): ?>
+                    <div class="alert alert-success" role="alert">
+                        This post is pending for approval. We’ll notify you via email once it’s approved. Thank you!
                     </div>
                 <?php endif; ?>
                 <img src="<?php echo $poster['profile_picture'] ? 'db/ProfilePictures/' . $poster['profile_picture'] : 'PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture">

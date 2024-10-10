@@ -52,8 +52,8 @@ function time_elapsed_string($datetime, $full = false) {
         <a href="Post-Announcements.php">
             <button class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Go back to Announcements</button>
         </a>
-        <a href="Post-Announcements.php">
-            <button class="btn btn-primary">View Pending Residents Posts</button>
+        <a href="Manage-Posts.php">
+            <button class="btn btn-primary">View Residents Post Requests</button>
         </a>
         <div class="row">
             <div class="col-12">
@@ -66,7 +66,7 @@ function time_elapsed_string($datetime, $full = false) {
                     </div>
                     <?php if (!empty($posts)): ?>
                         <?php foreach ($posts as $post): ?>
-                            <a href="Residents-Post.php?id=<?php echo $post['post_id']; ?>">
+                            <a href="Residents-Post.php?id=<?php echo $post['post_id']; ?>&ref=res-forum">
                                 <div class="Post position-relative  my-3 px-3 py-3">
                                     <div class="post-header d-flex align-items-center mb-2">
                                         <img src="<?php echo $post['profile_picture'] ? '../db/ProfilePictures/' . htmlspecialchars($post['profile_picture']) : '../PicturesNeeded/blank_profile.png'; ?>" alt="Profile Picture" class="profile-picture mr-2" style="width: 40px; height: 40px; border-radius: 50%;">

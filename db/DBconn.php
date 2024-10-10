@@ -1472,3 +1472,55 @@ function fetchOwnPosts($pdo, $resId, $perPage, $offset, $popularity = null, $sta
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function fetchAllPostById($pdo, $search)
+{
+    $sql = "SELECT * FROM user_posts 
+            WHERE (post_id = :search OR title LIKE :searchLike)
+            AND approval_status IN ('rejected', 'pending', 'resubmitted')";
+    $stmt = $pdo->prepare($sql);
+    $searchLike = "%$search%";
+    $stmt->execute([
+        ':search' => $search,
+        ':searchLike' => $searchLike
+    ]);
+    return $stmt->fetchAll();
+}
+
+function getAllResPosts($pdo, $perPage, $offset, $status = null) {
+    $sql = "SELECT * FROM user_posts WHERE approval_status IN ('rejected', 'pending', 'resubmitted')";
+    $params = [];
+
+    if ($status !== null && $status !== 'all') {
+        $sql .= " AND approval_status = :status";
+        $params[':status'] = $status;
+    }
+
+    $sql .= " ORDER BY created_at DESC LIMIT :offset, :perPage";
+    $params[':offset'] = $offset;
+    $params[':perPage'] = $perPage;
+
+    $stmt = $pdo->prepare($sql);
+    foreach ($params as $key => &$val) {
+        $stmt->bindParam($key, $val);
+    }
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function fetchTotalResPostsWithFilters($pdo, $status = null) {
+    $sql = "SELECT COUNT(*) FROM user_posts WHERE approval_status IN ('rejected', 'pending', 'resubmitted')";
+    $params = [];
+
+    if ($status !== null && $status !== 'all') {
+        $sql .= " AND approval_status = :status";
+        $params[':status'] = $status;
+    }
+
+    $stmt = $pdo->prepare($sql);
+    foreach ($params as $key => &$val) {
+        $stmt->bindParam($key, $val);
+    }
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}

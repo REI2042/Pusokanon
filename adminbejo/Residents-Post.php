@@ -17,6 +17,10 @@
         exit();
     }
 
+    if (isset($_GET['ref'])) {
+        $_SESSION['resident_post_referrer'] = $_GET['ref'];
+    }
+
     $poster = fetchPosterDetails($pdo, $post['res_id']);
     $media = fetchResidentPostMedia($pdo, $post_id);
 
@@ -26,7 +30,7 @@
 <div class="container fluid d-flex justify-content-center">
     <section class="main">
         <div class="row">
-            <a href="Residents-Forum.php" class="back-button d-flex align-items-center text-dark gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
+            <a href="<?php echo isset($_SESSION['resident_post_referrer']) && $_SESSION['resident_post_referrer'] == 'res-posts' ? 'Manage-Posts.php' : 'Residents-Forum.php'; ?>" class="back-button d-flex align-items-center text-dark gap-2 mb-3" style="text-decoration: none; color: #2C7BD5;">
                 <i class="fas fa-circle-chevron-left fa-2x"></i>
                 <span>Back</span>
             </a>

@@ -15,8 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title = $_POST['post_title'];
         $content = $_POST['post_body'];
 
-        $stmt = $pdo->prepare("UPDATE user_posts SET title = ?, content = ? WHERE post_id = ?");
-        $stmt->execute([$title, $content, $post_id]);
+        $current_approval_status = $_POST['current_approval_status'];
+        $new_status = ($current_approval_status == 'rejected') ? 'resubmitted' : $current_approval_status;
+
+        $stmt = $pdo->prepare("UPDATE user_posts SET title = ?, content = ?, approval_status = ? WHERE post_id = ?");
+        $stmt->execute([$title, $content, $new_status, $post_id]);
 
         if (isset($_POST['remove_media'])) {
             $stmt = $pdo->prepare("SELECT media_type, media_path FROM user_posts_media WHERE media_id = ?");
@@ -69,7 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'success' => true,
             'message' => 'Post updated successfully',
             'post_id' => $post_id,
-            'uploaded_files' => $uploaded_files
+            'uploaded_files' => $uploaded_files,
+            'new_status' => $new_status
         ];
     } else {
         $response = [

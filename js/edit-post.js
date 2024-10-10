@@ -70,9 +70,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        let successMessage = 'Your post has been updated.';
+                        if (data.new_status === 'resubmitted') {
+                            successMessage = 'Your post has been re-submitted for approval.';
+                        }
                         Swal.fire(
                             'Updated!',
-                            'Your post has been updated.',
+                            successMessage,
                             'success'
                         ).then(() => {
                             window.location.href = `resident_post.php?id=${data.post_id}`;

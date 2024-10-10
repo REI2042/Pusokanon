@@ -16,6 +16,11 @@
         exit();
     }
 
+    if ($post['approval_status'] == 'resubmitted') {
+        header("Location: resident_post.php?id={$post_id}&ref={$referrer}");
+        exit();
+    }
+
     $referrer = isset($_SESSION['post_referrer']) ? $_SESSION['post_referrer'] : 'forum';
 ?>
 
@@ -23,7 +28,7 @@
 <div class="container fluid d-flex justify-content-center">
     <section class="main" style="width: -webkit-fill-available;">
         <div class="edit-container">
-            <form action="phpConn/update-post.php" method="POST" enctype="multipart/form-data">
+            <form action="db/update-post.php" method="POST" enctype="multipart/form-data">
                 <div class="d-flex justify-content-between align-items-center">
                     <a href="resident_post.php?id=<?php echo $post_id; ?>&ref=<?php echo $referrer; ?>" class="back-button d-flex align-items-center text-dark gap-2">
                         <i class="fas fa-circle-chevron-left fa-2x"></i>
@@ -37,6 +42,7 @@
                 </div>
                 <div class="mt-5">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+                    <input type="hidden" name="current_approval_status" value="<?php echo $post['approval_status']; ?>">
                     <div class="row mb-3">
                         <div class="col-md-2">
                             <label for="post_title" class="form-label fw-bold">Title:</label>

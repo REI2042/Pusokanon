@@ -48,15 +48,13 @@ if (!$post) {
                     </div>
                 </div>
                 <div class="row">
-                    <div class="row mb-3">
-                        <div class="col-md-2">
-                            <label for="post_media" class="form-label fw-bold">Add New Media:</label>
-                        </div>
-                        <div class="col-md-10">
-                            <input type="file" id="post_media" name="post_media[]" accept="image/*, video/*" multiple class="form-control">
-                            <div class="file-input-help">
-                                Click to add more files. Hold Ctrl to select multiple files, or Shift to select a range.
-                            </div>
+                    <div class="col-md-2">
+                        <label for="post_media" class="form-label fw-bold">Add New Media:</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="file" id="post_media" name="post_media[]" accept="image/*, video/*" multiple class="form-control">
+                        <div class="file-input-help">
+                            Click to add more files. Hold Ctrl to select multiple files, or Shift to select a range.
                         </div>
                     </div>
                 </div>
