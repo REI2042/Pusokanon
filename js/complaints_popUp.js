@@ -42,7 +42,6 @@ async function viewComment (
     Swal.fire({
         title: 'Complaint Comment',
         html: `<div style="text-align: left;">
-                    <p><strong>Comment:</strong> <br>
                     ${comment}</p>
                     
                 </div>`,

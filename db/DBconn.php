@@ -610,6 +610,7 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
                 ct.incident_place AS incident_place, 
                 ct.date_filed AS date_filed, 
                 ct.hearing_date AS hearing_date,
+                ct.hearing_time AS hearing_time,
                 ct.status AS status,
                 ct.remarks AS remarks,
                 ct.comment AS comment,

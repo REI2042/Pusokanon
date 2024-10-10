@@ -143,7 +143,7 @@
                                         <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
                                         <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
                                         <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
-                                        <td><?php echo htmlspecialchars($complaint['date_filed']); ?></td>
+                                        <td><?=date('m/d/y h:i A', strtotime($complaint['date_filed'])); ?></td>
                                         <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
                                             <?php echo htmlspecialchars($complaint['status']); ?>
                                         </td>
@@ -237,7 +237,7 @@
                                 <th>Case Type</th>
                                 <th>Place of Incident</th>
                                 <th>Date/Time Reported</th>
-                                <th>Hearing Date </th>
+                                <th>Hearing Date/Time </th>
                                 <th>Status</th>
                                 <th>Remarks</th>
                                 <th>Tools</th>
@@ -261,9 +261,8 @@
                                     <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
                                     <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
                                     <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
-                                    <td><?php echo htmlspecialchars($complaint['date_filed']); ?></td>
-                                    <td><?php echo htmlspecialchars($complaint['hearing_date']); ?></td>
-                                    <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
+                                    <td><?=date('m/d/y h:i A', strtotime($complaint['date_filed'])); ?></td>
+                                    <td><?= date('m/d/y h:i A', strtotime($complaint['hearing_date'] . ' ' . $complaint['hearing_time'])); ?></td>                                    <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
                                         <?php echo htmlspecialchars($complaint['status']); ?>
                                     </td>
                                     <td><?php echo htmlspecialchars($complaint['remarks']); ?></td>
@@ -377,7 +376,7 @@
                                         <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
                                         <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
                                         <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
-                                        <td><?php echo htmlspecialchars($complaint['date_filed']); ?></td>
+                                        <td><?=date('m/d/y h:i A', strtotime($complaint['date_filed'])); ?></td>
                                         <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
                                             <?php echo htmlspecialchars($complaint['status']); ?>
                                         </td>

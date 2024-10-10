@@ -139,7 +139,7 @@
                                         <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
                                         <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
                                         <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
-                                        <td><?php echo htmlspecialchars($complaint['date_closed']); ?></td>
+                                        <td><?=date('m/d/y', strtotime($complaint['date_closed'])); ?></td>
                                         <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
                                             <?php echo htmlspecialchars($complaint['status']); ?>
                                         </td>
