@@ -1,327 +1,4 @@
 
-// admin complaint form popup
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('admincomplaintForm').addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        var formData = new FormData(this);
-    
-        fetch('../db/DBconn_adminComplaints.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Complaint Submitted',
-                    text: data.message,
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    window.location.href = 'writeComplaints.php'; 
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message,
-                    confirmButtonText: 'OK'
-                });
-            }
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An error occurred while submitting the complaint.',
-                confirmButtonText: 'OK'
-            });
-            console.error('Error:', error);
-        });
-    });
-
-});
-
-// resident complaint form pop up
-
-
-// document.getElementById('complaintForm').addEventListener('submit', function(event) {
-//     event.preventDefault();
-//     var formData = new FormData(this);
-
-//     // Debugging FormData
-//     console.log("FormData content:");
-//     for (var [key, value] of formData.entries()) {
-//         console.log(key, value);
-//     }
-
-//     fetch('db/DBconn_complaints.php', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => {
-//         console.log("Response Status:", response.status); // Debug response status
-//         if (!response.ok) {
-//             return response.text().then(text => { // Read response text if not ok
-//                 throw new Error('Network response was not ok: ' + text);
-//             });
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         console.log("Response Data:", data); // Debug the response data
-//         if (data.success) {
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Complaint Submitted',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             }).then(() => {
-//                 window.location.href = 'residentComplaints.php';
-//             });
-//         } else {
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             });
-//         }
-//     })
-//     .catch(error => {
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Error',
-//             text: 'An error occurred: ' + error.message,
-//             confirmButtonText: 'OK'
-//         });
-//         console.error('Error:', error);
-//     });
-// });
-
-
-
-
-
-
-// document.getElementById('complaintForm').addEventListener('submit', function(event) {
-//     event.preventDefault(); 
-//     var formData = new FormData(this);
-
-//     fetch('db/DBconn_complaints.php', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Complaint Submitted',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             }).then(() => {
-//                 window.location.href = 'residentComplaints.php'; 
-//             });
-//         } else {
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             });
-//         }
-//     })
-//     .catch(error => {
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Error',
-//             text: 'An error occurred while submitting the complaint.',
-//             confirmButtonText: 'OK'
-//         });
-//         console.error('Error:', error);
-//     });
-// });
-
-
-
-
-
-// document.getElementById('complaintForm').addEventListener('submit', function(event) {
-//     event.preventDefault(); 
-//     var formData = new FormData(this);
-
-//     fetch('db/DBconn_complaints.php', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Complaint Submitted',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             }).then(() => {
-//                 window.location.href = 'residentComplaints.php'; 
-//             });
-//         } else {
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             });
-//         }
-//     })
-//     .catch(error => {
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Error',
-//             text: 'An error occurred while submitting the complaint.',
-//             confirmButtonText: 'OK'
-//         });
-//         console.error('Error:', error);
-//     });
-// });
-
-
-
-// document.getElementById('complaintForm').addEventListener('submit', function(event) {
-//     event.preventDefault(); 
-//     var formData = new FormData(this);
-
-//     fetch('../db/DBconn_complaints.php', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Complaint Submitted',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             }).then(() => {
-//                 window.location.href = 'residentComplaints.php'; 
-//             });
-//         } else {
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error',
-//                 text: data.message,
-//                 confirmButtonText: 'OK'
-//             });
-//         }
-//     })
-//     .catch(error => {
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Error',
-//             text: 'An error occurred while submitting the complaint.',
-//             confirmButtonText: 'OK'
-//         });
-//         console.error('Error:', error);
-//     });
-// });
-
-
-// other case typ pop up
-document.addEventListener('DOMContentLoaded', function() {
-    const caseTypeSelect = document.getElementById('case_type');
-
-    caseTypeSelect.addEventListener('change', function() {
-        if (this.value === 'Other') {
-            Swal.fire({
-                title: 'Enter Custom Case Type',
-                input: 'text',
-                inputPlaceholder: 'Enter the case type',
-                showCancelButton: true,
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'You need to enter something!';
-                    }
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const customType = result.value;
-                    
-                    // Create a new option
-                    const newOption = new Option(customType, customType, true, true);
-                    
-                    // Remove the temporary "Other" option if it exists
-                    const tempOther = caseTypeSelect.querySelector('option[value="Other_temp"]');
-                    if (tempOther) {
-                        caseTypeSelect.removeChild(tempOther);
-                    }
-                    
-                    // Add the new option to the select
-                    caseTypeSelect.add(newOption);
-                    
-                    // Select the new option
-                    caseTypeSelect.value = customType;
-                } else {
-                    // If user cancels, revert to the first option
-                    caseTypeSelect.value = caseTypeSelect.options[0].value;
-                }
-            });
-
-            // Add a temporary "Other" option
-            const tempOption = new Option("Other", "Other_temp", true, true);
-            caseTypeSelect.add(tempOption);
-        }
-    });
-});
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     var admincomplaintForm = document.getElementById('admincomplaintForm');
-//     if (admincomplaintForm) {
-//         yourForm.addEventListener('submit', function(event) {
-//             event.preventDefault(); // Prevent form from submitting normally
-
-//             var formData = new FormData(this);
-            
-//             fetch('DBconn_adminComplaints.php', {
-//                 method: 'POST',
-//                 body: formData
-//             })
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data.success) {
-//                     Swal.fire({
-//                         icon: 'success',
-//                         title: 'Success',
-//                         text: data.message,
-//                         confirmButtonText: 'OK'
-//                     });
-//                 } else {
-//                     Swal.fire({
-//                         icon: 'error',
-//                         title: 'Error',
-//                         text: data.message,
-//                         confirmButtonText: 'OK'
-//                     });
-//                 }
-//             })
-//             .catch(error => {
-//                 console.error('Error:', error);
-//                 Swal.fire({
-//                     icon: 'error',
-//                     title: 'Error',
-//                     text: 'An unexpected error occurred.',
-//                     confirmButtonText: 'OK'
-//                 });
-//             });
-//         });
-//     } else {
-//         console.error('Error:', error);
-//     }
-// });
-
-
 // show details pop up
 async function showDetails(
     resident_name,
@@ -619,76 +296,126 @@ async function reject_complaint(complaint_id) {
 }
 
 // closing the case pop up
-async function closeCase(complaint_id, remarks) {
-    if (remarks === 'CASE CLOSED') {
-        Swal.fire({
-            title: 'Already Closed',
-            text: "This case is already closed.",
-            icon: 'info',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-        });
-        return;
-    }
+// async function closeCase(complaint_id, remarks, hearing_date) {
+//     console.log("Function called with:", { complaint_id, remarks, hearing_date });
 
-    const { value: reason } = await Swal.fire({
-        title: "Reason for Closing",
-        input: 'textarea',
-        inputLabel: 'Please provide a reason for closing the case (optional)',
-        inputPlaceholder: 'Enter your reason here...',
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        confirmButtonText: 'Close Case',
-        cancelButtonText: 'Cancel'
-    });
+//     // Check if the case is already closed
+//     if (remarks === 'CASE CLOSED') {
+//         Swal.fire({
+//             title: 'Already Closed',
+//             text: "This case is already closed.",
+//             icon: 'info',
+//             confirmButtonColor: '#3085d6',
+//             confirmButtonText: 'OK'
+//         });
+//         return;
+//     }
 
-    console.log("Reason provided:", reason);
+//     // Check if the hearing date is valid
+//     if (!hearing_date || hearing_date === 'undefined' || hearing_date === '') {
+//         console.error("Invalid hearing date:", hearing_date);
+//         Swal.fire({
+//             title: 'Error',
+//             text: "Unable to process the hearing date. Please contact support.",
+//             icon: 'error',
+//             confirmButtonColor: '#3085d6',
+//             confirmButtonText: 'OK'
+//         });
+//         return;
+//     }
 
-    if (reason !== undefined) {
-        try {
-            const response = await fetch('../adminbejo/phpConn/close_complaint.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    complaint_id: complaint_id,
-                    remarks: 'CASE CLOSED',
-                    comment: reason || '' // Use an empty string if no reason is provided
-                }),
-            });
+//     // Parse dates
+//     const currentDate = new Date();
+//     const [year, month, day] = hearing_date.split('-').map(Number);
+//     const hearingDate = new Date(year, month - 1, day); // Note: month is 0-indexed in JavaScript Date
 
-            const result = await response.json();
-            console.log("Server response:", result);
+//     console.log("Current date:", currentDate);
+//     console.log("Hearing date:", hearingDate);
 
-            if (result.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Case Closed',
-                    text: 'The case has been successfully closed.',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    location.reload(); // Refresh the page to reflect the changes
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'There was an error closing the case. Please try again.',
-                    confirmButtonText: 'OK'
-                });
-            }
-        } catch (error) {
-            console.error("Error during fetch:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'There was an error closing the case. Please try again.',
-                confirmButtonText: 'OK'
-            });
-        }
-    }
-}
+//     // Check if the hearing date is valid after parsing
+//     if (isNaN(hearingDate.getTime())) {
+//         console.error("Invalid hearing date after parsing:", hearing_date);
+//         Swal.fire({
+//             title: 'Error',
+//             text: "The hearing date is invalid. Please contact support.",
+//             icon: 'error',
+//             confirmButtonColor: '#3085d6',
+//             confirmButtonText: 'OK'
+//         });
+//         return;
+//     }
+
+//     // Check if the hearing date has passed
+//     if (currentDate < hearingDate) {
+//         Swal.fire({
+//             title: 'Cannot Close Yet',
+//             text: "The case cannot be closed until the hearing date has passed.",
+//             icon: 'warning',
+//             confirmButtonColor: '#3085d6',
+//             confirmButtonText: 'OK'
+//         });
+//         return;
+//     }
+
+//     // If we've reached this point, proceed with asking for the closing reason
+//     const { value: reason } = await Swal.fire({
+//         title: "Reason for Closing",
+//         input: 'textarea',
+//         inputLabel: 'Please provide a reason for closing the case (optional)',
+//         inputPlaceholder: 'Enter your reason here...',
+//         showCancelButton: true,
+//         confirmButtonColor: "#d33",
+//         confirmButtonText: 'Close Case',
+//         cancelButtonText: 'Cancel'
+//     });
+
+//     console.log("Reason provided:", reason);
+
+//     if (reason !== undefined) {
+//         try {
+//             const response = await fetch('../adminbejo/phpConn/close_complaint.php', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     complaint_id: complaint_id,
+//                     remarks: 'CASE CLOSED',
+//                     comment: reason || '' // Use an empty string if no reason is provided
+//                 }),
+//             });
+
+//             const result = await response.json();
+//             console.log("Server response:", result);
+
+//             if (result.success) {
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'Case Closed',
+//                     text: 'The case has been successfully closed.',
+//                     confirmButtonText: 'OK'
+//                 }).then(() => {
+//                     location.reload(); // Refresh the page to reflect the changes
+//                 });
+//             } else {
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Error',
+//                     text: 'There was an error closing the case. Please try again.',
+//                     confirmButtonText: 'OK'
+//                 });
+//             }
+//         } catch (error) {
+//             console.error("Error during fetch:", error);
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: 'There was an error closing the case. Please try again.',
+//                 confirmButtonText: 'OK'
+//             });
+//         }
+//     }
+// }
 
 
 // async function closeCase(complaint_id) {

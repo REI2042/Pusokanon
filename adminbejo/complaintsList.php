@@ -237,6 +237,7 @@
                                 <th>Case Type</th>
                                 <th>Place of Incident</th>
                                 <th>Date/Time Reported</th>
+                                <th>Hearing Date </th>
                                 <th>Status</th>
                                 <th>Remarks</th>
                                 <th>Tools</th>
@@ -261,10 +262,12 @@
                                     <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
                                     <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
                                     <td><?php echo htmlspecialchars($complaint['date_filed']); ?></td>
+                                    <td><?php echo htmlspecialchars($complaint['hearing_date']); ?></td>
                                     <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
                                         <?php echo htmlspecialchars($complaint['status']); ?>
                                     </td>
                                     <td><?php echo htmlspecialchars($complaint['remarks']); ?></td>
+                                    
                                     <td>
                                         <div class="d-flex justify-content-start align-items-center">
                                             <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
@@ -279,7 +282,7 @@
                                                                     '<?= htmlspecialchars($complaint['narrative'])?>',
                                                                     '<?= $imageSrc ?>')">
                                                 <i class="bi bi-eye" title="View Details"></i> </a>
-                                            <button class="btn btn-danger btn-sm me-2" title="Close Case" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>', '<?= htmlspecialchars($complaint['remarks']) ?>')">
+                                            <button class="btn btn-danger btn-sm me-2" title="Close Case" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>', '<?= htmlspecialchars($complaint['remarks']) ?>', '<?= htmlspecialchars($complaint['hearing_date']) ?>')">
                                                 <i class="bi bi-x-circle"></i>
                                             </button>
                                         </div>
@@ -458,6 +461,7 @@
     </div>
 </div>
 <script src="../js/complaints_popUp.js"></script>
+<script src="../js/close_case.js"></script>
 <script src="../js/sort_complaints.js"></script>
 <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script type="text/javascript">
@@ -465,5 +469,6 @@
         emailjs.init("7RJucdkATYmD5Iu8F"); // Replace with your actual EmailJS public key
     })();
 </script>
+
 
 <?php require_once 'footerAdmin.php'; ?>

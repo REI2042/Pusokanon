@@ -130,7 +130,7 @@
                                         <button type="button" class="btn btn-danger" id="removeFile">Remove</button>
                                     </div>
                                 </div>
-                                <div class="col-12 px-1">
+                                <div class="col-12 px-1 mt-1">
                                     <label for="narrative" class="form-label">Narrative</label>
                                     <textarea class="form-control" rows="3" name="narrative" id="narrative" placeholder="Narrate what happened..."></textarea>
                                 </div>
@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script> -->
 <script src="../js/complaints_popUp.js"></script>
+<script src="../js/adminCustom_caseType.js"></script>
 <script>
     document.getElementById('removeFile').addEventListener('click', function() {
         document.getElementById('evidence').value = '';
