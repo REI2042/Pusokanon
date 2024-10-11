@@ -165,4 +165,72 @@ document.addEventListener('DOMContentLoaded', function() {
             );
         });
     }
+
+    const rejectButton = document.querySelector('.btn-danger');
+    if (rejectButton) {
+        rejectButton.addEventListener('click', function() {
+            const postId = this.getAttribute('data-post-id');
+            Swal.fire({
+                title: 'Reject Post',
+                input: 'textarea',
+                inputLabel: 'Reason for rejection',
+                inputPlaceholder: 'Enter the reason for rejecting this post...',
+                showCancelButton: true,
+                confirmButtonText: 'Reject',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                preConfirm: (reason) => {
+                    if (!reason) {
+                        Swal.showValidationMessage('Please enter a reason for rejection');
+                    }
+                    return reason;
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    rejectPost(postId, result.value);
+                }
+            });
+        });
+    }
+
+    function rejectPost(postId, reason) {
+        fetch('phpConn/reject_post.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `post_id=${postId}&reason=${encodeURIComponent(reason)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                emailjs.send("service_d86wqzu", "template_a6j732g", {
+                    to_email: data.userEmail,
+                    to_name: data.userName,
+                    message: `I hope this message finds you well. We regret to inform you that your recent post titled "${data.postTitle}" has been reviewed and unfortunately not been approved due to the following reason(s):\n\n${reason}`
+                })
+                Swal.fire(
+                    'Rejected!',
+                    'The post has been rejected and the user has been notified.',
+                    'success'
+                ).then(() => {
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire(
+                    'Error!',
+                    data.error,
+                    'error'
+                );
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire(
+                'Error!',
+                'An error occurred while processing your request.',
+                'error'
+            );
+        });
+    }    
 });

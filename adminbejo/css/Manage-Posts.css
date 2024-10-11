@@ -92,6 +92,22 @@ footer {
     gap: 5px;
 }
 
+.record-container {
+    gap: 10px;
+}
+
+.record-box {
+    background-color: #2260A7;
+    border-radius: 10px;
+    padding: 0px 0px;
+    color: #F9F8FD;
+}
+
+.record-title,
+.record-count {
+    margin: 10px 0px;
+}
+
 @media (max-width: 768px), (min-height: 768px) {
 
     .main {

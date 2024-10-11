@@ -3,11 +3,11 @@ include '../include/staff_restrict_pages.php';
 include 'headerAdmin.php';
 include '../db/DBconn.php';
 
-    $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+    $status = isset($_GET['status']) ? $_GET['status'] : 'pending';
     $search = isset($_GET['search']) ? $_GET['search'] : null;
     $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-    $perPage = 5;
+    $perPage = 10;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $perPage;
 
@@ -21,6 +21,11 @@ include '../db/DBconn.php';
 
     $totalPages = ceil($totalPosts / $perPage);
 
+    $pendingCount = getPostCountByStatus($pdo, 'pending');
+    $rejectedCount = getPostCountByStatus($pdo, 'rejected');
+    $resubmittedCount = getPostCountByStatus($pdo, 'resubmitted');
+    $approvedCount = getPostCountByStatus($pdo, 'approved');
+
 ?>  
 <link rel="stylesheet" href="css/Manage-Posts.css">
 <section class="main">
@@ -33,6 +38,34 @@ include '../db/DBconn.php';
             <div class="row text-center align-items-center my-3">
                 <h1 class="title text-center">Manage Resident Posts</h1>
             </div>
+            <div class="col-12 mb-3">
+            <div class="record-container row g-1">
+                    <div class="record-box col-12 col-sm">
+                        <div class="text-center">
+                            <h1 class="record-title">Pending Posts</h1>
+                            <p class="record-count"><?php echo $pendingCount; ?></p>
+                        </div>
+                    </div>
+                    <div class="record-box col-6 col-sm">
+                        <div class="text-center">
+                            <h1 class="record-title">Rejected Posts</h1>
+                            <p class="record-count"><?php echo $rejectedCount; ?></p>
+                        </div>
+                    </div>
+                    <div class="record-box col-6 col-sm">
+                        <div class=" text-center">
+                            <h1 class="record-title">Resubmitted Posts</h1>
+                            <p class="record-count"><?php echo $resubmittedCount; ?></p>
+                        </div>
+                    </div>
+                    <div class="record-box col-6 col-sm">
+                        <div class="text-center">
+                            <h1 class="record-title" >Approved Posts</h1>
+                            <p class="record-count"><?php echo $approvedCount; ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row my-1 justify-content-end">
                 <div class="dropdown-container col-12 col-sm-6 d-flex justify-content-end">
                     <div class="row mx-0 justify-content-between">
@@ -42,10 +75,10 @@ include '../db/DBconn.php';
                                     Status
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="statusDropdown">
-                                    <a class="dropdown-item <?php echo $status == 'all' || $status == '' ? 'active' : ''; ?>" href="?status=all<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">All</a>
-                                    <a class="dropdown-item <?php echo $status == 'pending' ? 'active' : ''; ?>" href="?status=pending<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">Pending</a>
-                                    <a class="dropdown-item <?php echo $status == 'rejected' ? 'active' : ''; ?>" href="?status=rejected<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">Rejected</a>
-                                    <a class="dropdown-item <?php echo $status == 'resubmitted' ? 'active' : ''; ?>" href="?status=resubmitted<?php echo isset($popularity) ? "&popularity=$popularity" : ""; ?>">Resubmitted</a>
+                                    <a class="dropdown-item <?php echo $status == 'pending' ? 'active' : ''; ?>" href="?status=pending">Pending</a>
+                                    <a class="dropdown-item <?php echo $status == 'rejected' ? 'active' : ''; ?>" href="?status=rejected">Rejected</a>
+                                    <a class="dropdown-item <?php echo $status == 'resubmitted' ? 'active' : ''; ?>" href="?status=resubmitted">Resubmitted</a>
+                                    <a class="dropdown-item <?php echo $status == 'approved' ? 'active' : ''; ?>" href="?status=approved">Approved</a>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +123,7 @@ include '../db/DBconn.php';
                                     <td><?php echo htmlspecialchars($posts['upvotes']); ?></td>
                                     <td><?php echo htmlspecialchars($posts['downvotes']); ?></td>
                                     <td><?php echo htmlspecialchars($posts['approval_status']); ?></td>
-                                    <td><?php echo htmlspecialchars($posts['approved_by']); ?></td>
+                                    <td><?php echo htmlspecialchars($posts['approved_by_name'] ?? 'N/A'); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -101,31 +134,31 @@ include '../db/DBconn.php';
                 <ul class="pagination justify-content-center">
                     <?php if ($page > 1): ?>
                         <li class="page-item">
-                            <a class="page-link" href="?sort=<?php echo $sort; ?>&page=1" aria-label="First">
+                            <a class="page-link" href="?status=<?php echo $status; ?>&page=1" aria-label="First">
                                 <span aria-hidden="true">First</span>
                             </a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $page - 1; ?>" aria-label="Previous">
+                            <a class="page-link" href="?status=<?php echo $status; ?>&page=<?php echo $page - 1; ?>" aria-label="Previous">
                                 <span aria-hidden="true">Previous</span>
                             </a>
                         </li>
                     <?php endif; ?>
                     <?php for ($i = max(1, $page - 1); $i <= min($totalPages, $page + 1); $i++): ?>
                         <li class="page-item <?php echo $i === $page ? 'active' : ''; ?>">
-                        <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $i; ?>">
+                        <a class="page-link" href="?status=<?php echo $status; ?>&page=<?php echo $i; ?>">
                             <?php echo $i; ?>
                         </a>
                         </li>
                     <?php endfor; ?>
                     <?php if ($page < $totalPages): ?>
                         <li class="page-item">
-                            <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $page + 1; ?>" aria-label="Next">
+                            <a class="page-link" href="?status=<?php echo $status; ?>&page=<?php echo $page + 1; ?>" aria-label="Next">
                                 <span aria-hidden="true">Next</span>
                             </a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="?sort=<?php echo $sort; ?>&page=<?php echo $totalPages; ?>" aria-label="Last">
+                            <a class="page-link" href="?status=<?php echo $status; ?>&page=<?php echo $totalPages; ?>" aria-label="Last">
                                 <span aria-hidden="true">Last</span>
                             </a>
                         </li>

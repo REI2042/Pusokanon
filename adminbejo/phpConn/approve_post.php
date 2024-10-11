@@ -1,12 +1,14 @@
 <?php
 include '../../db/DBconn.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
     $post_id = $_POST['post_id'];
+    $staff_id = $_SESSION['staff_id'];
 
     try {
-        $stmt = $pdo->prepare("UPDATE user_posts SET approval_status = 'approved' WHERE post_id = ?");
-        $stmt->execute([$post_id]);
+        $stmt = $pdo->prepare("UPDATE user_posts SET approval_status = 'approved', approved_by = ? WHERE post_id = ?");
+        $stmt->execute([$staff_id, $post_id]);
 
         $stmt = $pdo->prepare("SELECT title, res_id FROM user_posts WHERE post_id = ?");
         $stmt->execute([$post_id]);
