@@ -238,6 +238,7 @@
                                 <th>Place of Incident</th>
                                 <th>Date/Time Reported</th>
                                 <th>Hearing Date/Time </th>
+                                <th></th>
                                 <th>Status</th>
                                 <th>Remarks</th>
                                 <th>Tools</th>
@@ -262,15 +263,19 @@
                                     <td><?php echo htmlspecialchars($complaint['case_type']); ?></td>
                                     <td><?php echo htmlspecialchars($complaint['incident_place']); ?></td>
                                     <td><?=date('m/d/y h:i A', strtotime($complaint['date_filed'])); ?></td>
-                                    <td><?= date('m/d/y h:i A', strtotime($complaint['hearing_date'] . ' ' . $complaint['hearing_time'])); ?></td>                                    <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
+                                    <td><?= date('m/d/y h:i A', strtotime($complaint['hearing_date'] . ' ' . $complaint['hearing_time'])); ?></td> 
+                                    <td><i class="fas fa-edit ml-2" style="cursor: pointer;" title="Edit hearing date and time"></i></td>                                   
+                                    <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
                                         <?php echo htmlspecialchars($complaint['status']); ?>
                                     </td>
                                     <td><?php echo htmlspecialchars($complaint['remarks']); ?></td>
                                     
                                     <td>
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
-                                                                    '<?= htmlspecialchars($complaint['resident_name'])?>',
+                                        <div classdo {
+                                            ="d-flex justify-content-start align-items-center">
+                                                <a href="#" class="btn btn-primary btn-sm me-2" onclick="showDetails(
+                                                                  
+                                        } while (condition);      '<?= htmlspecialchars($complaint['resident_name'])?>',
                                                                     '<?= htmlspecialchars($decryptedEmail)?>',
                                                                     '<?= htmlspecialchars($complaint['respondent_name'])?>',
                                                                     '<?= htmlspecialchars($complaint['respondent_age'])?>',
@@ -284,6 +289,7 @@
                                             <button class="btn btn-danger btn-sm me-2" title="Close Case" onclick="closeCase('<?= htmlspecialchars($complaint['complaint_id']) ?>', '<?= htmlspecialchars($complaint['remarks']) ?>', '<?= htmlspecialchars($complaint['hearing_date']) ?>')">
                                                 <i class="bi bi-x-circle"></i>
                                             </button>
+                                            
                                         </div>
                                     </td>
                                 </tr>
