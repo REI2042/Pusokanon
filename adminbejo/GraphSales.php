@@ -25,7 +25,6 @@ $totalSum = getTotalSum($pdo);
             </div>
         </div>
         <div class="col-6 mb-3 mt-3">
-            <div class="col-6 mb-3">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -50,8 +49,6 @@ $totalSum = getTotalSum($pdo);
                         </tr>
                     </tbody>
                 </table>
-
-            </div>
         </div>
     </div>
 </section>

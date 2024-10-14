@@ -57,7 +57,7 @@
     });
 </script>
 
-    <div class="history-table container-fluid d-flex" style="border-radius: 10px; padding-left:0; background-color: darkgray; width: 1390px; max-height: 570px;  min-height: 530px; height: 100%;">
+    <div class="history-table container-fluid d-flex" style="border-radius: 10px; padding-left:0; background-color: darkgray; max-height: 570px;  min-height: 530px; height: 100%;">
         <div class="history-selection">  
             <form method="GET" id="doctypeForm">
                 <a href="#" class="table-link" data-doctype="Barangay Residency">

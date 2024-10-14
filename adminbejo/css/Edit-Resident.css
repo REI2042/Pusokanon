@@ -88,7 +88,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 768px), (min-height: 768px) {
+@media (max-width: 768px){
 
     .main {
         margin-top: 10px;

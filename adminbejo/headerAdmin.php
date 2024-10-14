@@ -200,7 +200,7 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="Post-Announcements.php" class="sidebar-link">
                                 <i class="fa-solid fa-bullhorn"></i>
                                 <span class="span-word">&nbsp;Post Announcement</span>
                             </a>
@@ -219,7 +219,7 @@
                         </li> 
                     <?php  elseif ($_SESSION['userRole'] == 4): ?> <!--BARANGAY OFFICIALS-->
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="Post-Announcements.php" class="sidebar-link">
                                 <i class="fa-solid fa-bullhorn"></i>
                                 <span class="span-word">&nbsp;Post Announcement</span>
                             </a>
@@ -233,7 +233,7 @@
                         <li class="sidebar-item">
                             <a href="Graphs_Reports.php" class="sidebar-link">
                                 <i class="fa-solid fa-chart-column"></i>
-                                <span class="span-word">Graphs & Reports</span>
+                                <span class="span-word">Population Graph</span>
                             </a>
                         </li> 
                     <?php  elseif ($_SESSION['userRole'] == 5): ?> <!--document processing-->
@@ -256,15 +256,7 @@
                             </a>
                         </li> 
 
-                    <?php  elseif ($_SESSION['userRole'] == 6): ?> <!--Collabs-->
-                        <li class="sidebar-item">
-                            <a href="Graphs_Reports.php" class="sidebar-link">
-                                <i class="fa-solid fa-chart-column"></i>
-                                <span class="span-word">Graphs & Reports</span>
-                            </a>
-                        </li> 
-
-                    <?php  elseif ($_SESSION['userRole'] == 7): ?> <!--Blotter Officer-->
+                    <?php  elseif ($_SESSION['userRole'] == 6): ?> <!--Blotter Officer-->
                         <li class="sidebar-item ">
                             <a href="writeComplaints.php" class="sidebar-link">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -285,7 +277,7 @@
                         </li> 
                       
 
-                    <?php  elseif ($_SESSION['userRole'] == 8): ?> <!--Barangay treasurer-->
+                    <?php  elseif ($_SESSION['userRole'] == 7): ?> <!--Barangay treasurer-->
                         <li class="sidebar-item">
                             <a href="Graphs_Reports.php" class="sidebar-link">
                                 <i class="fa-solid fa-chart-column"></i>
