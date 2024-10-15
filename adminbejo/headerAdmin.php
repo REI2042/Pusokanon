@@ -153,7 +153,12 @@
                                     <a href="Graphs_Reports.php" class="sidebar-link">Population Graph</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="GraphSales.php" class="sidebar-link">Documents Sales</a>
+                                    <a href="GraphSales.php" class="sidebar-link">File Request Analytics</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="complaints_analytics.php" class="sidebar-link">
+                                        <span class="span-word">Complaints Analytics</span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -275,6 +280,12 @@
                                 <span class="span-word">Complaints History </span>
                             </a>
                         </li> 
+                        <li class="sidebar-item">
+                            <a href="complaints_analytics.php" class="sidebar-link">
+                                <i class="fa-solid fa-chart-column"></i>
+                                <span class="span-word">Complaints Analytics</span>
+                            </a>
+                        </li>
                       
 
                     <?php  elseif ($_SESSION['userRole'] == 7): ?> <!--Barangay treasurer-->
@@ -296,12 +307,7 @@
                                 <span class="span-word">Docs Request History</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="complaints_analytics.php" class="sidebar-link">
-                                <i class="fa-solid fa-chart-pie"></i>
-                                <span class="span-word">Complaints Analytics</span>
-                            </a>
-                        </li>
+                       
 
                     <?php endif; ?>  
                 </ul>
