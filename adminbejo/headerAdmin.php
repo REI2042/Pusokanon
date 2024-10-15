@@ -41,7 +41,7 @@
                     </div>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                    <a class="dropdown-item" href="">Settings</a>
+                <!-- <?php  if ($_SESSION['userRole'] == 1): ?><a class="dropdown-item" href="">Settings</a> <?php endif; ?> -->
                     <a class="dropdown-item" href="../include/logout.php">Logout</a>
                 </div>
             </div>
@@ -162,9 +162,18 @@
                                 </li>
                             </ul>
                         </li>
+                    <?php endif; ?>
+                        <li class="sidebar-item mt" style="z-index: 1; position: fixed; bottom: 40px;">
+                            <a href="../include/logout.php" class="sidebar-link">
+                                <i class="fa-solid fa-sign-out-alt"></i>
+                                <span class="span-word">Logout</span>
+                            </a>
+                        </li>
+                        
+    
                     
 
-                    <?php  elseif ($_SESSION['userRole'] == 3): ?> <!--SECRETARY-->
+                    <?php  if ($_SESSION['userRole'] == 3): ?> <!--SECRETARY-->
                         <li class="sidebar-item">
                             <a href="Manage-Users.php" class="sidebar-link">
                                 <i class="fa-solid fa-users"></i>
