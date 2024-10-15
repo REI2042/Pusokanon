@@ -294,6 +294,9 @@ async function reject_complaint(complaint_id) {
     }
 }
 
+
+
+
 // closing the case pop up
 // async function closeCase(complaint_id, remarks, hearing_date) {
 //     console.log("Function called with:", { complaint_id, remarks, hearing_date });

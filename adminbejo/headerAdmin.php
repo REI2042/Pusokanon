@@ -296,6 +296,12 @@
                                 <span class="span-word">Docs Request History</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="complaints_analytics.php" class="sidebar-link">
+                                <i class="fa-solid fa-chart-pie"></i>
+                                <span class="span-word">Complaints Analytics</span>
+                            </a>
+                        </li>
 
                     <?php endif; ?>  
                 </ul>

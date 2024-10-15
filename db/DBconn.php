@@ -1556,3 +1556,73 @@ function getPostCountByStatus($pdo, $status) {
     $stmt->execute(['status' => $status]);
     return $stmt->fetchColumn();
 }
+
+function countFiledCases($pdo) {
+    $caseTypes = ['Bullying', 'Damaging Properties', 'Defamation', 'Libel', 'Physical Abuse', 'Threat', 'Trespassing', 'Theft', 'Vandalism'];
+
+    $sql = "SELECT 
+            CASE
+                WHEN case_type IN ('" . implode("','", $caseTypes) . "') THEN case_type
+                ELSE 'Others'
+            END AS case_type,
+            MONTH(date_filed) AS month_num, 
+            MONTHNAME(date_filed) AS month, 
+            COUNT(*) AS case_count 
+          FROM complaints_tbl 
+          GROUP BY 1, 2
+          ORDER BY month_num";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    // Prepare data for ApexCharts
+    $data = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $caseType = $row['case_type'];
+        $month = $row['month']; 
+        $caseCount = $row['case_count'];
+
+        // Add data directly to the month index (0-based)
+        if (!isset($data[$caseType])) {
+            $data[$caseType] = array_fill(0, 12, 0); 
+        }
+        $monthIndex = intval($row['month_num']) - 1; 
+        $data[$caseType][$monthIndex] = $caseCount; 
+    }
+
+    return $data; 
+}
+
+function countCasesBySitioAndType($pdo) {
+    $mainCaseTypes = [
+        "Bullying", "Damaging Properties", "Defamation", "Libel", 
+        "Physical Abuse", "Threat", "Trespassing", "Theft", "Vandalism"
+    ];
+
+    $sql = "SELECT 
+            incident_place AS sitio,
+            CASE WHEN case_type IN ('" . implode("','", $mainCaseTypes) . "') THEN case_type ELSE 'Others' END AS case_type,
+            COUNT(*) AS case_count
+          FROM complaints_tbl
+          GROUP BY sitio, 
+            CASE WHEN case_type IN ('" . implode("','", $mainCaseTypes) . "') THEN case_type ELSE 'Others' END
+          ORDER BY sitio, case_type";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    // Prepare data for ApexCharts
+    $data = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $sitio = $row['sitio'];
+        $caseType = $row['case_type'];
+        $caseCount = $row['case_count'];
+
+        if (!isset($data[$caseType])) {
+            $data[$caseType] = [];
+        }
+        $data[$caseType][$sitio] = $caseCount;
+    }
+
+    return $data;
+}
