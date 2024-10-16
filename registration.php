@@ -315,7 +315,9 @@
 						<div class="text-center">
 							<input class="form-check-input" type="checkbox" name="user_type" value="2" id="flexCheckIndeterminate" required>
 							<label class="form-label" for="flexCheckIndeterminate">
-							    I agree to <a href="#" class="link-warning">Terms & Conditions </a>
+							    I agree to <a href="#" class="link-warning" id="termsLink">Terms & Conditions</a>
+
+
 							</label>
 						</div>
 						<div class="text-center d-grid col-8 mx-auto">
@@ -350,3 +352,49 @@
           confirmPasswordInput.addEventListener('input', validatePassword);
 	</script>	
 <?php require_once 'include/footer.php'; ?>
+<script>
+document.getElementById('termsLink').addEventListener('click', function(e) {
+  e.preventDefault();
+  Swal.fire({
+    title: 'Terms & Conditions',
+    html: `
+      <div style="text-align: left; max-height: 60vh; overflow-y: auto;">
+        <h5><b>1. Compliance with Laws and Regulations</b></h5><br/><p> By using our service, you explicitly agree to abide by all applicable local, state, national, and international laws and regulations. You are solely responsible for ensuring that your use of the service does not violate any law, including but not limited to data protection, intellectual property, consumer protection, and privacy laws. You further agree that you will not use the service to perform any activity that violates the rights of others or breaches any legal obligations you are bound by. Failure to comply with legal requirements may result in suspension or termination of your access to the service.</p><br/>
+
+        <h5><b>2. Right to Modify or Terminate the Service</b></h5><br/><p> We retain the right to make modifications, updates, or discontinue the service or any of its features at any time and for any reason without prior notification. This may include enhancements to functionality, technical adjustments, or termination of the service altogether. You acknowledge that such changes may affect your access to certain features or result in the temporary or permanent loss of your data. We will not be held liable for any losses or inconvenience arising from any modification or termination of the service, whether partial or in full.</p><br/>
+
+        <h5><b>3. Account Security and Confidentiality</b></h5><br/><p>You are solely responsible for maintaining the confidentiality and security of your account credentials, including your username and password. Any activities performed through your account are deemed to be authorized by you. You agree to notify us immediately if you suspect any unauthorized use of your account or any breach of security. While we will take reasonable steps to ensure the security of our service, we cannot be held liable for any unauthorized access, hacking, or data breaches involving your account that result from your failure to protect your login details.</p><br/>
+
+        <h5><b>4. Data Collection and Privacy</b></h5><br/><p> We collect and handle your personal information in accordance with our Privacy Policy, which outlines what information we collect, how we use it, and the security measures we take to protect it. By using our service, you consent to our collection, storage, and use of your personal data as described in the Privacy Policy. We may use cookies, third-party services, and analytics tools to improve the service, and you acknowledge and agree to such practices. We are committed to protecting your data and will take all reasonable steps to prevent unauthorized access or disclosure.</p><br/>
+
+        <h5><b>5. Prohibited Activities and Unauthorized Use</b></h5><br/><p> You agree that you will not use our service for any unlawful or unauthorized purpose. This includes, but is not limited to, activities such as hacking, distributing malicious software, infringing on intellectual property rights, harassing or abusing other users, or violating any provision of our terms. Furthermore, you agree not to use the service to impersonate others, defraud or deceive, or engage in any activity that may harm the reputation or functionality of our service. Violation of this agreement may lead to immediate suspension or termination of your access to the service and potential legal action.</p><br/>
+      </div>
+    `,
+    icon: 'info',
+    confirmButtonText: 'I Agree',
+    showCancelButton: true,
+    cancelButtonText: 'I Disagree',
+    width: '500px',
+	padding: '10px',
+    customClass: {
+      container: 'swal-container',
+      popup: 'swal-popup'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById('flexCheckIndeterminate').checked = true;
+    } else {
+      document.getElementById('flexCheckIndeterminate').checked = false;
+    }
+  });
+});
+</script>
+<style>
+.swal-container {
+  margin-top: 	15px;
+}
+.swal-popup {
+  max-height: 80vh;
+  overflow-y: hidden;
+}
+</style>
