@@ -266,8 +266,8 @@
                                     <td><?= date('m/d/y h:i A', strtotime($complaint['hearing_date'] . ' ' . $complaint['hearing_time'])); ?></td> 
                                                                     <td>
                                     <i class="fas fa-edit ml-2" style="cursor: pointer;" title="Edit hearing date and time" onclick="editHearing('<?php echo htmlspecialchars($complaint['complaint_id']); ?>', '<?php echo htmlspecialchars($complaint['hearing_date']); ?>', '<?php echo htmlspecialchars($complaint['hearing_time']); ?>')"></i>
-</td>
-<td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
+                                    </td>
+                                    <td id="status-<?php echo htmlspecialchars($complaint['complaint_id']); ?>">
 
 
                                         <?php echo htmlspecialchars($complaint['status']); ?>
