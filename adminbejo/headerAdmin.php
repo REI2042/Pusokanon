@@ -40,10 +40,10 @@
                         <div class="col"><i class="bi bi-person-circle"></i></div>
                     </div>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                <!-- <?php  if ($_SESSION['userRole'] == 1): ?><a class="dropdown-item" href="">Settings</a> <?php endif; ?> -->
+                <!-- <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                <?php  if ($_SESSION['userRole'] == 1): ?><a class="dropdown-item" href="">Settings</a> <?php endif; ?>
                     <a class="dropdown-item" href="../include/logout.php">Logout</a>
-                </div>
+                </div> -->
             </div>
         </nav>
     </header>
@@ -163,7 +163,7 @@
                             </ul>
                         </li>
                     <?php endif; ?>
-                        <li class="sidebar-item mt" style="z-index: 1; position: fixed; bottom: 40px;">
+                        <li class="sidebar-item mt" style="z-index: 1; position: absolute; bottom: 40px; width: 100%">
                             <a href="../include/logout.php" class="sidebar-link">
                                 <i class="fa-solid fa-sign-out-alt"></i>
                                 <span class="span-word">Logout</span>
