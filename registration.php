@@ -248,7 +248,7 @@
 						</div>
 						<div class="col-6 mt-2 px-1">
 						    <label for="Contact" class="form-label">Contact No</label>
-						    <input type="tel" class="form-control" name="contactNo" id="Contact" placeholder="09XX XXX XXXX" pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" title="Please enter a valid Philippine phone number starting with 09" required oninput="formatPhoneNumber(this)">
+						    <input type="tel" class="form-control" name="contactNo" id="Contact" placeholder="09XXXXXXXXX" pattern="09[0-9]{9}" title="Please enter a valid Philippine phone number starting with 09" required oninput="formatPhoneNumber(this)">
 						    <small id="contactNumberError" class="text-danger" style="display: none;">Contact number must be exactly 11 digits</small>
 						</div>
 
