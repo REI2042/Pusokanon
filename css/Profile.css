@@ -248,7 +248,7 @@ footer {
     color: #222324;
 }
 
-@media (max-width: 768px), (min-height: 768px) {
+@media (max-width: 768px) {
 
     .main {
         margin-top: 65.5px;
