@@ -1,4 +1,5 @@
 <?php
+
 include '../../db/DBconn.php';
 header('Content-Type: application/json');
 
@@ -31,8 +32,15 @@ if (isset($data['complaint_id']) && isset($data['hearing_date']) && isset($data[
                 $decrypted_email = decryptData($residentData['resident_email']);
 
                 // Format the date and time
-                $hearingDate = date('F j, Y', strtotime($data['hearing_date']));
-                $hearingTime = date('g:i A', strtotime($data['hearing_time']));
+                $hearingDateParts = explode('-', $data['hearing_date']); // Extract date parts
+                $hearingYear = $hearingDateParts[0];
+                $hearingMonthNum = $hearingDateParts[1];
+                $hearingDay = $hearingDateParts[2];
+
+                $dateObj = DateTime::createFromFormat('!m', $hearingMonthNum);
+                $hearingMonth = $dateObj->format('F');
+
+                $hearingTime = date('h:i A', strtotime($data['hearing_time'])); // Format time (h:i A)
 
                 echo json_encode([
                     'status' => 'success',
@@ -41,7 +49,9 @@ if (isset($data['complaint_id']) && isset($data['hearing_date']) && isset($data[
                     'resident_name' => $residentData['resident_name'],
                     'respondent_name' => $residentData['respondent_name'],
                     'complaint' => $residentData['complaint'],
-                    'hearing_date' => $hearingDate, // Formatted date
+                    'hearing_month' => $hearingMonth, // Formatted month
+                    'hearing_day' => $hearingDay, // Formatted day
+                    'hearing_year' => $hearingYear, // Formatted year
                     'hearing_time' => $hearingTime // Formatted time
                 ]);
             } else {
