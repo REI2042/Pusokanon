@@ -48,7 +48,7 @@
                     <div class="col-md-4 btn" onclick="toNews()">
                         <div class="service-card">
                             <i class="bi bi-megaphone-fill m-2" style="font-size: 2.9rem;"></i>  
-                            <h3>News & Updates</h3>
+                            <h3>Forum & Announcement</h3>
                             <p>Stay informed about the latest news, announcements, and events happening in Barangay Pusok through Pusokanon</p>      
                         </div>
                     </div>
@@ -80,7 +80,7 @@
         window.location.href ='residentComplaints.php';
     }
     function toNews(){
-        window.location.href = '#';
+        window.location.href = 'Barangay-Announcements.php';
     }
     function toOfficials(){
         window.location.href = 'Resaboutus-barangayOfficials.php';
