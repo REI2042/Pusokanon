@@ -4,6 +4,11 @@ hr {
   width: 100%;
 }
 
+#map {
+  height: 500px;
+  width: 100%;
+}
+
 .content-holder {
   padding: 0 80px;
 }
@@ -48,5 +53,28 @@ footer {
 
   footer {
     position: static;
+  }
 }
+#sidebar {
+  position: absolute;
+  top: 0px;
+  left: -250px;
+  width: 250px;
+  height: calc(100% - 0px);
+  background-color: white;
+  z-index: 1000;
+
+  overflow-y: auto;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.1s ease-in-out;
+}
+
+#sidebar.active {
+  left: 0;
+}
+
+.leaflet-bottom.leaflet-right {
+  right: 10px;
+  bottom: 10px;
 }
