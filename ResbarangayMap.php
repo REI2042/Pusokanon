@@ -171,10 +171,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(0, 0, 255, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok1Boundary.bindPopup("Sitio 1")
+    purok1Boundary.bindPopup("Lower Mustang")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 1</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Lower Mustang</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -212,10 +212,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(255, 255, 5, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok2Boundary.bindPopup("Sitio 2")
+    purok2Boundary.bindPopup("Seaside")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 2</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Seaside</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -263,10 +263,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(0, 255, 5, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok3Boundary.bindPopup("Sitio 3")
+    purok3Boundary.bindPopup("San Roque")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 3</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">San Roque</h5>
                     <div style="padding: 10px; ">
                         <p>Address: [Insert Address]</p>
                         <p>Contact: [Insert Contact]</p>
@@ -312,10 +312,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(255, 0, 255, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok4Boundary.bindPopup("Sitio 4")
+    purok4Boundary.bindPopup("Sta. Maria")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 4</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sta. Maria</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -337,10 +337,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(255, 0, 0, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok5Boundary.bindPopup("Sitio 5") //mustang
+    purok5Boundary.bindPopup("Upper Mustang") //mustang
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 5</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Upper Mustang</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -367,10 +367,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(0, 0, 255, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok6Boundary.bindPopup("Sitio 6") //sewage
+    purok6Boundary.bindPopup("Seawage") //sewage
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 6</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Seawage</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -397,10 +397,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(0, 0, 0, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok7Boundary.bindPopup("Sitio 7") //cemento
+    purok7Boundary.bindPopup("Cemento") //cemento
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 7</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Cemento</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -428,10 +428,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(255, 192, 203, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok8Boundary.bindPopup("Sitio 8") //cemento
+    purok8Boundary.bindPopup("Ibabao") //ibabao
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e) // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 8</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Ibabao</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -460,10 +460,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(189, 252, 201, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok9Boundary.bindPopup("Sitio 9")
+    purok9Boundary.bindPopup("Lower Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 9</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Lower Matumbo</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -493,10 +493,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(245, 245, 220, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok10Boundary.bindPopup("Sitio 10")
+    purok10Boundary.bindPopup("Lawis")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 10</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Lawis</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -519,10 +519,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(199, 21, 133, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok11Boundary.bindPopup("Sitio 11")
+    purok11Boundary.bindPopup("Seabreeze")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 11</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Seabreeze1</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -546,14 +546,14 @@ require_once 'include/header.php';
         fillColor: 'rgba(199, 21, 133, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok12Boundary.bindPopup("Sitio 12")
+    purok12Boundary.bindPopup("ARCA")
     // purok12Boundary.bindTooltip("ARCA", {
     //         permanent: false,
     //         direction: 'top'
     //     })
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 12</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">ARCA</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -582,10 +582,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(199, 21, 133, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok13Boundary.bindPopup("Sitio 13")
+    purok13Boundary.bindPopup("Upper Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 13</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Upper Matumbo</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -611,10 +611,10 @@ require_once 'include/header.php';
         fillColor: 'rgba(0, 255, 5, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok14Boundary.bindPopup("Sitio 14")
+    purok14Boundary.bindPopup("New-Lipata")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sitio 14</h5>
+            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">New-Lipata</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -625,28 +625,28 @@ require_once 'include/header.php';
         });
 
 
-
-    L.marker([10.324497082318432, 123.97433802067657], {
-            icon: L.icon({
-                iconUrl: 'PicturesNeeded/townHall.png',
-                iconSize: [18, 18],
-                iconAnchor: [16, 25],
-                popupAnchor: [0, -32]
-            })
+//barangay hall landmark
+L.marker([10.324497082318432, 123.97433802067657], {
+        icon: L.icon({
+            iconUrl: 'PicturesNeeded/townHall.png',
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
         })
-        .addTo(map)
-        .bindPopup('Pusok Barangay Hall')
-        .on('click', function(e) {
-            L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Pusok Barangay Hall</h5>
-                        <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
-                        </div>`;
-            toggleSidebar(content);
-        });
+    })
+    .addTo(map)
+    .bindPopup('Pusok Barangay Hall')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Pusok Barangay Hall</h5>
+                    <div style="padding: 10px; ">
+                        <p>Address: [Insert Address]</p>
+                        <p>Contact: [Insert Contact]</p>
+                        <p>Office Hours: [Insert Office Hours]</p>
+                        <p>Services: [List of Services]</p>
+                    </div>`;
+        toggleSidebar(content);
+    });
 
 
 
