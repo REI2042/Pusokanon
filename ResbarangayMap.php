@@ -5,6 +5,7 @@ require_once 'include/header.php';
 
 <link rel="stylesheet" type="text/css" href="css/barangayMap.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 <style>
@@ -174,7 +175,7 @@ require_once 'include/header.php';
     purok1Boundary.bindPopup("Lower Mustang")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Lower Mustang</h5>
+            var content = `<h5 style="background-color: #0000FF; color: white; padding:10px;">Lower Mustang</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -215,7 +216,7 @@ require_once 'include/header.php';
     purok2Boundary.bindPopup("Seaside")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Seaside</h5>
+            var content = `<h5 style="background-color: #FFFF05; color: black; padding:10px;">Seaside</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -266,7 +267,7 @@ require_once 'include/header.php';
     purok3Boundary.bindPopup("San Roque")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">San Roque</h5>
+            var content = `<h5 style="background-color: #00FF05; color: black; padding:10px;">San Roque</h5>
                     <div style="padding: 10px; ">
                         <p>Address: [Insert Address]</p>
                         <p>Contact: [Insert Contact]</p>
@@ -315,7 +316,7 @@ require_once 'include/header.php';
     purok4Boundary.bindPopup("Sta. Maria")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Sta. Maria</h5>
+            var content = `<h5 style="background-color: #FF00FF; color: white; padding:10px;">Sta. Maria</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -340,7 +341,7 @@ require_once 'include/header.php';
     purok5Boundary.bindPopup("Upper Mustang") //mustang
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Upper Mustang</h5>
+            var content = `<h5 style="background-color: #FF0000; color: white; padding:10px;">Upper Mustang</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -370,7 +371,7 @@ require_once 'include/header.php';
     purok6Boundary.bindPopup("Seawage") //sewage
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Seawage</h5>
+            var content = `<h5 style="background-color: #87CEEB; color: white; padding:10px;">Seawage</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -400,7 +401,7 @@ require_once 'include/header.php';
     purok7Boundary.bindPopup("Cemento") //cemento
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Cemento</h5>
+            var content = `<h5 style="background-color: #000000; color: white; padding:10px;">Cemento</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -431,7 +432,7 @@ require_once 'include/header.php';
     purok8Boundary.bindPopup("Ibabao") //ibabao
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e) // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Ibabao</h5>
+            var content = `<h5 style="background-color: #FFC0CB; color: white; padding:10px;">Ibabao</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -463,7 +464,7 @@ require_once 'include/header.php';
     purok9Boundary.bindPopup("Lower Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Lower Matumbo</h5>
+            var content = `<h5 style="background-color: #BDFCC9; color: black; padding:10px;">Lower Matumbo</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -496,7 +497,7 @@ require_once 'include/header.php';
     purok10Boundary.bindPopup("Lawis")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Lawis</h5>
+            var content = `<h5 style="background-color: #F5F5DC; color: black; padding:10px;">Lawis</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -522,7 +523,7 @@ require_once 'include/header.php';
     purok11Boundary.bindPopup("Seabreeze")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Seabreeze1</h5>
+            var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">Seabreeze1</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -553,7 +554,7 @@ require_once 'include/header.php';
     //     })
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">ARCA</h5>
+            var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">ARCA</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -585,7 +586,7 @@ require_once 'include/header.php';
     purok13Boundary.bindPopup("Upper Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Upper Matumbo</h5>
+            var content = `<h5 style="background-color: #404040; color: white; padding:10px;">Upper Matumbo</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -614,7 +615,7 @@ require_once 'include/header.php';
     purok14Boundary.bindPopup("New-Lipata")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">New-Lipata</h5>
+            var content = `<h5 style="background-color: #006400; color: white; padding:10px;">New-Lipata</h5>
                         <div style="padding: 10px; ">
                             <p>Address: [Insert Address]</p>
                             <p>Contact: [Insert Contact]</p>
@@ -626,9 +627,10 @@ require_once 'include/header.php';
 
 
 //barangay hall landmark
-L.marker([10.324497082318432, 123.97433802067657], {
-        icon: L.icon({
-            iconUrl: 'PicturesNeeded/townHall.png',
+    L.marker([10.324497082318432, 123.97433802067657], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<i class="fas fa-landmark  fa-2x" style="color: #FFFDD0;"></i>', // Font Awesome icon
             iconSize: [18, 18],
             iconAnchor: [16, 25],
             popupAnchor: [0, -32]
@@ -639,7 +641,7 @@ L.marker([10.324497082318432, 123.97433802067657], {
     .on('click', function(e) {
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Pusok Barangay Hall</h5>
-                    <div style="padding: 10px; ">
+                    <div style="padding: 10px;">
                         <p>Address: [Insert Address]</p>
                         <p>Contact: [Insert Contact]</p>
                         <p>Office Hours: [Insert Office Hours]</p>
@@ -647,6 +649,7 @@ L.marker([10.324497082318432, 123.97433802067657], {
                     </div>`;
         toggleSidebar(content);
     });
+
 
 
 

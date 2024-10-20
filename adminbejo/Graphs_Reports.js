@@ -19,8 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
             xaxis: {
                 categories: chartData.map(item => item.sitio_name),
                 title: {
-                    text: 'Sitios',
-                    offsetY: -30
+                    text: 'Sitios'
                 }
             },
             yaxis: {

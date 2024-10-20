@@ -34,16 +34,12 @@
                 </div>
             </a>
             <div class="dropdown ">
-                <button class="nav-link text-light" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="nav-link text-light">
                     <div class="row">
                         <div class="col px-1 mt-2 pt-1"><span class="admin-text"><?=  $_SESSION['staff_fname']?></span></div>
                         <div class="col"><i class="bi bi-person-circle"></i></div>
                     </div>
-                </button>
-                <!-- <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                <?php  if ($_SESSION['userRole'] == 1): ?><a class="dropdown-item" href="">Settings</a> <?php endif; ?>
-                    <a class="dropdown-item" href="../include/logout.php">Logout</a>
-                </div> -->
+                </div>
             </div>
         </nav>
     </header>
