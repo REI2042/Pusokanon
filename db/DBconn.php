@@ -1626,3 +1626,16 @@ function countCasesBySitioAndType($pdo) {
 
     return $data;
 }
+
+function fetchSitioData($pdo) {
+    $sql = "SELECT isp.sitio_name, isp.total_initial_residents, 
+            COUNT(CASE WHEN ru.account_active_status != 'Unregistered' THEN ru.res_ID END) as registered_residents
+            FROM initial_sitio_population isp
+            LEFT JOIN resident_users ru ON isp.sitio_name = ru.addr_sitio
+            GROUP BY isp.sitio_name, isp.total_initial_residents
+            ORDER BY isp.sitio_name";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+

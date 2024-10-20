@@ -1,6 +1,11 @@
 <?php
 include 'include/res_restrict_pages.php';
 require_once 'include/header.php';
+require_once 'db/DBconn.php';
+
+require_once 'db/DBconn.php';
+
+$sitioData = fetchSitioData($pdo);
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/barangayMap.css">
@@ -29,6 +34,12 @@ require_once 'include/header.php';
 </div>
 
 <script>
+    var sitioData = <?php echo json_encode($sitioData); ?>;
+
+    function getSitioData(sitioName) {
+        return sitioData.find(sitio => sitio.sitio_name === sitioName) || {};
+    }
+    
     var map = L.map('map', {
         zoomControl: false
     }).setView([10.319684884862491, 123.97180009156631], 15);
@@ -175,12 +186,11 @@ require_once 'include/header.php';
     purok1Boundary.bindPopup("Lower Mustang")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Lower Mustang');
             var content = `<h5 style="background-color: #0000FF; color: white; padding:10px;">Lower Mustang</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -216,12 +226,11 @@ require_once 'include/header.php';
     purok2Boundary.bindPopup("Seaside")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Lower Mustang');
             var content = `<h5 style="background-color: #FFFF05; color: black; padding:10px;">Seaside</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -267,12 +276,11 @@ require_once 'include/header.php';
     purok3Boundary.bindPopup("San Roque")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('San Roque');
             var content = `<h5 style="background-color: #00FF05; color: black; padding:10px;">San Roque</h5>
                     <div style="padding: 10px; ">
-                        <p>Address: [Insert Address]</p>
-                        <p>Contact: [Insert Contact]</p>
-                        <p>Office Hours: [Insert Office Hours]</p>
-                        <p>Services: [List of Services]</p>
+                        <p>Initial Population: ${data.total_initial_residents}</p>
+                        <p>Registered Residents: ${data.registered_residents}</p>
                     </div>`;
             toggleSidebar(content);
         });
@@ -316,12 +324,11 @@ require_once 'include/header.php';
     purok4Boundary.bindPopup("Sta. Maria")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Sta. Maria');
             var content = `<h5 style="background-color: #FF00FF; color: white; padding:10px;">Sta. Maria</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -341,12 +348,11 @@ require_once 'include/header.php';
     purok5Boundary.bindPopup("Upper Mustang") //mustang
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Upper Mustang');
             var content = `<h5 style="background-color: #FF0000; color: white; padding:10px;">Upper Mustang</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -371,12 +377,11 @@ require_once 'include/header.php';
     purok6Boundary.bindPopup("Seawage") //sewage
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Sewage');
             var content = `<h5 style="background-color: #87CEEB; color: white; padding:10px;">Seawage</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -401,12 +406,11 @@ require_once 'include/header.php';
     purok7Boundary.bindPopup("Cemento") //cemento
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Cemento');
             var content = `<h5 style="background-color: #000000; color: white; padding:10px;">Cemento</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -432,12 +436,11 @@ require_once 'include/header.php';
     purok8Boundary.bindPopup("Ibabao") //ibabao
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e) // Prevent the click from reaching the map
+            var data = getSitioData('Ibabao');
             var content = `<h5 style="background-color: #FFC0CB; color: white; padding:10px;">Ibabao</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -464,12 +467,11 @@ require_once 'include/header.php';
     purok9Boundary.bindPopup("Lower Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Lower Matumbo');
             var content = `<h5 style="background-color: #BDFCC9; color: black; padding:10px;">Lower Matumbo</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -497,12 +499,11 @@ require_once 'include/header.php';
     purok10Boundary.bindPopup("Lawis")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Lawis');
             var content = `<h5 style="background-color: #F5F5DC; color: black; padding:10px;">Lawis</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -523,12 +524,11 @@ require_once 'include/header.php';
     purok11Boundary.bindPopup("Seabreeze")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Seabreeze');
             var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">Seabreeze1</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -554,12 +554,11 @@ require_once 'include/header.php';
     //     })
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Arca');
             var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">ARCA</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -586,12 +585,11 @@ require_once 'include/header.php';
     purok13Boundary.bindPopup("Upper Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('Upper Matumbo');
             var content = `<h5 style="background-color: #404040; color: white; padding:10px;">Upper Matumbo</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
@@ -615,18 +613,17 @@ require_once 'include/header.php';
     purok14Boundary.bindPopup("New-Lipata")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+            var data = getSitioData('New Lipata');
             var content = `<h5 style="background-color: #006400; color: white; padding:10px;">New-Lipata</h5>
                         <div style="padding: 10px; ">
-                            <p>Address: [Insert Address]</p>
-                            <p>Contact: [Insert Contact]</p>
-                            <p>Office Hours: [Insert Office Hours]</p>
-                            <p>Services: [List of Services]</p>
+                            <p>Initial Population: ${data.total_initial_residents}</p>
+                            <p>Registered Residents: ${data.registered_residents}</p>
                         </div>`;
             toggleSidebar(content);
         });
 
 
-//barangay hall landmark
+    //barangay hall landmark
     L.marker([10.324497082318432, 123.97433802067657], {
         icon: L.divIcon({
             className: 'custom-div-icon', // Add custom styles if needed
@@ -642,10 +639,96 @@ require_once 'include/header.php';
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Pusok Barangay Hall</h5>
                     <div style="padding: 10px;">
-                        <p>Address: [Insert Address]</p>
+                        <p>Address: Quezon National Hwy, Lapu-Lapu City, Cebu</p>
                         <p>Contact: [Insert Contact]</p>
-                        <p>Office Hours: [Insert Office Hours]</p>
+                        <p>Office Hours: 7 am to 4 pm </p>
                         <p>Services: [List of Services]</p>
+                    </div>`;
+        toggleSidebar(content);
+    });
+
+
+    //flood zone
+    L.marker([10.317246, 123.969719], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<i class="fa-solid fa-house-flood-water fa-2x" style="color: #1E90FF;"></i>', // Font Awesome icon
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
+        })
+    })
+    .addTo(map)
+    .bindPopup('Flood Prone Area')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Flood Prone Area</h5>
+                    <div style="padding: 10px;">
+                        Can reach up to knee level during typoons.
+                    </div>`;
+        toggleSidebar(content);
+    });
+
+    //flood zone
+    L.marker([10.320211, 123.974240], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<i class="fa-solid fa-house-flood-water fa-2x" style="color: #1E90FF;"></i>', // Font Awesome icon
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
+        })
+    })
+    .addTo(map)
+    .bindPopup('Flood Prone Area')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Flood Prone Area</h5>
+                    <div style="padding: 10px;">
+                        Can reach up to knee level during typoons.
+                    </div>`;
+        toggleSidebar(content);
+    });
+
+    //evacution site
+    L.marker([10.318637, 123.972070], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<i class="fas fa-tents fa-2x" style="color: #228B22;"></i>', // Font Awesome icon
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
+        })
+    })
+    .addTo(map)
+    .bindPopup('Evaction Site')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
+                    <div style="padding: 10px;">
+                        Safe zone for evacuation during typhoons.
+                    </div>`;
+        toggleSidebar(content);
+    });
+
+    //fire prone area
+    L.marker([10.325594, 123.969387], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<i class="fas fa-fire fa-2x" style="color: #FF4500;"></i>', // Font Awesome icon
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
+        })
+    })
+    .addTo(map)
+    .bindPopup('Fire Prone Area')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Fire Prone Area</h5>
+                    <div style="padding: 10px;">
+                        Prone to areas during fire incidents.
+                        Firetrucks having difficulty reaching the area.
                     </div>`;
         toggleSidebar(content);
     });
