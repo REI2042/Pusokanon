@@ -186,7 +186,7 @@ $sitioData = fetchSitioData($pdo);
     purok1Boundary.bindPopup("Lower Mustang")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Lower Mustang');
+            var data = getSitioData('Mustang');
             var content = `<h5 style="background-color: #0000FF; color: white; padding:10px;">Lower Mustang</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
@@ -223,11 +223,11 @@ $sitioData = fetchSitioData($pdo);
         fillColor: 'rgba(255, 255, 5, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok2Boundary.bindPopup("Seaside")
+    purok2Boundary.bindPopup("Seabreeze")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Lower Mustang');
-            var content = `<h5 style="background-color: #FFFF05; color: black; padding:10px;">Seaside</h5>
+            var data = getSitioData('Seabreeze');
+            var content = `<h5 style="background-color: #FFFF05; color: black; padding:10px;">Seabreeze</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
                             <p>Registered Residents: ${data.registered_residents}</p>
@@ -348,7 +348,7 @@ $sitioData = fetchSitioData($pdo);
     purok5Boundary.bindPopup("Upper Mustang") //mustang
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Upper Mustang');
+            var data = getSitioData('Mustang');
             var content = `<h5 style="background-color: #FF0000; color: white; padding:10px;">Upper Mustang</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
@@ -467,7 +467,7 @@ $sitioData = fetchSitioData($pdo);
     purok9Boundary.bindPopup("Lower Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Lower Matumbo');
+            var data = getSitioData('Matumbo');
             var content = `<h5 style="background-color: #BDFCC9; color: black; padding:10px;">Lower Matumbo</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
@@ -521,11 +521,11 @@ $sitioData = fetchSitioData($pdo);
         fillColor: 'rgba(199, 21, 133, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok11Boundary.bindPopup("Seabreeze")
+    purok11Boundary.bindPopup("Seaside")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Seabreeze');
-            var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">Seabreeze1</h5>
+            var data = getSitioData('Seaside');
+            var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">Seaside</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
                             <p>Registered Residents: ${data.registered_residents}</p>
@@ -552,16 +552,16 @@ $sitioData = fetchSitioData($pdo);
     //         permanent: false,
     //         direction: 'top'
     //     })
-        .on('click', function(e) {
-            L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Arca');
-            var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">ARCA</h5>
-                        <div style="padding: 10px; ">
-                            <p>Initial Population: ${data.total_initial_residents}</p>
-                            <p>Registered Residents: ${data.registered_residents}</p>
-                        </div>`;
-            toggleSidebar(content);
-        });
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var data = getSitioData('Arca');
+        var content = `<h5 style="background-color: #C71585; color: white; padding:10px;">ARCA</h5>
+                    <div style="padding: 10px; ">
+                        <p>Initial Population: ${data.total_initial_residents}</p>
+                        <p>Registered Residents: ${data.registered_residents}</p>
+                    </div>`;
+        toggleSidebar(content);
+    });
 
     var purok13Boundary = L.polygon([
         [10.319955, 123.969670],
@@ -585,7 +585,7 @@ $sitioData = fetchSitioData($pdo);
     purok13Boundary.bindPopup("Upper Matumbo")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Upper Matumbo');
+            var data = getSitioData('Matumbo');
             var content = `<h5 style="background-color: #404040; color: white; padding:10px;">Upper Matumbo</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
@@ -610,7 +610,7 @@ $sitioData = fetchSitioData($pdo);
         fillColor: 'rgba(0, 255, 5, 0.5)',
         fillOpacity: 0.5
     }).addTo(map);
-    purok14Boundary.bindPopup("New-Lipata")
+    purok14Boundary.bindPopup("Lipata")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
             var data = getSitioData('New Lipata');
@@ -694,7 +694,26 @@ $sitioData = fetchSitioData($pdo);
     L.marker([10.318637, 123.972070], {
         icon: L.divIcon({
             className: 'custom-div-icon', // Add custom styles if needed
-            html: '<i class="fas fa-tents fa-2x" style="color: #228B22;"></i>', // Font Awesome icon
+            html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="28" height="25"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path stroke="#fff" stroke-width="20" fill="#228B22" d="M396.6 6.5L235.8 129.1c9.6 1.8 18.9 5.8 27 12l168 128c13.2 10.1 22 24.9 24.5 41.4l6.2 41.5L608 352c9.3 0 18.2-4.1 24.2-11.1s8.8-16.4 7.4-25.6l-24-160c-1.2-8.2-5.6-15.7-12.3-20.7l-168-128c-11.5-8.7-27.3-8.7-38.8 0zm-153.2 160c-11.5-8.7-27.3-8.7-38.8 0l-168 128c-6.6 5-11 12.5-12.3 20.7l-24 160c-1.4 9.2 1.3 18.6 7.4 25.6S22.7 512 32 512l144 0 16 0c17.7 0 32-14.3 32-32l0-118.1c0-5.5 4.4-9.9 9.9-9.9c3.7 0 7.2 2.1 8.8 5.5l68.4 136.8c5.4 10.8 16.5 17.7 28.6 17.7l60.2 0 16 0c9.3 0 18.2-4.1 24.2-11.1s8.8-16.4 7.4-25.6l-24-160c-1.2-8.2-5.6-15.7-12.3-20.7l-168-128z"/></svg>', // Font Awesome icon
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
+        })
+    })
+    .addTo(map)
+    .bindPopup('Evaction Site')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
+                    <div style="padding: 10px;">
+                        Safe zone for evacuation during typhoons.
+                    </div>`;
+        toggleSidebar(content);
+    });
+    L.marker([10.319229141609858, 123.9689232160307], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="28" height="25"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path stroke="#fff" stroke-width="20" fill="#228B22" d="M396.6 6.5L235.8 129.1c9.6 1.8 18.9 5.8 27 12l168 128c13.2 10.1 22 24.9 24.5 41.4l6.2 41.5L608 352c9.3 0 18.2-4.1 24.2-11.1s8.8-16.4 7.4-25.6l-24-160c-1.2-8.2-5.6-15.7-12.3-20.7l-168-128c-11.5-8.7-27.3-8.7-38.8 0zm-153.2 160c-11.5-8.7-27.3-8.7-38.8 0l-168 128c-6.6 5-11 12.5-12.3 20.7l-24 160c-1.4 9.2 1.3 18.6 7.4 25.6S22.7 512 32 512l144 0 16 0c17.7 0 32-14.3 32-32l0-118.1c0-5.5 4.4-9.9 9.9-9.9c3.7 0 7.2 2.1 8.8 5.5l68.4 136.8c5.4 10.8 16.5 17.7 28.6 17.7l60.2 0 16 0c9.3 0 18.2-4.1 24.2-11.1s8.8-16.4 7.4-25.6l-24-160c-1.2-8.2-5.6-15.7-12.3-20.7l-168-128z"/></svg>', // Font Awesome icon
             iconSize: [18, 18],
             iconAnchor: [16, 25],
             popupAnchor: [0, -32]
@@ -711,12 +730,31 @@ $sitioData = fetchSitioData($pdo);
         toggleSidebar(content);
     });
 
+    L.marker([10.323128259694728, 123.96872686159608], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="28" height="25"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path stroke="#fff" stroke-width="20" fill="#228B22" d="M396.6 6.5L235.8 129.1c9.6 1.8 18.9 5.8 27 12l168 128c13.2 10.1 22 24.9 24.5 41.4l6.2 41.5L608 352c9.3 0 18.2-4.1 24.2-11.1s8.8-16.4 7.4-25.6l-24-160c-1.2-8.2-5.6-15.7-12.3-20.7l-168-128c-11.5-8.7-27.3-8.7-38.8 0zm-153.2 160c-11.5-8.7-27.3-8.7-38.8 0l-168 128c-6.6 5-11 12.5-12.3 20.7l-24 160c-1.4 9.2 1.3 18.6 7.4 25.6S22.7 512 32 512l144 0 16 0c17.7 0 32-14.3 32-32l0-118.1c0-5.5 4.4-9.9 9.9-9.9c3.7 0 7.2 2.1 8.8 5.5l68.4 136.8c5.4 10.8 16.5 17.7 28.6 17.7l60.2 0 16 0c9.3 0 18.2-4.1 24.2-11.1s8.8-16.4 7.4-25.6l-24-160c-1.2-8.2-5.6-15.7-12.3-20.7l-168-128z"/></svg>', // SVG icon for tents
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
+        })
+    })
+    .addTo(map)
+    .bindPopup('Evaction Site')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
+                    <div style="padding: 10px;">
+                        Safe zone for evacuation during typhoons.
+                    </div>`;
+        toggleSidebar(content);
+    });
     //fire prone area
     L.marker([10.325594, 123.969387], {
         icon: L.divIcon({
             className: 'custom-div-icon', // Add custom styles if needed
-            html: '<i class="fas fa-fire fa-2x" style="color: #FF4500;"></i>', // Font Awesome icon
-            iconSize: [18, 18],
+            html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="28" height="25"><path stroke="#fff" stroke-width="20" fill="#FF4500" d="M323.5 51.25C302.8 70.5 284 90.75 267.4 111.1C240.1 73.62 206.2 35.5 168 0C69.75 91.12 0 210 0 281.6C0 408.9 100.2 512 224 512s224-103.1 224-230.4C448 228.4 396 118.5 323.5 51.25zM304.1 391.9C282.4 407 255.8 416 226.9 416c-72.13 0-130.9-47.73-130.9-125.2c0-38.63 24.24-72.64 72.74-130.8c7 8 98.88 125.4 98.88 125.4l58.63-66.88c4.125 6.75 7.867 13.52 11.24 20.2C364.9 290.6 353.4 357.4 304.1 391.9z"/></svg>', 
+            iconSize: [18, 18],            
             iconAnchor: [16, 25],
             popupAnchor: [0, -32]
         })
