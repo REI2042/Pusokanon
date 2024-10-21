@@ -377,7 +377,7 @@ $sitioData = fetchSitioData($pdo);
     purok6Boundary.bindPopup("Seawage") //sewage
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('Sewage');
+            var data = getSitioData('Seawage');
             var content = `<h5 style="background-color: #87CEEB; color: white; padding:10px;">Seawage</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
@@ -613,8 +613,8 @@ $sitioData = fetchSitioData($pdo);
     purok14Boundary.bindPopup("Lipata")
         .on('click', function(e) {
             L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
-            var data = getSitioData('New Lipata');
-            var content = `<h5 style="background-color: #006400; color: white; padding:10px;">New-Lipata</h5>
+            var data = getSitioData('Lipata');
+            var content = `<h5 style="background-color: #006400; color: white; padding:10px;">Lipata</h5>
                         <div style="padding: 10px; ">
                             <p>Initial Population: ${data.total_initial_residents}</p>
                             <p>Registered Residents: ${data.registered_residents}</p>
@@ -726,6 +726,8 @@ $sitioData = fetchSitioData($pdo);
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
                     <div style="padding: 10px;">
                         Safe zone for evacuation during typhoons.
+                        <img src="PicturesNeeded/EvacuationSite1.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
+                        <img src="PicturesNeeded/EvacuationSite2.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
                     </div>`;
         toggleSidebar(content);
     });
