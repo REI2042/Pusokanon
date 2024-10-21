@@ -54,6 +54,14 @@ footer {
   footer {
     position: static;
   }
+
+  .container {
+    margin-bottom: 10px;
+  }
+
+  .title-container {
+    margin-top: 80px;
+  }
 }
 #sidebar {
   position: absolute;

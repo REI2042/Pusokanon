@@ -3,8 +3,6 @@ include 'include/res_restrict_pages.php';
 require_once 'include/header.php';
 require_once 'db/DBconn.php';
 
-require_once 'db/DBconn.php';
-
 $sitioData = fetchSitioData($pdo);
 ?>
 
@@ -13,12 +11,8 @@ $sitioData = fetchSitioData($pdo);
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-<style>
-    
-</style>
-
 <div class="content-holder">
-    <div class="title-container pl-3">
+    <div class="title-container pl-3 pr-3">
         <h1>Barangay Map</h1>
         <hr class="bg-dark">
     </div>
@@ -640,9 +634,8 @@ $sitioData = fetchSitioData($pdo);
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Pusok Barangay Hall</h5>
                     <div style="padding: 10px;">
                         <p>Address: Quezon National Hwy, Lapu-Lapu City, Cebu</p>
-                        <p>Contact: [Insert Contact]</p>
                         <p>Office Hours: 7 am to 4 pm </p>
-                        <p>Services: [List of Services]</p>
+                        <p>Services: Request Documents, File Complaints, and etc.</p>
                     </div>`;
         toggleSidebar(content);
     });
@@ -707,6 +700,8 @@ $sitioData = fetchSitioData($pdo);
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
                     <div style="padding: 10px;">
                         Safe zone for evacuation during typhoons.
+                        <img src="PicturesNeeded/EvacuationSite4.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
+                        <img src="PicturesNeeded/EvacuationSite5.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
                     </div>`;
         toggleSidebar(content);
     });
@@ -748,6 +743,7 @@ $sitioData = fetchSitioData($pdo);
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
                     <div style="padding: 10px;">
                         Safe zone for evacuation during typhoons.
+                        <img src="PicturesNeeded/EvacuationSite3.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
                     </div>`;
         toggleSidebar(content);
     });
