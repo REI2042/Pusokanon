@@ -1,98 +1,88 @@
+// admin complaint form popup
 document.addEventListener('DOMContentLoaded', function() {
-    var caseTypeSelect = document.getElementById('case_type');
-    var customCaseType = ''; // This will hold the custom case type
-
-    if (caseTypeSelect) {
-        caseTypeSelect.addEventListener('change', function() {
-            if (this.value === 'Other') {
+    document.getElementById('admincomplaintForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        var formData = new FormData(this);
+    
+        fetch('../db/DBconn_adminComplaints.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
                 Swal.fire({
-                    title: 'Other Case Type',
-                    input: 'text',
-                    inputLabel: 'Please specify the case type',
-                    inputPlaceholder: 'Enter case type here',
-                    showCancelButton: true,
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return 'You need to write something!'
-                        }
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        customCaseType = result.value;
-                        console.log('Custom case type:', customCaseType);
-                        
-                        // Update the select element to show the custom value
-                        let customOption = document.querySelector('#case_type option[value="Other"]');
-                        customOption.textContent = customCaseType;
-                    } else {
-                        this.selectedIndex = 0;
-                        customCaseType = '';
-                    }
+                    icon: 'success',
+                    title: 'Complaint Submitted',
+                    text: data.message,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'writeComplaints.php'; 
                 });
             } else {
-                customCaseType = '';
-            }
-        });
-    }
-
-    var complaintForm = document.getElementById('admincomplaintForm');
-    if (complaintForm) {
-        complaintForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-
-            // If a custom case type was entered, use it instead of 'Other'
-            if (customCaseType) {
-                formData.set('case_type', customCaseType);
-            }
-
-            console.log("FormData content:");
-            for (var [key, value] of formData.entries()) {
-                console.log(key, value);
-            }
-
-            fetch('db/DBconn_adminComplaints.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                console.log("Response Status:", response.status);
-                if (!response.ok) {
-                    return response.text().then(text => {
-                        throw new Error('Network response was not ok: ' + text);
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Response Data:", data);
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Complaint Submitted',
-                        text: data.message,
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'writeComplaints.php';
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data.message,
-                        confirmButtonText: 'OK'
-                    });
-                }
-            })
-            .catch(error => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'An error occurred: ' + error.message,
+                    text: data.message,
                     confirmButtonText: 'OK'
                 });
-                console.error('Error:', error);
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while submitting the complaint.',
+                confirmButtonText: 'OK'
             });
+            console.error('Error:', error);
         });
-    }
+    });
+
 });
+// other case typ pop up
+document.addEventListener('DOMContentLoaded', function() {
+    const caseTypeSelect = document.getElementById('case_type');
+
+    caseTypeSelect.addEventListener('change', function() {
+        if (this.value === 'Other') {
+            Swal.fire({
+                title: 'Enter Custom Case Type',
+                input: 'text',
+                inputPlaceholder: 'Enter the case type',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to enter something!';
+                    }
+                }
+            }).then((result) => {
+                            if (result.isConfirmed) {
+                    const customType = result.value;
+                    
+                    // Create a new option
+                    const newOption = new Option(customType, customType, true, true);
+                    
+                    // Remove the temporary "Other" option if it exists
+                    const tempOther = caseTypeSelect.querySelector('option[value="Other_temp"]');
+                    if (tempOther) {
+                        caseTypeSelect.removeChild(tempOther);
+                    }
+                    
+                    // Add the new option to the select
+                    caseTypeSelect.add(newOption);
+                    
+                    // Select the new option
+                    caseTypeSelect.value = customType;
+                } else {
+                    // If user cancels, revert to the first option
+                    caseTypeSelect.value = caseTypeSelect.options[0].value;
+                }
+            });
+
+            // Add a temporary "Other" option
+            const tempOption = new Option("Other", "Other_temp", true, true);
+            caseTypeSelect.add(tempOption);
+        }
+    });
+}); 
