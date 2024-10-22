@@ -216,10 +216,10 @@
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Ibabao'); ?></p>
                         <p class="sitio-name" style="background-color: #f0f0f0;">CHUMBA-CHUMBA</p>
                         <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Chumba-chumba'); ?></p>
-                        <p class="sitio-name" style="background-color: #f0f0f0;">NEW LIPATA</p>
-                        <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'New Lipata'); ?></p>
-                        <p class="sitio-name" style="background-color: #f0f0f0;">SEWAGE</p>
-                        <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Sewage'); ?></p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">LIPATA</p>
+                        <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Lipata'); ?></p>
+                        <p class="sitio-name" style="background-color: #f0f0f0;">SEAWAGE</p>
+                        <p class="sitio-numbers"><?php echo fetchUsersBySitio($pdo, 'Seawage'); ?></p>
                     </div>
                 </div>
             </div>

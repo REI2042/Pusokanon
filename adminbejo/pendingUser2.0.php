@@ -37,11 +37,11 @@ $users = fetchRegister($pdo, $records_per_page, $offset, $sitio, $search);?>
                     <a class="dropdown-item <?php echo $sitio == 'Lawis' ? 'active' : ''; ?>" href="?sitio=Lawis">Lawis</a>
                     <a class="dropdown-item <?php echo $sitio == 'Matumbo' ? 'active' : ''; ?>" href="?sitio=Matumbo">Matumbo</a>
                     <a class="dropdown-item <?php echo $sitio == 'Mustang' ? 'active' : ''; ?>" href="?sitio=Mustang">Mustang</a>
-                    <a class="dropdown-item <?php echo $sitio == 'New Lipata' ? 'active' : ''; ?>" href="?sitio=New Lipata">New Lipata</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Lipata' ? 'active' : ''; ?>" href="?sitio=Lipata">Lipata</a>
                     <a class="dropdown-item <?php echo $sitio == 'San Roque' ? 'active' : ''; ?>" href="?sitio=San Roque">San Roque</a>
                     <a class="dropdown-item <?php echo $sitio == 'Seabreeze' ? 'active' : ''; ?>" href="?sitio=Seabreeze">Seabreeze</a>
                     <a class="dropdown-item <?php echo $sitio == 'Seaside' ? 'active' : ''; ?>" href="?sitio=Seaside">Seaside</a>
-                    <a class="dropdown-item <?php echo $sitio == 'Sewage' ? 'active' : ''; ?>" href="?sitio=Sewage">Sewage</a>
+                    <a class="dropdown-item <?php echo $sitio == 'Seawage' ? 'active' : ''; ?>" href="?sitio=Seawage">Sewage</a>
                     <a class="dropdown-item <?php echo $sitio == 'Sta. Maria' ? 'active' : ''; ?>" href="?sitio=Sta. Maria">Sta. Maria</a>
                 </div>
                 <form method="GET" id="searchForm">

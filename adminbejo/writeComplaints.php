@@ -98,11 +98,11 @@
                                         <option value="Lawis">Lawis</option>
                                         <option value="Matumbo">Matumbo</option>
                                         <option value="Mustang">Mustang</option>
-                                        <option value="New Lipata">New Lipata</option>
+                                        <option value="Lipata">Lipata</option>
                                         <option value="San Roque">San Roque</option>
                                         <option value="Seabreeze">Seabreeze</option>
                                         <option value="Seaside">Seaside</option>
-                                        <option value="Sewage">Sewage</option>
+                                        <option value="Seawage">Seawage</option>
                                         <option value="Sta. Maria">Sta. Maria</option>
                                     </select>
                                 </div>
