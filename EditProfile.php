@@ -136,11 +136,11 @@
 				<option value="Lawis" <?php if ($_SESSION['addr_sitio'] == 'Lawis') echo 'selected'; ?>>Lawis</option>
 				<option value="Matumbo" <?php if ($_SESSION['addr_sitio'] == 'Matumbo') echo 'selected'; ?>>Matumbo</option>
 				<option value="Mustang" <?php if ($_SESSION['addr_sitio'] == 'Mustang') echo 'selected'; ?>>Mustang</option>
-				<option value="New Lipata" <?php if ($_SESSION['addr_sitio'] == 'New Lipata') echo 'selected'; ?>>New Lipata</option>
+				<option value="Lipata" <?php if ($_SESSION['addr_sitio'] == 'Lipata') echo 'selected'; ?>>Lipata</option>
 				<option value="San Roque" <?php if ($_SESSION['addr_sitio'] == 'San Roque') echo 'selected'; ?>>San Roque</option>
 				<option value="Seabreeze" <?php if ($_SESSION['addr_sitio'] == 'Seabreeze') echo 'selected'; ?>>Seabreeze</option>
 				<option value="Seaside" <?php if ($_SESSION['addr_sitio'] == 'Seaside') echo 'selected'; ?>>Seaside</option>
-				<option value="Sewage" <?php if ($_SESSION['addr_sitio'] == 'Sewage') echo 'selected'; ?>>Sewage</option>
+				<option value="Seawage" <?php if ($_SESSION['addr_sitio'] == 'Seawage') echo 'selected'; ?>>Seawage</option>
 				<option value="Sta. Maria" <?php if ($_SESSION['addr_sitio'] == 'Sta. Maria') echo 'selected'; ?>>Sta. Maria</option>
             </select>	
 		</div>

@@ -54,7 +54,7 @@ function monthlyCaseByMonth() {
 function casesBySitio() {
     var sitios = [
         "Arca", "Cemento", "Chumba-chumba", "Ibabao", "Lawis", "Matumbo", "Mustang",
-        "New Lipata", "San Roque", "Seabreeze", "Seaside", "Sewage", "Sta. Maria"
+        "Lipata", "San Roque", "Seabreeze", "Seaside", "Seawage", "Sta. Maria"
     ];
 
     var options = {
