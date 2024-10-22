@@ -64,11 +64,11 @@
                     <a class="dropdown-item" data-incident-place="Lawis" href="#">Lawis</a>
                     <a class="dropdown-item" data-incident-place="Matumbo" href="#">Matumbo</a>
                     <a class="dropdown-item" data-incident-place="Mustang" href="#">Mustang</a>
-                    <a class="dropdown-item" data-incident-place="New Lipata" href="#">New Lipata</a>
+                    <a class="dropdown-item" data-incident-place="Lipata" href="#">Lipata</a>
                     <a class="dropdown-item" data-incident-place="San Roque" href="#">San Roque</a>
                     <a class="dropdown-item" data-incident-place="Seabreeze" href="#">Seabreeze</a>
                     <a class="dropdown-item" data-incident-place="Seaside" href="#">Seaside</a>
-                    <a class="dropdown-item" data-incident-place="Sewage" href="#">Sewage</a>
+                    <a class="dropdown-item" data-incident-place="Seawage" href="#">Seawage</a>
                     <a class="dropdown-item" data-incident-place="Sta. Maria" href="#">Sta. Maria</a>
                 </div>
             </div>
