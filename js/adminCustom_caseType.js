@@ -12,21 +12,32 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success) {
                 Swal.fire({
-                    icon: 'success',
+                    position: "center",
+                    icon: "success",
                     title: 'Complaint Submitted',
                     text: data.message,
-                    confirmButtonText: 'OK'
+                    showConfirmButton: false,
+                    timer: 1500
                 }).then(() => {
                     window.location.href = 'writeComplaints.php'; 
                 });
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
+                    icon: "error",
                     text: data.message,
-                    confirmButtonText: 'OK'
-                });
-            }
+                  });
+                }
         })
         .catch(error => {
             Swal.fire({

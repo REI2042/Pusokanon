@@ -68,11 +68,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Response Data:", data);
                 if (data.success) {
                     Swal.fire({
-                        icon: 'success',
+                        position: "center",
+                        icon: "success",
                         title: 'Complaint Submitted',
                         text: data.message,
-                        confirmButtonText: 'OK'
-                    }).then(() => {
+                        showConfirmButton: false,
+                        timer: 1500
+                      }).then(() => {
                         window.location.href = 'residentComplaints.php';
                     });
                 } else {

@@ -19,7 +19,7 @@ if (isset($_POST['res_ID'], $_POST['fname'], $_POST['mname'], $_POST['lname'], $
     $narrative = $_POST['narrative'];
 
     $status = 'Pending'; 
-    $staff_id = 17; 
+    $staff_id = Null; 
     $comment = '--';
 
     // Check if resident ID exists
