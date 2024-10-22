@@ -1,4 +1,7 @@
-
+h4 {
+    font-family: 'Titan One', cursive;
+    color: #fff;
+}
     
     .card-registration .select-input.form-control[readonly]:not([disabled]) {
     font-size: 1rem;
@@ -15,10 +18,16 @@
         0 6.7px 5.3px rgba(124, 119, 119, 0.423), 0 12.5px 10px rgba(0, 0, 0, 0.06),
         0 22.3px 17.9px rgba(151, 151, 151, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
         0 20px 10px rgba(126, 120, 120, 0.12);
+        border-radius: 15px; 
     }
 
     .card-body{
-        background-color: #f0f0f0;
+        background-color: #2260A7;
         border-radius: 15px;
 
     }
+
+    .text {
+        color: #fff;
+    }
+

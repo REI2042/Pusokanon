@@ -21,7 +21,7 @@
             $narrative = $_POST['narrative'];
 
             $status = 'Pending'; 
-            $staff_id = 17; 
+            $staff_id = Null ; 
             $comment = '--'; // Default value for comment
 
             // Handle file upload

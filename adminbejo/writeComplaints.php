@@ -151,10 +151,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('admincomplaintForm');
     console.log('Form found:', form);
-});
-</script> -->
+}); -->
+</script>
 <script src="../js/complaints_popUp.js"></script>
-<script src="../js/adminCustom_caseType.js"></script>
+<!-- <script src="../js/adminCustom_caseType.js"></script> -->
 <script>
     document.getElementById('removeFile').addEventListener('click', function() {
         document.getElementById('evidence').value = '';

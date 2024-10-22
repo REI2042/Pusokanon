@@ -83,15 +83,15 @@
             <div class="col-md-7 px-1 case-type">
                 <label for="case_type" class="form-label">Case Type <i>(Klase sa Kaso)</i></label>
                 <select class="form-select" name="case_type" id="case_type" required>
-                    <option value="Bullying">Bullying <i>(Pang-bully)</i></option>
-                    <option value="Damaging Properties">Damaging Properties <i>(Pagdaot sa mga Kabtangan)</i></option>
-                    <option value="Defamation">Defamation <i>(Pagpasipala sa dungog)</i></option>
-                    <option value="Libel">Libel </option>
-                    <option value="Physical Abuse">Physical Abuse <i>(Pisikal nga Abuso)</i></option>
-                    <option value="Threat">Threat <i>(Pagpahadlok or Hulga)</i></option>
-                    <option value="Trespassing">Trespassing <i>( Pagsulod sa Pribadong Yuta or Establishmento)</i></option>
-                    <option value="Theft">Theft <i>( Pagpangawat)</i></option>
-                    <option value="Vandalism">Vandalism <i>(Pagpang- vandal)</i></option>
+                    <option value="Bullying">Bullying (Pang-bully)</option>
+                    <option value="Damaging Properties">Damaging Properties (Pagdaot sa mga Kabtangan)</option>
+                    <option value="Defamation">Defamation (Pagpasipala sa dungog)</option>
+                    <option value="Libel">Libel</option>
+                    <option value="Physical Abuse">Physical Abuse (Pisikal nga Abuso)</option>
+                    <option value="Threat">Threat (Pagpahadlok or Hulga)</option>
+                    <option value="Trespassing">Trespassing (Pagsulod sa Pribadong Yuta or Establishmento)</option>
+                    <option value="Theft">Theft (Pagpangawat)</option>
+                    <option value="Vandalism">Vandalism (Pagpang-vandal)</option>
                     <option value="Other">Other</option>
                 </select>
             </div>

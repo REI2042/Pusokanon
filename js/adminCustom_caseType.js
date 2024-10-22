@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    var complaintForm = document.getElementById('complaintForm');
+    var complaintForm = document.getElementById('admincomplaintForm');
     if (complaintForm) {
         complaintForm.addEventListener('submit', function(event) {
             event.preventDefault();

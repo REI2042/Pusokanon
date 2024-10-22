@@ -1,12 +1,22 @@
 <?php
+session_start(); 
 
-include '../../db/DBconn.php'; // This now includes both database connection and encryption functions
+include '../../db/DBconn.php';
 
-header('Content-Type: application/json'); // Set the header to return JSON
+header('Content-Type: application/json');
 
 $response = ['success' => false, 'message' => 'Invalid request.'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Check if staff is logged in
+    if (!isset($_SESSION['staff_id'])) {
+        $response['message'] = 'Staff not logged in.';
+        echo json_encode($response);
+        exit;
+    }
+
+    $staff_id = $_SESSION['staff_id']; // Get staff_id from session
+
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['complaint_id']) && isset($data['hearing_date']) && isset($data['hearing_time'])) {
         try {
@@ -23,8 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $dateObj = DateTime::createFromFormat('!m', $month_num);
             $month = $dateObj->format('F'); 
 
-            $timeObj = DateTime::createFromFormat('H:i', $hearing_time);
-            $formatted_time = $timeObj->format('g:i A');
+            $formatted_time = date('h:i A', strtotime($hearing_time)); // Format to 12-hour format
             
             // Fetch resident email, respondent name, and other details based on complaint_id
             $fetch_details_sql = "
@@ -61,18 +70,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             error_log("Fetched and decrypted email for complaint ID $complaint_id: $decrypted_email");
 
-            // Update the complaint status and hearing date/time
             $update_sql = "
                 UPDATE complaints_tbl 
                 SET status = 'Approved', 
                     hearing_date = :hearing_date, 
-                    hearing_time = :hearing_time 
+                    hearing_time = :hearing_time,
+                    staff_id = :staff_id 
                 WHERE complaint_id = :complaint_id
             ";
             $update_stmt = $pdo->prepare($update_sql);
             $update_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
             $update_stmt->bindParam(':hearing_date', $hearing_date, PDO::PARAM_STR);
             $update_stmt->bindParam(':hearing_time', $hearing_time, PDO::PARAM_STR);
+            $update_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
             $update_stmt->execute();
 
             $response['success'] = true;
@@ -84,7 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response['hearing_day'] = $day;
             $response['hearing_month'] = $month;
             $response['hearing_year'] = $year;
-            $response['hearing_time'] = $formatted_time;
+            $response['hearing_time'] = $formatted_time;  
+            $response['staff_id'] = $staff_id; 
             error_log("Complaint ID $complaint_id approved successfully");
         } catch (Exception $e) {
             $response['message'] = $e->getMessage();
@@ -98,5 +109,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 echo json_encode($response);
 exit;
-
 ?>

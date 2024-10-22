@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include '../../db/DBconn.php';
 
 header('Content-Type: application/json');
@@ -7,6 +9,15 @@ header('Content-Type: application/json');
 $response = ['success' => false, 'message' => 'Invalid request.'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Check if staff is logged in
+    if (!isset($_SESSION['staff_id'])) {
+        $response['message'] = 'Staff not logged in.';
+        echo json_encode($response);
+        exit;
+    }
+
+    $staff_id = $_SESSION['staff_id']; // Get staff_id from session
+    
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['complaint_id']) && isset($data['reason'])) {
         try {
@@ -23,12 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 SET status = 'Rejected',
                     comment = :comment,
                     remarks = 'CASE CLOSED',
-                    date_closed = NOW()
+                    date_closed = NOW(),
+                    staff_id = :staff_id 
                 WHERE complaint_id = :complaint_id
             ";
             $update_stmt = $pdo->prepare($update_sql);
             $update_stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
             $update_stmt->bindParam(':comment', $reason, PDO::PARAM_STR);
+            $update_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
             $update_stmt->execute();
 
             // Commit the transaction
@@ -74,6 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response['date_filed'] = $formatted_date;
             $response['case_type'] = $result['case_type'];
             $response['reason'] = $reason;
+            $response['staff_id'] = $staff_id; 
+
 
             echo json_encode($response);
             exit;

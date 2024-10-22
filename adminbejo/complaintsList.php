@@ -473,6 +473,7 @@
 </div>
 <script src="../js/complaints_popUp.js"></script>
 <script src="../js/update_hearingDate.js"></script>
+<!-- <script src="../js/approve_complaint.js"></script> -->
 <script src="../js/close_case.js"></script>
 <script src="../js/sort_complaints.js"></script>
 <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>

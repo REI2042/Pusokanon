@@ -12,32 +12,33 @@
     <div class="container py-4 h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-9 col-xl-7">
-                <div class="card shadow-2-strong card-registration" style="border-radius: 15px; ">
-                    <div class="card-body p-3 p-md-4">
-                        <h4 class="mb-3 pb-2 pb-md-0 mb-md-4 text-center" style="font-family: 'Titan One', cursive; ">Create Staff Account</h4>
+                <div class="card shadow-2-strong card-registration">
+                    <div class="card-body p-3 p-md-4 text">
+                        <h4 class="mb-3 pb-2 pb-md-0 mb-md-4 text-center">Create Staff Account</h4>
                         <form id="staffAccountForm" method="POST">
 
                             <div class="row">
                                 <div class="col-md-3 mb-3 ps-3 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="firstName" name="firstName" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="firstName">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" class="form-control form-control-sm" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="lastName" name="lastName" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" class="form-control form-control-sm" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="text" id="middleName" name="middleName" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="middleName">Middle Name</label>
+                                        <input type="text" id="middleName" name="middleName" class="form-control form-control-sm" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3 ps-1">
                                     <div data-mdb-input-init class="form-outline">
+                                        <label class="form-label" for="suffix">Suffix</label>
                                         <select id="suffix" type="text" name="suffix" class="form-control form-control-sm">
                                             <option value="">Select Suffix</option>
                                             <option value="Jr.">Jr.</option>
@@ -46,7 +47,6 @@
                                             <option value="III">III</option>
                                             <option value="IV">IV</option>
                                         </select>
-                                        <label class="form-label" for="suffix">Suffix</label>
                                     </div>
                                 </div>
                             </div>
@@ -54,8 +54,8 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 d-flex align-items-center">
                                     <div class="form-outline w-100">
-                                        <input type="date" name="birthdayDate" class="form-control form-control-sm" autocomplete="off" id="birthdayDate" max="<?php echo date('Y-m-d'); ?>" />
                                         <label for="birthdayDate" class="form-label">Birthday</label>
+                                        <input type="date" name="birthdayDate" class="form-control form-control-sm" autocomplete="off" id="birthdayDate" max="<?php echo date('Y-m-d'); ?>" />                      
                                     </div>
                                 </div>
 
@@ -79,54 +79,59 @@
                             <div class="row">
                                 <div class="col-md-4 mb-3 pb-2 pe-0">
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-sm" autocomplete="off"/>
                                         <label class="form-label" for="emailAddress">Email</label>
+                                        <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-sm" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3 pb-2 ps-2 pe-1">
                                     <div data-mdb-input-init class="form-outline">
-                                    <input type="tel" class="form-control" name="phoneNumber" autocomplete="off" id="phoneNumber" placeholder="09XX XXX XXXX" pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" title="Please enter a valid Philippine phone number starting with 09" required oninput="this.value = this.value.replace(/[^0-9\s]/g, '')">
                                         <label class="form-label" for="phoneNumber">Phone Number</label>
+                                        <input type="tel" class="form-control" name="phoneNumber" autocomplete="off" id="phoneNumber" placeholder="09XX XXX XXXX" pattern="09[0-9]{2}\s[0-9]{3}\s[0-9]{4}" title="Please enter a valid Philippine phone number starting with 09" required oninput="this.value = this.value.replace(/[^0-9\s]/g, '')">
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3 pb-2 ps-1 pe-0">
+                                <label class="form-label select-label" style="font-size: 0.9rem;">Choose Account Type</label>
                                     <select class="select form-control-sm" name="accountType">
                                         <option value="" disabled>Choose option</option>
                                         <?php foreach ($accountRole as $accountRoles): ?>
                                             <option value="<?= htmlspecialchars($accountRoles['userRole_id']);?>"><?= htmlspecialchars($accountRoles['role_definition']);?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <label class="form-label select-label" style="font-size: 0.9rem;">Choose Account Type</label>
+                                    
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="username" name="username" class="form-control mt-4" id="username" placeholder="Username" autocomplete="off"/>
                                     <label class="form-label" for="username">Username</label>
+                                    <input type="username" name="username" class="form-control mb-2" id="username" placeholder="Username" autocomplete="off"/>
+                                    
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
+                                        <label class="form-label" for="password">Password</label>
                                         <div class="input-group">
                                             <input type="password" id="password" name="password" class="form-control" required autocomplete="off"/>
                                             <span class="input-group-text" id="togglePassword">
                                                 <i class="fas fa-eye"></i>
                                             </span>
                                         </div>
-                                        <label class="form-label" for="password">Password</label>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
+                                    <label class="form-label" for="confirmPassword">Confirm Password</label>
                                         <div class="input-group">
                                             <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required autocomplete="off">
                                             <span class="input-group-text">
                                                 <i class="fas fa-eye" id="toggleConfirmPassword"></i>
                                             </span>
                                         </div>
-                                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                        
                                     </div>
                                 </div>
                             </div>
