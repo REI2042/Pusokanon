@@ -89,10 +89,12 @@ async function editHearing(complaintId, currentDate, currentTime) {
                     function(response) {
                         console.log("EmailJS Response:", response);
                         Swal.fire({
-                            title: "Success!",
-                            text: "Email sent successfully and hearing date/time set.",
+                            position: "center",
                             icon: "success",
-                            confirmButtonColor: "#3085d6",
+                            title: "Success!",
+                            text: "Hearing date/time has been updated.",
+                            showConfirmButton: false,
+                            timer: 1500
                         }).then(() => {
                             location.reload();
                         });

@@ -63,7 +63,7 @@ async function approve_complaint(complaint_id) {
             // Get today's date
             var today = new Date();
             var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+            var month = String(today.getMonth() + 1).padStart(2, '0'); 
             var year = today.getFullYear();
             var formattedDate = year + '-' + month + '-' + day;
 
@@ -140,10 +140,13 @@ async function approve_complaint(complaint_id) {
                     function(response) {
                         console.log("EmailJS Response:", response);
                         Swal.fire({
-                            title: "Success!",
-                            text: "Email sent successfully and hearing date/time set.",
+                            position: "center",
                             icon: "success",
-                            confirmButtonColor: "#3085d6",
+                            title: "Complaint Approved",
+                            text: "Email sent successfully and hearing date/time set.",
+                            showConfirmButton: false,
+                            timer: 1500
+                          
                         }).then(() => {
                             location.reload(); // Reload the page
                         });
@@ -222,8 +225,8 @@ async function reject_complaint(complaint_id) {
             const data = await response.json();
 
             if (data.success) {
-                const decryptedEmail = data.to_email;  // Changed from data.resident_email to match PHP response
-                const residentName = data.name;        // Changed from data.resident_name to match PHP response
+                const decryptedEmail = data.to_email;  
+                const residentName = data.name;        
                 const dateFiled = data.date_filed;
                 const caseType = data.case_type;
             
@@ -252,10 +255,12 @@ async function reject_complaint(complaint_id) {
                     function(response) {
                         console.log("EmailJS Response:", response);
                         Swal.fire({
-                            title: "Success!",
-                            text: "Email sent successfully.",
+                            position: "center",
                             icon: "success",
-                            confirmButtonColor: "#d33",
+                            title: "Complaint Rejected",
+                            text: "Email sent successfully.",
+                            showConfirmButton: false,
+                            timer: 1500
                         }).then(() => {
                             location.reload(); // Reload the page
                         });

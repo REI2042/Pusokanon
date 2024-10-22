@@ -92,10 +92,12 @@ async function closeCase(complaint_id, remarks, hearing_date) {
 
             if (result.success) {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Case Closed',
-                    text: 'The case has been successfully closed.',
-                    confirmButtonText: 'OK'
+                    position: "center",
+                    icon: "success",
+                    title: "Case Closed",
+                    text: "The case has been closed successfully.",
+                    showConfirmButton: false,
+                    timer: 1500
                 }).then(() => {
                     location.reload(); // Refresh the page to reflect the changes
                 });
