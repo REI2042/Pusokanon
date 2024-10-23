@@ -641,7 +641,7 @@ $sitioData = fetchSitioData($pdo);
 
 
     //flood zone
-    L.marker([10.317246, 123.969719], {
+    L.marker([10.317794, 123.967162], {
         icon: L.divIcon({
             className: 'custom-div-icon', // Add custom styles if needed
             html: '<i class="fa-solid fa-house-flood-water fa-2x" style="color: #1E90FF;"></i>', // Font Awesome icon
@@ -656,6 +656,7 @@ $sitioData = fetchSitioData($pdo);
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Flood Prone Area</h5>
                     <div style="padding: 10px;">
+                        <p><strong>[Mustang] - Near Iglesia Ni Cristo.</strong></p>
                         Can reach up to knee level during typoons.
                     </div>`;
         toggleSidebar(content);
@@ -677,6 +678,28 @@ $sitioData = fetchSitioData($pdo);
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Flood Prone Area</h5>
                     <div style="padding: 10px;">
+                        <p><strong>Matumbo Road</strong></p>
+                        Can reach up to knee level during typoons.
+                    </div>`;
+        toggleSidebar(content);
+    });
+
+    L.marker([10.319335, 123.973234], {
+        icon: L.divIcon({
+            className: 'custom-div-icon', // Add custom styles if needed
+            html: '<i class="fa-solid fa-house-flood-water fa-2x" style="color: #1E90FF;"></i>', // Font Awesome icon
+            iconSize: [18, 18],
+            iconAnchor: [16, 25],
+            popupAnchor: [0, -32]
+        })
+    })
+    .addTo(map)
+    .bindPopup('Flood Prone Area')
+    .on('click', function(e) {
+        L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
+        var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Flood Prone Area</h5>
+                    <div style="padding: 10px;">
+                        <p><strong>Matumbo Road</strong></p>
                         Can reach up to knee level during typoons.
                     </div>`;
         toggleSidebar(content);
@@ -698,6 +721,7 @@ $sitioData = fetchSitioData($pdo);
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
                     <div style="padding: 10px;">
+                        <p><strong>[Matumbo] - Pusok National High School</strong></p>
                         Safe zone for evacuation during typhoons.
                         <img src="PicturesNeeded/EvacuationSite4.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
                         <img src="PicturesNeeded/EvacuationSite5.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
@@ -719,6 +743,7 @@ $sitioData = fetchSitioData($pdo);
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
                     <div style="padding: 10px;">
+                        <p><strong>[Cemento] - Little Hoops Dome</strong></p>
                         Safe zone for evacuation during typhoons.
                         <img src="PicturesNeeded/EvacuationSite1.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
                         <img src="PicturesNeeded/EvacuationSite2.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
@@ -741,6 +766,8 @@ $sitioData = fetchSitioData($pdo);
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Evacuation Site</h5>
                     <div style="padding: 10px;">
+                        <strong>[Seabreeze] <br>
+                        Under the Marcelo Fernan Bridge.</strong><br>
                         Safe zone for evacuation during typhoons.
                         <img src="PicturesNeeded/EvacuationSite3.png" alt="Evacuation Site" style="max-width: 100%; height: auto; margin-top: 10px;">
                     </div>`;
@@ -762,6 +789,7 @@ $sitioData = fetchSitioData($pdo);
         L.DomEvent.stopPropagation(e); // Prevent the click from reaching the map
         var content = `<h5 style="background-color: #f64a4a; color: white; padding:10px;">Fire Prone Area</h5>
                     <div style="padding: 10px;">
+                        <p><strong>[San Roque] - Houses near the Sea.</strong></p>
                         Prone to areas during fire incidents.
                         Firetrucks having difficulty reaching the area.
                     </div>`;
