@@ -297,13 +297,13 @@
                         <li class="sidebar-item">
                             <a href="Graphs_Reports.php" class="sidebar-link">
                                 <i class="fa-solid fa-chart-column"></i>
-                                <span class="span-word">Graphs & Reports</span>
+                                <span class="span-word">Population Graph</span>
                             </a>
                         </li> 
                         <li class="sidebar-item">
                             <a href="GraphSales.php" class="sidebar-link">
                                 <i class="fa-solid fa-peso-sign"></i>
-                                <span class="span-word">Sales Graph</span>
+                                <span class="span-word">File Request Analytics</span>
                             </a>
                         </li> 
                         <li class="sidebar-item">
