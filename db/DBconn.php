@@ -1097,7 +1097,11 @@ function fetchdocsRequestHistorySearch($pdo,$doctype ,$status, $remarks, $limit,
                 rd.request_id, 
                 rd.date_req, 
 				rd.date_processed,
-                rd.remarks 
+                rd.remarks,
+                CASE 
+                    WHEN rd.purpose_id = 5 THEN dt.doc_amount 
+                    ELSE dp.purpose_fee 
+                END AS fee
             FROM request_doc rd
             INNER JOIN resident_users ru ON rd.res_id = ru.res_id
             INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
@@ -1125,12 +1129,16 @@ function fetchdocsRequestHistory($pdo, $doctype, $status, $remarks, $limit, $off
 				rd.purpose_name AS purpose_name, 
 				rd.date_req, 
 				rd.date_processed,
-				rd.remarks 
+				rd.remarks,
+                CASE 
+                    WHEN rd.purpose_id = 5 THEN dt.doc_amount 
+                    ELSE dp.purpose_fee 
+                END AS fee
 			FROM request_doc rd
 			INNER JOIN resident_users ru ON rd.res_id = ru.res_id
 			INNER JOIN doc_type dt ON rd.docType_id = dt.docType_id
 			INNER JOIN docs_purpose dp ON rd.purpose_id = dp.purpose_id
-			WHERE dt.doc_name = :doctype AND stat = :status AND remarks = :remarks
+			WHERE dt.doc_name = :doctype AND stat = :status AND remarks = :remarks 
 			ORDER BY rd.date_processed DESC
 			LIMIT :limit OFFSET :offset";
 	$stmt = $pdo->prepare($sql);

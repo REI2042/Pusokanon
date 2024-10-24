@@ -34,9 +34,11 @@
             <span>Back</span>
         </a>
         <div class="d-flex align-items-center gap-3">
+        <?php if ($_SESSION['userRole'] != 7): ?>
             <a href="ScanQR.php" class="btn camera-btn">
                 <i class="bi bi-camera" style="font-size: 1.2rem;"></i>Scan QR
             </a>
+        <?php endif; ?>
             <form method="GET" id="searchForm">
                 <div class="input-group mb-0 custom-search">
                     <input type="search" class="form-control custom-search" name="search" placeholder="Search" aria-label="Search" id="searchInput" value="<?php echo htmlspecialchars($search); ?>">
@@ -122,6 +124,7 @@
                         <th>Date & Time Requested</th>
                         <th>Purpose</th>
                         <th>Date & Time Released</th>
+                        <th>Fee</th>
                         <th>Remarks</th>
                     </tr>
                 </thead >
@@ -137,6 +140,7 @@
                                 <td><?php echo date('m/d/y h:i A', strtotime($row['date_req']))?></td>
                                 <td><?php echo $row['purpose_name']?></td>
                                 <td><?php echo date('m/d/y h:i A', strtotime($row['date_processed']))?></td>
+                                <td><?php echo $row['fee']?></td>
                                 <td><?php echo $row['remarks']?></td>
                             </tr>
                         <?php endforeach; ?>
