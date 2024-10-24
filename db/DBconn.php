@@ -528,78 +528,7 @@ function fetchStaffInfo($pdo, $staffId) {
 // 	$result = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch a single row
 // 	return $result ? $result['doc_amount'] : null; // Return the doc_amount or null if no result
 // }
-	
-// function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null, $searchTerm = null) {
-//     $sql = "SELECT 
-//                 ct.complaint_id AS complaint_id,
-//                 CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
-//                 ct.case_type AS case_type, 
-//                 ct.incident_date AS incident_date, 
-//                 ct.incident_time AS incident_time, 
-//                 ct.incident_place AS incident_place, 
-//                 ct.date_filed AS date_filed, 
-//                 ct.status AS status,
-//                 ct.remarks AS remarks,
-//                 ct.comment AS comment,
-//                 ct.narrative AS narrative,
-//                 ct.evidence AS evidence,
-//                 CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
-//                 ru.res_email AS resident_email,
-//                 ct.respondent_age AS respondent_age,
-//                 ct.respondent_gender AS respondent_gender
-//             FROM complaints_tbl ct 
-//             INNER JOIN resident_users ru ON ct.res_id = ru.res_id
-//             WHERE account_active_status = 'Acitve'";
 
-//     $params = [];
-
-//     if ($caseType !== null && $caseType !== '') {
-//         if ($caseType === 'Other') {
-//             $predefinedTypes = ["Bullying", "Damaging Properties", "Defamation", "Libel", 
-//                                 "Physical Abuse", "Threat", "Trespassing", "Theft", "Vandalism"];
-//             $placeholders = implode(',', array_fill(0, count($predefinedTypes), '?'));
-//             $sql .= " AND ct.case_type NOT IN ($placeholders)";
-//             $params = array_merge($params, $predefinedTypes);
-//         } else {
-//             $sql .= " AND ct.case_type = ?";
-//             $params[] = $caseType;
-//         }
-//     }
-
-//     if ($incidentPlace !== null && $incidentPlace !== '') {
-//         $sql .= " AND ct.incident_place = ?";
-//         $params[] = $incidentPlace;
-//     }
-
-//     if ($status !== null && $status !== '') {
-//         $sql .= " AND ct.status = ?";
-//         $params[] = $status;
-//     }
-
-//     if ($searchTerm !== null && $searchTerm !== '') {
-//         $sql .= " AND (CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE ? 
-//                   OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE ?
-//                   OR ru.res_fname LIKE ?
-//                   OR ru.res_lname LIKE ?
-//                   OR ct.respondent_fname LIKE ?
-//                   OR ct.respondent_lname LIKE ?)";
-//         $params = array_merge($params, array_fill(0, 6, "%$searchTerm%"));
-//     }
-
-//     $sql .= " ORDER BY ct.date_filed DESC";
-
-//     if ($limit !== null) {
-//         $sql .= " LIMIT ?, ?";
-//         $params[] = (int)$offset;
-//         $params[] = (int)$limit;
-//     }
-
-//     $stmt = $pdo->prepare($sql);
-//     $stmt->execute($params);
-//     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-// }
-	
-	
 function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null, $searchTerm = null) {
     $sql = "SELECT 
                 ct.complaint_id AS complaint_id,
@@ -625,13 +554,33 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
 
     $params = [];
 
+    // List of predefined case types
+    $predefinedCaseTypes = [
+        "Bullying", 
+        "Damaging Properties", 
+        "Defamation", 
+        "Libel", 
+        "Physical Abuse", 
+        "Threat", 
+        "Trespassing", 
+        "Theft", 
+        "Vandalism"
+    ];
+
     // Add WHERE clause only if filters are provided
     if ($caseType || $incidentPlace || $status || $searchTerm) {
         $sql .= " WHERE 1=1";
         
         if ($caseType !== null && $caseType !== '') {
-            $sql .= " AND ct.case_type = ?";
-            $params[] = $caseType;
+            if ($caseType === 'Other') {
+                // Fetch cases that are NOT in the predefined list when "Other" is selected
+                $placeholders = implode(',', array_fill(0, count($predefinedCaseTypes), '?'));
+                $sql .= " AND ct.case_type NOT IN ($placeholders)";
+                $params = array_merge($params, $predefinedCaseTypes);
+            } else {
+                $sql .= " AND ct.case_type = ?";
+                $params[] = $caseType;
+            }
         }
 
         if ($incidentPlace !== null && $incidentPlace !== '') {
@@ -664,6 +613,72 @@ function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = nul
     $stmt->execute($params);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+	
+// function fetchListofComplaints($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null, $searchTerm = null) {
+//     $sql = "SELECT 
+//                 ct.complaint_id AS complaint_id,
+//                 CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) AS respondent_name,
+//                 ct.case_type AS case_type, 
+//                 ct.incident_date AS incident_date, 
+//                 ct.incident_time AS incident_time, 
+//                 ct.incident_place AS incident_place, 
+//                 ct.date_filed AS date_filed, 
+//                 ct.hearing_date AS hearing_date,
+//                 ct.hearing_time AS hearing_time,
+//                 ct.status AS status,
+//                 ct.remarks AS remarks,
+//                 ct.comment AS comment,
+//                 ct.narrative AS narrative,
+//                 ct.evidence AS evidence,
+//                 CONCAT(ru.res_fname, ' ', ru.res_lname) AS resident_name,
+//                 ru.res_email AS resident_email,
+//                 ct.respondent_age AS respondent_age,
+//                 ct.respondent_gender AS respondent_gender
+//             FROM complaints_tbl ct 
+//             INNER JOIN resident_users ru ON ct.res_id = ru.res_id";
+
+//     $params = [];
+
+//     // Add WHERE clause only if filters are provided
+//     if ($caseType || $incidentPlace || $status || $searchTerm) {
+//         $sql .= " WHERE 1=1";
+        
+//         if ($caseType !== null && $caseType !== '') {
+//             $sql .= " AND ct.case_type = ?";
+//             $params[] = $caseType;
+//         }
+
+//         if ($incidentPlace !== null && $incidentPlace !== '') {
+//             $sql .= " AND ct.incident_place = ?";
+//             $params[] = $incidentPlace;
+//         }
+
+//         if ($status !== null && $status !== '') {
+//             $sql .= " AND ct.status = ?";
+//             $params[] = $status;
+//         }
+
+//         if ($searchTerm !== null && $searchTerm !== '') {
+//             $sql .= " AND (CONCAT(ru.res_fname, ' ', ru.res_lname) LIKE ? 
+//                       OR CONCAT(ct.respondent_fname, ' ', ct.respondent_lname) LIKE ?)";
+//             $params[] = "%$searchTerm%";
+//             $params[] = "%$searchTerm%";
+//         }
+//     }
+
+//     $sql .= " ORDER BY ct.date_filed DESC";
+
+//     if ($limit !== null) {
+//         $sql .= " LIMIT ?, ?";
+//         $params[] = (int)$offset;
+//         $params[] = (int)$limit;
+//     }
+
+//     $stmt = $pdo->prepare($sql);
+//     $stmt->execute($params);
+//     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+// }
 
 function fetchComplaintsHistory($pdo, $offset = 0, $limit = null, $caseType = null, $incidentPlace = null, $status = null, $searchTerm = null) {
     $sql = "SELECT 
