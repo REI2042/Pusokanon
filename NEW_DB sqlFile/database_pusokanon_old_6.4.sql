@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Oct 24, 2024 at 09:57 PM
+-- Generation Time: Oct 09, 2024 at 01:41 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,11 +39,11 @@ CREATE TABLE `account_role` (
 INSERT INTO `account_role` (`userRole_id`, `role_definition`) VALUES
 (1, 'Captain'),
 (2, 'Resident'),
-(3, 'Secretary'),
-(4, 'Officials'),
-(5, 'Document processing'),
-(6, 'Blotter Officer'),
-(7, 'Treasurer');
+(3, 'secretary'),
+(4, 'officials'),
+(5, 'document processing'),
+(6, 'Collabs'),
+(7, 'Blotter Officer');
 
 -- --------------------------------------------------------
 
@@ -138,11 +138,10 @@ CREATE TABLE `appointment_tbl` (
 --
 
 INSERT INTO `appointment_tbl` (`appt_ID`, `res_ID`, `doc_ID`, `appt_date`, `appt_time`) VALUES
-(7, 8, 13, '2024-10-29', '19:35:00'),
-(8, 8, 14, '2024-10-25', '07:20:00'),
-(9, 8, 15, '2024-10-29', '08:27:00'),
-(10, 8, 16, '2024-10-31', '07:31:00'),
-(11, 8, 17, '2024-10-31', '08:35:00');
+(1, 6, 3, '2024-10-30', '19:40:00'),
+(2, 6, 4, '2024-10-16', '09:37:00'),
+(3, 14, 7, '2024-10-25', '19:53:00'),
+(4, 11, 8, '2024-10-09', '18:57:00');
 
 -- --------------------------------------------------------
 
@@ -172,11 +171,10 @@ CREATE TABLE `barangay_staff` (
 
 INSERT INTO `barangay_staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_midname`, `staff_suffix`, `birth_date`, `gender`, `contact_no`, `userRole_id`, `staff_email`, `user_name`, `staff_password`, `status`) VALUES
 (17, '7QXDtZUbkEGvyt0/vp6biA==', 'GybcJWzThnPH77KVLDS+ig==', '+b0go2IGA68MwefHI3QKrw==', '', '0000-00-00', 'Male', '09347334823', 1, 'nEI84/Ehh2SZZEUMNzkDLw==', 'BjfCK8M0mubh7rmg4W5sug==', '$2y$10$i.WeCn6b5U2osAgLTbo/vOTBJidppS9DP7nVWKzMkqDWcT9t8O172', 'ACTIVE'),
-(60, 't+FxILiWLXP/QiR6U/tPTQ==', '4bRlCdKuqV93r2XA+QypfA==', 'L0VNWzJdF6FyKgU3hfoloA==', '', '0000-00-00', 'Female', '09472340876', 3, '8pPI8TOCQfYSelCcQ21ss111JZhQCV8iJPI1rp8KhR0=', 'HFE+JVfLQMVk1JUc0N8wPg==', '$2y$10$sA0UTCGbfUidCv337Re77ODGGqlDo9z.dKiYj8AXes3dYDlxWQS1G', 'ACTIVE'),
+(60, 't+FxILiWLXP/QiR6U/tPTQ==', '4bRlCdKuqV93r2XA+QypfA==', 'L0VNWzJdF6FyKgU3hfoloA==', '', '0000-00-00', 'Female', '09472340876', 3, '8pPI8TOCQfYSelCcQ21ss111JZhQCV8iJPI1rp8KhR0=', 'FLFydCCa0k1u9NOmNdmbTg==', '$2y$10$sA0UTCGbfUidCv337Re77ODGGqlDo9z.dKiYj8AXes3dYDlxWQS1G', 'ACTIVE'),
 (61, 'RzzeyROKFU0TExhG+qYaBw==', 'Y2fEy5soB5k8MsJX/Qc6kw==', 'IEHazRM6gmMJE4IV5NnQ5A==', 'IV', '0000-00-00', 'Male', '+1 (528) 591-4175', 4, 'PTjNhBq8gjrJJYFTNAAwkOEydIx00EFgJIKhPjnoRPk=', 'wIA87kaTuB5G1JyZugB+oA==', '$2y$10$eaD1FkJgt9f9/a9tP.FuJe01dv2iAGMRyfTbhKnF9VRbph/rNCW0W', 'ACTIVE'),
 (63, 'vxLAysrYz1s7BVT7rLvN5Q==', 's8ihuIr3QN/p0QMzN3LgFw==', 'jhyQwPQ7jASNmvj8aRepnw==', 'II', '0000-00-00', 'Male', '+1 (859) 728-1592', 5, 'fve0NnVWQjo4FrP5myOVcM+A4raMWpIM0R5f/iUyo8w=', '9AZHLHTYHG6rjqfw/H3jQA==', '$2y$10$ksH7aaJXYP2ltqcnBzjx9u.AGUL9b.EKeXsUnfAvf9qBZajE.DY.a', 'ACTIVE'),
-(64, 'zygy0fIiL4SULibC1B7lfA==', 'dXRL7w90efhLfcbyjcx0ng==', 'q0uVhQcUaKOyJQAAQ8teVw==', 'Jr.', '0000-00-00', 'Male', '0943 532 4512', 4, 'e731S3PtsUSAYCdJ2Q4fXup5oKh3Eko9whk3/VHpipk=', 'ZqVC8f4iI/jqL402o8rdMw==', '$2y$10$SsBeEUT0s.YWAFd84wpwGONoiT8.AlR8srB5tw3HG4ScGt1s4Eq2q', 'ACTIVE'),
-(65, 'tsSpD5T+fqpxUNqaEfnbTw==', 'Vn2R+wT77V68NWrycJk+sQ==', 'yZMmX+OFOD0ukebDai2jZQ==', 'Sr.', '0000-00-00', 'Male', '0933 094 0349', 7, 'I4jaGxKqag9q8KT9zO2Tu1n8Q6XhnMZDaE2LJywEO8Q=', 'u/6B2JuKSNblAPiTFiTQvw==', '$2y$10$oijnIO7w/uD52XdS63xan.9cQGrWfmAbOYSnVNnPXUgwJueVybFDu', 'ACTIVE');
+(64, 'zygy0fIiL4SULibC1B7lfA==', 'dXRL7w90efhLfcbyjcx0ng==', 'q0uVhQcUaKOyJQAAQ8teVw==', 'Jr.', '0000-00-00', 'Male', '0943 532 4512', 4, 'e731S3PtsUSAYCdJ2Q4fXup5oKh3Eko9whk3/VHpipk=', 'ZqVC8f4iI/jqL402o8rdMw==', '$2y$10$SsBeEUT0s.YWAFd84wpwGONoiT8.AlR8srB5tw3HG4ScGt1s4Eq2q', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -215,9 +213,7 @@ CREATE TABLE `complaints_tbl` (
 
 INSERT INTO `complaints_tbl` (`complaint_id`, `res_id`, `respondent_fname`, `respondent_mname`, `respondent_lname`, `respondent_suffix`, `respondent_gender`, `respondent_age`, `incident_date`, `incident_time`, `date_filed`, `incident_place`, `case_type`, `narrative`, `evidence`, `staff_id`, `hearing_date`, `hearing_time`, `status`, `comment`, `remarks`, `date_closed`) VALUES
 (9, 11, 'Gwapo', 'sdadsa', 'dasdasdas', 'Jr', 'Male', 21, '2024-09-12', '14:17:00', '2024-09-12 06:17:57', 'Arca', 'Bullying', 'Test', NULL, 17, '2024-09-20', '08:30:00', 'Approved', 'Test', 'CASE CLOSED', '2024-09-13'),
-(10, 14, 'Cameron', 'Quintessa Terrell', 'Griffith', ' ', 'Male', 61, '1979-12-29', '01:10:00', '2024-10-06 11:49:59', 'Lawis', 'Theft', 'Aliqua In veniam i', 'complaints_evidence/6702796735d8e.jpg', 17, NULL, NULL, 'Rejected', 'lack of supporting evidence', 'CASE CLOSED', '2024-10-06'),
-(11, 8, 'Lillian', 'Rachel Bowers', 'Rosa', ' ', 'Female', 24, '2013-01-19', '07:10:00', '2024-10-23 12:14:45', 'Mustang', 'Theft', 'gikawat', 'complaints_evidence/6718e8b57614f.jpg', 17, NULL, NULL, 'Pending', '--', '', NULL),
-(12, 8, 'Dale', 'Tallulah Goodman', 'Foreman', 'III', 'Female', 87, '2010-07-15', '11:01:00', '2024-10-23 12:18:02', 'Sta. Maria', 'Libel', 'Et harum adipisicing', NULL, 17, NULL, NULL, 'Pending', '--', '', NULL);
+(10, 14, 'Cameron', 'Quintessa Terrell', 'Griffith', ' ', 'Male', 61, '1979-12-29', '01:10:00', '2024-10-06 11:49:59', 'Lawis', 'Theft', 'Aliqua In veniam i', 'complaints_evidence/6702796735d8e.jpg', 17, NULL, NULL, 'Rejected', 'lack of supporting evidence', 'CASE CLOSED', '2024-10-06');
 
 -- --------------------------------------------------------
 
@@ -240,44 +236,7 @@ INSERT INTO `docs_purpose` (`purpose_id`, `purpose_name`, `purpose_fee`) VALUES
 (2, 'Students Scholarship', 0),
 (3, 'Person With Disability Assistance', 0),
 (4, 'Senior Citizen Assistance', 0),
-(5, 'Other', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `doc_requirements`
---
-
-CREATE TABLE `doc_requirements` (
-  `requirement_id` int(11) NOT NULL,
-  `doc_ID` int(11) NOT NULL,
-  `requirement_file` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `doc_requirements`
---
-
-INSERT INTO `doc_requirements` (`requirement_id`, `doc_ID`, `requirement_file`) VALUES
-(1, 13, '3c62e6a3b3a8b4c2.jpg'),
-(2, 13, 'f9ea3abcc8da3bc5.jpg'),
-(3, 13, '717169cdd23275b5.jpg'),
-(4, 13, 'f3eb5f3f756c66f4.jpg'),
-(5, 13, 'a56998dcf8b2ce1b.jpg'),
-(6, 14, 'a37dbc949cb4bfa5.png'),
-(7, 14, '6818fc994a669240.png'),
-(8, 14, '1a4aa4a4beabaaa7.png'),
-(9, 15, 'fd3b4eee5ab5f4e3.png'),
-(10, 15, '05c26414a2789dab.png'),
-(11, 16, 'c7280dfef2139328.jpg'),
-(12, 16, '15ab9ff64579a860.png'),
-(13, 17, '86449ea14554affc.png'),
-(14, 17, '2bd74f16da30d3b8.png'),
-(15, 17, '50bfc4e15eeecc9a.png'),
-(16, 17, '7611dd1641e67a18.jpg'),
-(17, 17, '1d64e91ff1dfa5c1.jpg'),
-(18, 18, '89132ff324d023b8.png'),
-(19, 19, '6927dec3bdacbf33.png');
+(5, 'Other', 80);
 
 -- --------------------------------------------------------
 
@@ -330,11 +289,11 @@ INSERT INTO `initial_sitio_population` (`sitio_id`, `sitio_name`, `total_initial
 (5, 'Lawis', 0),
 (6, 'Matumbo', 0),
 (7, 'Mustang', 0),
-(8, 'Lipata', 0),
+(8, 'New Lipata', 0),
 (9, 'San Roque', 21),
 (10, 'Seabreeze', 0),
 (11, 'Seaside', 0),
-(12, 'Seawage', 0),
+(12, 'Sewage', 0),
 (13, 'Sta. Maria', 0);
 
 -- --------------------------------------------------------
@@ -355,22 +314,23 @@ CREATE TABLE `request_doc` (
   `date_processed` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `remarks` varchar(100) DEFAULT 'Not released',
   `request_id` varchar(20) NOT NULL,
-  `qrCode_image` varchar(200) DEFAULT NULL
+  `qrCode_image` varchar(200) DEFAULT NULL,
+  `document_requirements` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request_doc`
 --
 
-INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `doc_amount`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`) VALUES
-(13, 8, 7, 5, 'Barangay Fencing Permit', 500, 'Ready to pickup', '2024-10-24 10:35:17', '2024-10-24 18:14:27', 'Not released', '[A}szOEfT2', '1729766128.png'),
-(14, 8, 7, 5, 'Barangay Fencing Permit', 500, 'Pending', '2024-10-24 18:19:55', '2024-10-24 18:20:07', 'Not released', 'H:1rh|:57BDN.', '1729794007.png'),
-(15, 8, 5, 5, 'Barangay Electrical Permit', 500, 'Ready to pickup', '2024-10-24 18:25:46', '2024-10-24 18:26:54', 'Not released', ':>1{EH9tBq6>', '1729794369.png'),
-(16, 8, 6, 5, 'Barangay Construction Permit', 500, 'Ready to pickup', '2024-10-24 18:31:21', '2024-10-24 18:32:23', 'Not released', 'l*joxYcIx}t<', '1729794690.png'),
-(17, 8, 8, 5, 'Barangay Business Clearance', 630, 'Ready to pickup', '2024-10-24 18:35:25', '2024-10-24 18:36:20', 'Not released', '?SEwwo9,', '1729794936.png'),
-(18, 8, 1, 5, 'travel', 80, 'Pending', '2024-10-24 18:36:58', '2024-10-24 18:37:01', 'Not released', 'n$r8mQfqqA=$@', '1729795021.png'),
-(19, 8, 1, 5, 'dsfsg', 80, 'Ready to pickup', '2024-10-24 19:09:44', '2024-10-24 19:50:41', 'Not released', 'LHey#-5%!S]en', '1729796986.png'),
-(20, 8, 2, 2, 'Students Scholarship', 0, 'Pending', '2024-10-24 19:49:14', '2024-10-24 19:49:16', 'Not released', 'mOV3>VIJ', '1729799356.png');
+INSERT INTO `request_doc` (`doc_ID`, `res_id`, `docType_id`, `purpose_id`, `purpose_name`, `doc_amount`, `stat`, `date_req`, `date_processed`, `remarks`, `request_id`, `qrCode_image`, `document_requirements`) VALUES
+(1, 6, 2, 1, 'Employment', 0, 'Pending', '2024-10-06 11:36:40', '2024-10-06 11:36:41', 'Not released', 'wLZp|Soh', '1728214601.png', NULL),
+(2, 6, 4, 3, 'Person With Disability Assistance', 0, 'Ready to pickup', '2024-10-06 11:36:48', '2024-10-06 11:59:41', 'Not released', 'LW5bXuo]', '1728214610.png', NULL),
+(3, 6, 5, 5, 'business', 500, 'Pending', '2024-10-06 11:37:20', '2024-10-06 11:37:29', 'Not released', '!ld=sB4M+]]', '1728214649.png', 'aaf9c80aba92506e.png,7a992ab4ee0820c2.png'),
+(4, 6, 6, 5, 'Business', 500, 'Pending', '2024-10-06 11:37:45', '2024-10-06 11:37:54', 'Not released', 'F@3]*=M67-', '1728214674.png', '3077bfd50ed66369.png'),
+(5, 6, 1, 5, 'travel', 80, 'Pending', '2024-10-06 11:39:26', '2024-10-06 11:39:28', 'Not released', ']QQ[Nx|g[', '1728214768.png', 'fa19cf87557ffa7e.png'),
+(6, 14, 2, 4, 'Senior Citizen Assistance', 0, 'Pending', '2024-10-06 11:48:58', '2024-10-06 11:49:00', 'Not released', 'tfe1J6T.K<P>', '1728215340.png', NULL),
+(7, 14, 7, 5, 'Privacy', 500, 'Pending', '2024-10-06 11:49:21', '2024-10-06 11:49:31', 'Not released', 'K.d*cw;sz5', '1728215371.png', 'a40b237e192abb14.jpg,b1019c1f06491949.jpg'),
+(8, 11, 6, 5, 'Barangay Construction Permit', 500, 'Pending', '2024-10-09 09:57:34', '2024-10-09 09:57:43', 'Not released', '[qmcH#1sc', '1728467863.png', '7e44ad3a4095ea1f.jpg');
 
 -- --------------------------------------------------------
 
@@ -576,13 +536,6 @@ ALTER TABLE `docs_purpose`
   ADD PRIMARY KEY (`purpose_id`);
 
 --
--- Indexes for table `doc_requirements`
---
-ALTER TABLE `doc_requirements`
-  ADD PRIMARY KEY (`requirement_id`),
-  ADD KEY `fk_doc_id_requirements` (`doc_ID`);
-
---
 -- Indexes for table `doc_type`
 --
 ALTER TABLE `doc_type`
@@ -680,31 +633,25 @@ ALTER TABLE `announcement_posts_reactions`
 -- AUTO_INCREMENT for table `appointment_tbl`
 --
 ALTER TABLE `appointment_tbl`
-  MODIFY `appt_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `appt_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `barangay_staff`
 --
 ALTER TABLE `barangay_staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `complaints_tbl`
 --
 ALTER TABLE `complaints_tbl`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `docs_purpose`
 --
 ALTER TABLE `docs_purpose`
   MODIFY `purpose_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `doc_requirements`
---
-ALTER TABLE `doc_requirements`
-  MODIFY `requirement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `doc_type`
@@ -722,7 +669,7 @@ ALTER TABLE `initial_sitio_population`
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `doc_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `resident_users`
@@ -803,12 +750,6 @@ ALTER TABLE `barangay_staff`
 ALTER TABLE `complaints_tbl`
   ADD CONSTRAINT `fk_res` FOREIGN KEY (`res_id`) REFERENCES `resident_users` (`res_ID`),
   ADD CONSTRAINT `staff_fk` FOREIGN KEY (`staff_id`) REFERENCES `barangay_staff` (`staff_id`);
-
---
--- Constraints for table `doc_requirements`
---
-ALTER TABLE `doc_requirements`
-  ADD CONSTRAINT `fk_doc_id_requirements` FOREIGN KEY (`doc_ID`) REFERENCES `request_doc` (`doc_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `request_doc`
