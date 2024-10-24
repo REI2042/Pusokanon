@@ -53,12 +53,16 @@
                     <div class="record-container col-12 col-sm-4 position-relative">
                         <?php if($pending_accounts > 0): ?>
                             <span class="badge badge-danger position-absolute rounded-circle" style="background-color: #FF3333;"> </span>  
-                        <?php endif;?>                   
-                        <div class="record-box text-center">
-                            <i class="fa-solid fa-user-clock fa-2x" style="color: #FFC107"></i>
-                            <p class="record-title">Pending Accounts</p>
-                            <p class="record-count"><?php echo "$pending_accounts"; ?></p>
-                        </div>
+                        <?php endif;?> 
+                        <?php if ($_SESSION['userRole'] == 1 OR  $_SESSION['userRole'] == 3 OR $_SESSION['userRole'] == 4 ): ?>  
+                            <a href="pendingUser2.0.php">
+                        <?php endif; ?>         
+                                <div class="record-box text-center">
+                                    <i class="fa-solid fa-user-clock fa-2x" style="color: #FFC107"></i>
+                                    <p class="record-title">Pending Accounts</p>
+                                    <p class="record-count"><?php echo "$pending_accounts"; ?></p>
+                                </div>
+                            </a>      
                     </div>
                     <div class="record-container col-12 col-sm-4">
                         <div class="record-box text-center">
