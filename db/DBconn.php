@@ -1006,10 +1006,10 @@ function fetchdocsRequest($pdo,$doctype ,$status, $limit, $offset)//connection i
                 rd.stat,
                 CONCAT(ru.res_fname, ' ', ru.res_midname, ' ', ru.res_lname) AS resident_name, 
                 dt.doc_name AS document_name, 
-                dp.purpose_name AS purpose_name, 
+                dp.purpose_name AS purpose_name,
+                rd.purpose_name AS purp_name,
                 rd.request_id,
                 rd.date_req, 
-                rd.document_requirements,
                 rd.remarks 
             FROM request_doc rd
             INNER JOIN resident_users ru ON rd.res_id = ru.res_id
@@ -1040,7 +1040,6 @@ function fetchdocsRequestPermits($pdo,$doctype ,$status, $limit, $offset)//conne
                 rd.date_req, 
                 at.appt_date AS  appt_date,
                 at.appt_time AS appt_time,
-                rd.document_requirements,
                 rd.remarks 
             FROM request_doc rd
             INNER JOIN appointment_tbl at ON rd.doc_ID = at.doc_ID
@@ -1058,6 +1057,18 @@ function fetchdocsRequestPermits($pdo,$doctype ,$status, $limit, $offset)//conne
 	return $stmt->fetchAll();
 }
 
+function fetchDocumentRequirements($pdo, $requestid)
+{
+    $sql = "SELECT dr.requirement_file AS document_requirements
+            FROM doc_requirements dr
+            INNER JOIN request_doc rd ON dr.doc_ID = rd.doc_ID
+            WHERE rd.request_id = :requestid";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':requestid', $requestid, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)//connection in getting document request with search functionality
 {
 	$sql = "SELECT 
@@ -1067,7 +1078,6 @@ function fetchdocsRequestSearch($pdo,$doctype ,$status, $limit, $offset,$search)
                 rd.purpose_name AS purpose_name, 
                 rd.request_id, 
                 rd.date_req, 
-				rd.document_requirements,
                 rd.remarks 
             FROM request_doc rd
             INNER JOIN resident_users ru ON rd.res_id = ru.res_id

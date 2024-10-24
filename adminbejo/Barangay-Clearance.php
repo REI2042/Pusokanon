@@ -124,15 +124,30 @@
                         <?php else: ?>    
                             <?php foreach ($pending as $pendings): ?>
                                 <tr>
-                                <?php $dataDecrypt = decryptData($pendings['res_email']); ?>
+                                <?php 
+                                    $requestId = $pendings['request_id']; 
+
+                                    $requirements = fetchDocumentRequirements($pdo, $requestId);
+                                    $dataDecrypt = decryptData($pendings['res_email']); 
+                                ?>
                                     <td><?= htmlspecialchars($pendings['res_id']); ?></td>
                                     <td><?= htmlspecialchars($pendings['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($pendings['document_name']); ?></td>
-                                    <td><?= htmlspecialchars($pendings['purpose_name']); ?></td>
+                                    <td><?= htmlspecialchars($pendings['purp_name']); ?></td>
                                     <td><?= htmlspecialchars($pendings['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($pendings['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
-                                    <td><a href="#" onclick="ViewRequirements('<?= htmlspecialchars($pendings['document_requirements']); ?>')">View Requirements</a></td>
+                                    <td>
+                                        <?php if (!empty($requirements)): ?>
+                                            <?php foreach ($requirements as $requirement): ?>
+                                                <a href="#" onclick="ViewRequirements('<?= htmlspecialchars($requirement['document_requirements']); ?>')">
+                                                    View Requirements
+                                                </a>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            No Requirements
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')">
@@ -206,6 +221,12 @@
                         <?php else: ?>    
                             <?php foreach ($Processing as $processings): ?>
                                 <tr>
+                                <?php 
+                                    $requestId = $pendings['request_id']; 
+
+                                    $requirements = fetchDocumentRequirements($pdo, $requestId);
+                                     
+                                ?>
                                     <td><?= htmlspecialchars($processings['res_id']); ?></td>
                                     <td><?= htmlspecialchars($processings['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($processings['document_name']); ?></td>
@@ -213,7 +234,17 @@
                                     <td><?= htmlspecialchars($processings['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($processings['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
-                                    <td><a href="#" onclick="ViewRequirements('<?= htmlspecialchars($processings['document_requirements']); ?>')">View Requirements</a></td>
+                                    <td>
+                                        <?php if (!empty($requirements)): ?>
+                                            <?php foreach ($requirements as $requirement): ?>
+                                                <a href="#" onclick="ViewRequirements('<?= htmlspecialchars($requirement['document_requirements']); ?>')">
+                                                    View Requirements
+                                                </a>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            No Requirements
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
@@ -282,6 +313,12 @@
                         <?php else: ?>    
                             <?php foreach ($completed as $completed): ?>
                                 <tr>
+                                <?php 
+                                    $requestId = $pendings['request_id']; 
+
+                                    $requirements = fetchDocumentRequirements($pdo, $requestId);
+                                     
+                                ?>
                                     <td><?= htmlspecialchars($completed['res_id']); ?></td>
                                     <td><?= htmlspecialchars($completed['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['document_name']); ?></td>
@@ -289,7 +326,17 @@
                                     <td><?= htmlspecialchars($completed['stat']); ?></td>
                                     <td><?= date('m/d/y h:i A', strtotime($completed['date_req'])); ?></td>
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
-                                    <td><a href="#" onclick="ViewRequirements('<?= htmlspecialchars($completed['document_requirements']); ?>')">View Requirements</a></td>
+                                    <td>
+                                        <?php if (!empty($requirements)): ?>
+                                            <?php foreach ($requirements as $requirement): ?>
+                                                <a href="#" onclick="ViewRequirements('<?= htmlspecialchars($requirement['document_requirements']); ?>')">
+                                                    View Requirements
+                                                </a>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            No Requirements
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <div class="inline-tools">
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>

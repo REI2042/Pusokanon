@@ -58,120 +58,152 @@ $(document).ready(function() {
     });
   
     $('.btn-1').on('click', function(e) {
-      e.preventDefault();
-      var docTypeId = $(this).data('value');
-      var docName = $(this).data('doc-name');
-  
-      Swal.fire({
-          title: docName,
-          input: 'text',
-          html: `<span style="text-align: center;">For what purpose are you getting a <b>${docName}</b>?</span>`,
-          inputPlaceholder: 'Enter your purpose',
-          showCancelButton: true,
-          inputValidator: (value) => {
-              if (!value) {
-                  return 'You need to write something!';
-              }
-          }
-      }).then((result) => {
-          if (result.isConfirmed) {
-              var purposeName = result.value;
-  
-              Swal.fire({
-                  title: 'Upload Requirements',
-                  html: `
-                      <div id="upload-container">
-                          <div class="upload-item" style="display: inline-block;">
-                              <input type="file" id="file-input" class="file-input" accept="image/*,application/pdf" multiple style="display:none;">
-                              <span class="file-name"></span>
-                              <button type="button" class="upload-btn" 
-                              style="width: 120px; 
-                              height: 40px; 
-                              border-radius: 5px; 
-                              background-color: #c2c0c0; 
-                              color: #696767; 
-                              border: 1px solid #696767; 
-                              font-size: 16px; 
-                              cursor: pointer;
-                              display: flex;
-                              justify-content: center;
-                              align-items: center;
-                              text-align: center;">
-                              Upload Files</button>
-                          </div>
-                      </div>
-                  `,
-                  showCancelButton: true,
-                  confirmButtonText: 'Submit',
-                  showLoaderOnConfirm: true,
-                  preConfirm: () => {
-                      const fileInput = document.querySelector('.file-input');
-                      const files = Array.from(fileInput.files);
-                      if (files.length === 0) {
-                          Swal.showValidationMessage('Please select at least one file to upload');
-                      }
-                      return files;
-                  },
-                  didOpen: () => {
-                      const uploadBtn = document.querySelector('.upload-btn');
-                      const fileInput = document.querySelector('.file-input');
-                      const fileName = document.querySelector('.file-name');
-  
-                      uploadBtn.addEventListener('click', () => {
-                          fileInput.click();
-                      });
-  
-                      fileInput.addEventListener('change', (event) => {
-                          const files = event.target.files;
-                          if (files.length > 0) {
-                              fileName.textContent = Array.from(files).map(file => file.name).join(', ');
-                          }
-                      });
-                  },
-                  allowOutsideClick: () => !Swal.isLoading()
-              }).then((fileResult) => {
-                  if (fileResult.isConfirmed) {
-                      var formData = new FormData();
-                      fileResult.value.forEach((file) => {
-                          formData.append('fileNames[]', file); // Use 'fileNames[]' for multiple files
-                      });
-                      formData.append('purpose', purposeName);
-                      formData.append('docTypeId', docTypeId);
-  
-                      fetch('db/insert_request.php', {
-                          method: 'POST',
-                          body: formData
-                      })
-                      .then(response => response.json())
-                      .then(result => {
-                          if (result.success) {
-                              Swal.fire({
-                                  icon: 'success',
-                                  title: 'Request Submitted',
-                                  text: 'Your document request and files have been uploaded successfully.',
-                                  showConfirmButton: false,
-                                  timer: 2000
-                              }).then(() => {
-                                  window.location.href = 'db/generateQR.php';
-                              });
-                          } else {
-                              throw new Error(result.error || 'An error occurred while uploading files.');
-                          }
-                      })
-                      .catch(error => {
-                          Swal.fire({
-                              icon: 'error',
-                              title: 'Submission Failed',
-                              text: error.message,
-                          });
-                      });
-                  }
-              });
-          }
-      });
+        e.preventDefault();
+        var docTypeId = $(this).data('value');
+        var docName = $(this).data('doc-name');
+    
+        Swal.fire({
+            title: docName,
+            input: 'text',
+            html: `<span style="text-align: center;">For what purpose are you getting a <b>${docName}</b>?</span>`,
+            inputPlaceholder: 'Enter your purpose',
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to write something!';
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var purposeName = result.value;
+    
+                Swal.fire({
+                    title: 'Upload Requirements',
+                    html: `
+                        <div id="upload-container">
+                            <div class="upload-item" style="display: inline-block;">
+                                <input type="file" id="file-input" class="file-input" accept="image/*,application/pdf" style="display:none;">
+                                <div class="file-info" style="margin-bottom: 10px; display: none;">
+                                    <span class="file-name" style="margin-right: 10px;"></span>
+                                    <button type="button" class="remove-btn" 
+                                    style="padding: 5px 10px; 
+                                    border-radius: 3px; 
+                                    background-color: #ff4444; 
+                                    color: white; 
+                                    border: none; 
+                                    cursor: pointer;">
+                                    <i class="fa-solid fa-x"></i></button>
+                                </div>
+                                <button type="button" class="upload-btn" 
+                                style="width: 120px; 
+                                height: 40px; 
+                                border-radius: 5px; 
+                                background-color: #c2c0c0; 
+                                color: #696767; 
+                                border: 1px solid #696767; 
+                                font-size: 16px; 
+                                cursor: pointer;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                text-align: center;">
+                                Upload File</button>
+                            </div>
+                        </div>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit',
+                    showLoaderOnConfirm: true,
+                    preConfirm: () => {
+                        const fileInput = document.querySelector('.file-input');
+                        const file = fileInput.files[0];
+                        if (!file) {
+                            Swal.showValidationMessage('Please select a file to upload');
+                        }
+                        return file;
+                    },
+                    didOpen: () => {
+                        const uploadBtn = document.querySelector('.upload-btn');
+                        const fileInput = document.querySelector('.file-input');
+                        const fileInfo = document.querySelector('.file-info');
+                        const fileName = document.querySelector('.file-name');
+                        const removeBtn = document.querySelector('.remove-btn');
+    
+                        uploadBtn.addEventListener('click', () => {
+                            fileInput.click();
+                        });
+    
+                        fileInput.addEventListener('change', (event) => {
+                            const file = event.target.files[0];
+                            if (file) {
+                                fileName.textContent = file.name;
+                                fileInfo.style.display = 'block';
+                                uploadBtn.style.display = 'none';
+                            }
+                        });
+    
+                        removeBtn.addEventListener('click', () => {
+                            fileInput.value = ''; // Clear the file input
+                            fileInfo.style.display = 'none';
+                            uploadBtn.style.display = 'flex';
+                        });
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((fileResult) => {
+                    if (fileResult.isConfirmed) {
+                        var formData = new FormData();
+                        formData.append('fileNames[]', fileResult.value); // Changed to match PHP expectation
+                        formData.append('purpose', purposeName);
+                        formData.append('docTypeId', docTypeId);
+    
+                        fetch('db/insert_request.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.text().then(text => {
+                                try {
+                                    return JSON.parse(text);
+                                } catch (e) {
+                                    console.error('Server response:', text);
+                                    throw new Error('Invalid server response');
+                                }
+                            });
+                        })
+                        .then(result => {
+                            if (result.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Request Submitted',
+                                    text: result.message,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    window.location.href = 'db/generateQR.php';
+                                });
+                            } else {
+                                throw new Error(result.error || 'An error occurred while uploading file.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Submission Failed',
+                                text: error.message,
+                                confirmButtonText: 'OK'
+                            });
+                        });
+                    }
+                });
+            }
+        });
     });
-  
-    $('.btn-5, .btn-6, .btn-7, .btn-8').on('click', function(e) {
+    
+    $('.btn-5, .btn-6, .btn-7, .btn-8').on('click', function(e) {//business clearance, and permits
         e.preventDefault();
         var docTypeId = $(this).data('value');
         var docName = $(this).data('doc-name');

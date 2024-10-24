@@ -84,16 +84,14 @@ if (isset($data['docTypeId']) && isset($data['purposeId']) && isset($data['purpo
             }
         }
 
-        $documentRequirements = implode(',', $uploadedFiles);
-
         $sql = "SELECT doc_amount FROM doc_type WHERE docType_id = :docTypeId";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':docTypeId' => $docTypeId]);
         $purposeFee = $stmt->fetchColumn();
 
-        // Insert into request_doc table with uploaded file names
-        $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, doc_amount, request_id, document_requirements) 
-                VALUES (:resId, :docTypeId, :purposeId, :purposeName, :purposeFee, :requestId, :documentRequirements)";
+        // First, insert into request_doc table
+        $sql = "INSERT INTO request_doc (res_ID, docType_id, purpose_id, purpose_name, doc_amount, request_id) 
+                VALUES (:resId, :docTypeId, :purposeId, :purposeName, :purposeFee, :requestId)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':resId' => $resId,
@@ -101,9 +99,24 @@ if (isset($data['docTypeId']) && isset($data['purposeId']) && isset($data['purpo
             ':purposeId' => $purposeId,
             ':purposeName' => $purposeName,
             ':purposeFee' => $purposeFee,
-            ':requestId' => $requestId,
-            ':documentRequirements' => $documentRequirements
+            ':requestId' => $requestId
         ]);
+
+        $sql = "SELECT doc_ID FROM request_doc WHERE request_id = :request_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':request_id', $requestId);
+        $stmt->execute([':request_id' => $requestId]);
+        $find_docID = $stmt->fetchColumn();
+
+        // Then, insert each requirement into doc_requirements table
+        $sql = "INSERT INTO doc_requirements (doc_id, requirement_file) VALUES (:doc_id, :requirementFile)";
+        $stmt = $pdo->prepare($sql);
+        foreach ($uploadedFiles as $file) {
+            $stmt->execute([
+                ':doc_id' => $find_docID, 
+                ':requirementFile' => $file
+            ]);
+        }
 
         // Return the request_id in JSON format
         echo json_encode(['success' => true, 'request_id' => $requestId, 'message' => 'Request submitted successfully']);
@@ -111,6 +124,7 @@ if (isset($data['docTypeId']) && isset($data['purposeId']) && isset($data['purpo
         error_log($e->getMessage());
         echo json_encode(['success' => false, 'error' => 'Database error: ' . $e->getMessage()]);
     }
+
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid request method']);
 }

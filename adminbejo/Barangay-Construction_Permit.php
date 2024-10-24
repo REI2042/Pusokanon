@@ -125,24 +125,29 @@
                                 <tr>
                                     <?php 
                                     
-                                    $requestId = $pendings['request_id']; 
+                                        $requestId = $pendings['request_id']; 
 
-                                    $imageFileName = $pendings['document_requirements']; 
-                                    $imageSrc = '';
-                                    if (!empty($imageFileName)) {
-                                        $uploadFileDir = '../db/uploaded_filesRequirements/';
-                                        $imagePath = $uploadFileDir . $imageFileName;
-                                        
-                                        if (file_exists($imagePath)) {
-                                            $imageData = base64_encode(file_get_contents($imagePath));
-                                            $imageMimeType = mime_content_type($imagePath);
-                                            $imageSrc = "data:$imageMimeType;base64,$imageData";
+                                        $requirements = fetchDocumentRequirements($pdo, $requestId);
+                                        $imageDataArray = [];
+
+                                        if (!empty($requirements)) {
+                                            foreach ($requirements as $requirement) {
+                                                $imageFileName = $requirement['document_requirements'];
+                                                $uploadFileDir = '../db/uploaded_filesRequirements/';
+                                                $imagePath = $uploadFileDir . $imageFileName;
+                                                
+                                                if (file_exists($imagePath)) {
+                                                    $imageData = base64_encode(file_get_contents($imagePath));
+                                                    $imageMimeType = mime_content_type($imagePath);
+                                                    $imageDataArray[] = "data:$imageMimeType;base64,$imageData";
+                                                }
+                                            }
                                         }
-                                    }
-                                
-                                    $imageDataJson = json_encode($imageSrc);
+                                        
+                                        $imageDataJson = json_encode($imageDataArray);
                                     
-                                    $dataDecrypt = decryptData($pendings['res_email']); ?>
+                                        $dataDecrypt = decryptData($pendings['res_email']); 
+                                    ?>
                                     <td><?= htmlspecialchars($pendings['res_id']); ?></td>
                                     <td><?= htmlspecialchars($pendings['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($pendings['document_name']); ?></td>
@@ -152,9 +157,9 @@
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails("<?= htmlspecialchars($pendings["document_requirements"]); ?>")'>
+                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
                                                 <i class="bi bi-eye" title="View Details"></i>
-                                            </a>    
+                                            </a>  
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')">
                                                 <i class="bi bi-trash3-fill"></i>
                                             </div>                                         
@@ -228,20 +233,25 @@
                                         
                                         $requestId = $processings['request_id']; 
 
-                                        $imageFileName = $processings['document_requirements']; 
-                                        $imageSrc = '';
-                                        if (!empty($imageFileName)) {
-                                            $uploadFileDir = '../db/uploaded_filesRequirements/';
-                                            $imagePath = $uploadFileDir . $imageFileName;
-                                            
-                                            if (file_exists($imagePath)) {
-                                                $imageData = base64_encode(file_get_contents($imagePath));
-                                                $imageMimeType = mime_content_type($imagePath);
-                                                $imageSrc = "data:$imageMimeType;base64,$imageData";
+                                        $requirements = fetchDocumentRequirements($pdo, $requestId);
+                                        $imageDataArray = [];
+
+                                        if (!empty($requirements)) {
+                                            foreach ($requirements as $requirement) {
+                                                $imageFileName = $requirement['document_requirements'];
+                                                $uploadFileDir = '../db/uploaded_filesRequirements/';
+                                                $imagePath = $uploadFileDir . $imageFileName;
+                                                
+                                                if (file_exists($imagePath)) {
+                                                    $imageData = base64_encode(file_get_contents($imagePath));
+                                                    $imageMimeType = mime_content_type($imagePath);
+                                                    $imageDataArray[] = "data:$imageMimeType;base64,$imageData";
+                                                }
                                             }
                                         }
-                                    
-                                        $imageDataJson = json_encode($imageSrc); ?>
+                                        
+                                        $imageDataJson = json_encode($imageDataArray);
+                                    ?>
                                     <td><?= htmlspecialchars($processings['res_id']); ?></td>
                                     <td><?= htmlspecialchars($processings['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($processings['document_name']); ?></td>
@@ -251,7 +261,7 @@
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails("<?= htmlspecialchars($processings["document_requirements"]); ?>")'>
+                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
                                                 <i class="bi bi-eye" title="View Details"></i>
                                             </a>
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
@@ -323,20 +333,25 @@
                                             
                                         $requestId = $completed['request_id']; 
 
-                                        $imageFileName = $completed['document_requirements']; 
-                                        $imageSrc = '';
-                                        if (!empty($imageFileName)) {
-                                            $uploadFileDir = '../db/uploaded_filesRequirements/';
-                                            $imagePath = $uploadFileDir . $imageFileName;
-                                            
-                                            if (file_exists($imagePath)) {
-                                                $imageData = base64_encode(file_get_contents($imagePath));
-                                                $imageMimeType = mime_content_type($imagePath);
-                                                $imageSrc = "data:$imageMimeType;base64,$imageData";
+                                        $requirements = fetchDocumentRequirements($pdo, $requestId);
+                                        $imageDataArray = [];
+
+                                        if (!empty($requirements)) {
+                                            foreach ($requirements as $requirement) {
+                                                $imageFileName = $requirement['document_requirements'];
+                                                $uploadFileDir = '../db/uploaded_filesRequirements/';
+                                                $imagePath = $uploadFileDir . $imageFileName;
+                                                
+                                                if (file_exists($imagePath)) {
+                                                    $imageData = base64_encode(file_get_contents($imagePath));
+                                                    $imageMimeType = mime_content_type($imagePath);
+                                                    $imageDataArray[] = "data:$imageMimeType;base64,$imageData";
+                                                }
                                             }
                                         }
-                                    
-                                        $imageDataJson = json_encode($imageSrc); ?>
+                                        
+                                        $imageDataJson = json_encode($imageDataArray);
+                                    ?>
                                     <td><?= htmlspecialchars($completed['res_id']); ?></td>
                                     <td><?= htmlspecialchars($completed['resident_name']); ?></td>
                                     <td><?= htmlspecialchars($completed['document_name']); ?></td>
@@ -346,9 +361,9 @@
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick='docDetails("<?= htmlspecialchars($completed["document_requirements"]); ?>")'>
-                                            <i class="bi bi-eye" title="View Details"></i>
-                                        </a>
+                                            <a href="#" class="btn btn-primary btn-sm me-2" onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
+                                                <i class="bi bi-eye" title="View Details"></i>
+                                            </a>
 
                                             <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
