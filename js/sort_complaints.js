@@ -14,6 +14,7 @@ document.querySelectorAll('.dropdown-item[data-incident-place]').forEach(functio
 });
 
 // Event listeners for case type dropdown
+// Event listeners for case type dropdown
 document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(item) {
     item.addEventListener('click', function() {
         const caseType = this.getAttribute('data-case-type');
@@ -22,22 +23,27 @@ document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(ite
         const currentUrl = new URL(window.location.href);
 
         if (caseType === "Other") {
+            // Set case_type to "Other" in the URL if the "Others" option is selected
             currentUrl.searchParams.set('case_type', 'Other');
-        } else {
+        } else if (caseType !== '') {
+            // Set case_type to the selected case type in the URL
             currentUrl.searchParams.set('case_type', caseType);
+        } else {
+            // If "Show All" is selected, remove the case_type filter from the URL
+            currentUrl.searchParams.delete('case_type');
         }
 
         currentUrl.searchParams.set('incident_place', incidentPlace);
         currentUrl.searchParams.set('status', status); 
         
-        // Store the current visible table
+        // Store the current visible table (if any)
         const visibleTable = document.querySelector('#results > div[style*="display: block"]');
         const visibleTableId = visibleTable ? visibleTable.id : null;
         
         // Navigate to the new URL
         window.location.href = currentUrl.toString();
         
-        // After navigation, show the previously visible table
+        // After navigation, show the previously visible table (if any)
         if (visibleTableId) {
             window.addEventListener('load', function() {
                 showTable(visibleTableId.replace('Container', ''));
@@ -45,6 +51,7 @@ document.querySelectorAll('.dropdown-item[data-case-type]').forEach(function(ite
         }
     });
 });
+
 
 // Event listeners for status dropdown
 document.querySelectorAll('.dropdown-item[data-status]').forEach(function(item) {
