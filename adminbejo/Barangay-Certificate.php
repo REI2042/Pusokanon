@@ -133,7 +133,7 @@
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>                                         
+                                            <div title="Delete" class="btn btn-danger btn-sm btn-del" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>                                         
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">
                                                 <input type="hidden" name="res_email" value="<?= htmlspecialchars($dataDecrypt); ?>">
@@ -210,7 +210,7 @@
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
+                                            <div title="Delete" class="btn btn-danger btn-sm btn-del" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST"> 
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">                                           
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
@@ -284,7 +284,7 @@
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
                                         <div class="inline-tools">
-                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
+                                            <div title="Delete" class="btn btn-danger btn-sm btn-del" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">

@@ -117,6 +117,7 @@
                             <th>Date & Time Requested</th>
                             <th>Date & Time Appointment</th>
                             <th>Remarks</th>
+                            <th>Requirements</th>
                             <th>Tools</th>
                         </tr>
                     </thead>
@@ -156,11 +157,14 @@
                                     <td><?= date('m/d/y h:i A', strtotime($pendings['appt_date'] . ' ' . $pendings['appt_time'])); ?></td>
                                     <td><?= htmlspecialchars($pendings['remarks']); ?></td>
                                     <td>
+                                        <a href="#"  onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
+                                            View Requirements
+                                        </a>  
+                                    </td>
+                                    <td>
                                         <div class="inline-tools">
-                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
-                                            <i class="bi bi-eye" title="View Details"></i>
-                                        </a>
-                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')">
+                                        
+                                            <div title="Delete" class="btn btn-danger btn-sm btn-del" onclick="trashCancelDocument('<?= htmlspecialchars($pendings['doc_ID']); ?>', '<?= htmlspecialchars($pendings['request_id']); ?>')">
                                                 <i class="bi bi-trash3-fill"></i>
                                             </div>                                         
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
@@ -220,6 +224,7 @@
                             <th>Date & Time Requested</th>
                             <th>Date & Time Appointment</th>
                             <th>Remarks</th>
+                            <th>Requirements</th>
                             <th>Tools</th>
                         </tr>
                     </thead>
@@ -260,11 +265,13 @@
                                     <td><?= date('m/d/y h:i A', strtotime($processings['appt_date'] . ' ' . $processings['appt_time'])); ?></td>
                                     <td><?= htmlspecialchars($processings['remarks']); ?></td>
                                     <td>
+                                        <a href="#"  onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
+                                            View Requirements
+                                        </a>  
+                                    </td>
+                                    <td>
                                         <div class="inline-tools">
-                                        <a href="#" class="btn btn-primary btn-sm me-2" onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
-                                            <i class="bi bi-eye" title="View Details"></i>
-                                        </a>
-                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
+                                            <div title="Delete" class="btn btn-danger btn-sm btn-del" onclick="trashCancelDocument('<?= htmlspecialchars($processings['doc_ID']); ?>', '<?= htmlspecialchars($processings['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">     
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">                                          
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($processings['doc_ID']); ?>">
@@ -319,6 +326,7 @@
                             <th>Date & Time Requested</th>
                             <th>Date & Time Appointment</th>
                             <th>Remarks</th>
+                            <th>Requirements</th>
                             <th>Tools</th>
                         </tr>
                     </thead>
@@ -358,11 +366,16 @@
                                     <td><?= date('m/d/y h:i A', strtotime($completed['appt_date'] . ' ' . $completed['appt_time'])); ?></td>
                                     <td><?= htmlspecialchars($completed['remarks']); ?></td>
                                     <td>
+                                        <a href="#"  onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
+                                            View Requirements
+                                        </a>  
+                                    </td>
+                                    <td>
                                         <div class="inline-tools">
                                             <a href="#" class="btn btn-primary btn-sm me-2" onclick="docDetails('<?= htmlspecialchars(implode(',', array_column($requirements, 'document_requirements'))) ?>')">
                                                 <i class="bi bi-eye" title="View Details"></i>
                                             </a>
-                                            <div title="Delete" class="btn btn-danger btn-sm btn-1" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
+                                            <div title="Delete" class="btn btn-danger btn-sm btn-del" onclick="trashCancelDocument('<?= htmlspecialchars($completed['doc_ID']); ?>', '<?= htmlspecialchars($completed['request_id']); ?>')"><i class="bi bi-trash3-fill"></i></div>
                                             <form class="status-form" action="../db/updateStatus.php" method="POST">
                                                 <input type="hidden" name="doctype" value="<?= $docType;?>">   
                                                 <input type="hidden" name="doc_ID" value="<?= htmlspecialchars($completed['doc_ID']); ?>">
